@@ -23,5 +23,6 @@ code {
 .grid-column {
   grid-template-columns: 2fr auto auto;
 }
-.test {
+.grid-column {
+  grid-template-columns: 2fr auto auto;
 }
