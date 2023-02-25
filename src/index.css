@@ -14,3 +14,4 @@ code {
 
 .container{width: 100%;margin: 0 auto;max-width: 1140px;}
 .grid-container{display: grid;}
+.grid-column{grid-template-columns: 1fr auto;}
