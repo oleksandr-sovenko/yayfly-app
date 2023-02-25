@@ -1,10 +1,12 @@
 import React from 'react';
+import Footer from '../Shared/Footer';
+import Header from '../Shared/Header';
 
 const Home = () => {
     return (
         <div>
-            <h2>Home</h2>
-            <p>Fist Commit</p>
+            <Header></Header>
+            <Footer></Footer>
         </div>
     );
 };
