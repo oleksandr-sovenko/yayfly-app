@@ -1,9 +1,12 @@
 import React from 'react';
+import PassengerCard from './PassengerCard';
 
 const Booking = () => {
     return (
-        <div>
-            <h2>Confirm Booking</h2>
+        <div className='booking-pages'>
+            <div className="container">
+                <PassengerCard/>
+            </div>
         </div>
     );
 };
