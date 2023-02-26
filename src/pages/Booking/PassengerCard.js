@@ -53,9 +53,11 @@ const PassengerCard = () => {
               </div>
               <div className="form-control">
                 <label className="">Date Of birth</label>
-                <input type="text" className="" placeholder="Month"></input>
-                <input type="number" className="" placeholder="DD"></input>
-                <input type="number" className="" placeholder="YYYY"></input>
+                <div className="date-input">
+                  <input type="text" className="" placeholder="Month"></input>
+                  <input type="number" className="" placeholder="DD"></input>
+                  <input type="number" className="" placeholder="YYYY"></input>
+                </div>
               </div>
             </div>
             <div className="from-group">
@@ -69,9 +71,11 @@ const PassengerCard = () => {
               </div>
               <div className="form-control">
                 <label className="">Passport or Id expiry date</label>
-                <input type="text" className="" placeholder="Month"></input>
-                <input type="number" className="" placeholder="DD"></input>
-                <input type="number" className="" placeholder="YYYY"></input>
+                <div className="date-input">
+                  <input type="text" className="" placeholder="Month"></input>
+                  <input type="number" className="" placeholder="DD"></input>
+                  <input type="number" className="" placeholder="YYYY"></input>
+                </div>
               </div>
               <div className="form-control">
                 <label className="">No expiry</label>

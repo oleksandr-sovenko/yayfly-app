@@ -1,6 +1,6 @@
-.passenger-area {
+/* .passenger-info {
   max-width: 750px;
-}
+} */
 
 .section-title {
   font-size: 24px;
@@ -31,4 +31,8 @@
   height: 40px;
   width: 100%;
   padding: 4px 11px;
+}
+.date-input {
+  display: flex;
+  align-items: center;
 }

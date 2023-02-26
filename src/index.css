@@ -1,8 +1,8 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Public Sans", "Lato", "Heebo" "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Public Sans", "Lato", "Heebo" "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(238, 239, 245);
@@ -13,13 +13,29 @@ code {
     monospace;
 }
 
-.container {width: 100%;margin: 0 auto; max-width: 1140px;}
-.grid{display: grid;}
-.grid-column {grid-template-columns: 1fr 3fr;}
-.d-flex{display: flex;}
-.align-item{align-items: center;}
+.container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1140px;
+}
+.grid {
+  display: grid;
+}
+.grid-column {
+  grid-template-columns: 1fr 3fr;
+}
+.d-flex {
+  display: flex;
+}
+.align-item {
+  align-items: center;
+}
 
-.header{background: #fff;box-shadow: rgb(101 101 101 / 5%) 4px 4px 12px;}
+.header {
+  background: #fff;
+  box-shadow: rgb(101 101 101 / 5%) 4px 4px 12px;
+}
 
-
-.footer{background: #E8F4F7;}
+.footer {
+  background: #e8f4f7;
+}
