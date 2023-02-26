@@ -14,7 +14,7 @@ const Header = () => {
                         <p><strong>Save even more.</strong> Talk to our booking expert now.</p>
                         <span>Agent is available now</span>
                     </div>
-                    <a href="tel:8882112111"><span><FaPhoneAlt /> </span> (888) 211.2111</a>
+                    <a href="tel:8882112111"><FaPhoneAlt /> (888) 211.2111</a>
 
                 </div>
             </div>

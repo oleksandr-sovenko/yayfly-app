@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Public Sans", "Lato", "Heebo" "Oxygen",
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Public Sans", "Lato", "Heebo", "Jaldi", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -19,7 +19,64 @@ code {
 .d-flex{display: flex;}
 .align-item{align-items: center;}
 
-.header{background: #fff;box-shadow: rgb(101 101 101 / 5%) 4px 4px 12px;}
+.header{background: #fff;box-shadow: rgb(101 101 101 / 5%) 4px 4px 12px;padding: 15px 0;}
+.header-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+.header-right div {
+  text-align: right;
+}
+.header-right div p {
+  margin: 0;
+  font-size: 20px;
+  line-height: 26px;
+  font-family: 'Jaldi', sans-serif;
+  color: #121729;
+}
+.header-right div span {
+  font-size: 16px;
+  font-family: 'Jaldi', sans-serif;
+  color: #121729;
+  line-height: 20px;
+  position: relative;
+  padding-left: 15px;
+}
+.header-right div span::before{
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 8px;
+  width: 8px;
+  background: #009858;
+  content: "";
+  border-radius: 50%;
+  margin-top: -4px;
+}
 
-
+.header-right a {
+  display: inline-block;
+  background: #12172A;
+  padding: 5px 26px;
+  font-size: 22px;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-family: 'Jaldi', sans-serif;
+  font-weight: 700;
+  box-sizing: border-box;
+  margin-left: 10px;
+  transition: all 0.3s ease 0s;
+}
+.header-right a svg {
+  font-size: 18px;
+  position: relative;
+  top: 3px;
+  margin-right: 6px;
+}
+.header-right a:hover {
+  color: #12172A;
+  background: #E8F4F7;
+}
 .footer{background: #E8F4F7;}
