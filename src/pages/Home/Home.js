@@ -1,16 +1,17 @@
-import React from 'react';
-import Booking from '../Booking/Booking';
-import Footer from '../Shared/Footer';
-import Header from '../Shared/Header';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
-    return (
-        <div>
-            <Header></Header>
-            <Booking/>
-            <Footer></Footer>
-        </div>
-    );
+  return (
+    <div>
+      {/* <Header></Header> */}
+      <div className="container">
+        Home page
+        <Link to="/confirm-booking">Confirm Booking</Link>
+      </div>
+      {/* <Footer></Footer> */}
+    </div>
+  );
 };
 
 export default Home;
