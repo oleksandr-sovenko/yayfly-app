@@ -33,6 +33,7 @@ code {
   width: 100%;
   margin: 0 auto;
   max-width: 1140px;
+  padding: 0 15px;
 }
 .grid {
   display: grid;
