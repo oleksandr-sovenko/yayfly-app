@@ -24,7 +24,7 @@ const PassengerCard = () => {
 
       <Box className="person-card">
         <h3></h3>
-        <SectionTitle title="Passenger" />
+        <SectionTitle title="Passenger 1" />
         <CardWrap>
           <Box
             sx={{
@@ -47,24 +47,6 @@ const PassengerCard = () => {
             >
               Contact Details
             </Typography>
-          </Box>
-        </CardWrap>
-        <CardWrap>
-          <Box>
-            <Box>
-              <SwitchAccountIcon />
-              <Typography>Contact Details</Typography>
-            </Box>
-            <Box>
-              <SwitchAccountIcon />
-              <Typography>Contact Details</Typography>
-            </Box>
-          </Box>
-          <Box>
-            <Box>
-              <img src="" alt="TicketImg" />
-            </Box>
-            <Box></Box>
           </Box>
         </CardWrap>
       </Box>
