@@ -6,9 +6,9 @@ import {
   Box,
   Checkbox,
   FormControlLabel,
+  Grid,
   InputLabel,
   styled,
-  TextField,
   Typography
 } from "@mui/material";
 import React from "react";
@@ -69,98 +69,76 @@ const PersonApplyCard = () => {
             Contact details
           </Typography>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            "& input": {
-              border: "1px solid rgb(209, 212, 227)",
-              borderRadius: "3px",
-              height: "40px",
-              padding: "4px 11px",
-            },
-          }}
-        >
-          <Box
-            fullWidth
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-
-              width: "100%",
-              "& div": {
-                width: "100%",
-              },
-            }}
-          >
-            <Box
-            // sx={{
-            //   my: { xs: 3, md: 6 },
-            //   p: { xs: 2, md: 3 },
-            // }}
+        <Grid container spacing="12px" sx={{ padding: "16px 0" }}>
+          <Grid item xs={12} sm={6}>
+            <InputLabel
+              sx={{
+                fontWeight: 600,
+                color: "rgb(0 3 23)",
+                marginBottom: "4px",
+                fontSize: "14px",
+              }}
             >
-              <InputLabel
-                sx={{
-                  fontWeight: 700,
-                  color: "rgb(0 3 23)",
-                  marginBottom: "4px",
-                  fontSize: "14px",
-                }}
-              >
-                E-mail address
-              </InputLabel>
-              <TextField
-                required
+              E-mail address
+            </InputLabel>
+            <input
+              className="passenger-input"
+              type="text"
+              placeholder="your@gmail.com"
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <InputLabel
+              sx={{
+                fontWeight: 600,
+                color: "rgb(0 3 23)",
+                marginBottom: "4px",
+                fontSize: "14px",
+              }}
+            >
+              UK mobile phone number
+            </InputLabel>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                "& input": {
+                  borderLeft: "none",
+                  borderTopLeftRadius: "0",
+                  borderBottomLeftRadius: "0",
+                },
+              }}
+            >
+              <Typography
                 sx={{
                   height: "40px",
+                  width: "52px",
+                  background: "#D9D9D9",
+                  display: "block",
+                  color: "rgba(7, 14, 57, 0.75)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  backgroundColor: "rgb(209, 212, 227)",
+                  width: "54px",
+                  height: "40px",
+                  fontSize: "14px",
+                  fontWeight: 400,
+                  lineHeight: "16px",
+                  borderTopLeftRadius: "3px",
+                  borderBottomLeftRadius: "3px",
                 }}
-                fullWidth
-                placeholder="your@gmail.com"
+              >
+                +44
+              </Typography>
+              <input
+                className="passenger-input"
+                type="text"
+                placeholder="e.g 01712344588"
               />
             </Box>
-            <Box>
-              <InputLabel
-                sx={{
-                  fontWeight: 700,
-                  color: "rgb(0 3 23)",
-                  marginBottom: "4px",
-                }}
-              >
-                UK mobile phone number
-              </InputLabel>
-              <Box
-                sx={{ display: "flex", alignItems: "center", height: "40px" }}
-              >
-                <Typography
-                  sx={{
-                    color: "rgba(7, 14, 57, 0.75)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: "rgb(209, 212, 227)",
-                    width: "54px",
-                    height: "40px",
-                    fontSize: "14px",
-                    fontWeight: 400,
-                    lineHeight: "16px",
-                    borderTopLeftRadius: "3px",
-                    borderBottomLeftRadius: "3px",
-                  }}
-                >
-                  +44
-                </Typography>
-                <TextField
-                  sx={{
-                    height: "40px",
-                  }}
-                  fullWidth
-                  placeholder="your@gmail.com"
-                />
-              </Box>
-            </Box>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
       </CardWrap>
       <CardWrap>
         <Box
@@ -206,6 +184,8 @@ const PersonApplyCard = () => {
         <Box
           sx={{
             display: "flex",
+            // flexDirection: "column",
+            flexDirection: { xs: "column", md: "row" },
             alignItems: "center",
             marginTop: "20px",
             // flexGrow: 1,
@@ -219,12 +199,18 @@ const PersonApplyCard = () => {
             src={ticketService}
             alt="TicketImg"
           />
-          <Box>
+          <Box
+            sx={{
+              width: "100%",
+              marginLeft: { md: "15px" },
+            }}
+          >
             <Box
               sx={{
                 display: "grid",
                 gridTemplateColumns: "25px 1fr",
                 marginBottom: "5px",
+                marginTop: { xs: "20px", md: "0px" },
               }}
             >
               <CheckIcon
@@ -334,6 +320,7 @@ const PersonApplyCard = () => {
           sx={{
             display: "flex",
             alignItems: "center",
+            flexDirection: { xs: "column", md: "row" },
             marginTop: "20px",
             "& img": {
               Width: "300px !important",
@@ -342,12 +329,18 @@ const PersonApplyCard = () => {
           }}
         >
           <img src={supportPhotoVector} alt="TicketImg" />
-          <Box>
+          <Box
+            sx={{
+              width: "100%",
+              marginLeft: { md: "15px" },
+            }}
+          >
             <Box
               sx={{
                 display: "grid",
                 gridTemplateColumns: "25px 1fr",
                 marginBottom: "5px",
+                marginTop: { xs: "20px", md: "0px" },
               }}
             >
               <CheckIcon

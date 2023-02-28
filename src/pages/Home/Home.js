@@ -7,8 +7,9 @@ const Home = () => {
       {/* <Header></Header> */}
       <div className="container">
         Home page
+        <Link to="/booking-details">Booking Details</Link>
         <Link to="/confirm-booking">Confirm Booking</Link>
-      </div>
+      </div> 
       {/* <Footer></Footer> */}
     </div>
   );

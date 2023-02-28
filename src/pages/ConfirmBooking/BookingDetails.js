@@ -3,7 +3,7 @@ import React from "react";
 import PassengerCard from "./PassengerCard";
 import PersonApplyCard from "./PersonApplyCard";
 
-const ConfirmBooking = () => {
+const BookingDetails = () => {
   return (
     <div className="booking-pages">
       <div className="container">
@@ -29,4 +29,4 @@ const ConfirmBooking = () => {
   );
 };
 
-export default ConfirmBooking;
+export default BookingDetails;

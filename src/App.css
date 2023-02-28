@@ -27,7 +27,8 @@
   /* height: 20px;
   width: 20px; */
 }
-.passenger-input {
+.passenger-input,
+select.gender-select {
   padding: 4px 11px;
   background: #fff;
   color: rgba(0, 0, 0, 0.85);
@@ -35,4 +36,7 @@
   border-radius: 3px;
   height: 40px;
   width: 100%;
+}
+.gender-select::selected {
+  color: rgb(209, 212, 227);
 }

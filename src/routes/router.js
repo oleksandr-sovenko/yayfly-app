@@ -1,24 +1,30 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../Layout/Layout";
-import ConfirmBooking from "../pages/ConfirmBooking/ConfirmBooking";
+import Confirmation from "../pages/Confirmation/Confirmation";
+import BookingDetails from "../pages/ConfirmBooking/BookingDetails";
+
 import Home from "../pages/Home/Home";
 
 const router = createBrowserRouter([
-    {
-        path:"/",
-        element:<Layout/>,
-        errorElement:<div>Error page</div>,
-        children:[
-            {
-                path:'/',
-                element:<Home/>
-            },
-            {
-                path:'/confirm-booking',
-                element:<ConfirmBooking/>
-            }
-        ]
-    }
+  {
+    path: "/",
+    element: <Layout />,
+    errorElement: <div>Error page</div>,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/booking-details",
+        element: <BookingDetails />,
+      },
+      {
+        path: "/confirm-booking",
+        element: <Confirmation />,
+      },
+    ],
+  },
 ]);
 
 export default router;
