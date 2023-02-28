@@ -1,38 +1,42 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.proceed-btn {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  width: 100%;
+  max-width: 355px;
+  height: 52px;
+  grid-column: 2 / 3;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  background: #12172a;
+  border-radius: 5px;
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+.proceed-btn svg {
+  margin-left: 18px;
+  font-size: 25px;
+  /* height: 20px;
+  width: 20px; */
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.passenger-input,
+select.gender-select {
+  padding: 4px 11px;
+  background: #fff;
+  color: rgba(0, 0, 0, 0.85);
+  border: 1px solid rgb(209, 212, 227);
+  border-radius: 3px;
+  height: 40px;
+  width: 100%;
+}
+.gender-select::selected {
+  color: rgb(209, 212, 227);
 }

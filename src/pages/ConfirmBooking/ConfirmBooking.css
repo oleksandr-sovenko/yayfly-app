@@ -1,0 +1,38 @@
+/* .passenger-info {
+  max-width: 750px;
+} */
+
+.section-title {
+  font-size: 24px;
+  line-height: 28px;
+  padding-left: 0px;
+}
+/* Passenger Card */
+.card {
+  background-color: white;
+  border-radius: 3px;
+  padding: 37px 35px 20px;
+}
+.from-group {
+  display: flex;
+  align-items: center;
+}
+/* .from-group > .form-control {
+  width: 50%;
+} */
+
+.form-control label {
+  display: block;
+  color: rgb(0 3 23);
+}
+.form-control input {
+  border: 1px solid rgb(209, 212, 227);
+  border-radius: 3px;
+  height: 40px;
+  width: 100%;
+  padding: 4px 11px;
+}
+.date-input {
+  display: flex;
+  align-items: center;
+}

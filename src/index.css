@@ -16,9 +16,9 @@ html {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Public Sans", "Lato", "Heebo", "Jaldi", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Public Sans", "Lato", "Heebo", "Jaldi", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(238, 239, 245);
@@ -29,6 +29,18 @@ code {
     monospace;
 }
 
+.container {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1140px;
+  padding: 0 15px;
+}
+.grid {
+  display: grid;
+}
+.grid-column {
+  grid-template-columns: 1fr 3fr;
+}
 .container {width: 100%;margin: 0 auto; max-width: 1170px;padding-left: 15px;padding-right: 15px;}
 .grid{display: grid;}
 .grid-column {grid-template-columns: 1fr 3fr;}
@@ -40,12 +52,24 @@ code {
   grid-template-columns: 3fr 3fr 3fr;
   gap: 1.2px;
 }
-.mt-5{margin-top: 20px;}
-.d-flex{display: flex;}
-.inline-flex{display: inline-flex;}
-.align-item{align-items: center;}
+.mt-5 {
+  margin-top: 20px;
+}
+.d-flex {
+  display: flex;
+}
+.inline-flex {
+  display: inline-flex;
+}
+.align-item {
+  align-items: center;
+}
 
-.header{background: #fff;box-shadow: rgb(101 101 101 / 5%) 4px 4px 12px;padding: 15px 0;}
+.header {
+  background: #fff;
+  box-shadow: rgb(101 101 101 / 5%) 4px 4px 12px;
+  padding: 15px 0;
+}
 .header-right {
   display: flex;
   align-items: center;
@@ -58,18 +82,19 @@ code {
   margin: 0;
   font-size: 20px;
   line-height: 26px;
-  font-family: 'Jaldi', sans-serif;
+  font-family: "Jaldi", sans-serif;
   color: #121729;
 }
 .header-right div span {
   font-size: 16px;
-  font-family: 'Jaldi', sans-serif;
+  font-family: "Jaldi", sans-serif;
   color: #121729;
   line-height: 20px;
   position: relative;
   padding-left: 15px;
 }
-.header-right div span::before, .cta-top p.online span::before{
+.header-right div span::before,
+.cta-top p.online span::before {
   position: absolute;
   left: 0;
   top: 50%;
@@ -83,13 +108,13 @@ code {
 
 .header-right a {
   display: inline-block;
-  background: #12172A;
+  background: #12172a;
   padding: 5px 26px;
   font-size: 22px;
   color: #fff;
   text-decoration: none;
   border-radius: 50px;
-  font-family: 'Jaldi', sans-serif;
+  font-family: "Jaldi", sans-serif;
   font-weight: 700;
   box-sizing: border-box;
   margin-left: 10px;
@@ -102,10 +127,15 @@ code {
   margin-right: 6px;
 }
 .header-right a:hover {
-  color: #12172A;
-  background: #E8F4F7;
+  color: #12172a;
+  background: #e8f4f7;
 }
-.footer{background: #E8F4F7;}
+.footer {
+  background: #e8f4f7;
+}
+.footer {
+  background: #e8f4f7;
+}
 
 /**/
 
@@ -150,17 +180,17 @@ code {
   border-radius: 4px;
   height: 60px;
 }
-.search-form .field label{
+.search-form .field label {
   display: block;
   font-size: 12px;
   font-weight: 600;
   color: rgb(0, 3, 23);
-  font-family: 'Public Sans', sans-serif;
+  font-family: "Public Sans", sans-serif;
 }
 .search-form .field .form-control {
   display: block;
   border: none;
-  font-family: 'Public Sans', sans-serif;
+  font-family: "Public Sans", sans-serif;
   font-weight: 400;
   width: 100%;
   padding: 5px 0px;
@@ -168,12 +198,12 @@ code {
   outline: none;
 }
 .search-form button[type="submit"] {
-  background: #12172A;
+  background: #12172a;
   color: #fff;
   border: 0px solid;
   border-radius: 4px;
   font-size: 22px;
-  font-family: 'Jaldi', sans-serif;
+  font-family: "Jaldi", sans-serif;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease 0s;
@@ -185,7 +215,10 @@ code {
   right: -5px;
   top: 5px;
 }
-.search-form button[type="submit"]:hover{background: #E8F4F7;color: #12172A;}
+.search-form button[type="submit"]:hover {
+  background: #e8f4f7;
+  color: #12172a;
+}
 
 /**/
 .cta-top {
@@ -201,11 +234,11 @@ code {
   font-size: 20px;
   line-height: 26px;
   color: #121729;
-  font-family: 'Jaldi', sans-serif;
+  font-family: "Jaldi", sans-serif;
 }
 
 .cta-top p strong {
-  color: #C83639;
+  color: #c83639;
 }
 
 .cta-top p.online {
@@ -217,7 +250,7 @@ code {
   display: block;
   font-size: 16px;
   line-height: 20px;
-  color: #13172A;
+  color: #13172a;
   position: relative;
   font-weight: 400;
   padding-left: 15px;
@@ -225,16 +258,26 @@ code {
 
 .cta-top a {
   font-size: 32px;
-  color: #12172A;
+  color: #12172a;
   text-decoration: none;
   font-weight: 700;
 }
 
 /**/
-.progress-bar-area{margin-bottom: 10px;}
-.progress-bar-area p{margin:0 0 7px;font-size: 18px;font-weight: 300;font-family: 'Jaldi', sans-serif;    display: inline-flex;
-  align-items: center;}
-  .progress-bar-area p img{margin-right: 10px;}
+.progress-bar-area {
+  margin-bottom: 10px;
+}
+.progress-bar-area p {
+  margin: 0 0 7px;
+  font-size: 18px;
+  font-weight: 300;
+  font-family: "Jaldi", sans-serif;
+  display: inline-flex;
+  align-items: center;
+}
+.progress-bar-area p img {
+  margin-right: 10px;
+}
 .progress {
   height: 12px;
   width: 100%;
@@ -248,14 +291,14 @@ code {
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-  color:#fff;
+  color: #fff;
   text-align: center;
   white-space: nowrap;
-  background-color: #12172A;
+  background-color: #12172a;
   transition: width 0.6s ease;
 }
 .progress-bar.w-75 {
-  width: 75%!important;
+  width: 75% !important;
 }
 
 /**/
@@ -273,13 +316,13 @@ code {
   color: rgb(0, 3, 23);
   line-height: 28px;
   margin: 0 0 4px;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 .search-filter .priceDesktop {
   display: inline;
   font-weight: 700;
   font-size: 18px;
-  font-family: 'Public Sans', sans-serif;
+  font-family: "Public Sans", sans-serif;
 }
 .search-filter .tabDuration {
   font-family: Roboto;
@@ -287,8 +330,14 @@ code {
   font-size: 14px;
   font-weight: 300;
 }
-.search-filter.active{background: #12172A;}
-.search-filter.active h3, .search-filter.active .priceDesktop, .search-filter.active .tabDuration{color: #fff;}
+.search-filter.active {
+  background: #12172a;
+}
+.search-filter.active h3,
+.search-filter.active .priceDesktop,
+.search-filter.active .tabDuration {
+  color: #fff;
+}
 
 /**/
 .search-result-wrap {
@@ -306,6 +355,10 @@ code {
   border-bottom-left-radius: 5px;
   grid-column: 1 / span 2;
   padding: 18px 50px 30px;
+}
+.search-result-card-grid .flight-duration-time.ConformSearchGrid{
+  grid-column: 1 / span 4;
+  border-radius: 5px;
 }
 .flight-header {
   display: flex;
@@ -348,7 +401,8 @@ code {
   letter-spacing: 0px;
   line-height: 22px;
 }
-span.departureTime, .arrivalTime {
+span.departureTime,
+.arrivalTime {
   text-align: left;
   font-size: 18px;
   font-weight: 700;
@@ -358,7 +412,8 @@ span.departureTime, .arrivalTime {
   display: block;
 }
 
-span.airportCode, span.airportCodeTo {
+span.airportCode,
+span.airportCodeTo {
   font-size: 14px;
   font-weight: 400;
   text-align: left;
@@ -382,7 +437,8 @@ span.lineAndDots {
   position: relative;
   margin: 7px 0;
 }
-span.lineAndDots::before, span.lineAndDots::after {
+span.lineAndDots::before,
+span.lineAndDots::after {
   position: absolute;
   left: 0;
   top: 50%;
@@ -403,7 +459,8 @@ span.directFlight {
   color: rgb(19, 194, 155);
   font-family: -apple-system-, BlinkMacSystemFont, sans-serif;
 }
-.arrivalTimeWrap span.arrivalTime, .arrivalTimeWrap span.airportCodeTo {
+.arrivalTimeWrap span.arrivalTime,
+.arrivalTimeWrap span.airportCodeTo {
   text-align: right;
   display: block;
 }
@@ -417,7 +474,6 @@ span.directFlight {
   margin-bottom: 25px;
 }
 
-
 .search-result-card-grid .flight-price-wrap {
   background: #fff;
   border-top-right-radius: 5px;
@@ -426,7 +482,7 @@ span.directFlight {
   text-align: center;
 }
 .flight-price-wrap .desktop-none {
-  font-family: 'Jaldi', sans-serif;
+  font-family: "Jaldi", sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
@@ -436,13 +492,13 @@ span.directFlight {
 .flight-price-wrap .price {
   font-weight: 700;
   font-size: 26px;
-  font-family: 'Jaldi', sans-serif;
+  font-family: "Jaldi", sans-serif;
   margin-bottom: 15px;
   line-height: 28px;
 }
-.flight-price-wrap button.addToCart {
+.flight-price-wrap .addToCart {
   display: block;
-  background: #12172A;
+  background: #12172a;
   border: 0px solid;
   color: #fff;
   height: 42px;
@@ -450,24 +506,25 @@ span.directFlight {
   width: 150px;
   font-size: 22px;
   font-weight: 600;
-  font-family: 'Jaldi', sans-serif;
+  font-family: "Jaldi", sans-serif;
   margin: 0 auto 12px;
   cursor: pointer;
+  text-decoration: none;
 }
-.flight-price-wrap button.addToCart svg {
+.flight-price-wrap .addToCart svg {
   position: relative;
   top: 5px;
   right: -4px;
 }
 .flight-price-wrap span.info-btn {
   display: inline-block;
-  background: #CD363A;
+  background: #cd363a;
   color: #fff;
-  padding: 4px 13px;
+  padding: 4px 10px;
   border-radius: 4px;
   text-transform: uppercase;
-  font-size: 16px;
-  font-family: 'Jaldi', sans-serif;
+  font-size: 14px;
+  font-family: "Jaldi", sans-serif;
   font-weight: 600;
   line-height: 18px;
 }
@@ -486,10 +543,10 @@ span.info-btn svg {
   display: inline-block;
   margin: 0;
   text-align: left;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 16px;
-  color: #12172A;
-  font-family: 'Jaldi', sans-serif;
+  color: #12172a;
+  font-family: "Jaldi", sans-serif;
 }
 .cta-info p svg {
   font-size: 25px;
@@ -501,24 +558,28 @@ span.info-btn svg {
 
 .cta-info a {
   display: inline-block;
-  font-size: 16px;
-  color: #12172A;
+  font-size: 14px;
+  color: #12172a;
   text-decoration: none;
   font-weight: 700;
-  font-family: 'Jaldi', sans-serif;
+  font-family: "Jaldi", sans-serif;
 }
 .cta-info a svg {
-  font-size: 14px;
+  font-size: 12px;
   position: relative;
   top: 2px;
   right: 4px;
 }
 
-.flight-price-wrap .dropdown-btn{background: #EEF0F4;
-  border: 0px solid;height: 25px;width: 25px;cursor: pointer;margin-top: 10px;
+.flight-price-wrap .dropdown-btn {
+  background: #eef0f4;
+  border: 0px solid;
+  height: 25px;
+  width: 25px;
+  cursor: pointer;
+  margin-top: 10px;
   border-radius: 6px;
 }
-
 
 .search-result-card-grid .flight-fare-details {
   background: #fff;
@@ -531,4 +592,8 @@ span.info-btn svg {
   visibility: hidden;
   display: none;
 }
-.search-result-card-grid .flight-fare-details.open{visibility: visible;opacity: 1;display: block;}
+.search-result-card-grid .flight-fare-details.open {
+  visibility: visible;
+  opacity: 1;
+  display: block;
+}
