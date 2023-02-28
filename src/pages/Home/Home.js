@@ -13,6 +13,7 @@ const Home = () => {
         Home page
         <Link to="/booking-details">Booking Details</Link>
         <Link to="/confirm-booking">Confirm Booking</Link>
+        <Link to="/payment">Payment</Link>
       </div>
       <TopSeachForm></TopSeachForm>
       <CtaCard></CtaCard>
