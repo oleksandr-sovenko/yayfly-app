@@ -29,7 +29,7 @@ code {
     monospace;
 }
 
-.container {width: 100%;margin: 0 auto; max-width: 1140px;}
+.container {width: 100%;margin: 0 auto; max-width: 1170px;padding-left: 15px;padding-right: 15px;}
 .grid{display: grid;}
 .grid-column {grid-template-columns: 1fr 3fr;}
 .column-rand {
