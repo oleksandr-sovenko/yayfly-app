@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
+import ConformSearchResult from "../../components/ConformSearchResult";
 import PassengerCard from "./PassengerCard";
 import PersonApplyCard from "./PersonApplyCard";
 
@@ -14,6 +15,8 @@ const BookingDetails = () => {
               flexGrow: 1,
             }}
           >
+            <h2>Your flight</h2>
+            <ConformSearchResult />
             <PassengerCard />
             <PersonApplyCard />
           </Box>

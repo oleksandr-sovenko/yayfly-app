@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { IoIosAirplane } from "react-icons/io";
+import { Link } from "react-router-dom";
 import airHelp from "../../assets/confirm-booking/air-help.png";
 import supportPhotoVector from "../../assets/confirm-booking/supportPhotoVector.png";
 import ticketService from "../../assets/confirm-booking/ticket-service-img.svg";
@@ -483,10 +484,10 @@ const PersonApplyCard = () => {
         </Box>
       </CardWrap>
       <Box sx={{ paddingBottom: "20px" }}>
-        <button style={{ marginLeft: "auto" }} className="proceed-btn">
+        <Link to="/confirm-booking" style={{ marginLeft: "auto" }} className="proceed-btn">
           <span>Proceed to confirmation</span>
           <IoIosAirplane />
-        </button>
+        </Link>
       </Box>
     </Box>
   );
