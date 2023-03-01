@@ -1,7 +1,8 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Box, Button, styled, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import { default as React } from "react";
 import { IoIosAirplane } from "react-icons/io";
+import { Link } from "react-router-dom";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 const CardWrap = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
@@ -132,19 +133,66 @@ const CheckDetails = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            marginBottom: "28px",
           }}
         >
-          <Button
+          {/* <Button
             variant="contained"
             sx={{
-              "& ..MuiButton-root": {},
+              width: "94px",
+              height: "52px",
+              boxShadow: "none",
+              background: "#D2D4E1",
+              "& .MuiButton-text": {
+                color: "#fff",
+                width: "94px",
+                height: "52px",
+              },
+            }}
+          > */}
+          <Link
+            to="/booking-details"
+            style={{
+              display: "inline-block",
+              width: "94px",
+              height: "52px",
+              boxShadow: "none",
+              background: "#D2D4E1",
+              textAlign: "center",
+              lineHeight: "52px",
+              textDecoration: "none",
+              color: "#010416",
+              borderRadius: "5px",
+              fontWeight: 500,
             }}
           >
             Back
-          </Button>
-          <Button variant="contained" endIcon={<IoIosAirplane />}>
-            Send
-          </Button>
+          </Link>
+          {/* </Button> */}
+          <Link
+            to="/payment"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "15px",
+              width: "260px",
+              maxWidth: "260px",
+              fontSize: "20px",
+              height: "52px",
+              boxShadow: "none",
+              background: "#12172A",
+              textAlign: "center",
+              lineHeight: "52px",
+              textDecoration: "none",
+              color: "#fff",
+              borderRadius: "5px",
+              fontWeight: 500,
+            }}
+          >
+            {/* <Typography /> */}
+            Proceed to payment <IoIosAirplane />
+          </Link>
         </Box>
       </Box>
     </div>

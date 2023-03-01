@@ -20,6 +20,7 @@
   background: #12172a;
   border-radius: 5px;
   color: white;
+  text-decoration: none;
 }
 .proceed-btn svg {
   margin-left: 18px;
@@ -39,4 +40,11 @@ select.gender-select {
 }
 .gender-select::selected {
   color: rgb(209, 212, 227);
+}
+.payment-input:focus-visible {
+  outline: 0px !important;
+}
+
+.payment-input:focus {
+  outline: none !important;
 }

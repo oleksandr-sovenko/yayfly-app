@@ -15,7 +15,7 @@ const Confirmation = () => {
             }}
           >
             <h2>Your flight</h2>
-            <ConformSearchResult></ConformSearchResult>
+            <ConformSearchResult/>
             <CheckDetails />
           </Box>
           <Box sx={{ width: { xs: "100%", md: "280px" }, marginLeft: "40px" }}>

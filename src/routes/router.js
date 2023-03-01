@@ -1,14 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "../layout/Layout";
+import Main from "../Layout/Main";
 import Confirmation from "../pages/Confirmation/Confirmation";
 import BookingDetails from "../pages/ConfirmBooking/BookingDetails";
 
 import Home from "../pages/Home/Home";
+import Payment from "../pages/Payment/Payment";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
+    element: <Main />,
     errorElement: <div>Error page</div>,
     children: [
       {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/confirm-booking",
         element: <Confirmation />,
+      },
+      {
+        path: "/payment",
+        element: <Payment />,
       },
     ],
   },
