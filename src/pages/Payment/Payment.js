@@ -1,7 +1,9 @@
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 import React from "react";
 import ConformSearchResult from "../../components/ConformSearchResult";
+import PageTitle from "../../components/SectionTitle/PageTitle";
 import PaymentCard from "./PaymentCard";
+import PaymentTimeLine from "./PaymentTimeLine";
 
 const Payment = () => {
   return (
@@ -14,6 +16,8 @@ const Payment = () => {
               flexGrow: 1,
             }}
           >
+            <PageTitle title="Confirm Your Booking" />
+            <PaymentTimeLine />
             <h2>Your flight</h2>
             <ConformSearchResult />
             <PaymentCard />

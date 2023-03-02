@@ -1,8 +1,10 @@
 import CheckIcon from "@mui/icons-material/Check";
 import { Box, Grid, styled, Typography } from "@mui/material";
+// import Checkbox from "@mui/material/Checkbox";
+import Checkbox from "@mui/material/Checkbox";
 import React from "react";
+import { Link } from "react-router-dom";
 import paymentImg from "../../assets/confirm-booking/payment.png";
-
 const CardWrap = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
   boxShadow: "rgb(101 101 101 / 5%) 4px 4px 12px",
@@ -12,25 +14,11 @@ const CardWrap = styled(Box)(({ theme }) => ({
   color: "rgb(0, 3, 23)",
 }));
 
-const CardButton = styled(Box)(({ theme }) => ({
-  fontSize: "14px",
-  color: "rgb(72, 96, 255)",
-  border: "2px solid rgb(72, 96, 255);",
-  width: "210px",
-  // height: "35px",
-  lineHeight: "35px",
-  textAlign: "center",
-  cursor: "pointer",
-  borderRadius: "5px",
-  fontWeight: 700,
-  marginTop: "35px",
-}));
-
 const PaymentCard = () => {
   return (
     <div>
       <CardWrap>
-        <Grid container spacing="16px">
+        <Grid container sx={{ marginTop: "15px" }}>
           <Grid item xs={12} md={8}>
             <Box
               sx={{
@@ -52,8 +40,6 @@ const PaymentCard = () => {
                     color: "#888B94",
                     borderTopLeftRadius: "4px",
                     borderTopRightRadius: "4px",
-                    borderBottomLeftRadius: "4px",
-                    borderBottomRightRadius: "4px",
                     borderBottom: "1px solid #12172A",
                     padding: "8px 24px",
                   }}
@@ -103,14 +89,14 @@ const PaymentCard = () => {
                       height: "52px",
                       fontSize: "18px",
                       color: "#888B94",
-                      borderTopLeftRadius: "4px",
-                      borderTopRightRadius: "4px",
                       padding: "8px 24px",
                       borderRight: "1px solid #12172A",
                       borderTopRightRadius: "0px",
+                      borderBottomLeftRadius: "4px",
                     }}
                     className="payment-input"
                     type="text"
+                    // type="date"
                     placeholder="MM/YY"
                   />
                 </Grid>
@@ -139,44 +125,62 @@ const PaymentCard = () => {
             <Box
               sx={{
                 width: "100%",
+                marginTop: { xs: "25px", sm: "0px" },
               }}
             >
               <Box
                 sx={{
                   display: "grid",
-                  gridTemplateColumns: "25px 1fr",
+                  gridTemplateColumns: "30px 1fr",
                   marginBottom: "5px",
-                  marginTop: { xs: "20px", md: "0px" },
+                  "& svg": {
+                    color: "#000",
+                    fontSize: "16px",
+                    textAlign: "center",
+                    fontWeight: 700,
+
+                    height: "30px",
+                    width: "30px",
+                    display: "inline-block",
+                  },
                 }}
               >
-                <CheckIcon
+                <CheckIcon />
+                <Typography
                   sx={{
-                    color: "#000",
                     fontSize: "14px",
-                    marginTop: "auto",
-                    marginBottom: "auto",
+                    lineHeight: "25px",
+                    marginLeft: "10px",
                   }}
-                />
-                <Typography sx={{ fontSize: "14px", lineHeight: "25px" }}>
+                >
                   SSL secure transaction
                 </Typography>
               </Box>
               <Box
                 sx={{
                   display: "grid",
-                  gridTemplateColumns: "25px 1fr",
+                  gridTemplateColumns: "30px 1fr",
                   marginBottom: "5px",
+                  "& svg": {
+                    color: "#000",
+                    fontSize: "16px",
+                    textAlign: "center",
+                    fontWeight: 700,
+
+                    height: "30px",
+                    width: "30px",
+                    display: "inline-block",
+                  },
                 }}
               >
-                <CheckIcon
+                <CheckIcon />
+                <Typography
                   sx={{
-                    color: "#000",
                     fontSize: "14px",
-                    marginTop: "auto",
-                    marginBottom: "auto",
+                    lineHeight: "25px",
+                    marginLeft: "10px",
                   }}
-                />
-                <Typography sx={{ fontSize: "14px", lineHeight: "25px" }}>
+                >
                   Pay securely using your debit or credit card
                 </Typography>
               </Box>
@@ -190,21 +194,82 @@ const PaymentCard = () => {
                     fontSize: "16px",
                     textAlign: "center",
                     fontWeight: 700,
-                    marginTop: "auto",
-                    marginBottom: "auto",
+
                     height: "30px",
                     width: "30px",
+                    display: "inline-block",
                   },
                 }}
               >
-                <CheckIcon sx={{}} />
-                <Typography sx={{ fontSize: "14px", lineHeight: "25px" }}>
+                <CheckIcon />
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    lineHeight: "25px",
+                    marginLeft: "10px",
+                  }}
+                >
                   Receive booking confirmation within 12 hours
                 </Typography>
               </Box>
             </Box>
           </Grid>
         </Grid>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            marginTop: "20px",
+            "& > span": {
+              padding: "0px",
+            },
+          }}
+        >
+          <Checkbox
+            width="14px"
+            height="14px"
+            name="saveAddress"
+            value="yes"
+            // color="rgb(209, 212, 227)"
+          />
+          <Typography
+            sx={{
+              color: "#12172A",
+              marginLeft: "10px",
+              "& a": {
+                color: "#1B40A6",
+                textDecoration: "none",
+              },
+            }}
+          >
+            I accept Yay <Link>Fly’s terms & conditions.</Link>
+          </Typography>
+        </Box>
+        <Box sx={{ marginTop: "20px", marginBottom: "5px" }}>
+          <Link
+            to="/payment"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "15px",
+              width: "100%",
+              maxWidth: "345px",
+              fontSize: "20px",
+              height: "52px",
+              boxShadow: "none",
+              background: "#12172A",
+              textAlign: "center",
+              lineHeight: "52px",
+              textDecoration: "none",
+              color: "#fff",
+              borderRadius: "5px",
+              fontWeight: 500,
+            }}
+          >
+            Pay $194.64
+          </Link>
+        </Box>
       </CardWrap>
     </div>
   );

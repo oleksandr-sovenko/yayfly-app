@@ -1,33 +1,3 @@
-.proceed-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 355px;
-  height: 52px;
-  grid-column: 2 / 3;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  font-size: 20px;
-  font-weight: bold;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 5px;
-  border: none;
-  outline: none;
-  background: #12172a;
-  border-radius: 5px;
-  color: white;
-  text-decoration: none;
-}
-.proceed-btn svg {
-  margin-left: 18px;
-  font-size: 25px;
-  /* height: 20px;
-  width: 20px; */
-}
 .passenger-input,
 select.gender-select {
   padding: 4px 11px;
@@ -47,4 +17,21 @@ select.gender-select {
 
 .payment-input:focus {
   outline: none !important;
+}
+.timeline-icon.line {
+  position: relative;
+  display: inline-block;
+}
+.timeline-icon.line:before {
+  position: absolute;
+  content: "";
+  left: 16px;
+  top: 12.5px;
+  background-color: rgb(85, 82, 255);
+  height: 1px;
+  width: 190px;
+  z-index: 0;
+}
+.payment-pages .MuiBox-root.css-0 {
+  line-height: 0;
 }

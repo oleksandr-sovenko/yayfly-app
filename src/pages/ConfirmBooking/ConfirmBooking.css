@@ -1,13 +1,8 @@
-/* .passenger-info {
-  max-width: 750px;
-} */
-
-.section-title {
+/* .section-title {
   font-size: 24px;
   line-height: 28px;
   padding-left: 0px;
 }
-/* Passenger Card */
 .card {
   background-color: white;
   border-radius: 3px;
@@ -17,9 +12,6 @@
   display: flex;
   align-items: center;
 }
-/* .from-group > .form-control {
-  width: 50%;
-} */
 
 .form-control label {
   display: block;
@@ -35,4 +27,4 @@
 .date-input {
   display: flex;
   align-items: center;
-}
+} */

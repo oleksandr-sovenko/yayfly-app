@@ -136,20 +136,6 @@ const CheckDetails = () => {
             marginBottom: "28px",
           }}
         >
-          {/* <Button
-            variant="contained"
-            sx={{
-              width: "94px",
-              height: "52px",
-              boxShadow: "none",
-              background: "#D2D4E1",
-              "& .MuiButton-text": {
-                color: "#fff",
-                width: "94px",
-                height: "52px",
-              },
-            }}
-          > */}
           <Link
             to="/booking-details"
             style={{

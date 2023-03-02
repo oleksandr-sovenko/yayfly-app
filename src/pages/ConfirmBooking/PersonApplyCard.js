@@ -484,10 +484,34 @@ const PersonApplyCard = () => {
         </Box>
       </CardWrap>
       <Box sx={{ paddingBottom: "20px" }}>
-        <Link to="/confirm-booking" style={{ marginLeft: "auto" }} className="proceed-btn">
+        <Link
+          to="/confirm-booking"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "15px",
+            width: "100%",
+            maxWidth: "355px",
+            fontSize: "20px",
+            height: "52px",
+            boxShadow: "none",
+            background: "#12172A",
+            textAlign: "center",
+            lineHeight: "52px",
+            textDecoration: "none",
+            color: "#fff",
+            borderRadius: "5px",
+            fontWeight: 500,
+          }}
+        >
+          {/* <Typography /> */}
+          Proceed to payment <IoIosAirplane />
+        </Link>
+        {/* <Link to="/confirm-booking" style={{ marginLeft: "auto" }} className="proceed-btn">
           <span>Proceed to confirmation</span>
           <IoIosAirplane />
-        </Link>
+        </Link> */}
       </Box>
     </Box>
   );

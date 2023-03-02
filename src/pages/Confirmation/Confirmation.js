@@ -1,6 +1,8 @@
 import { Box } from "@mui/material";
 import React from "react";
 import ConformSearchResult from "../../components/ConformSearchResult";
+import PageTitle from "../../components/SectionTitle/PageTitle";
+import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import CheckDetails from "./CheckDetails";
 
 const Confirmation = () => {
@@ -14,8 +16,9 @@ const Confirmation = () => {
               flexGrow: 1,
             }}
           >
-            <h2>Your flight</h2>
-            <ConformSearchResult/>
+            <PageTitle title="Confirm your booking" />
+            <SectionTitle title="Your flight" />
+            <ConformSearchResult />
             <CheckDetails />
           </Box>
           <Box sx={{ width: { xs: "100%", md: "280px" }, marginLeft: "40px" }}>
