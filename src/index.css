@@ -70,6 +70,9 @@ code {
   box-shadow: rgb(101 101 101 / 5%) 4px 4px 12px;
   padding: 15px 0;
 }
+.logo >div {
+  display: none;
+}
 .header-right {
   display: flex;
   align-items: center;
@@ -302,6 +305,11 @@ code {
 }
 
 /**/
+.inline-flex select#flightType {
+  background: transparent;
+  border: none;
+  margin-right: 25px;
+}
 .search-filter {
   padding: 7px 14px 10px 24px;
   background: #fff;
@@ -596,4 +604,126 @@ span.info-btn svg {
   visibility: visible;
   opacity: 1;
   display: block;
+}
+
+
+@media (min-width: 1200px) {
+
+}
+
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+
+}
+
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+
+}
+
+
+@media only screen and (min-width: 576px) and (max-width: 767px)  {
+  .cta-top p {
+    font-size: 18px;
+}
+  .header-right div p {
+    font-size: 16px;
+}
+.cta-top p.online {
+  font-size: 16px;
+}
+.cta-top a {
+  font-size: 20px;
+}
+
+}
+
+@media (max-width: 575px) {
+  .header .grid.grid-column {
+    display: block;
+}
+.logo {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+}
+.logo >div {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.logo >div span {
+  font-family: 'Jaldi';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  color: #0B0A3E;
+  line-height: 20px;
+}
+.header-right {
+  display: block;
+  margin-top: 6px;
+}
+.header-right a, .search-filter .tabDuration {
+  display: none;
+}
+.logo >div a {
+  display: inline-block;
+  height: 50px;
+  width: 50px;
+  background: #CD363A;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 4px;
+}
+.logo >div a svg {
+  color: #fff;
+  position: relative;
+  top: 2px;
+}
+.header-right div p {
+  font-size: 18px;
+}
+.cta-top {
+  gap: 6px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  align-items: center;
+}
+.cta-top p {
+  font-size: 18px;
+}
+.cta-top p:first-child {
+  grid-column: span 12;
+}
+.cta-top p.online {
+  font-size: 16px;
+  grid-column: span 6;
+}
+.cta-top a {
+  font-size: 22px;
+  grid-column: span 6;
+}
+.search-filter {
+  padding: 7px 14px 7px 14px;
+}
+.search-result-card-grid {
+  grid-template-columns: 2fr 2fr 2fr;
+}
+.search-result-card-grid .flight-duration-time {
+  grid-column: span 12;
+  padding: 18px 20px 30px;
+}
+.search-result-card-grid .flight-price-wrap, .search-result-card-grid .flight-fare-details {
+  grid-column: span 12;
+}
+
+.flight-price-wrap .desktop-none {
+  display: block;
+}
+.column-rand {
+  grid-template-columns: 1fr;
+}
+    
 }
