@@ -3,6 +3,7 @@ import React from "react";
 import ConformSearchResult from "../../components/ConformSearchResult";
 import PageTitle from "../../components/SectionTitle/PageTitle";
 import PaymentCard from "./PaymentCard";
+import PaymentCta from "./PaymentCta";
 import PaymentTimeLine from "./PaymentTimeLine";
 
 const Payment = () => {
@@ -21,6 +22,7 @@ const Payment = () => {
             <h2>Your flight</h2>
             <ConformSearchResult />
             <PaymentCard />
+            <PaymentCta />
           </Box>
           <Box sx={{ width: { xs: "100%", md: "280px" }, marginLeft: "40px" }}>
             <h2>Price Details</h2>
