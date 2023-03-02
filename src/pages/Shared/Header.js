@@ -12,6 +12,10 @@ const Header = () => {
             {" "}
             <img src={logo} alt="yayFly" />
           </Link>
+          <div>
+            <span>EXCLUSIVE <br/>PHONE DEALS</span>
+            <a href="tel:8882112111"><span><FaPhoneAlt /></span></a>
+          </div>
         </div>
         <div className="header-right">
           <div>
