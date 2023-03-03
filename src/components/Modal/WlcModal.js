@@ -31,11 +31,6 @@ const WlcModal = () => {
   return (
     <Box
       sx={{
-        // display: "flex",
-        // flexDirection: "column",
-        // alignItems: "center",
-        // justifyContent: "center",
-        // height: "80%",
         marginTop: "20px",
       }}
     >
@@ -47,8 +42,6 @@ const WlcModal = () => {
             flexDirection: "column",
             color: "#fff",
             fontFamily: "'Jaldi', sans-serif",
-            // alignItems: "center",
-            // justifyContent: "center",
             height: "auto",
             marginTop: "142px",
             backgroundColor: "white",
