@@ -39,6 +39,9 @@ select.gender-select {
   .timeline-icon.line:before {
     width: 182px;
   }
+  .wlc-modal-btn {
+    width: 168px;
+  }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .timeline-icon.line:before {
