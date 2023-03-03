@@ -29,7 +29,7 @@ const PaymentTimeLine = () => {
                 sx={{
                   position: "relative",
                   fontSize: "16px",
-                  background: "rgb(85, 82, 255)",
+                  background: "#12172A",
                   width: "25px",
                   height: "25px",
                   color: "#fff",
@@ -65,7 +65,7 @@ const PaymentTimeLine = () => {
                 sx={{
                   position: "relative",
                   fontSize: "16px",
-                  background: "rgb(85, 82, 255)",
+                  background: "#12172A",
                   width: "25px",
                   height: "25px",
                   color: "#fff",
@@ -99,7 +99,7 @@ const PaymentTimeLine = () => {
                 sx={{
                   position: "relative",
                   fontSize: "16px",
-                  background: "rgb(85, 82, 255)",
+                  background: "#12172A",
                   width: "25px",
                   height: "25px",
                   color: "#fff",
@@ -140,7 +140,7 @@ const PaymentTimeLine = () => {
                 sx={{
                   position: "relative",
                   fontSize: "16px",
-                  background: "rgb(85, 82, 255)",
+                  background: "#12172A",
                   width: "25px",
                   height: "25px",
                   lineHeight: "25px",

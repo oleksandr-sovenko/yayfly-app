@@ -18,16 +18,13 @@ const PaymentCard = () => {
   return (
     <div>
       <CardWrap>
-        <Grid container sx={{ marginTop: "15px" }}>
+        <Grid container sx={{ marginTop: "15px", gap:"16px" }}>
           <Grid item xs={12} md={8}>
             <Box
               sx={{
-                width: {
-                  xs: "100%",
-                  md: "425px",
-                  border: "1px solid #12172A",
-                  borderRadius: "4px",
-                },
+                width:"100%",
+                border: "1px solid #12172A",
+                borderRadius: "4px",
               }}
             >
               <Box>

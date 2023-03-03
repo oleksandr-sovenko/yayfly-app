@@ -13,19 +13,6 @@ const CardWrap = styled(Box)(({ theme }) => ({
   color: "rgb(0, 3, 23)",
 }));
 
-const CardButton = styled(Box)(({ theme }) => ({
-  fontSize: "14px",
-  color: "rgb(72, 96, 255)",
-  border: "2px solid rgb(72, 96, 255);",
-  width: "210px",
-  // height: "35px",
-  lineHeight: "35px",
-  textAlign: "center",
-  cursor: "pointer",
-  borderRadius: "5px",
-  fontWeight: 700,
-  marginTop: "35px",
-}));
 
 const CheckDetails = () => {
   return (

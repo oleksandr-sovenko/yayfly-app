@@ -115,14 +115,11 @@ const PersonApplyCard = () => {
                   height: "40px",
                   width: "52px",
                   background: "#D9D9D9",
-                  display: "block",
                   color: "rgba(7, 14, 57, 0.75)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                   backgroundColor: "rgb(209, 212, 227)",
-                  width: "54px",
-                  height: "40px",
                   fontSize: "14px",
                   fontWeight: 400,
                   lineHeight: "16px",
@@ -503,15 +500,11 @@ const PersonApplyCard = () => {
             color: "#fff",
             borderRadius: "5px",
             fontWeight: 500,
+            marginLeft: "auto",
           }}
         >
-          {/* <Typography /> */}
           Proceed to payment <IoIosAirplane />
         </Link>
-        {/* <Link to="/confirm-booking" style={{ marginLeft: "auto" }} className="proceed-btn">
-          <span>Proceed to confirmation</span>
-          <IoIosAirplane />
-        </Link> */}
       </Box>
     </Box>
   );
