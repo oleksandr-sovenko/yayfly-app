@@ -127,7 +127,7 @@ const WlcModal = () => {
               // alignItems: "center",
             }}
           >
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={8}>
               <Box
                 sx={{
                   background: "#092142",
@@ -135,6 +135,8 @@ const WlcModal = () => {
                   borderRadius: "5px",
                   padding: "40px 38px 30px",
                   marginBottom: "50px",
+                  maxWidth: "420px",
+                  width: "100%",
                 }}
               >
                 <InputLabel
@@ -151,7 +153,7 @@ const WlcModal = () => {
                   className=""
                   style={{
                     width: "100%",
-                    height: { md: "62px", xs: "54px" },
+                    height: { sm: "62px", xs: "54px" },
                     fontFamily: "Jaldi",
                     fontStyle: "normal",
                     fontWeight: 400,
@@ -170,11 +172,11 @@ const WlcModal = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     width: "100%",
-                    height: { md: "62px", xs: "54px" },
+                    height: { sm: "62px", xs: "54px" },
                     boxShadow: "none",
                     background: "#CD363A",
                     textAlign: "center",
-                    lineHeight: { md: "62px", xs: "54px" },
+                    lineHeight: { sm: "62px", xs: "54px" },
                     textDecoration: "none",
                     color: "#fff",
                     borderRadius: "5px",
@@ -213,6 +215,8 @@ const WlcModal = () => {
                 sx={{
                   alignItems: "center",
                   justifyContent: "space-between",
+                  maxWidth: "420px",
+                  width: "100%",
                 }}
               >
                 <Grid item xs={6} sm={6}>
@@ -273,7 +277,7 @@ const WlcModal = () => {
             <Grid
               item
               xs={12}
-              sm={6}
+              sm={4}
               sx={{
                 textAlign: "center",
                 "& .carton-img": {
