@@ -1,26 +1,23 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
-  Button,
-  Grid,
-  InputLabel,
-  Modal,
-  Typography,
+  Button, Dialog, Grid,
+  InputLabel, Typography
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { BsBell } from "react-icons/bs";
 import { FaPhoneAlt } from "react-icons/fa";
-import wlcModalBg from "../../assets/confirm-booking/ModalBg.png";
 import guaranteImg from "../../assets/confirm-booking/guarnte.png";
 import modalCartoon from "../../assets/confirm-booking/modalCartoon.png";
 // function WlcModal() {
 const WlcModal = () => {
   const [open, setOpen] = useState(false);
-
+  const [fullWidth, setFullWidth] = React.useState(true);
+  const [maxWidth, setMaxWidth] = React.useState('lg');
   useEffect(() => {
     const timer = setTimeout(() => {
       setOpen(true);
-    }, 100);
+    }, 300);
     return () => clearTimeout(timer);
   }, []);
 
@@ -34,7 +31,12 @@ const WlcModal = () => {
         marginTop: "20px",
       }}
     >
-      <Modal open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} fullWidth={fullWidth}
+        maxWidth={maxWidth} sx={{
+          "& .css-cyxlny-MuiPaper-root-MuiDialog-paper": {
+            backgroundColor:"#1A2E4A"
+          }
+        }}>
         <Box
           className="container"
           sx={{
@@ -43,15 +45,9 @@ const WlcModal = () => {
             color: "#fff",
             fontFamily: "'Jaldi', sans-serif",
             height: "auto",
-            marginTop: "142px",
-            backgroundColor: "white",
             padding: "20px",
             borderRadius: "10px",
             padding: { md: "60px 140px", xs: "30px" },
-            background: `url(${wlcModalBg})`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            backgroundSize: "cover",
             position: "relative",
           }}
         >
@@ -126,8 +122,8 @@ const WlcModal = () => {
                   background: "#092142",
                   border: "1px solid #FFFFFF",
                   borderRadius: "5px",
-                  padding: "40px 38px 30px",
-                  marginBottom: "50px",
+                  padding: {sm:"40px 38px 30px", xs:"20px"},
+                  marginBottom: {sm:"50px", xs:"30px"},
                   maxWidth: "420px",
                   width: "100%",
                 }}
@@ -212,7 +208,7 @@ const WlcModal = () => {
                   width: "100%",
                 }}
               >
-                <Grid item xs={6} sm={6}>
+                <Grid item xs={12} sm={6} sx={{ textAlign: {xs:"center",sm:"start"} }}>
                   <Typography sx={{ fontSize: { md: "22px", xd: "18px" } }}>
                     or call us now{" "}
                   </Typography>
@@ -220,7 +216,7 @@ const WlcModal = () => {
                     24/7 SUPPORT | NO HOLD TIME
                   </Typography>
                 </Grid>
-                <Grid item xs={6} sm={6} sx={{ textAlign: "end" }}>
+                <Grid item xs={12} sm={6} sx={{ textAlign: {xs:"center",sm:"end"},marginTop:{xs:"10px",sm:"0px"} }}>
                   <a
                     href="tel:8882112111"
                     className="wlc-modal-btn"
@@ -296,7 +292,7 @@ const WlcModal = () => {
             </Grid>
           </Grid>
         </Box>
-      </Modal>
+      </Dialog>
     </Box>
   );
 };
