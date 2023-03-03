@@ -25,7 +25,7 @@ const WlcModal = () => {
   }, []);
 
   const handleClose = () => {
-    setOpen(!false);
+    setOpen(false);
   };
 
   return (
