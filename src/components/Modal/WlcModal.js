@@ -250,7 +250,7 @@ const WlcModal = () => {
                         justifyContent: "center",
 
                         "& svg": {
-                          color: "#333",
+                          color: "#CD363A",
                           fontSize: "14px",
                         },
                       }}
