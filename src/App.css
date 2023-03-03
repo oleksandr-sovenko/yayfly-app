@@ -39,8 +39,10 @@ select.gender-select {
 .payment-pages > .MuiBox-root.css-0 {
   line-height: 0;
 }
-.wlc-modal-content .css-cyxlny-MuiPaper-root-MuiDialog-paper {
-  background-color: #1a2e4a !important;
+
+.wlc-modal-content
+  .MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthLg.MuiDialog-paperFullWidth {
+  background: #1a2e4a !important;
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
