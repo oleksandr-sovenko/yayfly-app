@@ -111,7 +111,6 @@ const Sidebar = () => {
                       fontVariant: "tabular-nums",
                       lineHeight: 1.5715,
                       listStyle: "none",
-                      // fonteature-settings: '"tnum","tnum",'
                       position: "relative",
                       height: "4px",
                       margin: "10px 6px",
