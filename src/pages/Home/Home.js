@@ -1,17 +1,15 @@
 import { Grid } from "@mui/material";
 import React from "react";
 import CtaCard from "../../components/CtaCard";
-import ThankYouModal from "../../components/Modal/ThankYouModal";
+import WlcModal from "../../components/Modal/WlcModal";
 import ProgressBar from "../../components/ProgressBar";
 import SearchPriceResults from "../../components/SearchPriceResults";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import TopSeachForm from "../../components/TopSeachForm";
-
 const Home = () => {
   return (
-    <div>
-      <ThankYouModal />
-      {/* <PopupModal></PopupModal> */}
+    <>
+      <WlcModal></WlcModal>
       <TopSeachForm></TopSeachForm>
       <Grid container spacing={2} className="container">
         <Grid item xs={3}>
@@ -23,7 +21,7 @@ const Home = () => {
           <SearchPriceResults></SearchPriceResults>
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 };
 

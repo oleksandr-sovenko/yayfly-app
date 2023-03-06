@@ -5,7 +5,7 @@ import centerCartton from "../../assets/confirm-booking/centerCartton.png";
 import guaranteImg from "../../assets/confirm-booking/guarnte.png";
 import modalCartoon from "../../assets/confirm-booking/modalCartoon.png";
 
-const ThankYouModal = () => {
+const ThankYouModal = ({ handleThankModalClose }) => {
   const [open, setOpen] = useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("lg");
@@ -37,7 +37,6 @@ const ThankYouModal = () => {
         <Box
           className="container"
           sx={{
-            position: "relative",
             display: "flex",
             flexDirection: "column",
             color: "#fff",
@@ -47,11 +46,13 @@ const ThankYouModal = () => {
             borderRadius: "10px",
             padding: { md: "60px 160px", xs: "30px" },
             position: "relative",
-            overflowY: "auto"
+            "& .MuiBox-root.css-1pppxor": {
+              overflowY: "inherit !important",
+            },
           }}
         >
           <Button
-            onClick={handleClose}
+            onClick={handleThankModalClose}
             sx={{
               position: "absolute",
               right: { md: "30px", xs: "0px" },
@@ -63,18 +64,15 @@ const ThankYouModal = () => {
           </Button>
           <Box
             sx={{
-              display: { md: "none", xs: "block" },
-              position: "absolute",
-              left: "50%",
-              right: "50%",
-              top: 0,
-              transform: "translateX(-50%)",
-              zIndex: 999,
+              display: { md: "none", xs: "block", textAlign: "center" },
+              "& img": {
+                marginTop: "-70px",
+              },
             }}
           >
             <img src={centerCartton} alt="" srcset="" />
           </Box>
-          <Box>
+          <Box sx={{ paddingTop: "20px" }}>
             <Typography
               sx={{
                 fontSize: { md: "50px", xs: "40px" },

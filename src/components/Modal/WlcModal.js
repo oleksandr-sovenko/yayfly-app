@@ -12,11 +12,26 @@ import { BsBell } from "react-icons/bs";
 import { FaPhoneAlt } from "react-icons/fa";
 import guaranteImg from "../../assets/confirm-booking/guarnte.png";
 import modalCartoon from "../../assets/confirm-booking/modalCartoon.png";
+import ThankYouModal from "./ThankYouModal";
 // function WlcModal() {
 const WlcModal = () => {
   const [open, setOpen] = useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("lg");
+  // Thank you modal
+  const [openThankModal, setThankModalOpen] = useState(false);
+  const handleClickThankModal = () => {
+    setThankModalOpen(true);
+  };
+  const handleThankModalClose = () => {
+    setThankModalOpen(false);
+  };
+
+  const handleCloseOpen = () => {
+    handleClose();
+    handleClickThankModal();
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setOpen(true);
@@ -40,11 +55,6 @@ const WlcModal = () => {
         fullWidth={fullWidth}
         maxWidth={maxWidth}
         className="wlc-modal-content"
-        // sx={{
-        //   "& .css-cyxlny-MuiPaper-root-MuiDialog-paper": {
-        //     backgroundColor: "#1A2E4A !important",
-        //   },
-        // }}
       >
         <Box
           className="container"
@@ -161,7 +171,9 @@ const WlcModal = () => {
                   type="number"
                   placeholder="Phone number"
                 />
+
                 <Button
+                  onClick={handleCloseOpen}
                   sx={{
                     marginTop: "16px",
                     display: "inline-flex",
@@ -186,6 +198,7 @@ const WlcModal = () => {
                 >
                   NOTIFY ME <BsBell style={{ marginLeft: "8px" }} />
                 </Button>
+
                 <Box
                   sx={{
                     textAlign: "center",
@@ -312,6 +325,19 @@ const WlcModal = () => {
             </Grid>
           </Grid>
         </Box>
+      </Dialog>
+
+      {/* Thank you modal */}
+      <Dialog
+        open={openThankModal}
+        onClose={handleThankModalClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <ThankYouModal
+          handleThankModalClose={handleThankModalClose}
+          handleClose={handleClose}
+        />
       </Dialog>
     </Box>
   );
