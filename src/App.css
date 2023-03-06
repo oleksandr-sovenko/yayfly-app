@@ -22,8 +22,9 @@ select.gender-select {
   position: relative;
   display: inline-block;
 }
-.timeline-icon.line.active p{
-  background: #12172A;color: #fff;
+.timeline-icon.line.active p {
+  background: #12172a;
+  color: #fff;
 }
 .timeline-icon.line:before {
   position: absolute;
@@ -38,6 +39,12 @@ select.gender-select {
 .payment-pages > .MuiBox-root.css-0 {
   line-height: 0;
 }
+
+.wlc-modal-content
+  .MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthLg.MuiDialog-paperFullWidth {
+  background: #1a2e4a !important;
+}
+
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .timeline-icon.line:before {
     width: 182px;

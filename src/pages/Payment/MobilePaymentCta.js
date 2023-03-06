@@ -66,7 +66,7 @@ const MobilePaymentCta = () => {
             <Typography
               sx={{ color: "#fff", fontSize: "18px", marginBottom: "7px" }}
             >
-              Call now{" "}
+              Call now{" "}3
               <Typography component="span">to secure the best fare</Typography>{" "}
             </Typography>
             <a
