@@ -41,13 +41,6 @@ code {
 .grid-column {
   grid-template-columns: 1fr 3fr;
 }
-
-.grid {
-  display: grid;
-}
-.grid-column {
-  grid-template-columns: 1fr 3fr;
-}
 .column-rand {
   grid-template-columns: 3fr 3fr 2fr 2fr 2fr;
   gap: 8px;
@@ -139,10 +132,10 @@ code {
 }
 .footer {
   background: #e8f4f7;
+  margin-top: 50px;
+  padding: 10px 0;
 }
-.footer {
-  background: #e8f4f7;
-}
+.footer .header-right a:hover{background: #fff;color: #12172a;}
 
 /**/
 
@@ -364,6 +357,8 @@ code {
   display: grid;
   grid-template-columns: 3fr 3fr 3fr;
   gap: 1.2px;
+}
+.search-result-wrap .search-result-card-grid:not(:last-child) {
   margin-bottom: 30px;
 }
 .search-result-card-grid .flight-duration-time {
@@ -564,6 +559,7 @@ span.info-btn svg {
   line-height: 16px;
   color: #12172a;
   font-family: "Jaldi", sans-serif;
+  text-transform: uppercase;
 }
 .cta-info p svg {
   font-size: 25px;
