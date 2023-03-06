@@ -19,7 +19,7 @@ const WlcModal = () => {
   const [maxWidth, setMaxWidth] = React.useState("lg");
   useEffect(() => {
     const timer = setTimeout(() => {
-      setOpen(true);
+      setOpen(!true);
     }, 300);
     return () => clearTimeout(timer);
   }, []);
@@ -34,12 +34,13 @@ const WlcModal = () => {
         marginTop: "20px",
       }}
     >
-      <Dialog open={open} onClose={handleClose} fullWidth={fullWidth}
-        maxWidth={maxWidth} sx={{
-          "& .css-cyxlny-MuiPaper-root-MuiDialog-paper": {
-            backgroundColor:"#1A2E4A !important"
-          }
-        }}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth={fullWidth}
+        maxWidth={maxWidth}
+        className="wlc-modal-content"
+      >
         <Box
           className="container"
           sx={{
