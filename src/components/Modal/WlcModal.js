@@ -40,11 +40,6 @@ const WlcModal = () => {
         fullWidth={fullWidth}
         maxWidth={maxWidth}
         className="wlc-modal-content"
-        // sx={{
-        //   "& .css-cyxlny-MuiPaper-root-MuiDialog-paper": {
-        //     backgroundColor: "#1A2E4A !important",
-        //   },
-        // }}
       >
         <Box
           className="container"
