@@ -9,7 +9,7 @@ const CardWrap = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
   boxShadow: "rgb(101 101 101 / 5%) 4px 4px 12px",
   borderRadius: "5px",
-  padding: "35px",
+
   marginBottom: "30px",
   color: "rgb(0, 3, 23)",
 }));
@@ -17,12 +17,18 @@ const CardWrap = styled(Box)(({ theme }) => ({
 const PaymentCard = () => {
   return (
     <div>
-      <CardWrap>
-        <Grid container sx={{ marginTop: "15px", gap:"16px" }}>
-          <Grid item xs={12} md={8}>
+      <CardWrap sx={{
+        //  padding: { md: "40px 20px", xs: "40px 10px" } 
+         }}>
+        <Box display="grid" gridTemplateColumns="repeat(13, 1fr)" gap={2}>
+          <Box
+            sx={{
+              gridColumn: { md: "span 8", xs: "span 13" },
+            }}
+          >
             <Box
               sx={{
-                width:"100%",
+                width: "100%",
                 border: "1px solid #12172A",
                 borderRadius: "4px",
               }}
@@ -49,11 +55,15 @@ const PaymentCard = () => {
                 sx={{
                   display: "flex",
                   alignItems: "center",
-
+                  justifyContent: "space-between",
                   height: "52px",
                   "& input": {
                     width: "50%",
                     border: "0px",
+                  },
+                  "& img": {
+                    width: "170px",
+                    textAlign: "end",
                   },
                 }}
               >
@@ -117,8 +127,14 @@ const PaymentCard = () => {
                 </Grid>
               </Grid>
             </Box>
-          </Grid>
-          <Grid item xs={12} md={4}>
+          </Box>
+          <Box
+            sx={{
+              gridColumn: { md: "span 5", xs: "span 13" },
+              background:"#E1F6F1",
+              padding: { md: "40px 20px", xs: "40px 10px" } 
+            }}
+          >
             <Box
               sx={{
                 width: "100%",
@@ -210,8 +226,8 @@ const PaymentCard = () => {
                 </Typography>
               </Box>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
         <Box
           sx={{
             display: "flex",
