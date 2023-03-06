@@ -6,6 +6,7 @@ const PageTitle = ({ title }) => {
     <div>
       <Typography
         sx={{
+          fontFamily: "'Public Sans', sans-serif !important",
           fontSize: { md: "36px", xs: "28px" },
           lineHeight: "28px",
           paddingLeft: "0px",

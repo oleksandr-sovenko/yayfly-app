@@ -6,6 +6,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import paymentImg from "../../assets/confirm-booking/payment.png";
 const CardWrap = styled(Box)(({ theme }) => ({
+  fontFamily: "'Public Sans', sans-serif",
   backgroundColor: "white",
   borderRadius: "5px",
   marginBottom: "30px",
@@ -17,7 +18,6 @@ const PaymentCard = () => {
     <div>
       <CardWrap
         sx={{
-          //  padding: { md: "40px 20px", xs: "40px 10px" }
           marginTop: { md: "40px", xs: "20px" },
           boxShadow: { md: "rgb(101 101 101 / 5%) 4px 4px 12px", xs: "none" },
         }}

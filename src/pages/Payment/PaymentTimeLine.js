@@ -2,6 +2,7 @@
 import { Box, styled, Typography } from "@mui/material";
 import React from "react";
 const TimeLineCard = styled(Box)(({ theme }) => ({
+  fontFamily: '"Public Sans", sans-serif',
   position: "relative",
   backgroundColor: "rgb(255, 255, 255)",
   display: "flex",
@@ -36,11 +37,10 @@ const PaymentTimeLine = () => {
                   fontWeight: 700,
                   borderRadius: "50%",
                   margin: "0 auto",
-                  lineHeight:"25px"
+                  lineHeight: "25px",
                 }}
               >
-                1
-                {/* <CheckIcon /> */}
+                1{/* <CheckIcon /> */}
               </Typography>
             </Typography>
           </Box>
@@ -71,7 +71,7 @@ const PaymentTimeLine = () => {
                   color: "#192C47",
                   fontWeight: 700,
                   borderRadius: "50%",
-                  lineHeight:"25px"
+                  lineHeight: "25px",
                 }}
               >
                 2
@@ -104,7 +104,7 @@ const PaymentTimeLine = () => {
                   height: "25px",
                   color: "#192C47",
                   fontWeight: 700,
-                  lineHeight:"25px",
+                  lineHeight: "25px",
                   borderRadius: "50%",
                 }}
               >
@@ -146,7 +146,7 @@ const PaymentTimeLine = () => {
                   lineHeight: "25px",
                   color: "#192C47",
                   fontWeight: 700,
-                  lineHeight:"25px",
+                  lineHeight: "25px",
                   borderRadius: "50%",
                   margin: "0 auto",
                 }}

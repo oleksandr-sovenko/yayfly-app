@@ -15,6 +15,7 @@ const Payment = () => {
       <div className="container">
         <Box
           sx={{
+            fontFamily: "'Public Sans', sans-serif",
             display: { xs: "block", md: "grid" },
             gridTemplateColumns: "2fr 1fr",
             gap: "40px",

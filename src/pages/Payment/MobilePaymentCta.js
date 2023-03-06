@@ -9,6 +9,7 @@ const MobilePaymentCta = () => {
       <Box className="mobile-payment-cta">
         <Box
           sx={{
+            fontFamily: "'Public Sans', sans-serif",
             background: "#CD363A",
             borderRadius: "5px",
             border: "1px solid #12172A",

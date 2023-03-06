@@ -45,7 +45,6 @@ select.gender-select {
   background: #1a2e4a !important;
 }
 
-
 /*sidebar*/
 .sidebar-inner-wrap .sidebar-filter:not(:last-child) {
   margin-bottom: 30px;
@@ -60,9 +59,21 @@ select.gender-select {
   .wlc-modal-btn {
     width: 168px;
   }
+  a.booking-btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: inherit;
+  }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .timeline-icon.line:before {
     width: 182px;
+  }
+}
+@media (max-width: 575px) {
+  a.booking-btn {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: inherit;
   }
 }

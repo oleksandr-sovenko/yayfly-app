@@ -34,6 +34,7 @@ const CardButton = styled(Box)(({ theme }) => ({
   border: "2px solid rgb(72, 96, 255);",
   width: "210px",
   // height: "35px",
+  fontFamily: '"Public Sans", sans-serif',
   lineHeight: "35px",
   textAlign: "center",
   cursor: "pointer",
@@ -504,15 +505,11 @@ const PersonApplyCard = () => {
       <Box
         sx={{
           paddingBottom: "20px",
-          "& a": {
-            marginLeft: { md: "auto", xd: "inherit" },
-            maxWidth: "100% !important",
-            width: "100% !important",
-          },
         }}
       >
         <Link
           to="/confirm-booking"
+          className="booking-btn"
           style={{
             display: "flex",
             alignItems: "center",

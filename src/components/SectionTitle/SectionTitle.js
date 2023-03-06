@@ -6,6 +6,7 @@ const SectionTitle = ({ title }) => {
     <div>
       <Typography
         sx={{
+          fontFamily: "'Public Sans', sans-serif",
           fontSize: "24px",
           lineHeight: "28px",
           paddingLeft: "0px",
