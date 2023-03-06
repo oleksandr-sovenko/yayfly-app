@@ -1,5 +1,5 @@
 import { Box, Checkbox, Slider, Typography, styled } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 const FilterTitle = styled(Box)(({ theme }) => ({
   fontSize: "14px",
@@ -30,7 +30,7 @@ function valuetext(value) {
 }
 
 const Sidebar = () => {
-  const [value, setValue] = React.useState([20, 37]);
+  const [value, setValue] = useState([0, 90]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -95,8 +95,57 @@ const Sidebar = () => {
                 0.00 - 24:00
               </Typography>
 
+              <Box className="filter-slider">
+                <Box sx={{ width: "100%", marginTop: "14px" }}>
+                  <Slider
+                    getAriaLabel={() => "Temperature range"}
+                    value={value}
+                    onChange={handleChange}
+                    valueLabelDisplay="auto"
+                    getAriaValueText={valuetext}
+                    sx={{
+                      color: "rgba(0,0,0,.85)",
+                      boxSizing: "border-box",
+                      color: "rgba(0, 0, 0, 0.85)",
+                      fontSize: "14px",
+                      fontVariant: "tabular-nums",
+                      lineHeight: 1.5715,
+                      listStyle: "none",
+                      // fonteature-settings: '"tnum","tnum",'
+                      position: "relative",
+                      height: "4px",
+                      margin: "10px 6px",
+                      padding: "4px 0",
+                      cursor: "pointer",
+                      touchAction: "none",
+                    }}
+                  />
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+          <Box className="filter-term">
+            <Box sx={{}}>
+              <Typography
+                sx={{
+                  color: "rgba(7, 14, 57, 0.75)",
+                  fontSize: "12px",
+                  fontWeight: 600,
+                  marginBottom: "0.5em",
+                }}
+              >
+                Return
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  color: "rgba(7, 14, 57, 0.5)",
+                }}
+              >
+                0.00 - 24:00
+              </Typography>
 
-              <Box sx={{ width: 300 }}>
+              <Box sx={{ width: "100%", marginTop: "14px" }}>
                 <Slider
                   getAriaLabel={() => "Temperature range"}
                   value={value}
