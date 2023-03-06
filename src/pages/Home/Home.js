@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import CtaCard from "../../components/CtaCard";
 import PopupModal from "../../components/Modal/WlcModal";
@@ -12,16 +12,19 @@ const Home = () => {
     <div>
       <PopupModal></PopupModal>
       <TopSeachForm></TopSeachForm>
-      <Grid container spacing={2} className="container">
-        <Grid item xs={3} sx={{ background: "#ddd" }}>
-          <Sidebar />
-        </Grid>
-        <Grid item xs={9}>
-          <CtaCard></CtaCard>
-          <ProgressBar></ProgressBar>
-          <SearchPriceResults></SearchPriceResults>
-        </Grid>
-      </Grid>
+      <Box className="container">
+        <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={3}>
+          <Box gridColumn="span 3" sx={{ background: "#ddd" }}>
+            <Sidebar />
+          </Box>
+          <Box gridColumn="span 9">
+            <CtaCard></CtaCard>
+            <ProgressBar></ProgressBar>
+            <SearchPriceResults></SearchPriceResults>
+          </Box>
+        </Box>
+      </Box>
+
     </div>
   );
 };
