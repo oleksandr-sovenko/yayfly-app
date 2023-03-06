@@ -15,7 +15,7 @@ const MobilePaymentCta = () => {
             padding: "26px 14px 22px",
             fontFamily: "Jaldi",
             marginBottom: "20px",
-            marginTop: "6px",
+            marginTop: { md: "6px", xs: "0px" },
           }}
         >
           <Box
@@ -66,7 +66,7 @@ const MobilePaymentCta = () => {
             <Typography
               sx={{ color: "#fff", fontSize: "18px", marginBottom: "7px" }}
             >
-              Call now{" "}3
+              Call now 3
               <Typography component="span">to secure the best fare</Typography>{" "}
             </Typography>
             <a

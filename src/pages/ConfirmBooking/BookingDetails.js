@@ -24,8 +24,20 @@ const BookingDetails = () => {
           <Box>
             <PageTitle title="Confirm your booking" />
             <PaymentTimeLine />
-            <SectionTitle title="Your flight" />
+            <SectionTitle title="Your flight details" />
             <ConformSearchResult />
+
+            <Box
+              sx={{
+                display: { xs: "block", md: "none" },
+                paddingBottom: "10px",
+              }}
+            >
+              <PageTitle title="Price details" />
+              <PriceDetails />
+              <MobilePaymentCta />
+            </Box>
+
             <PassengerCard />
             <PersonApplyCard />
             <PaymentCta />

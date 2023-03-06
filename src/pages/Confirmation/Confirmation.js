@@ -23,17 +23,28 @@ const Confirmation = () => {
           <Box>
             <PageTitle title="Confirm your booking" />
             <PaymentTimeLine />
-            <SectionTitle title="Your flight" />
+            <SectionTitle title="Your flight Details" />
             <ConformSearchResult />
+            <Box
+              sx={{
+                display: { xs: "block", md: "none" },
+                marginBottom: { xs: "20px", md: "0px" },
+              }}
+            >
+              <PageTitle title="Price details" />
+              <PriceDetails />
+            </Box>
             <CheckDetails />
-            <PaymentCta />
+            <Box sx={{ display: { md: "block", xs: "none" } }}>
+              <PaymentCta />
+            </Box>
           </Box>
           <Box>
-            <PageTitle title="Price details" />
-            <Box>
+            <Box sx={{ display: { md: "block", xs: "none" } }}>
+              <PageTitle title="Price details" />
               <PriceDetails />
-              <MobilePaymentCta/>
             </Box>
+            <MobilePaymentCta />
           </Box>
         </Box>
       </div>

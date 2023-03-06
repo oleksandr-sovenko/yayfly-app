@@ -9,7 +9,7 @@ import {
   Grid,
   InputLabel,
   styled,
-  Typography
+  Typography,
 } from "@mui/material";
 import React from "react";
 import { IoIosAirplane } from "react-icons/io";
@@ -20,9 +20,10 @@ import ticketService from "../../assets/confirm-booking/ticket-service-img.svg";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 const CardWrap = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
+  fontFamily: '"Public Sans", sans-serif',
   boxShadow: "rgb(101 101 101 / 5%) 4px 4px 12px",
   borderRadius: "5px",
-  padding: "35px",
+  // padding: "35px",
   marginBottom: "30px",
   color: "rgb(0, 3, 23)",
 }));
@@ -45,7 +46,11 @@ const PersonApplyCard = () => {
   return (
     <Box className="person-card">
       <SectionTitle title="Person Paying" />
-      <CardWrap>
+      <CardWrap
+        sx={{
+          padding: { md: "35px", xs: "20px" },
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -57,7 +62,7 @@ const PersonApplyCard = () => {
             sx={{
               width: "30px",
               height: "30px",
-              marginRight: "22px",
+              marginRight: { md: "22px", xs: "16px" },
             }}
           />
           <Typography
@@ -138,7 +143,11 @@ const PersonApplyCard = () => {
           </Grid>
         </Grid>
       </CardWrap>
-      <CardWrap>
+      <CardWrap
+        sx={{
+          padding: { md: "35px", xs: "20px" },
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -289,7 +298,11 @@ const PersonApplyCard = () => {
           </Box>
         </Box>
       </CardWrap>
-      <CardWrap>
+      <CardWrap
+        sx={{
+          padding: { md: "35px", xs: "20px" },
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -418,7 +431,11 @@ const PersonApplyCard = () => {
           </Box>
         </Box>
       </CardWrap>
-      <CardWrap>
+      <CardWrap
+        sx={{
+          padding: { md: "35px", xs: "20px" },
+        }}
+      >
         <Typography sx={{ fontSize: "13px", marginBottom: "6px" }}>
           Do you have a discount code?
         </Typography>
@@ -451,7 +468,11 @@ const PersonApplyCard = () => {
           </Box>
         </form>
       </CardWrap>
-      <CardWrap>
+      <CardWrap
+        sx={{
+          padding: { md: "35px", xs: "20px" },
+        }}
+      >
         <Box
           sx={{
             display: "flex",
@@ -480,7 +501,16 @@ const PersonApplyCard = () => {
           />
         </Box>
       </CardWrap>
-      <Box sx={{ paddingBottom: "20px" }}>
+      <Box
+        sx={{
+          paddingBottom: "20px",
+          "& a": {
+            marginLeft: { md: "auto", xd: "inherit" },
+            maxWidth: "100% !important",
+            width: "100% !important",
+          },
+        }}
+      >
         <Link
           to="/confirm-booking"
           style={{

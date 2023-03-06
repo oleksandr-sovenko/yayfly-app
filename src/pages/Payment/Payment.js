@@ -25,15 +25,25 @@ const Payment = () => {
             <PaymentTimeLine sx={{ display: { xs: "none", md: "block" } }} />
             <SectionTitle title="Your flight" />
             <ConformSearchResult />
+            <Box
+              sx={{
+                display: { xs: "block", md: "none" },
+              }}
+            >
+              <PageTitle title="Price details" />
+              <PriceDetails />
+            </Box>
             <PaymentCard />
-            <PaymentCta />
+            <Box sx={{ display: { md: "block", xs: "none" } }}>
+              <PaymentCta />
+            </Box>
           </Box>
           <Box>
-            <PageTitle title="Price details" />
-            <Box>
+            <Box sx={{ display: { md: "block", xs: "none" } }}>
+              <PageTitle title="Price details" />
               <PriceDetails />
-              <MobilePaymentCta/>
             </Box>
+            <MobilePaymentCta />
           </Box>
         </Box>
       </div>

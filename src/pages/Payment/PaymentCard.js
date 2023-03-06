@@ -7,9 +7,7 @@ import { Link } from "react-router-dom";
 import paymentImg from "../../assets/confirm-booking/payment.png";
 const CardWrap = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
-  boxShadow: "rgb(101 101 101 / 5%) 4px 4px 12px",
   borderRadius: "5px",
-
   marginBottom: "30px",
   color: "rgb(0, 3, 23)",
 }));
@@ -17,13 +15,26 @@ const CardWrap = styled(Box)(({ theme }) => ({
 const PaymentCard = () => {
   return (
     <div>
-      <CardWrap sx={{
-        //  padding: { md: "40px 20px", xs: "40px 10px" } 
-         }}>
-        <Box display="grid" gridTemplateColumns="repeat(13, 1fr)" gap={2}>
+      <CardWrap
+        sx={{
+          //  padding: { md: "40px 20px", xs: "40px 10px" }
+          marginTop: { md: "40px", xs: "20px" },
+          boxShadow: { md: "rgb(101 101 101 / 5%) 4px 4px 12px", xs: "none" },
+        }}
+      >
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(12, 1fr)"
+          gap={2}
+          sx={{
+            gridAutoFlow: "dense",
+          }}
+        >
           <Box
             sx={{
-              gridColumn: { md: "span 8", xs: "span 13" },
+              order: { md: "inherit", xs: 2 },
+              gridColumn: { md: "span 7", xs: "span 12" },
+              padding: { md: "40px 0px 0px 35px", xs: "20px 15px 0px" },
             }}
           >
             <Box
@@ -58,7 +69,7 @@ const PaymentCard = () => {
                   justifyContent: "space-between",
                   height: "52px",
                   "& input": {
-                    width: "50%",
+                    width: "100%",
                     border: "0px",
                   },
                   "& img": {
@@ -130,15 +141,19 @@ const PaymentCard = () => {
           </Box>
           <Box
             sx={{
-              gridColumn: { md: "span 5", xs: "span 13" },
-              background:"#E1F6F1",
-              padding: { md: "40px 20px", xs: "40px 10px" } 
+              gridColumn: { md: "span 5", xs: "span 12" },
+              background: { md: "none", xs: "#F2F3F7" },
+              padding: { md: "40px 35px 0px 0px", xs: "0px" },
+              marginBottom: { xs: "20px", md: "0px" },
             }}
           >
             <Box
               sx={{
                 width: "100%",
-                marginTop: { xs: "25px", sm: "0px" },
+                // marginTop: { xs: "25px", sm: "0px" },
+                background: { xs: "#E1F6F1", md: "none" },
+                padding: { xs: "40px 15px 40px", md: "0px" },
+                marginBottom: { xs: "20px", md: "0px" },
               }}
             >
               <Box
@@ -230,58 +245,66 @@ const PaymentCard = () => {
         </Box>
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
             marginTop: "20px",
-            "& > span": {
-              padding: "0px",
-            },
+            marginBottom: "5px",
+            padding: { md: "0 35px 35px", xs: "0px 15px 40px" },
           }}
         >
-          <Checkbox
-            width="14px"
-            height="14px"
-            name="saveAddress"
-            value="yes"
-            // color="rgb(209, 212, 227)"
-          />
-          <Typography
+          <Box
             sx={{
-              color: "#12172A",
-              marginLeft: "10px",
-              "& a": {
-                color: "#1B40A6",
-                textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              margin: "20px 0",
+              "& > span": {
+                padding: "0px",
               },
             }}
           >
-            I accept Yay <Link>Fly’s terms & conditions.</Link>
-          </Typography>
-        </Box>
-        <Box sx={{ marginTop: "20px", marginBottom: "5px" }}>
-          <Link
-            to="/payment"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "15px",
-              width: "100%",
-              maxWidth: "345px",
-              fontSize: "20px",
-              height: "52px",
-              boxShadow: "none",
-              background: "#12172A",
-              textAlign: "center",
-              lineHeight: "52px",
-              textDecoration: "none",
-              color: "#fff",
-              borderRadius: "5px",
-              fontWeight: 500,
-            }}
-          >
-            Pay $194.64
-          </Link>
+            <Checkbox
+              width="14px"
+              height="14px"
+              name="saveAddress"
+              value="yes"
+              // color="rgb(209, 212, 227)"
+            />
+            <Typography
+              sx={{
+                color: "#12172A",
+                marginLeft: "10px",
+                "& a": {
+                  color: "#1B40A6",
+                  textDecoration: "none",
+                },
+              }}
+            >
+              I accept Yay <Link>Fly’s terms & conditions.</Link>
+            </Typography>
+          </Box>
+          <Box>
+            <Link
+              to="/payment"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "15px",
+                width: "100%",
+                maxWidth: "355px",
+                fontSize: "20px",
+                height: "52px",
+                boxShadow: "none",
+                background: "#12172A",
+                textAlign: "center",
+                lineHeight: "52px",
+                textDecoration: "none",
+                color: "#fff",
+                borderRadius: "5px",
+                fontWeight: 500,
+              }}
+            >
+              Pay $194.64
+            </Link>
+          </Box>
         </Box>
       </CardWrap>
     </div>

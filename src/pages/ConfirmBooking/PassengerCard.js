@@ -8,9 +8,9 @@ import { GiSchoolBag } from "react-icons/gi";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 const CardWrap = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
+  fontFamily: '"Public Sans", sans-serif',
   boxShadow: "rgb(101 101 101 / 5%) 4px 4px 12px",
   borderRadius: "5px",
-  padding: "35px",
   marginBottom: "30px",
   color: "rgb(0, 3, 23)",
 }));
@@ -19,11 +19,16 @@ const PassengerCard = () => {
   return (
     <Box className="passenger-card">
       <SectionTitle title="Passengers" />
-      <CardWrap>
+      <CardWrap
+        sx={{
+          padding: { md: "35px", xs: "20px" },
+        }}
+      >
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
+
             paddingBottom: "25px",
           }}
         >
@@ -31,7 +36,7 @@ const PassengerCard = () => {
             sx={{
               width: "30px",
               height: "30px",
-              marginRight: "22px",
+              marginRight: { md: "22px", xs: "16px" },
             }}
           />
           <Box>
@@ -286,7 +291,6 @@ const PassengerCard = () => {
                     height="14px"
                     name="saveAddress"
                     value="yes"
-                    
                   />
                 </Grid>
               </Grid>
