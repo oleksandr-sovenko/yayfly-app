@@ -39,7 +39,7 @@ const WlcModal = () => {
       <Dialog open={open} onClose={handleClose} fullWidth={fullWidth}
         maxWidth={maxWidth} sx={{
           "& .css-cyxlny-MuiPaper-root-MuiDialog-paper": {
-            backgroundColor:"#1A2E4A"
+            backgroundColor:"#1A2E4A !important"
           }
         }}>
         <Box
