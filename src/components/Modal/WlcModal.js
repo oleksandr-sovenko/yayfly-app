@@ -19,7 +19,7 @@ const WlcModal = () => {
   const [maxWidth, setMaxWidth] = React.useState("lg");
   useEffect(() => {
     const timer = setTimeout(() => {
-      setOpen(true);
+      setOpen(!true);
     }, 300);
     return () => clearTimeout(timer);
   }, []);
