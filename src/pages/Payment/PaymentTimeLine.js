@@ -24,19 +24,19 @@ const PaymentTimeLine = () => {
       <TimeLineCard>
         <TimeLineItem>
           <Box>
-            <Typography className="timeline-icon line" sx={{}}>
+            <Typography className="timeline-icon line active" sx={{}}>
               <Typography
                 sx={{
                   position: "relative",
                   fontSize: "16px",
-                  background: "#12172A",
+                  background: "#eef1f8",
                   width: "25px",
                   height: "25px",
-                  color: "#fff",
+                  color: "#192C47",
                   fontWeight: 700,
-                  padding: "2px",
                   borderRadius: "50%",
                   margin: "0 auto",
+                  lineHeight:"25px"
                 }}
               >
                 1
@@ -60,18 +60,18 @@ const PaymentTimeLine = () => {
         </TimeLineItem>
         <TimeLineItem>
           <Box>
-            <Typography className="timeline-icon line" sx={{}}>
+            <Typography className="timeline-icon line active" sx={{}}>
               <Typography
                 sx={{
                   position: "relative",
                   fontSize: "16px",
-                  background: "#12172A",
+                  background: "#eef1f8",
                   width: "25px",
                   height: "25px",
-                  color: "#fff",
+                  color: "#192C47",
                   fontWeight: 700,
-                  padding: "2px",
                   borderRadius: "50%",
+                  lineHeight:"25px"
                 }}
               >
                 2
@@ -99,12 +99,12 @@ const PaymentTimeLine = () => {
                 sx={{
                   position: "relative",
                   fontSize: "16px",
-                  background: "#12172A",
+                  background: "#eef1f8",
                   width: "25px",
                   height: "25px",
-                  color: "#fff",
+                  color: "#192C47",
                   fontWeight: 700,
-                  padding: "2px",
+                  lineHeight:"25px",
                   borderRadius: "50%",
                 }}
               >
@@ -140,13 +140,13 @@ const PaymentTimeLine = () => {
                 sx={{
                   position: "relative",
                   fontSize: "16px",
-                  background: "#12172A",
+                  background: "#eef1f8",
                   width: "25px",
                   height: "25px",
                   lineHeight: "25px",
-                  color: "#fff",
+                  color: "#192C47",
                   fontWeight: 700,
-                  padding: "2px",
+                  lineHeight:"25px",
                   borderRadius: "50%",
                   margin: "0 auto",
                 }}
