@@ -639,6 +639,7 @@ span.info-btn svg {
   .cta-top a {
     font-size: 20px;
   }
+  .top-search{display: none;}
 }
 
 @media (max-width: 575px) {
@@ -700,13 +701,14 @@ span.info-btn svg {
     grid-column: span 12;
   }
   .cta-top p.online {
-    font-size: 16px;
+    font-size: 15px;
     grid-column: span 6;
   }
   .cta-top a {
     font-size: 22px;
     grid-column: span 6;
   }
+  .top-search{display: none;}
   .search-filter {
     padding: 7px 14px 7px 14px;
   }
