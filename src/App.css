@@ -45,6 +45,14 @@ select.gender-select {
   background: #1a2e4a !important;
 }
 
+
+/*sidebar*/
+.sidebar-inner-wrap .sidebar-filter:not(:last-child) {
+  margin-bottom: 30px;
+  border-bottom: 1px solid rgba(225, 227, 238, 0.8);
+  padding-bottom: 25px;
+}
+
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .timeline-icon.line:before {
     width: 182px;

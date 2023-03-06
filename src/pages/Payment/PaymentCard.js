@@ -20,10 +20,10 @@ const PaymentCard = () => {
       <CardWrap sx={{
         //  padding: { md: "40px 20px", xs: "40px 10px" } 
          }}>
-        <Box display="grid" gridTemplateColumns="repeat(13, 1fr)" gap={2}>
+        <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2}>
           <Box
             sx={{
-              gridColumn: { md: "span 8", xs: "span 13" },
+              gridColumn: { md: "span 7", xs: "span 12" },
             }}
           >
             <Box
@@ -130,7 +130,7 @@ const PaymentCard = () => {
           </Box>
           <Box
             sx={{
-              gridColumn: { md: "span 5", xs: "span 13" },
+              gridColumn: { md: "span 5", xs: "span 12" },
               background:"#E1F6F1",
               padding: { md: "40px 20px", xs: "40px 10px" } 
             }}
