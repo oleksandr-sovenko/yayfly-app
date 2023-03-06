@@ -34,18 +34,12 @@ const WlcModal = () => {
         marginTop: "20px",
       }}
     >
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        fullWidth={fullWidth}
-        maxWidth={maxWidth}
-        className="wlc-modal-content"
-        // sx={{
-        //   "& .css-cyxlny-MuiPaper-root-MuiDialog-paper": {
-        //     backgroundColor: "#1A2E4A !important",
-        //   },
-        // }}
-      >
+      <Dialog open={open} onClose={handleClose} fullWidth={fullWidth}
+        maxWidth={maxWidth} sx={{
+          "& .css-cyxlny-MuiPaper-root-MuiDialog-paper": {
+            backgroundColor:"#1A2E4A !important"
+          }
+        }}>
         <Box
           className="container"
           sx={{
