@@ -47,28 +47,43 @@ const MobilePaymentCta = () => {
               alignItems: "center",
             }}
           >
-            <Grid item xs={8} sm={8}>
+            <Grid item xs={7} sm={7}>
               <Typography
                 sx={{
                   color: "#fff",
                   fontFamily: "Jaldi",
-                  fontSize: "16px",
+                  fontSize: "18px",
+                  fontWeight: 500,
                   marginRight: "12px",
                 }}
               >
                 Our search results detected an unpublished deal for your flight.
               </Typography>
             </Grid>
-            <Grid item xs={4} sm={4} sx={{ textAlign: "end" }}>
+            <Grid
+              item
+              xs={5}
+              sm={5}
+              sx={{
+                textAlign: "end",
+              }}
+            >
               <img src={ctaCartoon} alt="" srcset="" />
             </Grid>
           </Grid>
-          <Box sx={{ textAlign: "center", marginRight: "20px" }}>
+          <Box
+            sx={{
+              // textAlign: "center",
+              // marginRight: "20px",
+            }}
+          >
             <Typography
               sx={{ color: "#fff", fontSize: "18px", marginBottom: "7px" }}
             >
-              Call now 3
-              <Typography component="span">to secure the best fare</Typography>{" "}
+              Call now
+              <Typography component="span">
+                to secure the best fare
+              </Typography>{" "}
             </Typography>
             <a
               href="tel:8882112111"

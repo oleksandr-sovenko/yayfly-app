@@ -32,7 +32,7 @@ code {
 .container {
   width: 100%;
   margin: 0 auto;
-  max-width: 1170px;
+  max-width: 1120px;
   padding: 0 15px;
 }
 .grid {
@@ -135,7 +135,10 @@ code {
   margin-top: 50px;
   padding: 10px 0;
 }
-.footer .header-right a:hover{background: #fff;color: #12172a;}
+.footer .header-right a:hover {
+  background: #fff;
+  color: #12172a;
+}
 
 /**/
 
@@ -615,17 +618,27 @@ span.info-btn svg {
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
-  .cta-top p {font-size: 18px;}
-  .cta-top p.online {font-size: 14px;}
-  .cta-top a {font-size: 26px;}
-  .search-result-card-grid .flight-price-wrap {padding: 20px 16px;}
+  .cta-top p {
+    font-size: 18px;
+  }
+  .cta-top p.online {
+    font-size: 14px;
+  }
+  .cta-top a {
+    font-size: 26px;
+  }
+  .search-result-card-grid .flight-price-wrap {
+    padding: 20px 16px;
+  }
 }
 
-
 @media only screen and (min-width: 768px) and (max-width: 991px) {
-  .header-right div p {font-size: 18px;}
-  .header-right a { padding: 5px 20px;}
-  
+  .header-right div p {
+    font-size: 18px;
+  }
+  .header-right a {
+    padding: 5px 20px;
+  }
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
@@ -641,11 +654,14 @@ span.info-btn svg {
   .cta-top a {
     font-size: 20px;
   }
-  .top-search{display: none;}
+  .top-search {
+    display: none;
+  }
 }
 
 @media (max-width: 575px) {
-  .header .grid.grid-column, .footer .grid.grid-column {
+  .header .grid.grid-column,
+  .footer .grid.grid-column {
     display: block;
   }
   .logo {
@@ -710,7 +726,9 @@ span.info-btn svg {
     font-size: 22px;
     grid-column: span 6;
   }
-  .top-search{display: none;}
+  .top-search {
+    display: none;
+  }
   .search-filter {
     padding: 7px 14px 7px 14px;
   }
