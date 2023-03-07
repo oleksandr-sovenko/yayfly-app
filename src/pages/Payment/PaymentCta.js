@@ -24,20 +24,21 @@ const PaymentCta = () => {
               background: "#12172A",
               display: "flex",
               alignItems: "center",
-              padding: "6px  18px",
+              padding: "6px  15px",
               borderRadius: "37px",
               "& p": {
                 color: "#fff",
                 fontFamily: "Jaldi",
                 fontSize: "16px",
-                marginLeft: "10px",
+                marginLeft: "6px",
+                fontWeight:600,
               },
             }}
           >
             <img src={ctaDiamond} alt="" srcset="" />
             <Typography>EXCLUSIVE, UNPUBLISHED DEAL DETECTED</Typography>
           </Box>
-          <Typography sx={{ color: "#fff", fontSize: "20px" }}>
+          <Typography sx={{ color: "#fff", fontSize: "20px",fontWeight:600 }}>
             Our search results detected an unpublished deal for your flight.{" "}
           </Typography>
         </Grid>
@@ -45,7 +46,7 @@ const PaymentCta = () => {
           <Grid container sx={{ placeItems: "center", alignItems: "center" }}>
             <Grid item xs={9} sm={9} sx={{ textAlign: "center" }}>
               <Typography
-                sx={{ color: "#fff", fontSize: "18px", marginBottom: "15px" }}
+                sx={{ color: "#fff", fontSize: "16px", marginBottom: "15px",fontWeight:700 }}
               >
                 Call now{" "}
                 <Typography component="span">
@@ -91,10 +92,10 @@ const PaymentCta = () => {
                 >
                   <FaPhoneAlt />
                 </Typography>
-                <Typography component="span">(888) 211.2111</Typography>
+                <Typography component="span" sx={{fontWeight: 700}}>(888) 211.2111</Typography>
               </a>
               <Typography
-                sx={{ fontSize: "14px", color: "#fff", marginTop: "5px" }}
+                sx={{ fontSize: "14px", color: "#fff", marginTop: "5px",fontWeight:500 }}
               >
                 24/7 SUPPORT | NO HOLD TIME
               </Typography>

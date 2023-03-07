@@ -36,7 +36,7 @@ const MobilePaymentCta = () => {
               "& p": {
                 color: "#fff",
                 fontFamily: "Jaldi",
-                fontSize: {md:"12px", xs:"15px"},
+                fontSize: {md:"15px", xs:"15px"},
                 fontWeight: 600,
                 marginLeft: {md:"10px", xs:"36px"},
               },
@@ -72,7 +72,7 @@ const MobilePaymentCta = () => {
                 sx={{
                   color: "#fff",
                   fontFamily: "'Jaldi', sans-serif",
-                  fontSize: {md:"16px",xs:"17px"},
+                  fontSize: {md:"18px",xs:"17px"},
                   fontWeight: 600,
                 }}
               >

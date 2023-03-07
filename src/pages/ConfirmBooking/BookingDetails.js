@@ -14,7 +14,7 @@ import PersonApplyCard from "./PersonApplyCard";
 const BookingDetails = () => {
   return (
     <div className="booking-pages">
-      <div className="container">
+      <Box className="container" sx={{padding:{md:"0 15px", xs:"0px"}}}>
         <Box
           sx={{
             fontFamily: "'Public Sans', sans-serif",
@@ -59,7 +59,7 @@ const BookingDetails = () => {
             <MobilePaymentCta />
           </Box>
         </Box>
-      </div>
+      </Box>
     </div>
   );
 };
