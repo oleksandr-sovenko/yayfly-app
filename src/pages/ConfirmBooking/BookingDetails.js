@@ -20,6 +20,9 @@ const BookingDetails = () => {
           sx={{
             gap: { md: "50px", xs: "30px" },
             fontFamily: "'Public Sans', sans-serif",
+            // display: { xs: "block", md: "grid" },
+            // gridTemplateColumns: "2fr 1fr",
+            gap: {md:"50px", sx:"30px"},
           }}
         >
           <Box

@@ -25,36 +25,55 @@ const MobilePaymentCta = () => {
               background: "#12172A",
               display: "flex",
               alignItems: "center",
-              padding: "6px  18px",
+              padding: "6px  15px",
               borderRadius: "37px",
               textAlign: "center",
               justifyContent: "center",
+              position:{
+                md:"static",
+                xs:"relative"
+              },
               "& p": {
                 color: "#fff",
                 fontFamily: "Jaldi",
-                fontSize: "12px",
-                marginLeft: "10px",
+                fontSize: {md:"12px", xs:"15px"},
+                fontWeight: 600,
+                marginLeft: {md:"10px", xs:"36px"},
               },
             }}
           >
-            <img src={ctaDiamond} alt="" srcset="" />
+            <Typography 
+            component="span"
+            sx={{
+              position:{md:"inherit", xs:"absolute"},
+              left:"0px",
+              top:"50%",
+              borderRadius:"50%",
+              height:{md:"inherit", xs:"50px"},
+              width:{md:"inherit", xs:"50px"},
+              backgroundColor:{md:"transparent", xs:"#12172A"},
+              marginTop:{md:"initial", xs:"-25px"},
+              lineHeight:{md:"inherit", xs:"55px"}
+            }}
+            >
+              <img src={ctaDiamond} alt="" srcset="" />
+            </Typography>
             <Typography>EXCLUSIVE, UNPUBLISHED DEAL DETECTED</Typography>
           </Box>
           <Grid
             container
             sx={{
               placeItems: "center",
-              alignItems: "center",
+              alignItems: {md:"center", xs:"flex-start"},
             }}
           >
-            <Grid item xs={7} sm={7}>
+            <Grid item xs={8} sm={7}>
               <Typography
                 sx={{
                   color: "#fff",
                   fontFamily: "'Jaldi', sans-serif",
-                  fontSize: "17px",
+                  fontSize: {md:"16px",xs:"17px"},
                   fontWeight: 600,
-                  marginRight: "12px",
                 }}
               >
                 Our search results detected an unpublished deal for your flight.
@@ -62,10 +81,13 @@ const MobilePaymentCta = () => {
             </Grid>
             <Grid
               item
-              xs={5}
+              xs={4}
               sm={5}
               sx={{
                 textAlign: "end",
+                "& img":{
+                  height:{md:"", xs:"88px"},
+                }
               }}
             >
               <img src={ctaCartoon} alt="" srcset="" />
@@ -75,15 +97,18 @@ const MobilePaymentCta = () => {
             sx={
               {
                 // textAlign: "center",
-                // marginRight: "20px",
+                 marginTop: {md:"0px", xs:"-20px"},
+                 "& a":{
+                  borderRadius: {md:"50px", xs:"0px"},
+                 }
               }
             }
           >
             <Typography
-              sx={{ color: "#fff", fontSize: "18px", marginBottom: "7px" }}
+              sx={{ color: "#fff", fontSize: {md:"16px", xs:"17px"}, marginBottom: "7px", fontWeight: 600, }}
             >
-              Call now
-              <Typography component="span">
+              Call now&nbsp; 
+              <Typography component="span" sx={{fontSize: {md:"16px", xs:"17px"}}}>
                 to secure the best fare
               </Typography>{" "}
             </Typography>
@@ -98,7 +123,6 @@ const MobilePaymentCta = () => {
                 fontSize: "22px",
                 color: "#fff",
                 textDecoration: "none",
-                borderRadius: "50px",
                 fontFamily: "Jaldi",
                 fontWeight: 700,
                 boxSizing: "border-box",
@@ -127,14 +151,17 @@ const MobilePaymentCta = () => {
               >
                 <FaPhoneAlt />
               </Typography>
-              <Typography component="span">(888) 211.2111</Typography>
+              <Typography component="span" sx={{fontWeight: 700, fontSize: "18px",}}>(888) 211.2111</Typography>
             </a>
             <Typography
               sx={{
-                fontSize: "13px",
+                fontSize: "14px",
                 color: "#fff",
                 marginTop: "5px",
-                marginLeft: "15px",
+                textAlign: "center",
+                fontWeight: 600,
+                fontFamily: "'Jaldi', sans-serif",
+                width: {md:"100%", xs:"216px"},
               }}
             >
               24/7 SUPPORT | NO HOLD TIME

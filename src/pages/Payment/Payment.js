@@ -4,6 +4,7 @@ import ConformSearchResult from "../../components/ConformSearchResult";
 import PageTitle from "../../components/SectionTitle/PageTitle";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import MobilePaymentCta from "./MobilePaymentCta";
+import MobileTimeLine from "./MobileTimeLine";
 import PaymentCard from "./PaymentCard";
 import PaymentCta from "./PaymentCta";
 import PaymentTimeLine from "./PaymentTimeLine";
@@ -23,7 +24,12 @@ const Payment = () => {
         >
           <Box>
             <PageTitle title="Confirm Your Booking" />
-            <PaymentTimeLine sx={{ display: { xs: "none", md: "block" } }} />
+            <Box sx={{ display: { xs: "none", md: "block" } }}>
+              <PaymentTimeLine />
+            </Box>
+            <Box sx={{ display: { xs: "block", md: "none" } }}>
+              <MobileTimeLine />
+            </Box>
             <SectionTitle title="Your flight" />
             <ConformSearchResult />
             <Box
