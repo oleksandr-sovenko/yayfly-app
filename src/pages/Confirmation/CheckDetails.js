@@ -149,7 +149,7 @@ const CheckDetails = () => {
           </Link>
           {/* </Button> */}
           <Link
-            to="/payment"
+            to="/confirm-booking"
             style={{
               display: "flex",
               alignItems: "center",

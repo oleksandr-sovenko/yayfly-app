@@ -282,7 +282,7 @@ const PaymentCard = () => {
           </Box>
           <Box>
             <Link
-              to="/payment"
+              to="/confirm-booking"
               style={{
                 display: "flex",
                 alignItems: "center",

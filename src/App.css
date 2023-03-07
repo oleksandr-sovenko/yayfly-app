@@ -51,7 +51,8 @@ select.gender-select {
   border-bottom: 1px solid rgba(225, 227, 238, 0.8);
   padding-bottom: 25px;
 }
-.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation24.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthSm.css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+
+.MuiDialog-root.mobile-modal-filter .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
   width: 100%;
   margin: 0;
   background: rgb(238, 239, 245);

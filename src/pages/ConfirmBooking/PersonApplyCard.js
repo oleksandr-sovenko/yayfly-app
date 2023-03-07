@@ -508,7 +508,7 @@ const PersonApplyCard = () => {
         }}
       >
         <Link
-          to="/confirm-booking"
+          to="/payment"
           className="booking-btn"
           style={{
             display: "flex",
