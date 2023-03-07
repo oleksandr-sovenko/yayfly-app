@@ -32,21 +32,8 @@ code {
 .container {
   width: 100%;
   margin: 0 auto;
-  max-width: 1140px;
-  padding: 0 15px;
-}
-.grid {
-  display: grid;
-}
-.grid-column {
-  grid-template-columns: 1fr 3fr;
-}
-.container {
-  width: 100%;
-  margin: 0 auto !important;
   max-width: 1170px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 0 15px;
 }
 .grid {
   display: grid;
@@ -145,15 +132,19 @@ code {
 }
 .footer {
   background: #e8f4f7;
+  margin-top: 50px;
+  padding: 10px 0;
 }
-.footer {
-  background: #e8f4f7;
-}
+.footer .header-right a:hover{background: #fff;color: #12172a;}
 
 /**/
 
 .top-search {
   padding: 30px 0;
+}
+.top-search .search-form {
+  border-bottom: 1px solid rgba(225, 227, 238, 0.6);
+  padding-bottom: 30px;
 }
 .dropdown-toggle {
   position: relative;
@@ -235,11 +226,10 @@ code {
 
 /**/
 .cta-top {
-  border-top: 1px solid rgba(225, 227, 238, 0.6);
-  padding: 20px 0;
+  padding: 0px 0px 20px;
   display: grid;
   gap: 8px;
-  grid-template-columns: 5fr 3fr 2fr;
+  grid-template-columns: 4fr 2fr 2fr;
 }
 
 .cta-top p {
@@ -256,7 +246,7 @@ code {
 
 .cta-top p.online {
   font-weight: 700;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .cta-top p.online span {
@@ -270,10 +260,12 @@ code {
 }
 
 .cta-top a {
-  font-size: 32px;
+  font-size: 27px;
   color: #12172a;
   text-decoration: none;
   font-weight: 700;
+  margin-top: 8px;
+  text-align: right;
 }
 
 /**/
@@ -365,6 +357,8 @@ code {
   display: grid;
   grid-template-columns: 3fr 3fr 3fr;
   gap: 1.2px;
+}
+.search-result-wrap .search-result-card-grid:not(:last-child) {
   margin-bottom: 30px;
 }
 .search-result-card-grid .flight-duration-time {
@@ -565,6 +559,7 @@ span.info-btn svg {
   line-height: 16px;
   color: #12172a;
   font-family: "Jaldi", sans-serif;
+  text-transform: uppercase;
 }
 .cta-info p svg {
   font-size: 25px;
@@ -620,9 +615,17 @@ span.info-btn svg {
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .cta-top p {font-size: 18px;}
+  .cta-top p.online {font-size: 14px;}
+  .cta-top a {font-size: 26px;}
+  .search-result-card-grid .flight-price-wrap {padding: 20px 16px;}
 }
 
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+  .header-right div p {font-size: 18px;}
+  .header-right a { padding: 5px 20px;}
+  
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
@@ -638,10 +641,11 @@ span.info-btn svg {
   .cta-top a {
     font-size: 20px;
   }
+  .top-search{display: none;}
 }
 
 @media (max-width: 575px) {
-  .header .grid.grid-column {
+  .header .grid.grid-column, .footer .grid.grid-column {
     display: block;
   }
   .logo {
@@ -699,13 +703,14 @@ span.info-btn svg {
     grid-column: span 12;
   }
   .cta-top p.online {
-    font-size: 16px;
+    font-size: 15px;
     grid-column: span 6;
   }
   .cta-top a {
     font-size: 22px;
     grid-column: span 6;
   }
+  .top-search{display: none;}
   .search-filter {
     padding: 7px 14px 7px 14px;
   }

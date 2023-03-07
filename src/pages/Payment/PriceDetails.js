@@ -5,6 +5,7 @@ const PriceDetails = () => {
   return (
     <Box
       sx={{
+        fontFamily: '"Public Sans", sans-serif',
         padding: "22px 26px",
         borderRadius: "5px",
         backgroundColor: "rgb(255, 255, 255)",

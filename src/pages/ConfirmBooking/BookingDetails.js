@@ -16,6 +16,7 @@ const BookingDetails = () => {
       <div className="container">
         <Box
           sx={{
+            fontFamily: "'Public Sans', sans-serif",
             display: { xs: "block", md: "grid" },
             gridTemplateColumns: "2fr 1fr",
             gap: "40px",
@@ -24,18 +25,38 @@ const BookingDetails = () => {
           <Box>
             <PageTitle title="Confirm your booking" />
             <PaymentTimeLine />
-            <SectionTitle title="Your flight" />
+            <SectionTitle title="Your flight details" />
             <ConformSearchResult />
-            <PassengerCard />
-            <PersonApplyCard />
-            <PaymentCta />
-          </Box>
-          <Box>
-            <PageTitle title="Price details" />
-            <Box>
+
+            <Box
+              sx={{
+                display: { xs: "block", md: "none" },
+                paddingBottom: "10px",
+              }}
+            >
+              <PageTitle title="Price details" />
               <PriceDetails />
               <MobilePaymentCta />
             </Box>
+
+            <PassengerCard />
+            <PersonApplyCard />
+            <Box sx={{ display: { md: "block", xs: "none" } }}>
+              <PaymentCta />
+            </Box>
+          </Box>
+          <Box>
+            {/* <PageTitle title="Price details" />
+            <Box>
+              <PriceDetails />
+              <MobilePaymentCta />
+            </Box> */}
+
+            <Box sx={{ display: { md: "block", xs: "none" } }}>
+              <PageTitle title="Price details" />
+              <PriceDetails />
+            </Box>
+            <MobilePaymentCta />
           </Box>
         </Box>
       </div>

@@ -12,14 +12,29 @@ import { BsBell } from "react-icons/bs";
 import { FaPhoneAlt } from "react-icons/fa";
 import guaranteImg from "../../assets/confirm-booking/guarnte.png";
 import modalCartoon from "../../assets/confirm-booking/modalCartoon.png";
+import ThankYouModal from "./ThankYouModal";
 // function WlcModal() {
 const WlcModal = () => {
   const [open, setOpen] = useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState("lg");
+  // Thank you modal
+  const [openThankModal, setThankModalOpen] = useState(false);
+  const handleClickThankModal = () => {
+    setThankModalOpen(true);
+  };
+  const handleThankModalClose = () => {
+    setThankModalOpen(false);
+  };
+
+  const handleCloseOpen = () => {
+    handleClose();
+    handleClickThankModal();
+  };
+
   useEffect(() => {
     const timer = setTimeout(() => {
-      setOpen(!true);
+      setOpen(true);
     }, 300);
     return () => clearTimeout(timer);
   }, []);
@@ -32,6 +47,7 @@ const WlcModal = () => {
     <Box
       sx={{
         marginTop: "20px",
+        fontFamily: "'Jaldi', sans-serif !important",
       }}
     >
       <Dialog
@@ -49,9 +65,8 @@ const WlcModal = () => {
             color: "#fff",
             fontFamily: "'Jaldi', sans-serif",
             height: "auto",
-            padding: "20px",
             borderRadius: "10px",
-            padding: { md: "60px 140px", xs: "30px" },
+            padding: { md: "60px 140px", xs: "25px" },
             position: "relative",
           }}
         >
@@ -72,12 +87,13 @@ const WlcModal = () => {
                 fontFamily: "Jaldi",
                 fontStyle: "normal",
                 fontWeight: 400,
-                fontSize: { xs: "28px", md: "34px" },
+                fontSize: { xs: "22px", md: "34px" },
                 lineHeight: "118.5%",
                 marginBottom: "20px",
                 "& br": {
                   display: { xs: "none", md: "block" },
                 },
+                paddingRight: "10px",
               }}
             >
               Based On Our Flight Search Robot AI, We Expect This <br /> Flight
@@ -88,11 +104,14 @@ const WlcModal = () => {
                   fontFamily: "Jaldi",
                   fontStyle: "normal",
                   fontWeight: 400,
-                  fontSize: { xs: "28px", md: "34px" },
+                  fontSize: { xs: "20px", md: "34px" },
                   lineHeight: "118.5%",
                   marginBottom: "20px",
                   textDecoration: "underline",
                   textDecorationColor: "#CD363A",
+                  "& br": {
+                    display: { xs: "none", md: "block" },
+                  },
                 }}
               >
                 Within The Next 3 to 14 minutes.
@@ -101,8 +120,11 @@ const WlcModal = () => {
             <Typography
               sx={{
                 fontFamily: "Jaldi",
-                fontSize: { md: "28px", xs: "24px" },
+                fontSize: { md: "28px", xs: "20px" },
                 lineHeight: "103.5%",
+                "& br": {
+                  display: "none",
+                },
               }}
             >
               Please fill in your phone number and of our support <br /> agent
@@ -113,7 +135,7 @@ const WlcModal = () => {
           <Grid
             container
             sx={{
-              marginTop: "50px",
+              marginTop: { md: "50px", xs: "30px" },
               // placeItems: "center",
               // alignItems: "center",
             }}
@@ -125,9 +147,13 @@ const WlcModal = () => {
                   border: "1px solid #FFFFFF",
                   borderRadius: "5px",
                   padding: { sm: "40px 38px 30px", xs: "20px" },
-                  marginBottom: { sm: "50px", xs: "30px" },
+                  marginBottom: { sm: "25px", xs: "8px" },
                   maxWidth: "420px",
                   width: "100%",
+                  "& input": {
+                    height: { md: "62px", xs: "52px" },
+                    lineHeight: { md: "62px", xs: "52px" },
+                  },
                 }}
               >
                 <InputLabel
@@ -144,7 +170,8 @@ const WlcModal = () => {
                   className=""
                   style={{
                     width: "100%",
-                    height: { sm: "62px", xs: "54px" },
+                    // height: { sm: "62px", xs: "54px" },
+                    // lineHeight: { sm: "62px", xs: "54px" },
                     fontFamily: "Jaldi",
                     fontStyle: "normal",
                     fontWeight: 400,
@@ -156,24 +183,26 @@ const WlcModal = () => {
                   type="number"
                   placeholder="Phone number"
                 />
+
                 <Button
+                  onClick={handleCloseOpen}
                   sx={{
                     marginTop: "16px",
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
                     width: "100%",
-                    height: { sm: "62px", xs: "54px" },
+                    height: { sm: "62px", xs: "52px" },
+                    lineHeight: { sm: "62px", xs: "52px" },
                     boxShadow: "none",
                     background: "#CD363A",
                     textAlign: "center",
-                    lineHeight: { sm: "62px", xs: "54px" },
                     textDecoration: "none",
                     color: "#fff",
                     borderRadius: "5px",
                     fontWeight: 500,
                     textTransform: "uppercase",
-                    fontSize: "22px",
+                    fontSize: { md: "22px", xs: "16px" },
                     "&:hover": {
                       background: "#12172A",
                     },
@@ -181,6 +210,7 @@ const WlcModal = () => {
                 >
                   NOTIFY ME <BsBell style={{ marginLeft: "8px" }} />
                 </Button>
+
                 <Box
                   sx={{
                     textAlign: "center",
@@ -189,13 +219,21 @@ const WlcModal = () => {
                 >
                   <Typography
                     sx={{
-                      margin: "12px 0",
-                      fontSize: { md: "18px", xs: "15px" },
+                      margin: { md: "12px 0", xs: "10px 0 3px" },
+
+                      fontSize: { md: "18px", xs: "14px" },
                     }}
                   >
                     We will only call you about your flight{" "}
                   </Typography>
-                  <Typography sx={{ fontSize: { md: "14px", xs: "12px" } }}>
+                  <Typography
+                    sx={{
+                      fontSize: { md: "14px", xs: "12px" },
+                      "& br": {
+                        display: { xs: "none", md: "block" },
+                      },
+                    }}
+                  >
                     By submitting this form, you’re providing us with <br />{" "}
                     consent to call you back.
                   </Typography>
@@ -212,33 +250,38 @@ const WlcModal = () => {
               >
                 <Grid
                   item
-                  xs={12}
+                  xs={6}
                   sm={6}
-                  sx={{ textAlign: { xs: "center", sm: "start" } }}
+                  sx={{ textAlign: { xs: "start", sm: "start" } }}
                 >
                   <Typography sx={{ fontSize: { md: "22px", xd: "18px" } }}>
                     or call us now{" "}
                   </Typography>
-                  <Typography sx={{ fontSize: { md: "14px", xs: "12px" } }}>
+                  <Typography sx={{ fontSize: { md: "14px", xs: "9px" } }}>
                     24/7 SUPPORT | NO HOLD TIME
                   </Typography>
                 </Grid>
                 <Grid
                   item
-                  xs={12}
+                  xs={6}
                   sm={6}
                   sx={{
                     textAlign: { xs: "center", sm: "end" },
                     marginTop: { xs: "10px", sm: "0px" },
+                    "& a": {
+                      width: { md: "200px", xs: "100%" },
+                    },
                   }}
                 >
                   <a
                     href="tel:8882112111"
                     className="wlc-modal-btn"
                     style={{
-                      display: "inline-block",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                       background: "#CD363A",
-                      width: "200px",
+                      // width: "200px",
                       lineHeight: "42px",
                       height: "42px",
                       fontSize: "22px",
@@ -263,7 +306,6 @@ const WlcModal = () => {
                         alignItems: "center",
                         borderRadius: "50%",
                         justifyContent: "center",
-
                         "& svg": {
                           color: "#CD363A",
                           fontSize: "14px",
@@ -273,7 +315,14 @@ const WlcModal = () => {
                     >
                       <FaPhoneAlt />
                     </Typography>
-                    <Typography component="span">(888) 211.2111</Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { md: "18px", xs: "14px" },
+                      }}
+                      component="span"
+                    >
+                      (888) 211.2111
+                    </Typography>
                   </a>
                 </Grid>
               </Grid>
@@ -301,12 +350,25 @@ const WlcModal = () => {
               >
                 Searching for the best <br /> and cheapest fares ...
               </Typography>
-              <Box sx={{ marginTop: { xs: "22px", md: "0px" } }}>
+              <Box sx={{ marginTop: { xs: "15px", md: "0px" } }}>
                 <img src={guaranteImg} alt="" srcset="" />
               </Box>
             </Grid>
           </Grid>
         </Box>
+      </Dialog>
+
+      {/* Thank you modal */}
+      <Dialog
+        open={openThankModal}
+        onClose={handleThankModalClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <ThankYouModal
+          handleThankModalClose={handleThankModalClose}
+          handleClose={handleClose}
+        />
       </Dialog>
     </Box>
   );

@@ -9,6 +9,7 @@ const PaymentCta = () => {
       <Grid
         container
         sx={{
+          fontFamily: '"Public Sans", sans-serif',
           background: "#CD363A",
           borderRadius: "5px",
           padding: "18px",

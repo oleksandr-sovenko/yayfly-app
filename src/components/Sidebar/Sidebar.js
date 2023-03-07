@@ -1,4 +1,4 @@
-import { Box, Checkbox, Slider, Typography, styled } from "@mui/material";
+import { Box, Checkbox, Slider, styled, Typography } from "@mui/material";
 import React, { useState } from "react";
 
 const FilterTitle = styled(Box)(({ theme }) => ({
@@ -29,16 +29,52 @@ function valuetext(value) {
   return `${value}°C`;
 }
 
+const minDistance = 10;
+
 const Sidebar = () => {
-  const [value, setValue] = useState([0, 90]);
+  const [outboundValue, setOutboundValue] = useState([20, 80]);
+  const [returnValue, setReturnValue] = useState([20, 80]);
+
+  const [value, setValue] = useState(30);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const handleChangeOutbound = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (activeThumb === 0) {
+      setOutboundValue([Math.min(newValue[0], outboundValue[1] - minDistance), outboundValue[1]]);
+    } else {
+      setOutboundValue([outboundValue[0], Math.max(newValue[1], outboundValue[0] + minDistance)]);
+    }
+  };
+
+
+  const handleChangeReturn = (event, newValue, activeThumb) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], 100 - minDistance);
+        setReturnValue([clamped, clamped + minDistance]);
+      } else {
+        const clamped = Math.max(newValue[1], minDistance);
+        setReturnValue([clamped - minDistance, clamped]);
+      }
+    } else {
+      setReturnValue(newValue);
+    }
+  };
+
   return (
-    <div>
-      <Box className="stops-filter">
+    <Box className="sidebar-inner-wrap">
+      <Box className="sidebar-filter stops-filter">
         <FilterTitle>Number of Stops</FilterTitle>
         <Box className="filter-term">
           <FilterPTag sx={{}}>
@@ -71,7 +107,7 @@ const Sidebar = () => {
         </Box>
       </Box>
       {/* departure-filter */}
-      <Box className="departure-filter">
+      <Box className="sidebar-filter departure-filter">
         <FilterTitle>Departure times</FilterTitle>
         <Box className="filter-term">
           <Box className="filter-term">
@@ -99,10 +135,9 @@ const Sidebar = () => {
                 <Box sx={{ width: "100%", marginTop: "14px" }}>
                   <Slider
                     getAriaLabel={() => "Temperature range"}
-                    value={value}
-                    onChange={handleChange}
+                    value={outboundValue}
+                    onChange={handleChangeOutbound}
                     valueLabelDisplay="auto"
-                    getAriaValueText={valuetext}
                     sx={{
                       color: "rgba(0,0,0,.85)",
                       boxSizing: "border-box",
@@ -113,10 +148,17 @@ const Sidebar = () => {
                       listStyle: "none",
                       position: "relative",
                       height: "4px",
-                      margin: "10px 6px",
+                      margin: "10px 0px",
                       padding: "4px 0",
                       cursor: "pointer",
                       touchAction: "none",
+                      '& .MuiSlider-thumb': {
+                        color: "rgba(255, 255, 255)",
+                        boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)",
+                        border: "4px",
+                        borderColor: "rgb(236, 236, 236)",
+                        borderStyle: "solid"
+                      },
                     }}
                   />
                 </Box>
@@ -145,21 +187,53 @@ const Sidebar = () => {
               </Typography>
 
               <Box sx={{ width: "100%", marginTop: "14px" }}>
-                <Slider
-                  getAriaLabel={() => "Temperature range"}
-                  value={value}
-                  onChange={handleChange}
-                  valueLabelDisplay="auto"
-                  getAriaValueText={valuetext}
-                />
+              <Slider
+                    getAriaLabel={() => "Temperature range"}
+                    value={returnValue}
+                    onChange={handleChangeReturn}
+                    valueLabelDisplay="auto"
+                    sx={{
+                      color: "rgba(0,0,0,.85)",
+                      boxSizing: "border-box",
+                      color: "rgba(0, 0, 0, 0.85)",
+                      fontSize: "14px",
+                      fontVariant: "tabular-nums",
+                      lineHeight: 1.5715,
+                      listStyle: "none",
+                      // fonteature-settings: '"tnum","tnum",'
+                      position: "relative",
+                      height: "4px",
+                      margin: "10px 0px",
+                      padding: "4px 0",
+                      cursor: "pointer",
+                      touchAction: "none",
+                      '& .MuiSlider-thumb': {
+                        color: "rgba(255, 255, 255)",
+                        boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)",
+                        border: "4px",
+                        borderColor: "rgb(236, 236, 236)",
+                        borderStyle: "solid"
+                      },
+                    }}
+                  />
               </Box>
             </Box>
           </Box>
         </Box>
       </Box>
       {/* airlines-filter */}
-      <Box className="airlines-filter">
+      <Box className="sidebar-filter airlines-filter">
         <FilterTitle>Airlines</FilterTitle>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            color: "rgba(7, 14, 57, 0.5)",
+          }}
+        >
+          <Typography sx={{ marginRight: "20px" }}>Select All</Typography>
+          <Typography>Clear All</Typography>
+        </Box>
         <Box className="filter-term">
           <FilterPTag sx={{}}>
             <Checkbox
@@ -191,7 +265,7 @@ const Sidebar = () => {
         </Box>
       </Box>
       {/* duration-filter */}
-      <Box className="duration-filter">
+      <Box className="sidebar-filter duration-filter">
         <FilterTitle>Journey duration</FilterTitle>
         <Box className="filter-term">
           <Box
@@ -215,9 +289,41 @@ const Sidebar = () => {
               0.00 - 24:00
             </Typography>
           </Box>
+          <Box sx={{ width: "100%", marginTop: "14px" }}>
+            <Slider 
+            defaultValue={50} 
+            aria-label="Default" 
+            valueLabelDisplay="auto"
+            value={value}
+            onChange={handleChange}
+            sx={{
+              color: "rgba(0,0,0,.85)",
+              boxSizing: "border-box",
+              color: "rgba(0, 0, 0, 0.85)",
+              fontSize: "14px",
+              fontVariant: "tabular-nums",
+              lineHeight: 1.5715,
+              listStyle: "none",
+              // fonteature-settings: '"tnum","tnum",'
+              position: "relative",
+              height: "4px",
+              margin: "10px 0px",
+              padding: "4px 0",
+              cursor: "pointer",
+              touchAction: "none",
+              '& .MuiSlider-thumb': {
+                color: "rgba(255, 255, 255)",
+                boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)",
+                border: "4px",
+                borderColor: "rgb(236, 236, 236)",
+                borderStyle: "solid"
+              },
+            }}
+            />
+          </Box>
         </Box>
       </Box>
-    </div>
+    </Box>
   );
 };
 

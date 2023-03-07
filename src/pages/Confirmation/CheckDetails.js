@@ -6,20 +6,24 @@ import { Link } from "react-router-dom";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 const CardWrap = styled(Box)(({ theme }) => ({
   backgroundColor: "white",
+  fontFamily: "'Public Sans', sans-serif",
   boxShadow: "rgb(101 101 101 / 5%) 4px 4px 12px",
   borderRadius: "5px",
-  padding: "35px",
+  // padding: "35px",
   marginBottom: "30px",
   color: "rgb(0, 3, 23)",
 }));
-
 
 const CheckDetails = () => {
   return (
     <div>
       <Box className="person-card">
         <SectionTitle title="Check your details" />
-        <CardWrap>
+        <CardWrap
+          sx={{
+            padding: { md: "35px", xs: "20px" },
+          }}
+        >
           <Box
             sx={{
               display: "flex",
@@ -121,6 +125,11 @@ const CheckDetails = () => {
             alignItems: "center",
             justifyContent: "space-between",
             marginBottom: "28px",
+            // "& a": {
+            //   marginLeft: { md: "auto", xd: "inherit" },
+            //   maxWidth: { xs: "100% !important", md: "355px" },
+            //   width: "100% !important",
+            // },
           }}
         >
           <Link
