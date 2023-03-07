@@ -19,9 +19,7 @@ const Header = () => {
         </div>
         <div className="header-right">
           <div>
-            <p>
-              <strong>Save even more.</strong> Talk to our booking expert now.
-            </p>
+            <p><strong>Save even more.</strong> Talk to our booking expert now.</p>
             <span>Agent is available now</span>
           </div>
           <a href="tel:8882112111">
