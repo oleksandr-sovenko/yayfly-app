@@ -231,7 +231,7 @@ const Sidebar = () => {
             color: "rgba(7, 14, 57, 0.5)",
           }}
         >
-          <Typography sx={{ marginRight: "20px" }}>Select All</Typography>
+          <Typography sx={{ marginRight: "20px", marginBottom:"10px" }}>Select All</Typography>
           <Typography>Clear All</Typography>
         </Box>
         <Box className="filter-term">
