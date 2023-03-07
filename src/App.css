@@ -52,6 +52,12 @@ select.gender-select {
   padding-bottom: 25px;
 }
 
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .timeline-icon.line:before {
+    width: 182px;
+  }
+}
+
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .timeline-icon.line:before {
     width: 182px;
@@ -64,16 +70,18 @@ select.gender-select {
     max-width: 100% !important;
     margin-left: inherit;
   }
-}
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-  .timeline-icon.line:before {
-    width: 182px;
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation24.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthLg.MuiDialog-paperFullWidth.css-cyxlny-MuiPaper-root-MuiDialog-paper {
+    overflow: inherit;
   }
 }
+
 @media (max-width: 575px) {
   a.booking-btn {
     width: 100% !important;
     max-width: 100% !important;
     margin-left: inherit;
+  }
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation24.MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthLg.MuiDialog-paperFullWidth.css-cyxlny-MuiPaper-root-MuiDialog-paper {
+    overflow: inherit;
   }
 }
