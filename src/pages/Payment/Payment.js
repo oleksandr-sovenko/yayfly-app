@@ -13,7 +13,7 @@ import PriceDetails from "./PriceDetails";
 const Payment = () => {
   return (
     <div className="payment-pages">
-      <div className="container">
+      <Box className="container" sx={{padding:{md:"0 15px", xs:"0px"}}}>
         <Box
           sx={{
             fontFamily: "'Public Sans', sans-serif",
@@ -53,7 +53,7 @@ const Payment = () => {
             <MobilePaymentCta />
           </Box>
         </Box>
-      </div>
+      </Box>
     </div>
   );
 };

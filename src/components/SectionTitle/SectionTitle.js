@@ -9,7 +9,7 @@ const SectionTitle = ({ title }) => {
           fontFamily: "'Public Sans', sans-serif",
           fontSize: "24px",
           lineHeight: "28px",
-          paddingLeft: "0px",
+          paddingLeft: {md:"0px", xs:"15px"},
           fontWeight: "700",
           margin: "15px 0",
         }}
