@@ -105,9 +105,10 @@ const MobileTimeLine = () => {
             <CheckIcon />
             <Typography
               sx={{
-                fontSize: "14px",
+                fontSize: "13px",
                 lineHeight: "25px",
-                marginLeft: "8px",
+                fontFamily:"'Public Sans', sans-serif;",
+                fontWeight: 500,
               }}
             >
               No need to create an account
@@ -133,9 +134,10 @@ const MobileTimeLine = () => {
             <CheckIcon />
             <Typography
               sx={{
-                fontSize: "14px",
+                fontSize: "13px",
                 lineHeight: "25px",
-                marginLeft: "8px",
+                fontFamily:"'Public Sans', sans-serif;",
+                fontWeight: 500,
               }}
             >
               Providing your details takes less than 2 minutes
@@ -161,9 +163,10 @@ const MobileTimeLine = () => {
             <CheckIcon />
             <Typography
               sx={{
-                fontSize: "14px",
+                fontSize: "13px",
                 lineHeight: "25px",
-                marginLeft: "8px",
+                fontFamily:"'Public Sans', sans-serif;",
+                fontWeight: 500,
               }}
             >
               Receive your booking confirmation within 12 hours
