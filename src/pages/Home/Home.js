@@ -16,7 +16,7 @@ const Home = () => {
       <PopupModal></PopupModal>
       <Box 
         sx={{
-          display:{md:"none", xs:"flex"},
+          display:{md:"none", sm:"none", xs:"flex"},
           background:"white",
           borderBottom:"2px solid rgb(204, 206, 219)",
           padding:"30px 15px",
