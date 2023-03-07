@@ -170,8 +170,6 @@ const WlcModal = () => {
                   className=""
                   style={{
                     width: "100%",
-                    // height: { sm: "62px", xs: "54px" },
-                    // lineHeight: { sm: "62px", xs: "54px" },
                     fontFamily: "Jaldi",
                     fontStyle: "normal",
                     fontWeight: 400,
