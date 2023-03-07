@@ -4,6 +4,7 @@ import ConformSearchResult from "../../components/ConformSearchResult";
 import PageTitle from "../../components/SectionTitle/PageTitle";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import MobilePaymentCta from "../Payment/MobilePaymentCta";
+import MobileTimeLine from "../Payment/MobileTimeLine";
 import PaymentCta from "../Payment/PaymentCta";
 import PaymentTimeLine from "../Payment/PaymentTimeLine";
 import PriceDetails from "../Payment/PriceDetails";
@@ -15,23 +16,21 @@ const BookingDetails = () => {
     <div className="booking-pages">
       <div className="container">
         <Box
-          display="grid"
-          gridTemplateColumns="repeat(13, 1fr)"
           sx={{
-            gap: { md: "50px", xs: "30px" },
             fontFamily: "'Public Sans', sans-serif",
-            // display: { xs: "block", md: "grid" },
-            // gridTemplateColumns: "2fr 1fr",
-            gap: {md:"50px", sx:"30px"},
+            display: { xs: "block", md: "grid" },
+            gridTemplateColumns: "2fr 1fr",
+            gap: "40px",
           }}
         >
-          <Box
-            sx={{
-              gridColumn: { md: "span 9", xs: "span 13" },
-            }}
-          >
+          <Box>
             <PageTitle title="Confirm your booking" />
-            <PaymentTimeLine />
+            <Box sx={{ display: { xs: "none", md: "block" } }}>
+              <PaymentTimeLine />
+            </Box>
+            <Box sx={{ display: { xs: "block", md: "none" } }}>
+              <MobileTimeLine />
+            </Box>
             <SectionTitle title="Your flight details" />
             <ConformSearchResult />
 
@@ -52,11 +51,7 @@ const BookingDetails = () => {
               <PaymentCta />
             </Box>
           </Box>
-          <Box
-            sx={{
-              gridColumn: { md: "span 4", xs: "span 13" },
-            }}
-          >
+          <Box>
             <Box sx={{ display: { md: "block", xs: "none" } }}>
               <PageTitle title="Price details" />
               <PriceDetails />

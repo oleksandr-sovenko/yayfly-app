@@ -31,6 +31,7 @@ const MobileTimeLine = () => {
               borderRadius: "50%",
               borderWidth: "5px",
               borderStyle: "solid",
+              transform: "rotate(45deg)",
               borderColor:
                 "rgb(19, 194, 155) rgb(19, 194, 155) rgb(225, 227, 238) rgb(225, 227, 238)",
               borderImage: "initial",
@@ -42,7 +43,9 @@ const MobileTimeLine = () => {
               lineHeight: "16px",
             }}
           >
-            <Typography component="span">2 of 4</Typography>
+            <Typography component="span" sx={{ transform: "rotate(-45deg)" }}>
+              2 of 4
+            </Typography>
           </Box>
           <Box
             sx={{

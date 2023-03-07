@@ -71,7 +71,11 @@ const CheckDetails = () => {
             <Typography sx={{ fontWeight: 400 }}>1988-05-28</Typography>
           </Typography>
         </CardWrap>
-        <CardWrap>
+        <CardWrap
+          sx={{
+            padding: { md: "35px", xs: "20px" },
+          }}
+        >
           <Box
             sx={{
               display: "flex",
@@ -102,8 +106,6 @@ const CheckDetails = () => {
               fontSize: "12px",
               padding: "6px 18px",
               borderRadius: "5px",
-              //   display: "flex",
-              //   alignItems: "center",
             }}
           >
             Please make sure that you details match the{" "}
@@ -125,11 +127,6 @@ const CheckDetails = () => {
             alignItems: "center",
             justifyContent: "space-between",
             marginBottom: "28px",
-            // "& a": {
-            //   marginLeft: { md: "auto", xd: "inherit" },
-            //   maxWidth: { xs: "100% !important", md: "355px" },
-            //   width: "100% !important",
-            // },
           }}
         >
           <Link
