@@ -15,14 +15,21 @@ const BookingDetails = () => {
     <div className="booking-pages">
       <div className="container">
         <Box
+          display="grid"
+          gridTemplateColumns="repeat(12, 1fr)"
+          gap="80px"
           sx={{
             fontFamily: "'Public Sans', sans-serif",
-            display: { xs: "block", md: "grid" },
-            gridTemplateColumns: "2fr 1fr",
-            gap: "40px",
+            // display: { xs: "block", md: "grid" },
+            // gridTemplateColumns: "2fr 1fr",
+            // gap: "40px",
           }}
         >
-          <Box>
+          <Box
+            sx={{
+              gridColumn: { md: "span 8", xs: "span 12" },
+            }}
+          >
             <PageTitle title="Confirm your booking" />
             <PaymentTimeLine />
             <SectionTitle title="Your flight details" />
@@ -45,7 +52,11 @@ const BookingDetails = () => {
               <PaymentCta />
             </Box>
           </Box>
-          <Box>
+          <Box
+            sx={{
+              gridColumn: { md: "span 4", xs: "span 12" },
+            }}
+          >
             {/* <PageTitle title="Price details" />
             <Box>
               <PriceDetails />

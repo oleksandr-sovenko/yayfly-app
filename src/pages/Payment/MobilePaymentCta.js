@@ -9,7 +9,7 @@ const MobilePaymentCta = () => {
       <Box className="mobile-payment-cta">
         <Box
           sx={{
-            fontFamily: "'Public Sans', sans-serif",
+            fontFamily: "'Jaldi', sans-serif",
             background: "#CD363A",
             borderRadius: "5px",
             border: "1px solid #12172A",
@@ -32,7 +32,7 @@ const MobilePaymentCta = () => {
               "& p": {
                 color: "#fff",
                 fontFamily: "Jaldi",
-                fontSize: "11px",
+                fontSize: "12px",
                 marginLeft: "10px",
               },
             }}
@@ -51,9 +51,9 @@ const MobilePaymentCta = () => {
               <Typography
                 sx={{
                   color: "#fff",
-                  fontFamily: "Jaldi",
-                  fontSize: "18px",
-                  fontWeight: 500,
+                  fontFamily: "'Jaldi', sans-serif",
+                  fontSize: "17px",
+                  fontWeight: 600,
                   marginRight: "12px",
                 }}
               >
@@ -72,10 +72,12 @@ const MobilePaymentCta = () => {
             </Grid>
           </Grid>
           <Box
-            sx={{
-              // textAlign: "center",
-              // marginRight: "20px",
-            }}
+            sx={
+              {
+                // textAlign: "center",
+                // marginRight: "20px",
+              }
+            }
           >
             <Typography
               sx={{ color: "#fff", fontSize: "18px", marginBottom: "7px" }}
@@ -128,7 +130,12 @@ const MobilePaymentCta = () => {
               <Typography component="span">(888) 211.2111</Typography>
             </a>
             <Typography
-              sx={{ fontSize: "14px", color: "#fff", marginTop: "5px" }}
+              sx={{
+                fontSize: "13px",
+                color: "#fff",
+                marginTop: "5px",
+                marginLeft: "15px",
+              }}
             >
               24/7 SUPPORT | NO HOLD TIME
             </Typography>
