@@ -21,6 +21,9 @@ const SearchPriceResults = () => {
                     <img src={loding} />
                 </div>
             </div>
+            <div className="desktopNone">
+                <button className="btn-show-filter">Show filters</button>
+            </div>
             <div className="search-result-wrap">
                 <SearchResultCard></SearchResultCard>
                 <SearchResultCard></SearchResultCard>
