@@ -76,15 +76,24 @@ const SearchResultCard = () => {
                 </div>
             </div>
             <div className="flight-price-wrap">
-                <span className="desktop-none">Total:</span>
-                <div className="price">$2359.00</div>
-                <Link to="/booking-details" className="addToCart">Select <CgAirplane /></Link>
+                <div className="mobileFlex">
+                    <div>
+                        <span className="desktop-none">Total:</span>
+                        <div className="price">$2359.00</div>
+                    </div>
+                    <div>
+                        <div ref={dropdownRef} className="desktopNone">
+                            <button className="dropdown-btn" onClick={handleDropdownToggle}><HiOutlineArrowSmDown /></button>
+                        </div>
+                        <Link to="/booking-details" className="addToCart">Select <CgAirplane /></Link>
+                    </div>
+                </div>
                 <span className="info-btn"><MdOutlineError />Unpublished deal detected</span>
                 <div className="cta-info">
                     <p>Call now to secure <br/>the best fare <HiArrowLongRight /></p>
                     <a href="tel:8882112111"><FaPhoneAlt /> (888) 211.2111</a>
                 </div>
-                <div ref={dropdownRef}>
+                <div className='mobileName' ref={dropdownRef}>
                     <button className="dropdown-btn" onClick={handleDropdownToggle}><HiOutlineArrowSmDown /></button>
                 </div>
             </div>

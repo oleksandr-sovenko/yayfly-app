@@ -28,7 +28,7 @@ body {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 } */
-
+.desktopNone{display: none;}
 .container {
   width: 100%;
   margin: 0 auto;
@@ -732,4 +732,17 @@ span.info-btn svg {
   .column-rand {
     grid-template-columns: 1fr;
   }
+  /**/
+.mobileFlex { display: flex;justify-content: space-between;align-items: center;}
+.mobileFlex> div {text-align: left;}
+.mobileFlex> div .desktopNone {display: block;}
+.mobileFlex> div:last-child {display: flex;text-align: center;}
+.mobileFlex> div .desktopNone .dropdown-btn { width: 42px; height: 42px; margin: 0;font-size: 25px;margin-right: 10px;line-height: 45px;}
+.mobileName{display: none;}
+.flight-price-wrap span.info-btn {font-size: 16px;width: 100%;}
+.flight-price-wrap span.info-btn svg {padding-right: 1px;margin-right: 16px;}
+.flight-price-wrap .addToCart {line-height: 42px;}
+.cta-info p {font-size: 16px;}
+.cta-info a {font-size: 20px;}
+
 }
