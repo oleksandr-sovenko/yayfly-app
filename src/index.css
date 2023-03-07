@@ -621,9 +621,11 @@ span.info-btn svg {
   .search-result-card-grid .flight-price-wrap {padding: 20px 16px;}
 }
 
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .header-right div p {font-size: 18px;}
   .header-right a { padding: 5px 20px;}
+  
 }
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {

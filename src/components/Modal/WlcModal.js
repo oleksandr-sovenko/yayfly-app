@@ -315,7 +315,14 @@ const WlcModal = () => {
                     >
                       <FaPhoneAlt />
                     </Typography>
-                    <Typography component="span">(888) 211.2111</Typography>
+                    <Typography
+                      sx={{
+                        fontSize: { md: "18px", xs: "14px" },
+                      }}
+                      component="span"
+                    >
+                      (888) 211.2111
+                    </Typography>
                   </a>
                 </Grid>
               </Grid>
