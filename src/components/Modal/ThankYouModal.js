@@ -63,9 +63,11 @@ const ThankYouModal = ({ handleThankModalClose }) => {
             <CloseIcon />
           </Button>
           <Box
-          className="heading-img"
             sx={{
               display: { md: "none", xs: "block", textAlign: "center" },
+              "& img": {
+                marginTop: "-70px",
+              },
             }}
           >
             <img src={centerCartton} alt="" srcset="" />
@@ -113,7 +115,6 @@ const ThankYouModal = ({ handleThankModalClose }) => {
             </Typography>
           </Box>
           <Box
-
             sx={{
               textAlign: "center",
               "& .carton-img": {
