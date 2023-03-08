@@ -96,8 +96,7 @@ const WlcModal = () => {
                 paddingRight: "20px",
               }}
             >
-              Based On Our Flight Search Robot AI, We Expect This <br /> Flight
-              To Be Cheaper{" "}
+              Based On Our Flight AI, This Flight Will Be The Cheapest <br /> {" "}
               <Typography
                 component="span"
                 sx={{
@@ -114,7 +113,7 @@ const WlcModal = () => {
                   },
                 }}
               >
-                Within The Next 3 to 14 minutes.
+                Within The Next 3 - 14 minutes.
               </Typography>
             </Typography>
             <Typography
@@ -127,8 +126,8 @@ const WlcModal = () => {
                 },
               }}
             >
-              Fill in your phone number and of our support agent <br />
-              will call you back with your flight deal.
+              Fill in your number and of our support agent <br />
+              will call you back with an unbeatable flight deal.
             </Typography>
           </Box>
 
