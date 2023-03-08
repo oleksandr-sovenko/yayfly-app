@@ -41,7 +41,7 @@ select.gender-select {
 }
 
 .wlc-modal-content
-  .MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthLg.MuiDialog-paperFullWidth {
+  .MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthMd.MuiDialog-paperFullWidth {
   background: #1a2e4a !important;
   /* overflow-y: inherit; */
 }

@@ -17,7 +17,7 @@ import ThankYouModal from "./ThankYouModal";
 const WlcModal = () => {
   const [open, setOpen] = useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState("lg");
+  const [maxWidth, setMaxWidth] = React.useState("md");
   // Thank you modal
   const [openThankModal, setThankModalOpen] = useState(false);
   const handleClickThankModal = () => {
@@ -87,9 +87,9 @@ const WlcModal = () => {
                 fontFamily: "Jaldi",
                 fontStyle: "normal",
                 fontWeight: 400,
-                fontSize: { xs: "21px", md: "34px" },
+                fontSize: { xs: "21px", md: "32px" },
                 lineHeight: "118.5%",
-                marginBottom: { md: "20px", xs: "10px" },
+                marginBottom: { md: "18px", xs: "10px" },
                 "& br": {
                   display: { xs: "none", md: "block" },
                 },
@@ -135,7 +135,7 @@ const WlcModal = () => {
           <Grid
             container
             sx={{
-              marginTop: { md: "40px", xs: "25px" },
+              marginTop: { md: "30px", xs: "25px" },
               // placeItems: "center",
               // alignItems: "center",
             }}
@@ -157,16 +157,6 @@ const WlcModal = () => {
                   },
                 }}
               >
-                <InputLabel
-                  sx={{
-                    color: "#fff",
-                    marginBottom: { md: "4px", xs: "6px" },
-                    fontSize: { md: "22px", xs: "18px" },
-                    marginLeft: { md: "6px", xs: "2px" },
-                  }}
-                >
-                  Phone number
-                </InputLabel>
                 <input
                   className=""
                   style={{
@@ -191,8 +181,8 @@ const WlcModal = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     width: "100%",
-                    height: { md: "55px", xs: "48px" },
-                    lineHeight: { md: "55px", xs: "48px" },
+                    height: { md: "52px", xs: "48px" },
+                    lineHeight: { md: "52px", xs: "48px" },
                     boxShadow: "none",
                     background: "#CD363A",
                     textAlign: "center",
@@ -201,7 +191,7 @@ const WlcModal = () => {
                     borderRadius: "5px",
                     fontWeight: 500,
                     textTransform: "uppercase",
-                    fontSize: { md: "22px", xs: "15px" },
+                    fontSize: { md: "20px", xs: "15px" },
                     "&:hover": {
                       background: "#12172A",
                     },
@@ -341,9 +331,9 @@ const WlcModal = () => {
               <img className="carton-img" src={modalCartoon} alt="" srcset="" />
               <Typography
                 sx={{
-                  marginTop: "15px",
-                  marginBottom: "45px",
-                  fontSize: "26px",
+                  marginTop: "10px",
+                  marginBottom: "20px",
+                  fontSize: "24px",
                   display: { xs: "none", md: "block" },
                 }}
               >

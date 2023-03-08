@@ -750,7 +750,7 @@ span.info-btn svg {
     grid-column: span 6;
   }
   .top-search {
-    display: none;
+    padding-top: 0px;
   }
   .search-filter {
     padding: 7px 14px 7px 14px;
