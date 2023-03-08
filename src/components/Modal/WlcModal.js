@@ -87,9 +87,9 @@ const WlcModal = () => {
                 fontFamily: "Jaldi",
                 fontStyle: "normal",
                 fontWeight: 400,
-                fontSize: { xs: "20px", md: "34px" },
+                fontSize: { xs: "21px", md: "34px" },
                 lineHeight: "118.5%",
-                marginBottom: { md: "20px", xs: "15px" },
+                marginBottom: { md: "20px", xs: "10px" },
                 "& br": {
                   display: { xs: "none", md: "block" },
                 },
@@ -120,8 +120,8 @@ const WlcModal = () => {
             <Typography
               sx={{
                 fontFamily: "Jaldi",
-                fontSize: { md: "21px", xs: "20px" },
-                lineHeight: "25px",
+                fontSize: { md: "24px", xs: "20px" },
+                lineHeight: "31px",
                 "& br": {
                   display: { xs: "none", md: "block" },
                 },
@@ -135,7 +135,7 @@ const WlcModal = () => {
           <Grid
             container
             sx={{
-              marginTop: { md: "40px", xs: "30px" },
+              marginTop: { md: "40px", xs: "25px" },
               // placeItems: "center",
               // alignItems: "center",
             }}
@@ -146,22 +146,23 @@ const WlcModal = () => {
                   background: "#092142",
                   border: "1px solid #FFFFFF",
                   borderRadius: "5px",
-                  padding: { sm: "30px", xs: "20px" },
+                  padding: { sm: "30px", xs: "16px 15px" },
                   marginBottom: { sm: "25px", xs: "8px" },
                   maxWidth: "420px",
                   width: "100%",
                   "& input": {
-                    height: { md: "55px", xs: "52px" },
-                    lineHeight: { md: "55px", xs: "52px" },
+                    height: { md: "55px", xs: "48px" },
+                    lineHeight: { md: "55px", xs: "48px" },
+                    padding: {md:"8px 30px", xs:"8px 15px"},
                   },
                 }}
               >
                 <InputLabel
                   sx={{
                     color: "#fff",
-                    marginBottom: "4px",
-                    fontSize: "22px",
-                    marginLeft: "6px",
+                    marginBottom: { md: "4px", xs: "6px" },
+                    fontSize: { md: "22px", xs: "18px" },
+                    marginLeft: { md: "6px", xs: "2px" },
                   }}
                 >
                   Phone number
@@ -174,7 +175,7 @@ const WlcModal = () => {
                     fontStyle: "normal",
                     fontWeight: 400,
                     fontSize: "18px",
-                    padding: "8px 30px",
+                    
                     color: "rgba(9, 33, 66, 0.5)",
                     borderRadius: "5px",
                   }}
@@ -185,13 +186,13 @@ const WlcModal = () => {
                 <Button
                   onClick={handleCloseOpen}
                   sx={{
-                    marginTop: "16px",
+                    marginTop: { md: "16px", xs: "10px" },
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
                     width: "100%",
-                    height: { sm: "55px", xs: "52px" },
-                    lineHeight: { sm: "55px", xs: "52px" },
+                    height: { md: "55px", xs: "48px" },
+                    lineHeight: { md: "55px", xs: "48px" },
                     boxShadow: "none",
                     background: "#CD363A",
                     textAlign: "center",
@@ -200,7 +201,7 @@ const WlcModal = () => {
                     borderRadius: "5px",
                     fontWeight: 500,
                     textTransform: "uppercase",
-                    fontSize: { md: "22px", xs: "16px" },
+                    fontSize: { md: "22px", xs: "15px" },
                     "&:hover": {
                       background: "#12172A",
                     },
@@ -348,7 +349,14 @@ const WlcModal = () => {
               >
                 Searching for the best <br /> and cheapest fares ...
               </Typography>
-              <Box sx={{ marginTop: { xs: "15px", md: "0px" } }}>
+              <Box
+                sx={{
+                  marginTop: { xs: "15px", md: "0px" },
+                  "& img": {
+                    width: { md: "auto", xs: "150px" },
+                  },
+                }}
+              >
                 <img src={guaranteImg} alt="" srcset="" />
               </Box>
             </Grid>
