@@ -52,10 +52,10 @@ select.gender-select {
   padding-bottom: 25px;
 }
 
-.MuiDialog-root.mobile-modal-filter .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+.MuiDialog-root.mobile-modal-filter
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded {
+  max-width: calc(100% - 30px);
   width: 100%;
-  margin: 0;
-  background: rgb(238, 239, 245);
 }
 
 .mobile-filter-btn {
@@ -76,7 +76,7 @@ select.gender-select {
 }
 button.mobile-filter-btn.apply-btn {
   margin-right: 0;
-  background: rgb(85, 82, 255);
+  background: #000317;
   color: #fff;
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {

@@ -44,7 +44,7 @@ const ThankYouModal = ({ handleThankModalClose }) => {
             height: "auto",
             padding: "20px",
             borderRadius: "10px",
-            padding: { md: "60px 160px", xs: "30px" },
+            padding: { md: "30px 120px", xs: "30px" },
             position: "relative",
             "& .MuiBox-root.css-1pppxor": {
               overflowY: "inherit !important",
@@ -127,7 +127,7 @@ const ThankYouModal = ({ handleThankModalClose }) => {
             <Typography
               sx={{
                 marginTop: "15px",
-                marginBottom: "45px",
+                marginBottom: "30px",
                 fontSize: "26px",
                 display: { xs: "none", md: "block" },
               }}

@@ -66,7 +66,7 @@ const WlcModal = () => {
             fontFamily: "'Jaldi', sans-serif",
             height: "auto",
             borderRadius: "10px",
-            padding: { md: "60px 140px", xs: "25px" },
+            padding: { md: "40px", xs: "25px" },
             position: "relative",
           }}
         >
@@ -87,13 +87,13 @@ const WlcModal = () => {
                 fontFamily: "Jaldi",
                 fontStyle: "normal",
                 fontWeight: 400,
-                fontSize: { xs: "22px", md: "34px" },
+                fontSize: { xs: "20px", md: "34px" },
                 lineHeight: "118.5%",
-                marginBottom: "20px",
+                marginBottom: { md: "20px", xs: "15px" },
                 "& br": {
                   display: { xs: "none", md: "block" },
                 },
-                paddingRight: "10px",
+                paddingRight: "20px",
               }}
             >
               Based On Our Flight Search Robot AI, We Expect This <br /> Flight
@@ -104,7 +104,7 @@ const WlcModal = () => {
                   fontFamily: "Jaldi",
                   fontStyle: "normal",
                   fontWeight: 400,
-                  fontSize: { xs: "20px", md: "34px" },
+                  fontSize: { xs: "20px", md: "32px" },
                   lineHeight: "118.5%",
                   marginBottom: "20px",
                   textDecoration: "underline",
@@ -120,14 +120,14 @@ const WlcModal = () => {
             <Typography
               sx={{
                 fontFamily: "Jaldi",
-                fontSize: { md: "28px", xs: "20px" },
-                lineHeight: "103.5%",
+                fontSize: { md: "21px", xs: "20px" },
+                lineHeight: "25px",
                 "& br": {
-                  display: "none",
+                  display: { xs: "none", md: "block" },
                 },
               }}
             >
-              Please fill in your phone number and of our support <br /> agent
+              Fill in your phone number and of our support agent <br />
               will call you back with your flight deal.
             </Typography>
           </Box>
@@ -135,7 +135,7 @@ const WlcModal = () => {
           <Grid
             container
             sx={{
-              marginTop: { md: "50px", xs: "30px" },
+              marginTop: { md: "40px", xs: "30px" },
               // placeItems: "center",
               // alignItems: "center",
             }}
@@ -146,13 +146,13 @@ const WlcModal = () => {
                   background: "#092142",
                   border: "1px solid #FFFFFF",
                   borderRadius: "5px",
-                  padding: { sm: "40px 38px 30px", xs: "20px" },
+                  padding: { sm: "30px", xs: "20px" },
                   marginBottom: { sm: "25px", xs: "8px" },
                   maxWidth: "420px",
                   width: "100%",
                   "& input": {
-                    height: { md: "62px", xs: "52px" },
-                    lineHeight: { md: "62px", xs: "52px" },
+                    height: { md: "55px", xs: "52px" },
+                    lineHeight: { md: "55px", xs: "52px" },
                   },
                 }}
               >
@@ -190,8 +190,8 @@ const WlcModal = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     width: "100%",
-                    height: { sm: "62px", xs: "52px" },
-                    lineHeight: { sm: "62px", xs: "52px" },
+                    height: { sm: "55px", xs: "52px" },
+                    lineHeight: { sm: "55px", xs: "52px" },
                     boxShadow: "none",
                     background: "#CD363A",
                     textAlign: "center",
