@@ -17,7 +17,7 @@ import ThankYouModal from "./ThankYouModal";
 const WlcModal = () => {
   const [open, setOpen] = useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
-  const [maxWidth, setMaxWidth] = React.useState("lg");
+  const [maxWidth, setMaxWidth] = React.useState("md");
   // Thank you modal
   const [openThankModal, setThankModalOpen] = useState(false);
   const handleClickThankModal = () => {
