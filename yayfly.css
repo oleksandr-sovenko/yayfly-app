@@ -1,0 +1,94 @@
+.searchForm .addFlightBtn {
+	display: none;
+}
+
+
+.daterangepicker {
+	padding: 4px;
+	box-shadow:2px 3px 5px #999;
+}
+
+.daterangepicker:before,
+.daterangepicker:after {
+	display: none;
+}
+
+.daterangepicker .calendar-table th,
+.daterangepicker .calendar-table td {
+    min-width: 20px;
+    width: 20px;
+}
+
+.daterangepicker .drp-calendar.left,
+.daterangepicker .drp-calendar.right {
+	padding: 0px !important;
+}
+
+
+
+
+.yayfly-text-right {
+	text-align: right;
+}
+
+.yayfly-p15 {
+	padding: 15px;
+}
+
+.yayfly-p30 {
+	padding: 30px;
+}
+
+.yayfly-w50 {
+	width: 50%;
+}
+
+.yayfly-row {
+	display: table;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.yayfly-col {
+	display: table-cell;
+}
+
+.yayfly-dropdown-list {
+	display: none;
+	margin-top: 10px;
+	box-shadow:2px 3px 5px #999;
+	position: absolute;
+    top: 61px;
+    left: 0px;
+    width: 100%;
+    background: white;
+    border: 1px solid #e9eae9;
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.yayfly-dropdown-list ul {
+	list-style: none;
+	list-style: none;
+    margin: 0px;
+}
+
+.yayfly-dropdown-list li {
+	padding: 5px;
+}
+
+.yayfly-dropdown-list li:hover {
+	color: white;
+	cursor: pointer;
+	background: #12172A;
+}
+
+.yayfly-dropdown-list button {
+	width: 30px;
+    height: 33px;
+	padding: 3px;
+}
+
+.yayfly-dropdown-list.show {
+	display: block ;
+}
