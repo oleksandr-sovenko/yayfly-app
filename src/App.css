@@ -119,3 +119,20 @@ button.mobile-filter-btn.apply-btn {
     overflow: inherit;
   }
 }
+
+
+.hidden {
+    display: none !important;
+}
+
+
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(359deg);
+    }
+}
