@@ -111,7 +111,7 @@ const TopSeachForm = (props) => {
                         </div>
                     </div>
 
-                    <div className={props.type === 'round' ? 'grid column-rand mt-5' : 'grid column-rand column-rand-4 mt-5'}>
+                    <div className={props.type === 'round-trip' ? 'grid column-rand mt-5' : 'grid column-rand column-rand-4 mt-5'}>
                         <div className="form-group field">
                             <label htmlFor="flyingFrom">Flying from</label>
                             <input className="form-control" type="text" id="flyingFrom" placeholder="Airport or city" />
@@ -124,7 +124,7 @@ const TopSeachForm = (props) => {
                             <label htmlFor="depart">Depart</label>
                             <input className="form-control" type="date" id="depart" />
                         </div>
-                        {props.type === 'one' ? (
+                        {props.type === 'round-trip' ? (
                             <div className="form-group field">
                                 <label htmlFor="return">Return</label>
                                 <input className="form-control" type="date" id="return" />

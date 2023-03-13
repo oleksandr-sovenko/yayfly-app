@@ -11,7 +11,8 @@ const SearchPriceResults = (props) => {
     if (!props)
         props = {};
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(false),
+          [filter, setFilter] = React.useState('recomended');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -21,10 +22,14 @@ const SearchPriceResults = (props) => {
         setOpen(false);
     };
 
+    const clickSearchFilter = (e) => {
+        console.log('1111');
+    }
+
     return (
         <div className="search-result-area">
             <div className="search-filter-wrap grid column-3">
-                <div className="search-filter active">
+                <div className={filter === 'recomended' ? 'search-filter active' : 'search-filter'} onClick={() => { setFilter('recomended') }}>
                     <h3>Recomended</h3>
                     {props.loading === true ? (
                         <img src={loding} style={{ animation: 'rotation 2s infinite linear' }} />                        
@@ -35,7 +40,7 @@ const SearchPriceResults = (props) => {
                         </>
                     )}
                 </div>
-                <div className="search-filter">
+                <div className={filter === 'cheapest' ? 'search-filter active' : 'search-filter'} onClick={() => { setFilter('cheapest') }}>
                     <h3>Cheapest</h3>
                     {props.loading === true ? (
                         <img src={loding} style={{ animation: 'rotation 2s infinite linear' }} />                        
@@ -46,7 +51,7 @@ const SearchPriceResults = (props) => {
                         </>
                     )}
                 </div>
-                <div className="search-filter">
+                <div className={filter === 'shortest' ? 'search-filter active' : 'search-filter'} onClick={() => { setFilter('shortest') }}>
                     <h3>Shortest</h3>
                     {props.loading === true ? (
                         <img src={loding} style={{ animation: 'rotation 2s infinite linear' }} />                        

@@ -97,6 +97,7 @@ const Sidebar = (props) => {
                             height="16px"
                             value="yes"
                             onChange={changedNumberOfStops}
+                            checked
                         />
                         <Typography>Direct</Typography>
                     </FilterPTag>
@@ -106,6 +107,7 @@ const Sidebar = (props) => {
                             height="16px"
                             value="yes"
                             onChange={changedNumberOfStops}
+                            checked
                         />
                         <Typography>1 stop</Typography>
                     </FilterPTag>
@@ -115,6 +117,7 @@ const Sidebar = (props) => {
                             height="16px"
                             value="yes"
                             onChange={changedNumberOfStops}
+                            checked
                         />
                         <Typography>2+ stops</Typography>
                     </FilterPTag>
@@ -252,6 +255,7 @@ const Sidebar = (props) => {
                                         name={name}
                                         onChange={changedAirline}
                                         value="yes"
+                                        checked
                                     />
                                     <Typography>{props.airlines[name]}</Typography>
                                 </FilterPTag>

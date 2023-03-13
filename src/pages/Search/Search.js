@@ -11,11 +11,18 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import TopSeachForm from "../../components/TopSeachForm";
 import loadingImage from '../../assets/loading.svg';
 import loadingImageInvert from '../../assets/loading-2.svg';
+import { getParams } from '../../functions';
 import axios from 'axios';
+
+
+// https://yayfly.com/search/round-trip/GDO,ASD,2023-03-13,2023-03-13/economy/1/0/0?luggage=true&layover=true
+// https://yayfly.com/search/one-way/GDO,ASD,2023-03-13/economy/1/0/0?luggage=true&layover=true
+// https://yayfly.com/search/multi-city/GDO,ASD,2023-03-13;ASD,GDO,2023-03-14/economy/1/0/0?luggage=true&layover=true
 
 
 export default class Search extends Component {
     state = {
+        params: {},
         progress: 0,
         loading: true,
         offers: [],
@@ -35,9 +42,10 @@ export default class Search extends Component {
     }
 
     componentDidMount() {
-        // console.log('componentDidMount');
+        const that   = this,
+              params = getParams();
 
-        const that = this; 
+        that.setState({ params: params });
 
         that.timer = setInterval(() => {
             if (that.state.progress < 95)
@@ -46,21 +54,8 @@ export default class Search extends Component {
                 that.setState({ progress: 95 });
         }, 1000);
 
-
-        let params = window.location.pathname.split('/').filter((e) => { return e });
-        params[2] = params[2].split(';');
-        for (let i in params[2]) {
-            params[2][i] = params[2][i].split(',');
-        }
-        console.log(params);
-
-        // http://localhost:3000/search/round/WAW,TLL,2023-03-25,2023-03-30/
-        // http://localhost:3000/search/one/WAW,TLL,2023-03-25/
-        // http://localhost:3000/search/multi/WAW,TLL,2023-03-25;WAW,TLL,2023-03-25/
-
-
         let data = {
-            type: 'round',
+            type: params.type,
             from: 'WAW', 
             to: 'TLL',
             depart: '2023-03-25',
@@ -80,14 +75,13 @@ export default class Search extends Component {
                 }
             }
 
-
             clearInterval(that.timer);
+
             that.setState({ progress: 100, loading: false, offers: offers, airlines: airlines });
         }).catch((error) => {
             clearInterval(that.timer);
-            that.setState({ progress: 100, loading: false });
 
-            console.log('Something went wrong! Please try again, refresh the page');
+            that.setState({ progress: 100, loading: false });
         });;        
     }
 
@@ -97,6 +91,7 @@ export default class Search extends Component {
 
     render() {
         const that      = this,
+              params    = that.state.params,
               progress  = that.state.progress,
               loading   = that.state.loading,
               offers    = that.state.offers,
@@ -105,25 +100,7 @@ export default class Search extends Component {
 
         const clickMultiCity = (index) => {
             that.setState({ multicity: { selected: index, list: multicity.list } });
-        }
-
-/*
-
-        const clickMultiCity = (e) => {
-            const container = e.target.closest('.multi-city'),
-                  item      = e.target.closest('.multi-city-item');
-
-            for (const el of container.querySelectorAll('.multi-city-item'))
-                el.classList.remove('active');
-
-            item.classList.add('active');
-
-            // console.log(container);
-            // console.log(e.target.closest('.multi-city'));
-            // that.setState({ multicity: { selected: index, list: multicity.list } });
-        }
-
-*/        
+        }      
 
         return (
             <>
@@ -215,31 +192,36 @@ export default class Search extends Component {
                     </Typography>
                 </Box>
 
-                <Box className="container multi-city">
-                    {multicity.list.map((item, index) => {
-                        return (
-                            <div key={index} className={index === multicity.selected ? 'multi-city-item active' : 'multi-city-item'} onClick={() => { clickMultiCity(index) }}>
-                                {loading === true ? (
-                                    <>
-                                        {index === multicity.selected ? (
-                                            <img src={loadingImageInvert} style={{ animation: 'rotation 2s infinite linear', float: 'right' }} />
-                                        ) : (
-                                            <img src={loadingImage} style={{ animation: 'rotation 2s infinite linear', float: 'right' }} />
-                                        )}
-                                    </>
-                                ) : (
-                                    <>
-                                    </>
-                                )}
-                                <div className="departure">{item.departure}</div>
-                                <div className="dots">....</div>
-                                <div className="arrival">{item.arrival}</div>
-                                <div className="date">{item.date}</div>
-                            </div>
-                        )
-                    })}
-                </Box>
-                <TopSeachForm type={'multi'}></TopSeachForm>
+                {params.type === 'multi-city' ? (
+                    <Box className="container multi-city">
+                        {multicity.list.map((item, index) => {
+                            return (
+                                <div key={index} className={index === multicity.selected ? 'multi-city-item active' : 'multi-city-item'} onClick={() => { clickMultiCity(index) }}>
+                                    {loading === true ? (
+                                        <>
+                                            {index === multicity.selected ? (
+                                                <img src={loadingImageInvert} style={{ animation: 'rotation 2s infinite linear', float: 'right' }} />
+                                            ) : (
+                                                <img src={loadingImage} style={{ animation: 'rotation 2s infinite linear', float: 'right' }} />
+                                            )}
+                                        </>
+                                    ) : (
+                                        <>
+                                        </>
+                                    )}
+                                    <div className="departure">{item.departure}</div>
+                                    <div className="dots">....</div>
+                                    <div className="arrival">{item.arrival}</div>
+                                    <div className="date">{item.date}</div>
+                                </div>
+                            )
+                        })}
+                    </Box>
+                ) : (
+                    <></>
+                )}
+
+                <TopSeachForm type={params.type}></TopSeachForm>
                 <Box className="container">
                     <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={3}>
                         <Box
