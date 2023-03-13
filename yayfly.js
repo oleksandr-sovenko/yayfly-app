@@ -487,17 +487,35 @@ jQuery(document).ready(($) => {
 		searchForm.on('click', '[type="submit"]', (e) => {
 			const tab = searchForm.attr('data-tab');
 
-			for (const name of ['whereFrom', 'whereTo', 'dates', 'travelers']) {
-				const el = searchForm.find(`[name="${name}"]`);
+			let trips   = [],
+				options = [];
 
-				if (!el.val().length) {
-					console.log(`${name} is empty`);
-					el.addClass('error');
-				}
+			searchForm.find('.wrapperItem').each((i, e) => {
+				const whereFrom = $(e).find('[name="whereFrom"]'),
+					  whereTo   = $(e).find('[name="whereTo"]'),
+					  dateRange = searchForm.find('[name="dates"]').data('daterangepicker');
+
+				if (whereFrom.val().trim() === '')
+					whereFrom.addClass('error');
+
+				if (whereTo.val().trim() === '')
+					whereTo.addClass('error');
+
+				if (tab === 'round-trip')
+					trips.push(`${whereFrom.val()},${whereTo.val()},${dateRange.startDate.format('YYYY-MM-DD')},${dateRange.endDate.format('YYYY-MM-DD')}`);
+				else
+					trips.push(`${whereFrom.val()},${whereTo.val()},${dateRange.startDate.format('YYYY-MM-DD')}`);
+			});
+
+			for (const name of ['luggage', 'direct', 'layover']) {
+				if (searchForm.find(`[name="${name}"]`).is(':checked'))
+					options.push(name);	
 			}
 
-			if (!searchForm.find('.error').length)
-				location.href = '/search';
+			if (!searchForm.find('.error').length) {
+				const t = window.travelers;
+				location.href = `/search/${tab}/${trips.join(';')}/${t.cabinClass}/${t.adults}/${t.children}/${t.infants}${options.length ? `?${options.join('=true&')}=true` : ''}`;
+			}
 		});
 
 
