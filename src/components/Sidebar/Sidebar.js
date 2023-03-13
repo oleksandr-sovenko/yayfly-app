@@ -11,6 +11,7 @@ const FilterTitle = styled(Box)(({ theme }) => ({
     fontWeight: "bold",
 }));
 
+
 const FilterPTag = styled(Box)(({ theme }) => ({
     display: "flex",
     alignItems: "center",
@@ -27,56 +28,15 @@ const FilterPTag = styled(Box)(({ theme }) => ({
     },
 }));
 
-function valuetext(value) {
-    return `${value}°C`;
-}
-
-const minDistance = 10;
 
 const Sidebar = (props) => {
     if (!props)
         props = {};
 
-    const [outboundValue, setOutboundValue] = useState([20, 80]);
-    const [returnValue, setReturnValue] = useState([20, 80]);
-
-    const [value, setValue] = useState(30);
-
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
-    };
-
-    const handleChangeOutbound = (event, newValue, activeThumb) => {
-        if (!Array.isArray(newValue)) {
-            return;
-        }
-
-        if (activeThumb === 0) {
-            setOutboundValue([Math.min(newValue[0], outboundValue[1] - minDistance), outboundValue[1]]);
-        } else {
-            setOutboundValue([outboundValue[0], Math.max(newValue[1], outboundValue[0] + minDistance)]);
-        }
-    };
-
-    const handleChangeReturn = (event, newValue, activeThumb) => {
-        if (!Array.isArray(newValue)) {
-            return;
-        }
-
-        if (newValue[1] - newValue[0] < minDistance) {
-            if (activeThumb === 0) {
-                const clamped = Math.min(newValue[0], 100 - minDistance);
-                setReturnValue([clamped, clamped + minDistance]);
-            } else {
-                const clamped = Math.max(newValue[1], minDistance);
-                setReturnValue([clamped - minDistance, clamped]);
-            }
-        } else {
-            setReturnValue(newValue);
-        }
-
-        console.log(newValue);
-    };
+    const [departureTimeOutbound, setDepartureTimeOutbound] = useState([0, 24]),
+          [departureTimeReturn, setDepartureTimeReturn] = useState([0, 24]),
+          [journeyDurationOutbound, setJourneyDurationOutbound] = useState(48),
+          [journeyDurationReturn, setJourneyDurationReturn] = useState(48);
 
     const changedNumberOfStops = (e) => {
         console.log(e);
@@ -84,7 +44,7 @@ const Sidebar = (props) => {
 
     const changedAirline = (e) => {
         console.log(e);
-    }    
+    }
 
     return (
         <Box className="sidebar-inner-wrap">
@@ -97,7 +57,6 @@ const Sidebar = (props) => {
                             height="16px"
                             value="yes"
                             onChange={changedNumberOfStops}
-                            checked
                         />
                         <Typography>Direct</Typography>
                     </FilterPTag>
@@ -107,7 +66,6 @@ const Sidebar = (props) => {
                             height="16px"
                             value="yes"
                             onChange={changedNumberOfStops}
-                            checked
                         />
                         <Typography>1 stop</Typography>
                     </FilterPTag>
@@ -117,7 +75,6 @@ const Sidebar = (props) => {
                             height="16px"
                             value="yes"
                             onChange={changedNumberOfStops}
-                            checked
                         />
                         <Typography>2+ stops</Typography>
                     </FilterPTag>
@@ -148,14 +105,18 @@ const Sidebar = (props) => {
                             <Box className="filter-slider">
                                 <Box sx={{ width: "100%", marginTop: "14px" }}>
                                     <Slider
-                                        getAriaLabel={() => "Temperature range"}
-                                        value={outboundValue}
-                                        onChange={handleChangeOutbound}
+                                        value={departureTimeOutbound}
+                                        onChange={(event, newValue) => {
+                                            setDepartureTimeOutbound(newValue);
+                                        }}                                         
+                                        onChangeCommitted={(event, value) => {
+                                            console.log(value);
+                                        }}
                                         valueLabelDisplay="auto"
+                                        max={24}
                                         sx={{
                                             color: "rgba(0,0,0,.85)",
                                             boxSizing: "border-box",
-                                            color: "rgba(0, 0, 0, 0.85)",
                                             fontSize: "14px",
                                             fontVariant: "tabular-nums",
                                             lineHeight: 1.5715,
@@ -197,19 +158,22 @@ const Sidebar = (props) => {
 
                             <Box sx={{ width: "100%", marginTop: "14px" }}>
                                 <Slider
-                                    getAriaLabel={() => "Temperature range"}
-                                    value={returnValue}
-                                    onChange={handleChangeReturn}
+                                    value={departureTimeReturn}
+                                    onChange={(event, newValue) => {
+                                        setDepartureTimeReturn(newValue);
+                                    }}                                         
+                                    onChangeCommitted={(event, value) => {
+                                        console.log(value);
+                                    }}
                                     valueLabelDisplay="auto"
+                                    max={24}
                                     sx={{
                                         color: "rgba(0,0,0,.85)",
                                         boxSizing: "border-box",
-                                        color: "rgba(0, 0, 0, 0.85)",
                                         fontSize: "14px",
                                         fontVariant: "tabular-nums",
                                         lineHeight: 1.5715,
                                         listStyle: "none",
-                                        // fonteature-settings: '"tnum","tnum",'
                                         position: "relative",
                                         height: "4px",
                                         margin: "10px 0px",
@@ -255,7 +219,6 @@ const Sidebar = (props) => {
                                         name={name}
                                         onChange={changedAirline}
                                         value="yes"
-                                        checked
                                     />
                                     <Typography>{props.airlines[name]}</Typography>
                                 </FilterPTag>
@@ -286,23 +249,26 @@ const Sidebar = (props) => {
                             sx={{
                                 fontSize: "12px",
                             }}
-                        >0.00 - 24:00</Typography>
+                        >0.00 - 48:00</Typography>
                     </Box>
                     <Box sx={{ width: "100%", marginTop: "14px" }}>
                         <Slider
-                            getAriaLabel={() => "Temperature range"}
-                            value={returnValue}
-                            onChange={handleChangeReturn}
+                            value={journeyDurationOutbound}
+                            onChange={(event, newValue) => {
+                                setJourneyDurationOutbound(newValue);
+                            }}                                         
+                            onChangeCommitted={(event, value) => {
+                                console.log(value);
+                            }}
                             valueLabelDisplay="auto"
+                            max={48}
                             sx={{
                                 color: "rgba(0,0,0,.85)",
                                 boxSizing: "border-box",
-                                color: "rgba(0, 0, 0, 0.85)",
                                 fontSize: "14px",
                                 fontVariant: "tabular-nums",
                                 lineHeight: 1.5715,
                                 listStyle: "none",
-                                // fonteature-settings: '"tnum","tnum",'
                                 position: "relative",
                                 height: "4px",
                                 margin: "10px 0px",
@@ -336,23 +302,25 @@ const Sidebar = (props) => {
                             sx={{
                                 fontSize: "12px",
                             }}
-                        >0.00 - 24:00</Typography>
+                        >0.00 - 48:00</Typography>
                     </Box>
                     <Box sx={{ width: "100%", marginTop: "14px" }}>
                         <Slider
-                            getAriaLabel={() => "Temperature range"}
-                            value={returnValue}
-                            onChange={handleChangeReturn}
+                            value={journeyDurationReturn}
+                            onChange={(event, newValue) => {
+                                setJourneyDurationReturn(newValue);
+                            }}                                         
+                            onChangeCommitted={(event, value) => {
+                                console.log(value);
+                            }}
                             valueLabelDisplay="auto"
+                            max={48}
                             sx={{
                                 color: "rgba(0,0,0,.85)",
                                 boxSizing: "border-box",
-                                color: "rgba(0, 0, 0, 0.85)",
                                 fontSize: "14px",
                                 fontVariant: "tabular-nums",
                                 lineHeight: 1.5715,
-                                listStyle: "none",
-                                // fonteature-settings: '"tnum","tnum",'
                                 position: "relative",
                                 height: "4px",
                                 margin: "10px 0px",
