@@ -2,7 +2,8 @@ import { Box } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import React from "react";
-import loding from "../assets/loading.svg";
+import loadingImage from '../assets/loading.svg';
+import loadingImageInvert from '../assets/loading-2.svg';
 import SearchResultCard from "./SearchResultCard";
 import Sidebar from "./Sidebar/Sidebar";
 
@@ -22,17 +23,13 @@ const SearchPriceResults = (props) => {
         setOpen(false);
     };
 
-    const clickSearchFilter = (e) => {
-        console.log('1111');
-    }
-
     return (
         <div className="search-result-area">
             <div className="search-filter-wrap grid column-3">
-                <div className={filter === 'recomended' ? 'search-filter active' : 'search-filter'} onClick={() => { setFilter('recomended') }}>
+                <div className={filter === 'recomended' ? 'search-filter active' : 'search-filter'} onClick={() => { if (props.loading === true) return; setFilter('recomended') }}>
                     <h3>Recomended</h3>
                     {props.loading === true ? (
-                        <img src={loding} style={{ animation: 'rotation 2s infinite linear' }} />                        
+                        <img src={loadingImageInvert} style={{ animation: 'rotation 2s infinite linear' }} />                        
                     ) : (
                         <>
                             <span className="priceDesktop">£897.36</span>
@@ -40,10 +37,10 @@ const SearchPriceResults = (props) => {
                         </>
                     )}
                 </div>
-                <div className={filter === 'cheapest' ? 'search-filter active' : 'search-filter'} onClick={() => { setFilter('cheapest') }}>
+                <div className={filter === 'cheapest' ? 'search-filter active' : 'search-filter'} onClick={() => { if (props.loading === true) return; setFilter('cheapest') }}>
                     <h3>Cheapest</h3>
                     {props.loading === true ? (
-                        <img src={loding} style={{ animation: 'rotation 2s infinite linear' }} />                        
+                        <img src={loadingImage} style={{ animation: 'rotation 2s infinite linear' }} />                        
                     ) : (
                         <>
                             <span className="priceDesktop">£897.36</span>
@@ -51,10 +48,10 @@ const SearchPriceResults = (props) => {
                         </>
                     )}
                 </div>
-                <div className={filter === 'shortest' ? 'search-filter active' : 'search-filter'} onClick={() => { setFilter('shortest') }}>
+                <div className={filter === 'shortest' ? 'search-filter active' : 'search-filter'} onClick={() => { if (props.loading === true) return; setFilter('shortest') }}>
                     <h3>Shortest</h3>
                     {props.loading === true ? (
-                        <img src={loding} style={{ animation: 'rotation 2s infinite linear' }} />                        
+                        <img src={loadingImage} style={{ animation: 'rotation 2s infinite linear' }} />                        
                     ) : (
                         <>
                             <span className="priceDesktop">£897.36</span>
@@ -88,7 +85,11 @@ const SearchPriceResults = (props) => {
 
             <div className="search-result-wrap">
                 {props.loading === true ? (
-                    <>loading</>
+                    <>
+                        <SearchResultCard></SearchResultCard>
+                        <SearchResultCard></SearchResultCard>
+                        <SearchResultCard></SearchResultCard>
+                    </>
                 ) : (
                     <>
                         {props.offers.length ? (

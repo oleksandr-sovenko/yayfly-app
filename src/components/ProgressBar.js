@@ -11,7 +11,7 @@ const ProgressBar = (props) => {
             {props.value < 100 ? (
                 <p><img src={loading} style={{ animation: 'rotation 2s infinite linear' }}/> Checking best prices... </p>
             ) : (
-                <></>
+                <p>{'\u00A0'}</p>
             )}
             <div className="progress" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
                 <div className="progress-bar" style={{ width: `${props.value}%` }}></div>

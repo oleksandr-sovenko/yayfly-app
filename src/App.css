@@ -200,3 +200,130 @@ button.mobile-filter-btn.apply-btn {
         width: calc(100% - 10px);
     }
 }
+
+/* search-result-card-grid loading */
+
+.search-result-card-grid.loading .flight-name img,
+.search-result-card-grid.loading p,
+.search-result-card-grid.loading .cta-info a,
+.search-result-card-grid.loading .dropdown-btn {
+    display: none;
+}
+
+.search-result-card-grid.loading span,
+.search-result-card-grid.loading a,
+.search-result-card-grid.loading .airlineName,
+.search-result-card-grid.loading .price,
+.search-result-card-grid.loading .flight-category,
+.search-result-card-grid.loading .directFlight,
+.search-result-card-grid.loading .totalFlightDuration,
+.search-result-card-grid.loading .departureTime,
+.search-result-card-grid.loading .airportCode,
+.search-result-card-grid.loading .arrivalTime,
+.search-result-card-grid.loading .airportCodeTo {
+    color: #d1d4e3;
+    overflow: hidden;
+    background: #d1d4e3;
+    position: relative;
+    pointer-events: none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+
+/*.search-result-card-grid.loading span:after,*/
+.search-result-card-grid.loading a:after,
+.search-result-card-grid.loading .airlineName:after,
+.search-result-card-grid.loading .price:after,
+.search-result-card-grid.loading .flight-category:after,
+.search-result-card-grid.loading .directFlight:after,
+.search-result-card-grid.loading .totalFlightDuration:after,
+.search-result-card-grid.loading .departureTime:after,
+.search-result-card-grid.loading .airportCode:after,
+.search-result-card-grid.loading .arrivalTime:after,
+.search-result-card-grid.loading .airportCodeTo:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    content: ' ';
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0));
+    animation: shimmer 2s infinite;
+}
+
+/*  */
+
+cta-top {
+    padding: 0;
+}
+
+/* online  */
+
+
+
+.header-right div span::before,
+.cta-top p.online span::before {
+    height: 10px;
+    width: 10px;
+/*    border: 1px solid #00ff2f;*/
+/*    margin-top: -6px;*/
+    animation: blinker 1.5s cubic-bezier(.5, 0, 1, 1) infinite alternate;
+}
+
+/* scroll top */
+
+#scroll-top {
+    display: inline-block;
+    background-color: #82848e;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 4px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    transition: background-color .3s,opacity .5s,visibility .5s;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 1000
+}
+
+#scroll-top svg {
+    color: white;
+    font-size: 48px;
+}
+
+#scroll-top:hover {
+    cursor: pointer;
+    background-color: #12172b;
+}
+
+#scroll-top:active {
+    background-color: #555
+}
+
+#scroll-top.show {
+    opacity: 1;
+    visibility: visible
+}
+
+/* animations */
+
+@keyframes blinker {  
+    from { opacity: 1; }
+    to { opacity: 0.1; }
+}
+
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+
+
+

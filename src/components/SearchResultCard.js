@@ -10,8 +10,34 @@ import image2 from '../assets/BA.webp';
 
 
 const SearchResultCard = (props) => {
-    if (!props)
-        props = {};
+    if (!props.offer)
+        props = {
+            loading: true,
+            offer: {
+                owner: {
+                    logo_symbol_url: '',
+                    name: 'dummyText',
+                },
+                slices: [{
+                        duration: '00:00',
+                        origin: { iata_code: 'AAA' },
+                        destination: { iata_code: 'BBB' },
+                        segments:[{
+                            departing_at:'00:00',
+                            arriving_at:'00:00',
+                        }]
+                    },{
+                        duration: '00:00',
+                        origin: { iata_code: 'AAA' },
+                        destination: { iata_code: 'BBB' },
+                        segments:[{
+                            departing_at:'00:00',
+                            arriving_at:'00:00',
+                        }]
+                    }
+                ]
+            }
+        };
 
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -36,9 +62,8 @@ const SearchResultCard = (props) => {
         setIsOpen((prevState) => !prevState);
     };
 
-
     return (
-        <div className="search-result-card-grid">
+        <div className={props.loading === true ? 'search-result-card-grid loading' : 'search-result-card-grid'}>
             <div className="flight-duration-time">
                 <div className="flight-header">
                     <div className="flight-name">
@@ -78,23 +103,6 @@ const SearchResultCard = (props) => {
                         </div>                        
                     )
                 })}
-
-
-{/*                <div className="single-flight-time">
-                    <div className="departureTimeWrap">
-                        <span className='departureTime'>19:30</span>
-                        <span className='airportCode'>LHR</span>
-                    </div>
-                    <div className="flightDurationWrap">
-                        <span className="totalFlightDuration">8h 0min</span>
-                        <span className="lineAndDots"></span>
-                        <span className="directFlight">Direct</span>
-                    </div>
-                    <div className="arrivalTimeWrap">
-                        <span className="arrivalTime">22:30</span>
-                        <span className="airportCodeTo">JFK</span>
-                    </div>
-                </div>*/}
             </div>
             <div className="flight-price-wrap">
                 <div className="mobileFlex">
@@ -106,7 +114,7 @@ const SearchResultCard = (props) => {
                         <div ref={dropdownRef} className="desktopNone">
                             <button className="dropdown-btn" onClick={handleDropdownToggle}><HiOutlineArrowSmDown /></button>
                         </div>
-                        <Link to="/booking-details" className="addToCart">Select <CgAirplane /></Link>
+                        <Link to={`/booking-details/${props.offer.id}`} className="addToCart">Select <CgAirplane /></Link>
                     </div>
                 </div>
                 <span className="info-btn"><MdOutlineError />Unpublished deal detected</span>
