@@ -1,3 +1,7 @@
+.column-rand-4 {
+    grid-template-columns: 3fr 3fr 2fr 2fr;
+}
+
 .passenger-input,
 select.gender-select {
   padding: 4px 11px;
@@ -125,8 +129,6 @@ button.mobile-filter-btn.apply-btn {
     display: none !important;
 }
 
-
-
 @keyframes rotation {
     from {
         transform: rotate(0deg);
@@ -134,5 +136,67 @@ button.mobile-filter-btn.apply-btn {
 
     to {
         transform: rotate(359deg);
+    }
+}
+
+.multi-city {
+    margin-top: 30px;
+}
+
+.multi-city-item {
+    display: inline-block;
+    cursor: pointer;
+    background: white;
+    width: 200px;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 5px; 
+}
+
+.multi-city-item .departure,
+.multi-city-item .arrival {
+    position: relative;
+    margin-left: 15px;
+}
+
+.multi-city-item .arrival {
+    margin-top: 15px;
+}
+
+.multi-city-item .dots {
+    transform: rotate(90deg);
+    position: absolute;
+    margin-top: -1px;    
+}
+
+.multi-city-item .date {
+    margin-top: 10px;
+}
+
+.multi-city-item .departure:before,
+.multi-city-item .arrival:before {
+    content: ' ';
+    border: 2px solid #12172b;
+    border-radius: 10px;
+    position: absolute;
+    top: 4px;
+    left: -16px;
+    width: 10px;
+    height: 10px;
+}
+
+.multi-city-item.active .departure:before,
+.multi-city-item.active .arrival:before {
+    border-color: white;
+}
+
+.multi-city-item.active {
+    background: #12172b;
+    color: white;    
+}
+
+@media (max-width: 767px) {
+    .multi-city-item {
+        width: calc(100% - 10px);
     }
 }

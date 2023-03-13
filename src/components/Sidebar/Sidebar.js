@@ -33,7 +33,10 @@ function valuetext(value) {
 
 const minDistance = 10;
 
-const Sidebar = () => {
+const Sidebar = (props) => {
+    if (!props)
+        props = {};
+
     const [outboundValue, setOutboundValue] = useState([20, 80]);
     const [returnValue, setReturnValue] = useState([20, 80]);
 
@@ -71,7 +74,17 @@ const Sidebar = () => {
         } else {
             setReturnValue(newValue);
         }
+
+        console.log(newValue);
     };
+
+    const changedNumberOfStops = (e) => {
+        console.log(e);
+    }
+
+    const changedAirline = (e) => {
+        console.log(e);
+    }    
 
     return (
         <Box className="sidebar-inner-wrap">
@@ -82,8 +95,8 @@ const Sidebar = () => {
                         <Checkbox
                             width="6px"
                             height="16px"
-                            name="saveAddress"
                             value="yes"
+                            onChange={changedNumberOfStops}
                         />
                         <Typography>Direct</Typography>
                     </FilterPTag>
@@ -91,8 +104,8 @@ const Sidebar = () => {
                         <Checkbox
                             width="6px"
                             height="16px"
-                            name="saveAddress"
                             value="yes"
+                            onChange={changedNumberOfStops}
                         />
                         <Typography>1 stop</Typography>
                     </FilterPTag>
@@ -100,8 +113,8 @@ const Sidebar = () => {
                         <Checkbox
                             width="6px"
                             height="16px"
-                            name="saveAddress"
                             value="yes"
+                            onChange={changedNumberOfStops}
                         />
                         <Typography>2+ stops</Typography>
                     </FilterPTag>
@@ -216,48 +229,39 @@ const Sidebar = () => {
             </Box>
 
             {/* airlines-filter */}
-            <Box className="sidebar-filter airlines-filter">
-                <FilterTitle>Airlines</FilterTitle>
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        color: "rgba(7, 14, 57, 0.5)",
-                    }}
-                >
-                    <Typography sx={{ marginRight: "20px", marginBottom:"10px" }}>Select All</Typography>
-                    <Typography>Clear All</Typography>
+            {Object.keys(props.airlines).length ? (
+                <Box className="sidebar-filter airlines-filter">
+                    <FilterTitle>Airlines</FilterTitle>
+                    <Box
+                        sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            color: "rgba(7, 14, 57, 0.5)",
+                        }}
+                    >
+                        <Typography sx={{ marginRight: "20px", marginBottom:"10px" }}>Select All</Typography>
+                        <Typography sx={{ marginRight: "20px", marginBottom:"10px" }}>Clear All</Typography>
+                    </Box>
+                    <Box className="filter-term">
+                        {Object.keys(props.airlines).map((name, index) => {
+                            return (
+                                <FilterPTag key={index} sx={{}}>
+                                    <Checkbox
+                                        width="6px"
+                                        height="16px"
+                                        name={name}
+                                        onChange={changedAirline}
+                                        value="yes"
+                                    />
+                                    <Typography>{props.airlines[name]}</Typography>
+                                </FilterPTag>
+                            )
+                        })}
+                    </Box>
                 </Box>
-                <Box className="filter-term">
-                    <FilterPTag sx={{}}>
-                        <Checkbox
-                            width="6px"
-                            height="16px"
-                            name="saveAddress"
-                            value="yes"
-                        />
-                        <Typography>Combined airlines</Typography>
-                    </FilterPTag>
-                    <FilterPTag sx={{}}>
-                        <Checkbox
-                            width="6px"
-                            height="16px"
-                            name="saveAddress"
-                            value="yes"
-                        />
-                        <Typography>Austrian Airlines</Typography>
-                    </FilterPTag>
-                    <FilterPTag sx={{}}>
-                        <Checkbox
-                            width="6px"
-                            height="16px"
-                            name="saveAddress"
-                            value="yes"
-                        />
-                        <Typography>Qatar Airways</Typography>
-                    </FilterPTag>
-                </Box>
-            </Box>
+            ) : (
+                <></>
+            )}
 
             {/* duration-filter */}
             <Box className="sidebar-filter duration-filter">
@@ -311,6 +315,56 @@ const Sidebar = () => {
                             }}
                         />
                     </Box>
+
+
+                    <Box
+                        sx={{
+                            color: "rgba(7, 14, 57, 0.5)",
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                fontSize: "12px",
+                                fontWeight: 600,
+                            }}
+                        >Return</Typography>
+                        <Typography
+                            sx={{
+                                fontSize: "12px",
+                            }}
+                        >0.00 - 24:00</Typography>
+                    </Box>
+                    <Box sx={{ width: "100%", marginTop: "14px" }}>
+                        <Slider
+                            getAriaLabel={() => "Temperature range"}
+                            value={returnValue}
+                            onChange={handleChangeReturn}
+                            valueLabelDisplay="auto"
+                            sx={{
+                                color: "rgba(0,0,0,.85)",
+                                boxSizing: "border-box",
+                                color: "rgba(0, 0, 0, 0.85)",
+                                fontSize: "14px",
+                                fontVariant: "tabular-nums",
+                                lineHeight: 1.5715,
+                                listStyle: "none",
+                                // fonteature-settings: '"tnum","tnum",'
+                                position: "relative",
+                                height: "4px",
+                                margin: "10px 0px",
+                                padding: "4px 0",
+                                cursor: "pointer",
+                                touchAction: "none",
+                                '& .MuiSlider-thumb': {
+                                    color: "rgba(255, 255, 255)",
+                                    boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)",
+                                    border: "4px",
+                                    borderColor: "rgb(236, 236, 236)",
+                                    borderStyle: "solid"
+                                },
+                            }}
+                        />
+                    </Box>                    
                 </Box>
             </Box>
         </Box>

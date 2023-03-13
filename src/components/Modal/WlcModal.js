@@ -276,7 +276,7 @@ const WlcModal = () => {
                                 display: { xs: "none", md: "block" },
                             },
                         }}>
-                            <img className="carton-img" src={modalCartoon} alt="" srcset="" />
+                            <img className="carton-img" src={modalCartoon} alt="" />
                             <Typography
                                 sx={{
                                     marginTop: "10px",
@@ -293,7 +293,7 @@ const WlcModal = () => {
                                     },
                                 }}
                             >
-                                <img src={guaranteImg} alt="" srcset="" />
+                                <img src={guaranteImg} alt="" />
                             </Box>
                         </Grid>
                     </Grid>

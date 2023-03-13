@@ -9,23 +9,28 @@ import image1 from '../assets/AA.webp';
 import image2 from '../assets/BA.webp';
 
 
-const SearchResultCard = () => {
+const SearchResultCard = (props) => {
+    if (!props)
+        props = {};
+
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
+
     useEffect(() => {
         const handleOutsideClick = (event) => {
-          if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setIsOpen(false);
-          }
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
         };
     
-        document.addEventListener("mousedown", handleOutsideClick);
+        document.addEventListener('mousedown', handleOutsideClick);
     
         return () => {
-          document.removeEventListener("mousedown", handleOutsideClick);
+            document.removeEventListener('mousedown', handleOutsideClick);
         };
-      }, []);
+    }, []);
+
     
     const handleDropdownToggle = () => {
         setIsOpen((prevState) => !prevState);
@@ -37,29 +42,45 @@ const SearchResultCard = () => {
             <div className="flight-duration-time">
                 <div className="flight-header">
                     <div className="flight-name">
-                        <img src={image1} alt="American Airlines" />
-                        <img src={image2} alt="British Airways" />
-                        <span className="airlineName">British Airways</span>
+                        <img src={props.offer.owner.logo_symbol_url} alt="American Airlines" />
+                        {/*<img src={image2} alt="British Airways" />*/}
+                        <span className="airlineName">{props.offer.owner.name}</span>
                     </div>
                     <div className="flight-category">Economy</div>
                 </div>
-                <div className="single-flight-time">
-                    <div className="departureTimeWrap">
-                        <span className='departureTime'>19:30</span>
-                        <span className='airportCode'>LHR</span>
-                    </div>
-                    <div className="flightDurationWrap">
-                        <span className="totalFlightDuration">8h 0min</span>
-                        <span className="lineAndDots"></span>
-                        <span className="directFlight">Direct</span>
-                    </div>
-                    <div className="arrivalTimeWrap">
-                        <span className="arrivalTime">22:30</span>
-                        <span className="airportCodeTo">JFK</span>
-                    </div>
-                </div>
 
-                <div className="single-flight-time">
+                {props.offer.slices.map((slice, index) => {
+                    return (
+                        <div key={index} className="single-flight-time">
+                            <div className="departureTimeWrap">
+                                <span className='departureTime'>{slice.segments[0].departing_at.replace(/.*T/, '').substr(0, 5)}</span>
+                                <span className='airportCode'>{slice.origin.iata_code}</span>
+                            </div>
+                            <div className="flightDurationWrap">
+                                <span className="totalFlightDuration">{slice.duration.replace('PT', '').replace('H', 'h ').replace('M', 'min')}</span>
+                                <span className="lineAndDots"></span>
+                                {slice.segments.length === 1 ? (
+                                    <span className="directFlight">Direct</span>
+                                ) : (
+                                    <span className="directFlight" style={{ color: '#cd363a' }}>
+                                        {slice.segments.length <= 2 ? (
+                                            <>{slice.segments.length - 1} stop</>
+                                        ) : (
+                                            <>{slice.segments.length - 1} stops</>
+                                        )}
+                                    </span>
+                                )}
+                            </div>
+                            <div className="arrivalTimeWrap">
+                                <span className="arrivalTime">{slice.segments[slice.segments.length - 1].arriving_at.replace(/.*T/, '').substr(0, 5)}</span>
+                                <span className="airportCodeTo">{slice.destination.iata_code}</span>
+                            </div>
+                        </div>                        
+                    )
+                })}
+
+
+{/*                <div className="single-flight-time">
                     <div className="departureTimeWrap">
                         <span className='departureTime'>19:30</span>
                         <span className='airportCode'>LHR</span>
@@ -73,13 +94,13 @@ const SearchResultCard = () => {
                         <span className="arrivalTime">22:30</span>
                         <span className="airportCodeTo">JFK</span>
                     </div>
-                </div>
+                </div>*/}
             </div>
             <div className="flight-price-wrap">
                 <div className="mobileFlex">
                     <div>
                         <span className="desktop-none">Total:</span>
-                        <div className="price">$2359.00</div>
+                        <div className="price">${props.offer.total_amount}</div>
                     </div>
                     <div>
                         <div ref={dropdownRef} className="desktopNone">
