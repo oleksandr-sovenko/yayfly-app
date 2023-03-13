@@ -498,7 +498,7 @@ const PersonApplyCard = () => {
                 value="yes"
               />
             }
-            label="I accept the Terms and Conditions of Flymble.com and I confirm that the information provided is up to date and accurate."
+            label="I accept the Terms and Conditions of Yayfly.com and I confirm that the information provided is up to date and accurate."
           />
         </Box>
       </CardWrap>

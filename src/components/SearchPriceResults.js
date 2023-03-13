@@ -23,39 +23,49 @@ const SearchPriceResults = (props) => {
         setOpen(false);
     };
 
+    const clickSearchFilter = (value) => {
+        if (props.loading === true)
+            return;
+
+        if (typeof props.changed === 'function')
+            props.changed(value);
+
+        setFilter(value);
+    };
+
     return (
         <div className="search-result-area">
             <div className="search-filter-wrap grid column-3">
-                <div className={filter === 'recomended' ? 'search-filter active' : 'search-filter'} onClick={() => { if (props.loading === true) return; setFilter('recomended') }}>
+                <div className={filter === 'recomended' ? 'search-filter active' : 'search-filter'} onClick={() => { clickSearchFilter('recomended') }}>
                     <h3>Recomended</h3>
                     {props.loading === true ? (
                         <img src={loadingImageInvert} style={{ animation: 'rotation 2s infinite linear' }} />                        
                     ) : (
                         <>
-                            <span className="priceDesktop">£897.36</span>
-                            <span className="tabDuration">14h 55min</span>
+                            <span className="priceDesktop">{props.recomended.price}</span>
+                            <span className="tabDuration">{props.recomended.duration}</span>
                         </>
                     )}
                 </div>
-                <div className={filter === 'cheapest' ? 'search-filter active' : 'search-filter'} onClick={() => { if (props.loading === true) return; setFilter('cheapest') }}>
+                <div className={filter === 'cheapest' ? 'search-filter active' : 'search-filter'} onClick={() => { clickSearchFilter('cheapest') }}>
                     <h3>Cheapest</h3>
                     {props.loading === true ? (
                         <img src={loadingImage} style={{ animation: 'rotation 2s infinite linear' }} />                        
                     ) : (
                         <>
-                            <span className="priceDesktop">£897.36</span>
-                            <span className="tabDuration">14h 55min</span>
+                            <span className="priceDesktop">{props.cheapest.price}</span>
+                            <span className="tabDuration">{props.cheapest.duration}</span>
                         </>
                     )}
                 </div>
-                <div className={filter === 'shortest' ? 'search-filter active' : 'search-filter'} onClick={() => { if (props.loading === true) return; setFilter('shortest') }}>
+                <div className={filter === 'shortest' ? 'search-filter active' : 'search-filter'} onClick={() => { clickSearchFilter('shortest') }}>
                     <h3>Shortest</h3>
                     {props.loading === true ? (
                         <img src={loadingImage} style={{ animation: 'rotation 2s infinite linear' }} />                        
                     ) : (
                         <>
-                            <span className="priceDesktop">£897.36</span>
-                            <span className="tabDuration">14h 55min</span>
+                            <span className="priceDesktop">{props.shortest.price}</span>
+                            <span className="tabDuration">{props.shortest.duration}</span>
                         </>
                     )}
                 </div>

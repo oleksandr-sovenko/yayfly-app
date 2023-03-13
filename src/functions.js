@@ -34,4 +34,34 @@ const getParams = () => {
     return data;
 };
 
-export { getParams }
+
+const getMinutes = (value) => {
+    let h = parseInt(value.replace('PT', '')),
+        m = parseInt(value.replace(/.*H/, ''));
+
+    if (isNaN(h))
+        h = 0;
+
+    if (/P1DT/.test(value)) {
+        if (!h)
+            h = 24;
+        else
+            h = h + 24;
+    }
+
+    if (isNaN(m))
+        m = 0;
+
+    return (h * 60) + m;
+};
+
+
+const convert2Time = (value) => {
+    let hours   = Math.floor(value / 60),
+        minutes = value % 60;
+
+    return `${hours}h ${minutes}min`;
+};
+
+
+export { getParams, getMinutes, convert2Time }

@@ -11,7 +11,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import TopSeachForm from "../../components/TopSeachForm";
 import loadingImage from '../../assets/loading.svg';
 import loadingImageInvert from '../../assets/loading-2.svg';
-import { getParams } from '../../functions';
+import { getParams, getMinutes, convert2Time } from '../../functions';
 import axios from 'axios';
 
 
@@ -25,7 +25,12 @@ export default class Search extends Component {
         params: {},
         progress: 0,
         loading: true,
-        offers: [],
+        offers: {
+            current: 'recomended',
+            recomended: [],
+            cheapest: [],
+            shortest: [],            
+        },
         airlines: [],
         multicity: {
             selected: 0,
@@ -67,7 +72,15 @@ export default class Search extends Component {
                 tempAirlines = {},
                 airlines = {};
 
+            let recomended = [],
+                cheapest = [],
+                shortest = [];
+
             for (const offer of offers) {
+                recomended.push(offer);
+                cheapest.push(offer);
+                shortest.push(offer);
+
                 for (const slice of offer.slices) {
                     for (const segment of slice.segments) {
                         airlines[segment.marketing_carrier.id] = segment.marketing_carrier.name;
@@ -75,9 +88,48 @@ export default class Search extends Component {
                 }
             }
 
+            recomended.sort((a, b) => {
+                const totalA1 = parseFloat(a.total_amount),
+                      totalB1 = parseFloat(b.total_amount);
+
+                const totalA2 = a.slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0),
+                      totalB2 = b.slices.map((i) => getMinutes(i.duration)).reduce((sum, b) => sum + b, 0);                      
+
+                if ((totalA1 < totalB1) && (totalA2 < totalB2))
+                    return -1;
+                else if ((totalA1 > totalB1) && (totalA2 > totalB2))
+                    return 1;
+                else
+                    return 0;
+            });            
+
+            cheapest.sort((a, b) => {
+                const totalA = parseFloat(a.total_amount),
+                      totalB = parseFloat(b.total_amount);
+
+                if (totalA < totalB)
+                    return -1;
+                else if (totalA > totalB)
+                    return 1;
+                else
+                    return 0;
+            });
+
+            shortest.sort((a, b) => {
+                const totalA = a.slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0),
+                      totalB = b.slices.map((i) => getMinutes(i.duration)).reduce((sum, b) => sum + b, 0);
+
+                if (totalA < totalB)
+                    return -1;
+                else if (totalA > totalB)
+                    return 1;
+                else
+                    return 0;
+            });
+
             clearInterval(that.timer);
 
-            that.setState({ progress: 100, loading: false, offers: offers, airlines: airlines });
+            that.setState({ progress: 100, loading: false, offers: { current: 'recomended', recomended, cheapest, shortest }, airlines: airlines });
         }).catch((error) => {
             clearInterval(that.timer);
 
@@ -236,7 +288,29 @@ export default class Search extends Component {
                         <Box sx={{ gridColumn: { md: "span 9", xs: "span 12" } }}>
                             <CtaCard></CtaCard>
                             <ProgressBar value={progress}></ProgressBar>
-                            <SearchPriceResults loading={loading} offers={offers}></SearchPriceResults>
+                            <SearchPriceResults
+                                loading={loading}
+                                offers={offers[offers.current]}
+                                recomended={{
+                                    price: `$${offers['recomended'][0] ? offers['recomended'][0].total_amount : '0'}`,
+                                    duration: offers['recomended'][0] ? convert2Time(offers['recomended'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
+                                }}
+                                cheapest={{
+                                    price: `$${offers['cheapest'][0] ? offers['cheapest'][0].total_amount : '0'}`,
+                                    duration: offers['cheapest'][0] ? convert2Time(offers['cheapest'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
+                                }}
+                                shortest={{
+                                    price: `$${offers['shortest'][0] ? offers['shortest'][0].total_amount : '0'}`,
+                                    duration: offers['shortest'][0] ? convert2Time(offers['shortest'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
+                                }}
+                                changed={(value) => {
+                                    let data = offers;
+
+                                    data.current = value;
+
+                                    that.setState({ offers: data });
+                                }}
+                            ></SearchPriceResults>
                         </Box>
                     </Box>
                 </Box>

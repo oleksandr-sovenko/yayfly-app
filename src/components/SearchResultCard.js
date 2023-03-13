@@ -82,7 +82,7 @@ const SearchResultCard = (props) => {
                                 <span className='airportCode'>{slice.origin.iata_code}</span>
                             </div>
                             <div className="flightDurationWrap">
-                                <span className="totalFlightDuration">{slice.duration.replace('PT', '').replace('H', 'h ').replace('M', 'min')}</span>
+                                <span className="totalFlightDuration">{slice.duration.replace('P1DT', '1d ').replace('PT', '').replace('H', 'h ').replace('M', 'min')}</span>
                                 <span className="lineAndDots"></span>
                                 {slice.segments.length === 1 ? (
                                     <span className="directFlight">Direct</span>
