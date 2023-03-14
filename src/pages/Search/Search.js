@@ -26,10 +26,15 @@ export default class Search extends Component {
         progress: 0,
         loading: true,
         offers: {
-            current: 'recomended',
             recomended: [],
             cheapest: [],
             shortest: [],            
+        },
+        filtered: {
+            current: 'recomended',
+            recomended: [],
+            cheapest: [],
+            shortest: [],
         },
         airlines: [],
         multicity: {
@@ -77,6 +82,17 @@ export default class Search extends Component {
                 shortest = [];
 
             for (const offer of offers) {
+                if (params.type === 'round-trip') {
+                    const nos = offer.slices.map((s) => s.segments.length );
+
+                    if (nos[0] == 1 && nos[1] == 1)
+                        offer.stops = 'direct';
+                    else if (nos[0] <= 2 || nos[1] <= 2)
+                        offer.stops = '1stop';
+                    else
+                        offer.stops = '2+stops';
+                }
+
                 recomended.push(offer);
                 cheapest.push(offer);
                 shortest.push(offer);
@@ -129,12 +145,29 @@ export default class Search extends Component {
 
             clearInterval(that.timer);
 
-            that.setState({ progress: 100, loading: false, offers: { current: 'recomended', recomended, cheapest, shortest }, airlines: airlines });
+            that.setState({
+                progress: 100,
+                loading: false, 
+                offers: {
+                    recomended,
+                    cheapest,
+                    shortest
+                },
+                filtered: {
+                    current: 'recomended',
+                    recomended,
+                    cheapest,
+                    shortest
+                },
+                airlines: airlines
+            });
         }).catch((error) => {
             clearInterval(that.timer);
 
             that.setState({ progress: 100, loading: false });
-        });;        
+        });
+
+        // window.scroll({ top: 0, left: 0, behavior: 'smooth' });
     }
 
     componentWillUnmount() {
@@ -147,12 +180,50 @@ export default class Search extends Component {
               progress  = that.state.progress,
               loading   = that.state.loading,
               offers    = that.state.offers,
+              filtered  = that.state.filtered,
               airlines  = that.state.airlines,
               multicity = that.state.multicity;
 
+        const filter = (params) => {
+            let _filtered = {
+                current: filtered.current,
+                recomended: [],
+                cheapest: [],
+                shortest: [],
+            };
+
+            for (const name of Object.keys(_filtered)) {
+                if (name === 'current')
+                    continue;
+
+                for (const offer of offers[name]) {
+                    if (params.stops) {                    
+                        if (params.stops['direct'] === false) {
+                            if (offer.stops === 'direct')
+                                continue;
+                        }
+
+                        if (params.stops['1stop'] === false) {
+                            if (offer.stops === '1stop')
+                                continue;
+                        }
+
+                        if (params.stops['2+stop'] === false) {
+                            if (offer.stops === '2+stop')
+                                continue;
+                        }
+                    }
+
+                    _filtered[name].push(offer);
+                }
+            }
+
+            return _filtered;
+        }
+
         const clickMultiCity = (index) => {
             that.setState({ multicity: { selected: index, list: multicity.list } });
-        }      
+        }
 
         return (
             <>
@@ -170,17 +241,7 @@ export default class Search extends Component {
                     }}
                 >
                     <Box>
-                        <Box
-                            sx={{
-                                display: "flex",
-                                alignItems: "center",
-                                marginBottom: "10px",
-                                "& svg": {
-                                    marginLeft: "10px",
-                                    marginRight: "10px",
-                                },
-                            }}
-                        >
+                        <Box sx={{ display: "flex", alignItems: "center", marginBottom: "10px", "& svg": { marginLeft: "10px", marginRight: "10px" } }}>
                             <Typography
                                 sx={{
                                     fontSize: "16px",
@@ -273,7 +334,7 @@ export default class Search extends Component {
                     <></>
                 )}
 
-                <TopSeachForm type={params.type}></TopSeachForm>
+                <TopSeachForm type={params.type} origin={'TLL'} destination={'WAW'} depart={'2020-03-01'} return={'2020-03-03'}></TopSeachForm>
                 <Box className="container">
                     <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={3}>
                         <Box
@@ -283,32 +344,32 @@ export default class Search extends Component {
                                 display: { md: "block", xs: "none" },
                             }}
                         >
-                            <Sidebar airlines={airlines}/>
+                            <Sidebar airlines={airlines} onChanged={(params) => {                                
+                                that.setState({ filtered: filter(params) });
+                            }}/>
                         </Box>
                         <Box sx={{ gridColumn: { md: "span 9", xs: "span 12" } }}>
                             <CtaCard></CtaCard>
                             <ProgressBar value={progress}></ProgressBar>
                             <SearchPriceResults
                                 loading={loading}
-                                offers={offers[offers.current]}
+                                offers={filtered[filtered.current]}
                                 recomended={{
-                                    price: `$${offers['recomended'][0] ? offers['recomended'][0].total_amount : '0'}`,
-                                    duration: offers['recomended'][0] ? convert2Time(offers['recomended'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
+                                    price: `$${filtered['recomended'][0] ? filtered['recomended'][0].total_amount : '0'}`,
+                                    duration: filtered['recomended'][0] ? convert2Time(filtered['recomended'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
                                 }}
                                 cheapest={{
-                                    price: `$${offers['cheapest'][0] ? offers['cheapest'][0].total_amount : '0'}`,
-                                    duration: offers['cheapest'][0] ? convert2Time(offers['cheapest'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
+                                    price: `$${filtered['cheapest'][0] ? filtered['cheapest'][0].total_amount : '0'}`,
+                                    duration: filtered['cheapest'][0] ? convert2Time(filtered['cheapest'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
                                 }}
                                 shortest={{
-                                    price: `$${offers['shortest'][0] ? offers['shortest'][0].total_amount : '0'}`,
-                                    duration: offers['shortest'][0] ? convert2Time(offers['shortest'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
+                                    price: `$${filtered['shortest'][0] ? filtered['shortest'][0].total_amount : '0'}`,
+                                    duration: filtered['shortest'][0] ? convert2Time(filtered['shortest'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
                                 }}
-                                changed={(value) => {
-                                    let data = offers;
-
-                                    data.current = value;
-
-                                    that.setState({ offers: data });
+                                changed={(current) => {
+                                    let _filtered = filtered;
+                                    _filtered.current = current;
+                                    that.setState({ filtered: _filtered });
                                 }}
                             ></SearchPriceResults>
                         </Box>

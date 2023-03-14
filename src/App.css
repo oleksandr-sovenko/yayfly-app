@@ -2,6 +2,12 @@
     grid-template-columns: 3fr 3fr 2fr 2fr;
 }
 
+@media (max-width: 575px) {
+    .column-rand-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
 .passenger-input,
 select.gender-select {
   padding: 4px 11px;

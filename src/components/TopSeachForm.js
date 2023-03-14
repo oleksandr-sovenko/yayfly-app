@@ -5,11 +5,51 @@ const TopSeachForm = (props) => {
     if (!props)
         props = {};
 
-    const [isOpen, setIsOpen] = useState(false);
-    const dropdownRef = useRef(null);
-    const [adults, setAdults] = useState(1);
-    const [children, setChildren] = useState(0);
-    const [infants, setInfants] = useState(0);
+    const [isOpen, setIsOpen] = useState(false),
+          [adults, setAdults] = useState(1),
+          [children, setChildren] = useState(0),
+          [infants, setInfants] = useState(0),
+          dropdownRef = useRef(null);
+
+    const [origin, setOrigin] = useState(props.origin ? props.origin : ''),
+          [destination, setDestination] = useState(props.destination ? props.destination : ''),
+          [depart, setDepart] = useState(props.depart ? props.depart : ''),
+          [returnn, setReturn] = useState(props.return ? props.return : '');
+
+    const click = (e) => {
+        e.preventDefault();
+
+        const el = e.target;
+
+        if (el.type === 'submit') {
+            console.log({
+                origin: origin,
+                destination: destination,
+                depart: depart,
+                return: returnn,
+            })
+        }
+    };
+
+    const input = (e) => {
+        const el = e.target;
+
+        if (el.name === 'origin')
+            setOrigin(el.value);
+
+        if (el.name === 'destination')
+            setDestination(el.value);
+    };
+
+    const change = (e) => {
+        const el = e.target;
+
+        if (el.name === 'depart')
+            setDepart(el.value);
+
+        if (el.name === 'return')
+            setReturn(el.value);
+    };
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -113,27 +153,27 @@ const TopSeachForm = (props) => {
 
                     <div className={props.type === 'round-trip' ? 'grid column-rand mt-5' : 'grid column-rand column-rand-4 mt-5'}>
                         <div className="form-group field">
-                            <label htmlFor="flyingFrom">Flying from</label>
-                            <input className="form-control" type="text" id="flyingFrom" placeholder="Airport or city" />
+                            <label htmlFor="origin">Flying from</label>
+                            <input className="form-control" type="text" id="origin" placeholder="Airport or city" name="origin" onInput={input} value={origin} />
                         </div>
                         <div className="form-group field">
-                            <label htmlFor="flyingTo">Flying to</label>
-                            <input className="form-control" type="text" id="flyingTo" placeholder="Airport or city" />
+                            <label htmlFor="destination">Flying to</label>
+                            <input className="form-control" type="text" id="destination" placeholder="Airport or city" name="destination" onInput={input} value={destination} />
                         </div>
                         <div className="form-group field">
                             <label htmlFor="depart">Depart</label>
-                            <input className="form-control" type="date" id="depart" />
+                            <input className="form-control" type="date" id="depart" name="depart" onChange={change} value={depart} />
                         </div>
                         {props.type === 'round-trip' ? (
                             <div className="form-group field">
                                 <label htmlFor="return">Return</label>
-                                <input className="form-control" type="date" id="return" />
+                                <input className="form-control" type="date" id="return" name="return" onChange={change} value={returnn} />
                             </div>                            
                         ) : (
                             <></>
                         )}
 
-                        <button type="submit">
+                        <button type="submit" onClick={click}>
                             Search <CgAirplane />
                         </button>
                     </div>
