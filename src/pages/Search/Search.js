@@ -40,9 +40,9 @@ export default class Search extends Component {
         multicity: {
             selected: 0,
             list: [
-                { departure: 'TLL', arrival: 'WAW', date: 'Tue Apr 11' },
-                { departure: 'WAW', arrival: 'KBP', date: 'Tue Apr 12' },
-                { departure: 'KBP', arrival: 'LAX', date: 'Tue Apr 13' },
+                { origin: 'TLL', destination: 'WAW', date: 'Tue Apr 11' },
+                { origin: 'WAW', destination: 'KBP', date: 'Tue Apr 12' },
+                { origin: 'KBP', destination: 'LAX', date: 'Tue Apr 13' },
             ]
         },
     };
@@ -64,13 +64,16 @@ export default class Search extends Component {
                 that.setState({ progress: 95 });
         }, 1000);
 
-        let data = {
-            type: params.type,
-            from: 'WAW', 
-            to: 'TLL',
-            depart: '2023-03-25',
-            return: '2023-03-30',
-        };
+        let data = {};
+
+        if (params.type === 'round-trip')
+            data = {
+                type: params.type,
+                origin: params.trips[0].origin, 
+                destination: params.trips[0].destination,
+                depart: params.trips[0].dates[0],
+                return: params.trips[0].dates[1],
+            };
 
         axios.post('https://yayfly.com/api/offers', data).then((response) => {
             let offers = response.data.data.offers,
@@ -92,15 +95,25 @@ export default class Search extends Component {
                     else
                         offer.stops = '2+stops';
 
-                    offer.departTime = {
-                        outbound: parseInt(offer.slices[0].segments[0].departing_at.replace(/.*T/, '')),
-                        return: parseInt(offer.slices[1].segments[0].departing_at.replace(/.*T/, '')),
-                    };
+                    try {
+                        offer.departTime = {
+                            outbound: parseInt(offer.slices[0].segments[0].departing_at.replace(/.*T/, '')),
+                            return: parseInt(offer.slices[1].segments[0].departing_at.replace(/.*T/, '')),
+                        };
+                    } catch(e) {
+                        console.log(e);
 
-                    offer.journeyDur = {
-                        outbound: parseInt(offer.slices[0].duration.replace(/.*T/, '')),
-                        return: parseInt(offer.slices[1].duration.replace(/.*T/, '')),
-                    };
+                        offer.departTime = { outbound: 0, return: 0 };
+                    }
+
+                    try {
+                        offer.journeyDur = {
+                            outbound: parseInt(offer.slices[0].duration.replace(/.*T/, '')),
+                            return: parseInt(offer.slices[1].duration.replace(/.*T/, '')),
+                        };
+                    } catch(e) {
+                        offer.journeyDur = { outbound: 0, return: 0 };
+                    }
                 }
 
                 // carrier logos
@@ -373,9 +386,9 @@ export default class Search extends Component {
                                         <>
                                         </>
                                     )}
-                                    <div className="departure">{item.departure}</div>
+                                    <div className="origin">{item.origin}</div>
                                     <div className="dots">....</div>
-                                    <div className="arrival">{item.arrival}</div>
+                                    <div className="destination">{item.destination}</div>
                                     <div className="date">{item.date}</div>
                                 </div>
                             )

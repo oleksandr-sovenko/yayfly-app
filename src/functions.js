@@ -19,14 +19,14 @@ const getParams = () => {
     for (const item of params[2]) {
         if (data.type === 'round-trip')
             data.trips.push({
-                departure: item[0],
-                arrival: item[1],
+                origin: item[0],
+                destination: item[1],
                 dates: [item[2], item[3]],
             })
         else
             data.trips.push({
-                departure: item[0],
-                arrival: item[1],
+                origin: item[0],
+                destination: item[1],
                 date: [item[2]],
             })
     }

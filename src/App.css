@@ -159,13 +159,13 @@ button.mobile-filter-btn.apply-btn {
     margin: 5px; 
 }
 
-.multi-city-item .departure,
-.multi-city-item .arrival {
+.multi-city-item .origin,
+.multi-city-item .destination {
     position: relative;
     margin-left: 15px;
 }
 
-.multi-city-item .arrival {
+.multi-city-item .destination {
     margin-top: 15px;
 }
 
@@ -179,8 +179,8 @@ button.mobile-filter-btn.apply-btn {
     margin-top: 10px;
 }
 
-.multi-city-item .departure:before,
-.multi-city-item .arrival:before {
+.multi-city-item .origin:before,
+.multi-city-item .destination:before {
     content: ' ';
     border: 2px solid #12172b;
     border-radius: 10px;
@@ -191,8 +191,8 @@ button.mobile-filter-btn.apply-btn {
     height: 10px;
 }
 
-.multi-city-item.active .departure:before,
-.multi-city-item.active .arrival:before {
+.multi-city-item.active .origin:before,
+.multi-city-item.active .destination:before {
     border-color: white;
 }
 
