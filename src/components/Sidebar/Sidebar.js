@@ -53,10 +53,26 @@ export default class Sidebar extends Component {
         const that = this,
               departureOutbound = that.state.departureOutbound,
               departureReturn = that.state.departureReturn,
-              journeyOutbound = that.state.journeyReturn,
+              journeyOutbound = that.state.journeyOutbound,
               journeyReturn = that.state.journeyReturn,
               airlines = that.state.airlines,
               stops = that.state.stops;
+
+        const changed = () => {
+            if (typeof that.props.onChanged === 'function')
+                that.props.onChanged({
+                    stops: stops,
+                    airlines: airlines,
+                    departTime: {
+                        outbound: departureOutbound,
+                        return: departureReturn,
+                    },
+                    journeyDur: {
+                        outbound: journeyOutbound,
+                        return: journeyReturn,
+                    },
+                });
+        }
 
         const change = (e, v) => {
             let el   = e.target,
@@ -79,9 +95,9 @@ export default class Sidebar extends Component {
             }
 
             if (el.name === 'airline') {
-                let data = airlines;
-                data[el.value] = el.checked;
-                that.setState({ airlines: data });
+                let _airlines = airlines;
+                _airlines[el.value] = el.checked;
+                that.setState({ airlines: _airlines });
             }
 
             data.name = el.name;
@@ -96,19 +112,21 @@ export default class Sidebar extends Component {
             )
                 data.value = v;
 
-            if (typeof that.props.onChanged === 'function')
-                that.props.onChanged({
-                    stops: stops,
-                    airlines: airlines,
-                    departure: {
-                        outbound: departureOutbound,
-                        return: departureReturn,
-                    },
-                    journey: {
-                        outbound: journeyOutbound,
-                        return: journeyReturn,
-                    },
-                });
+            changed();
+
+            // if (typeof that.props.onChanged === 'function')
+            //     that.props.onChanged({
+            //         stops: stops,
+            //         airlines: airlines,
+            //         departTime: {
+            //             outbound: departureOutbound,
+            //             return: departureReturn,
+            //         },
+            //         journeyDur: {
+            //             outbound: journeyOutbound,
+            //             return: journeyReturn,
+            //         },
+            //     });
         };   
 
         return (
@@ -224,8 +242,24 @@ export default class Sidebar extends Component {
                     <Box className="sidebar-filter airlines-filter">
                         <FilterTitle>Airlines</FilterTitle>
                         <Box sx={{ display: "flex", alignItems: "center", color: "rgba(7, 14, 57, 0.5)" }}>
-                            <Typography sx={{ marginRight: "20px", marginBottom:"10px" }}>Select All</Typography>
-                            <Typography sx={{ marginRight: "20px", marginBottom:"10px" }}>Clear All</Typography>
+                            <Typography onClick={(e) => {
+                                Object.keys(that.props.airlines).map((name) => {
+                                    let _airlines = airlines;
+                                    _airlines[name] = true;
+                                    that.setState({ airlines: _airlines }, () => {
+                                        changed();
+                                    });
+                                });
+                            }} sx={{ marginRight:'20px', marginBottom:'10px', cursor:'pointer' }}>Select All</Typography>
+                            <Typography onClick={(e) => {
+                                Object.keys(that.props.airlines).map((name) => {
+                                    let _airlines = airlines;
+                                    _airlines[name] = false;
+                                    that.setState({ airlines: _airlines }, () => {
+                                        changed();
+                                    });
+                                });
+                            }} sx={{ marginRight:'20px', marginBottom:'10px', cursor:'pointer' }}>Clear All</Typography>
                         </Box>
                         <Box className="filter-term">
                             {Object.keys(that.props.airlines).map((name, index) => {
@@ -290,8 +324,6 @@ export default class Sidebar extends Component {
                                 }}
                             />
                         </Box>
-
-
                         <Box sx={{ color: "rgba(7, 14, 57, 0.5)" }}>
                             <Typography sx={{ fontSize: "12px", fontWeight: 600 }}>Return</Typography>
                             <Typography sx={{ fontSize: "12px" }}>0.00 - {journeyReturn}:00</Typography>

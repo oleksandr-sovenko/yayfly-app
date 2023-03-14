@@ -112,7 +112,15 @@ const SearchPriceResults = (props) => {
                             </>
                         ) : (
                             <>
-                                not exists
+                                {props.offersExists ? (
+                                    <div className="no-offers">
+                                        Sorry, there are no flights that match your request
+                                    </div>
+                                ) : (
+                                    <div className="no-offers">
+                                        Sorry, there are no flights that match your filters
+                                    </div>
+                                )}
                             </>
                         )}
                     </>

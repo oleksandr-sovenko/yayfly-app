@@ -62,13 +62,19 @@ const SearchResultCard = (props) => {
         setIsOpen((prevState) => !prevState);
     };
 
+    if (!props.offer.carriers)
+        props.offer.carriers = [];
+
     return (
         <div className={props.loading === true ? 'search-result-card-grid loading' : 'search-result-card-grid'}>
             <div className="flight-duration-time">
                 <div className="flight-header">
                     <div className="flight-name">
-                        <img src={props.offer.owner.logo_symbol_url} alt="American Airlines" />
-                        {/*<img src={image2} alt="British Airways" />*/}
+                        {Object.keys(props.offer.carriers).map((name, index) => {
+                            return (
+                                <img key={index} src={props.offer.carriers[name]} alt={name} />    
+                            )
+                        })}
                         <span className="airlineName">{props.offer.owner.name}</span>
                     </div>
                     <div className="flight-category">Economy</div>

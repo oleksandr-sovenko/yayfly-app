@@ -279,6 +279,13 @@ cta-top {
     animation: blinker 1.5s cubic-bezier(.5, 0, 1, 1) infinite alternate;
 }
 
+.no-offers {
+    background: white;
+    text-align: center;
+    padding: 30px;
+    border-radius: 5px;
+}
+
 /* scroll top */
 
 #scroll-top {

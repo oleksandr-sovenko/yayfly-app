@@ -91,6 +91,24 @@ export default class Search extends Component {
                         offer.stops = '1stop';
                     else
                         offer.stops = '2+stops';
+
+                    offer.departTime = {
+                        outbound: parseInt(offer.slices[0].segments[0].departing_at.replace(/.*T/, '')),
+                        return: parseInt(offer.slices[1].segments[0].departing_at.replace(/.*T/, '')),
+                    };
+
+                    offer.journeyDur = {
+                        outbound: parseInt(offer.slices[0].duration.replace(/.*T/, '')),
+                        return: parseInt(offer.slices[1].duration.replace(/.*T/, '')),
+                    };
+                }
+
+                // carrier logos
+                offer.carriers = {};
+                for (const slice of offer.slices) {
+                    for (const segment of slice.segments) {
+                        offer.carriers[segment.marketing_carrier.name] = segment.marketing_carrier.logo_symbol_url;
+                    }
                 }
 
                 recomended.push(offer);
@@ -162,6 +180,8 @@ export default class Search extends Component {
                 airlines: airlines
             });
         }).catch((error) => {
+            console.log(error);
+
             clearInterval(that.timer);
 
             that.setState({ progress: 100, loading: false });
@@ -197,6 +217,11 @@ export default class Search extends Component {
                     continue;
 
                 for (const offer of offers[name]) {
+                    if (params.airlines) {
+                        if (params.airlines[offer.owner.id] === false)
+                            continue;
+                    }
+
                     if (params.stops) {                    
                         if (params.stops['direct'] === false) {
                             if (offer.stops === 'direct')
@@ -210,6 +235,34 @@ export default class Search extends Component {
 
                         if (params.stops['2+stop'] === false) {
                             if (offer.stops === '2+stop')
+                                continue;
+                        }
+                    }
+
+                    if (params.departTime) {
+                        if (params.departTime.outbound) {
+                            if (offer.departTime.outbound < params.departTime.outbound[0] ||
+                                offer.departTime.outbound > params.departTime.outbound[1]
+                            )
+                                continue;
+                        }
+
+                        if (params.departTime.return) {
+                            if (offer.departTime.return < params.departTime.return[0] ||
+                                offer.departTime.return > params.departTime.return[1]
+                            )
+                                continue;
+                        }
+                    }                    
+
+                    if (params.journeyDur) {
+                        if (params.journeyDur.outbound) {
+                            if (offer.journeyDur.outbound > params.journeyDur.outbound)
+                                continue;
+                        }
+
+                        if (params.journeyDur.return) {
+                            if (offer.journeyDur.return > params.journeyDur.return)
                                 continue;
                         }
                     }
@@ -228,7 +281,6 @@ export default class Search extends Component {
         return (
             <>
                 {/*<WlcModal></WlcModal>*/}
-
                 <Box
                     sx={{
                         display: { md: "none", sm: "none", xs: "flex" },
@@ -284,7 +336,6 @@ export default class Search extends Component {
                             }}
                         >1 adult, Economy</Typography>
                     </Box>
-
                     <Typography
                         sx={{
                             display: "inline-block",
@@ -354,6 +405,7 @@ export default class Search extends Component {
                             <SearchPriceResults
                                 loading={loading}
                                 offers={filtered[filtered.current]}
+                                offersExists={filtered[filtered.current].length ? true : false}
                                 recomended={{
                                     price: `$${filtered['recomended'][0] ? filtered['recomended'][0].total_amount : '0'}`,
                                     duration: filtered['recomended'][0] ? convert2Time(filtered['recomended'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
@@ -379,4 +431,8 @@ export default class Search extends Component {
         );
     }
 };
+
+// Sorry, there are no flights that match your filters
+// Sorry, there are no flights that match your request
+// Show all results
 
