@@ -405,7 +405,7 @@ export default class Search extends Component {
                             <SearchPriceResults
                                 loading={loading}
                                 offers={filtered[filtered.current]}
-                                offersExists={filtered[filtered.current].length ? true : false}
+                                offersExists={offers[filtered.current].length ? true : false}
                                 recomended={{
                                     price: `$${filtered['recomended'][0] ? filtered['recomended'][0].total_amount : '0'}`,
                                     duration: filtered['recomended'][0] ? convert2Time(filtered['recomended'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
@@ -431,8 +431,4 @@ export default class Search extends Component {
         );
     }
 };
-
-// Sorry, there are no flights that match your filters
-// Sorry, there are no flights that match your request
-// Show all results
 
