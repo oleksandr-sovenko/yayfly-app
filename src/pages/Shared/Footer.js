@@ -16,13 +16,17 @@ const Footer = () => {
 
     return (
         <>
-            <a id="scroll-top" className={isVisibleScrollTop ? 'show' : ''} onClick={() => { window.scroll({ top: 0, left: 0, behavior: 'smooth' }); }}>
+            <div id="scroll-top" className={isVisibleScrollTop ? 'show' : ''} onClick={() => { window.scroll({ top: 0, left: 0, behavior: 'smooth' }); }}>
                 <FaAngleUp />
-            </a>
+            </div>
             <footer className='footer'>
                 <div className="container grid grid-column align-item">
                     <div className="logo">
-                        <Link to="https://yayfly.com/">
+                        <Link to="#" onClick={((e) => {
+                            e.preventDefault();
+
+                            window.location.href = 'https://yayfly.com/';
+                        })}>
                             {" "}
                             <img src={logo} alt="yayFly" />
                         </Link>

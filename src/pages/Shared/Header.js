@@ -9,7 +9,11 @@ const Header = () => {
         <div className="header">
             <div className="container grid grid-column align-item">
                 <div className="logo">
-                    <Link to="https://yayfly.com/">
+                    <Link to="#" onClick={((e) => {
+                        e.preventDefault();
+
+                        window.location.href = 'https://yayfly.com/';
+                    })}>
                         {" "}
                         <img src={logo} alt="yayFly" />
                     </Link>
