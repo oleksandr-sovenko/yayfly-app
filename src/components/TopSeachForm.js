@@ -31,6 +31,61 @@ const TopSeachForm = (props) => {
         }
     };
 
+
+    /**
+     * 
+     */
+    const liveSearch = (e) => {
+        // const value  = e.target.value,
+        //       parent = $(e.target).parent();
+
+        // let items = [];
+
+        // let icon = '/wp-content/plugins/yayfly/images/plane-departure.svg';
+
+        // if (e.target.name === 'whereTo')
+        //     icon = '/wp-content/plugins/yayfly/images/plane-arrival.svg';
+
+        // if (window.device.current === 'desktop' && value.length >= 3)
+        //     items = search(value);
+
+        // if ((window.device.current === 'desktop' && value.length >= 3) || window.device.current === 'mobile') {
+        //     parent.find('.yayfly-dropdown-list').remove();
+        //     parent.append(`
+        //         <div class="yayfly-dropdown-list show">
+        //             <input value="${value}" placeholder="Please type at least 3 letters">
+        //             <ul>
+        //                 ${items.map((item) => {
+        //                     return `<li data-value="${item.value}">
+        //                         <img src="${icon}">
+        //                         <span>${item.text}</span>
+        //                     </li>`;
+        //                 }).join('')}
+        //             </ul>
+        //             <button class="done">Done</button>
+        //         </div>
+        //     `);
+
+        //     parent.find('.yayfly-dropdown-list input').on('input', (e) => {
+        //         const value = e.target.value;
+
+        //         let items = search(value);
+
+        //         parent.find('.yayfly-dropdown-list ul').html(`
+        //             ${items.map((item) => {
+        //                 return `<li data-value="${item.value}">
+        //                     <img src="${icon}">
+        //                     <span>${item.text}</span>
+        //                 </li>`;
+        //             }).join('')}
+        //         `);
+        //     });
+
+        //     if (window.device.current === 'mobile')
+        //         parent.find('.yayfly-dropdown-list input').trigger('input').focus();
+        // }
+    } 
+
     const input = (e) => {
         const el = e.target;
 
@@ -39,6 +94,8 @@ const TopSeachForm = (props) => {
 
         if (el.name === 'destination')
             setDestination(el.value);
+
+        window.yayflyInputs.input(el);
     };
 
     const change = (e) => {
@@ -152,11 +209,11 @@ const TopSeachForm = (props) => {
                     </div>
 
                     <div className={props.type === 'round-trip' ? 'grid column-rand mt-5' : 'grid column-rand column-rand-4 mt-5'}>
-                        <div className="form-group field">
+                        <div className="form-group field" style={{ position: 'relative' }}>
                             <label htmlFor="origin">Flying from</label>
                             <input className="form-control" type="text" id="origin" placeholder="Airport or city" name="origin" onInput={input} value={origin} />
                         </div>
-                        <div className="form-group field">
+                        <div className="form-group field" style={{ position: 'relative' }}>
                             <label htmlFor="destination">Flying to</label>
                             <input className="form-control" type="text" id="destination" placeholder="Airport or city" name="destination" onInput={input} value={destination} />
                         </div>
