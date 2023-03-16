@@ -66,14 +66,18 @@ select.gender-select {
   width: 192px;
   z-index: 0;
 }
-.payment-pages > .MuiBox-root.css-0 {
-  line-height: 0;
+
+.wrapper-timeline-item:last-child .timeline-icon.line:before {
+    height: 0px;
 }
 
-.wlc-modal-content
-  .MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthMd.MuiDialog-paperFullWidth {
-  background: #1a2e4a !important;
-  /* overflow-y: inherit; */
+
+.payment-pages > .MuiBox-root.css-0 {
+    line-height: 0;
+}
+
+.wlc-modal-content .MuiDialog-paper.MuiDialog-paperScrollPaper.MuiDialog-paperWidthMd.MuiDialog-paperFullWidth {
+    background: #1a2e4a !important;
 }
 
 /*sidebar*/

@@ -56,7 +56,7 @@ const MobilePaymentCta = () => {
               lineHeight:{md:"inherit", xs:"55px"}
             }}
             >
-              <img src={ctaDiamond} alt="" srcset="" />
+              <img src={ctaDiamond} alt="" />
             </Typography>
             <Typography>EXCLUSIVE, UNPUBLISHED DEAL DETECTED</Typography>
           </Box>
@@ -90,7 +90,7 @@ const MobilePaymentCta = () => {
                 }
               }}
             >
-              <img src={ctaCartoon} alt="" srcset="" />
+              <img src={ctaCartoon} alt="" />
             </Grid>
           </Grid>
           <Box

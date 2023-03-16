@@ -11,57 +11,57 @@ import PriceDetails from "../Payment/PriceDetails";
 import PassengerCard from "./PassengerCard";
 import PersonApplyCard from "./PersonApplyCard";
 
+
 const BookingDetails = () => {
-  return (
-    <div className="booking-pages">
-      <Box className="container" sx={{padding:{md:"0 15px", xs:"0px"}}}>
-        <Box
-          sx={{
-            fontFamily: "'Public Sans', sans-serif",
-            display: { xs: "block", md: "grid" },
-            gridTemplateColumns: "2fr 1fr",
-            gap: "40px",
-          }}
-        >
-          <Box>
-            <PageTitle title="Confirm your booking" />
-            <Box sx={{ display: { xs: "none", md: "block" } }}>
-              <PaymentTimeLine />
+    return (
+        <div className="booking-pages">
+            <Box className="container" sx={{padding:{md:"0 15px", xs:"0px"}}}>
+                <Box
+                    sx={{
+                        fontFamily: "'Public Sans', sans-serif",
+                        display: { xs: "block", md: "grid" },
+                        gridTemplateColumns: "2fr 1fr",
+                        gap: "40px",
+                    }}
+                >
+                <Box>
+                    <PageTitle title="Confirm your booking" />
+                        <Box sx={{ display: { xs: "none", md: "block" } }}>
+                            <PaymentTimeLine />
+                        </Box>
+                        <Box sx={{ display: { xs: "block", md: "none" } }}>
+                            <MobileTimeLine />
+                        </Box>
+                        <SectionTitle title="Your flight details" />
+                        <ConformSearchResult />
+                        <Box
+                            sx={{
+                                display: { xs: "block", md: "none" },
+                                paddingBottom: "10px",
+                            }}
+                        >
+                            <PageTitle title="Price details" />
+                            <PriceDetails />
+                            <MobilePaymentCta />
+                        </Box>
+                        <PassengerCard />
+                        <PersonApplyCard />
+                        <Box sx={{ display: { md: "block", xs: "none" } }}>
+                            <PaymentCta />
+                        </Box>
+                    </Box>
+                    <Box>
+                        <Box sx={{ display: { md: "block", xs: "none" } }}>
+                            <PageTitle title="Price details" />
+                            <PriceDetails />
+                        </Box>
+                        <MobilePaymentCta />
+                    </Box>
+                </Box>
             </Box>
-            <Box sx={{ display: { xs: "block", md: "none" } }}>
-              <MobileTimeLine />
-            </Box>
-            <SectionTitle title="Your flight details" />
-            <ConformSearchResult />
-
-            <Box
-              sx={{
-                display: { xs: "block", md: "none" },
-                paddingBottom: "10px",
-              }}
-            >
-              <PageTitle title="Price details" />
-              <PriceDetails />
-              <MobilePaymentCta />
-            </Box>
-
-            <PassengerCard />
-            <PersonApplyCard />
-            <Box sx={{ display: { md: "block", xs: "none" } }}>
-              <PaymentCta />
-            </Box>
-          </Box>
-          <Box>
-            <Box sx={{ display: { md: "block", xs: "none" } }}>
-              <PageTitle title="Price details" />
-              <PriceDetails />
-            </Box>
-            <MobilePaymentCta />
-          </Box>
-        </Box>
-      </Box>
-    </div>
-  );
+        </div>
+    );
 };
+
 
 export default BookingDetails;
