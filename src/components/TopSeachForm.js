@@ -1,20 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
+import { getParams } from '../functions';
 import { CgAirplane } from "react-icons/cg";
 
 const TopSeachForm = (props) => {
     if (!props)
         props = {};
-
-    const [isOpen, setIsOpen] = useState(false),
-          [adults, setAdults] = useState(1),
-          [children, setChildren] = useState(0),
-          [infants, setInfants] = useState(0),
-          dropdownRef = useRef(null);
-
-    const [origin, setOrigin] = useState(props.origin ? props.origin : ''),
-          [destination, setDestination] = useState(props.destination ? props.destination : ''),
-          [depart, setDepart] = useState(props.depart ? props.depart : ''),
-          [returnn, setReturn] = useState(props.return ? props.return : '');
 
     const click = (e) => {
         e.preventDefault();
@@ -22,49 +12,35 @@ const TopSeachForm = (props) => {
         const el = e.target;
 
         if (el.type === 'submit') {
-            console.log({
-                origin: origin,
-                destination: destination,
-                depart: depart,
-                return: returnn,
-            })
+            const params = getParams();
+
+            window.location.href = `/search/${params.type}/${document.querySelector('[name="origin"]').value},${document.querySelector('[name="destination"]').value},${document.querySelector('[name="depart"]').value},${document.querySelector('[name="return"]').value}/${params.cabinClass}/${params.adults}/${params.children}/${params.infants}`;
+
+            // https://yayfly.com/search/round-trip/GDO,ASD,2023-03-13,2023-03-13/economy/1/0/0?luggage=true&layover=true
+            // https://yayfly.com/search/one-way/GDO,ASD,2023-03-13/economy/1/0/0?luggage=true&layover=true
+            // https://yayfly.com/search/multi-city/GDO,ASD,2023-03-13;ASD,GDO,2023-03-14/economy/1/0/0?luggage=true&layover=true
         }
     };
 
     const input = (e) => {
         const el = e.target;
 
-        if (el.name === 'origin')
-            setOrigin(el.value);
+        // if (el.name === 'origin')
+        //     setOrigin(el.value);
 
-        if (el.name === 'destination')
-            setDestination(el.value);
+        // if (el.name === 'destination')
+        //     setDestination(el.value);
     };
 
     const change = (e) => {
-        const el = e.target;
+        // const el = e.target;
 
-        if (el.name === 'depart')
-            setDepart(el.value);
+        // if (el.name === 'depart')
+        //     setDepart(el.value);
 
-        if (el.name === 'return')
-            setReturn(el.value);
+        // if (el.name === 'return')
+        //     setReturn(el.value);
     };
-
-    useEffect(() => {
-        const handleOutsideClick = (event) => {
-            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-                setIsOpen(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleOutsideClick);
-
-        return () => {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        };
-    }, []);
-
 
     return (
         <div className="top-search">
@@ -82,20 +58,20 @@ const TopSeachForm = (props) => {
                     <div className={props.type === 'round-trip' ? 'grid column-rand mt-5' : 'grid column-rand column-rand-4 mt-5'}>
                         <div className="form-group field" style={{ position: 'relative' }}>
                             <label htmlFor="origin">Flying from</label>
-                            <input className="form-control" type="text" id="origin" placeholder="Airport or city" name="origin" onInput={input} value={origin} />
+                            <input className="form-control" type="text" placeholder="Airport or city" name="origin" defaultValue={props.origin ? props.origin : ''} />
                         </div>
                         <div className="form-group field" style={{ position: 'relative' }}>
                             <label htmlFor="destination">Flying to</label>
-                            <input className="form-control" type="text" id="destination" placeholder="Airport or city" name="destination" onInput={input} value={destination} />
+                            <input className="form-control" type="text" placeholder="Airport or city" name="destination" defaultValue={props.destination ? props.destination : ''} />
                         </div>
                         <div className="form-group field">
                             <label htmlFor="depart">Depart</label>
-                            <input className="form-control" name="depart" onChange={change} value={depart} />
+                            <input className="form-control" name="depart" defaultValue={props.depart ? props.depart : ''} />
                         </div>
                         {props.type === 'round-trip' ? (
                             <div className="form-group field">
                                 <label htmlFor="return">Return</label>
-                                <input className="form-control" name="return" onChange={change} value={returnn} />
+                                <input className="form-control" name="return" defaultValue={props.return ? props.return : ''} />
                             </div>                            
                         ) : (
                             <></>

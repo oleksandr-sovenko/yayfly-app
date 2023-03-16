@@ -8,6 +8,7 @@ const getParams = () => {
     }
 
     let data = {
+        index: 0,
         type: params[1],
         trips: [],
         cabinClass: params[3],

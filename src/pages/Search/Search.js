@@ -15,11 +15,6 @@ import { getParams, getMinutes, convert2Time } from '../../functions';
 import axios from 'axios';
 
 
-// https://yayfly.com/search/round-trip/GDO,ASD,2023-03-13,2023-03-13/economy/1/0/0?luggage=true&layover=true
-// https://yayfly.com/search/one-way/GDO,ASD,2023-03-13/economy/1/0/0?luggage=true&layover=true
-// https://yayfly.com/search/multi-city/GDO,ASD,2023-03-13;ASD,GDO,2023-03-14/economy/1/0/0?luggage=true&layover=true
-
-
 export default class Search extends Component {
     state = {
         params: {},
@@ -199,8 +194,6 @@ export default class Search extends Component {
 
             that.setState({ progress: 100, loading: false });
         });
-
-        // window.scroll({ top: 0, left: 0, behavior: 'smooth' });
     }
 
     componentWillUnmount() {
@@ -398,7 +391,24 @@ export default class Search extends Component {
                     <></>
                 )}
 
-                <TopSeachForm type={params.type} origin={'TLL'} destination={'WAW'} depart={'2023-03-01'} return={'2023-03-03'}></TopSeachForm>
+                {params.type === 'round-trip' ? (
+                    <TopSeachForm
+                        type={params.type}
+                        origin={params.trips[params.index].origin}
+                        destination={params.trips[params.index].destination}
+                        depart={params.trips[params.index].dates[0]}
+                        return={params.trips[params.index].dates[1]}
+                    ></TopSeachForm>
+                ) : (<></>)}
+
+                {params.type === 'one-way' ? (
+                    <TopSeachForm></TopSeachForm>
+                ) : (<></>)}
+
+                {params.type === 'multi-city' ? (
+                    <TopSeachForm></TopSeachForm>
+                ) : (<></>)}
+
                 <Box className="container">
                     <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={3}>
                         <Box
