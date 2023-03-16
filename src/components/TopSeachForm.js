@@ -31,61 +31,6 @@ const TopSeachForm = (props) => {
         }
     };
 
-
-    /**
-     * 
-     */
-    const liveSearch = (e) => {
-        // const value  = e.target.value,
-        //       parent = $(e.target).parent();
-
-        // let items = [];
-
-        // let icon = '/wp-content/plugins/yayfly/images/plane-departure.svg';
-
-        // if (e.target.name === 'whereTo')
-        //     icon = '/wp-content/plugins/yayfly/images/plane-arrival.svg';
-
-        // if (window.device.current === 'desktop' && value.length >= 3)
-        //     items = search(value);
-
-        // if ((window.device.current === 'desktop' && value.length >= 3) || window.device.current === 'mobile') {
-        //     parent.find('.yayfly-dropdown-list').remove();
-        //     parent.append(`
-        //         <div class="yayfly-dropdown-list show">
-        //             <input value="${value}" placeholder="Please type at least 3 letters">
-        //             <ul>
-        //                 ${items.map((item) => {
-        //                     return `<li data-value="${item.value}">
-        //                         <img src="${icon}">
-        //                         <span>${item.text}</span>
-        //                     </li>`;
-        //                 }).join('')}
-        //             </ul>
-        //             <button class="done">Done</button>
-        //         </div>
-        //     `);
-
-        //     parent.find('.yayfly-dropdown-list input').on('input', (e) => {
-        //         const value = e.target.value;
-
-        //         let items = search(value);
-
-        //         parent.find('.yayfly-dropdown-list ul').html(`
-        //             ${items.map((item) => {
-        //                 return `<li data-value="${item.value}">
-        //                     <img src="${icon}">
-        //                     <span>${item.text}</span>
-        //                 </li>`;
-        //             }).join('')}
-        //         `);
-        //     });
-
-        //     if (window.device.current === 'mobile')
-        //         parent.find('.yayfly-dropdown-list input').trigger('input').focus();
-        // }
-    } 
-
     const input = (e) => {
         const el = e.target;
 
@@ -94,8 +39,6 @@ const TopSeachForm = (props) => {
 
         if (el.name === 'destination')
             setDestination(el.value);
-
-        window.yayflyInputs.input(el);
     };
 
     const change = (e) => {
@@ -122,89 +65,17 @@ const TopSeachForm = (props) => {
         };
     }, []);
 
-    const handleDropdownToggle = () => {
-        setIsOpen((prevState) => !prevState);
-    };
-
-    const handleAdultsIncrement = () => {
-        if (adults < 7) {
-            setAdults((prevAdults) => prevAdults + 1);
-        }
-    };
-
-    const handleAdultsDecrement = () => {
-        if (adults > 1) {
-            setAdults((prevAdults) => prevAdults - 1);
-        }
-    };
-
-    const handleChildrenIncrement = () => {
-        if (children < 7) {
-            setChildren((prevChildren) => prevChildren + 1);
-        }
-    };
-
-    const handleChildrenDecrement = () => {
-        if (children > 0) {
-            setChildren((prevChildren) => prevChildren - 1);
-        }
-    };
-
-    const handleInfantsIncrement = () => {
-        if (infants < 7) {
-            setInfants((prevInfants) => prevInfants + 1);
-        }
-    };
-
-    const handleInfantsDecrement = () => {
-        if (infants > 0) {
-            setInfants((prevInfants) => prevInfants - 1);
-        }
-    };
 
     return (
         <div className="top-search">
             <div className="container">
                 <form action="#" className="search-form">
                     <div className="inline-flex">
-                        <div className="form-group">
-                            <select name="flight" id="flightType">
-                                <option value="economy">Economy</option>
-                                <option value="premium-economy">Premium Economy</option>
-                                <option value="business">Business</option>
-                                <option value="first-class">First Class</option>
-                            </select>
+                        <div className="form-group form-group-cabin-travelers">
+                            <div name="cabinClass">Economy</div>
                         </div>
-                        <div className="form-group" ref={dropdownRef}>
-                            <div className="dropdown-toggle" onClick={handleDropdownToggle}>
-                                Adults 1
-                                <div className={`dropdown-menu ${isOpen ? "open" : ""}`}>
-                                    <div className="passenger-input">
-                                        <label htmlFor="adults">Adults</label>
-                                        <div className="passenger-count">
-                                            <button onClick={handleAdultsDecrement}>-</button>
-                                            <input type="number" id="adults" name="adults" value={adults} onChange={(e) => setAdults(e.target.value)} min="1" max="7" />
-                                            <button onClick={handleAdultsIncrement}>+</button>
-                                        </div>
-                                    </div>
-                                    <div className="passenger-input">
-                                        <label htmlFor="children">Children</label>
-                                        <div className="passenger-count">
-                                            <button onClick={handleChildrenDecrement}>-</button>
-                                            <input type="number" id="children" name="children" value={children} onChange={(e) => setChildren(e.target.value)} min="0" max="7" />
-                                            <button onClick={handleChildrenIncrement}>+</button>
-                                        </div>
-                                    </div>
-                                    <div className="passenger-input">
-                                        <label htmlFor="infants">Infants</label>
-                                        <div className="passenger-count">
-                                            <button onClick={handleInfantsDecrement}>-</button>
-                                            <input type="number" id="infants" name="infants" value={infants} onChange={(e) => setInfants(e.target.value)} min="0" max="7" />
-                                            <button onClick={handleInfantsIncrement}>+</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="form-group form-group-cabin-travelers">
+                            <div name="travelers">1 Adult</div>
                         </div>
                     </div>
 

@@ -2,6 +2,26 @@
     grid-template-columns: 3fr 3fr 2fr 2fr;
 }
 
+.top-search .form-group-cabin-travelers {
+    position: relative;
+    padding: 5px;
+    padding-right: 40px;
+}
+
+.top-search .form-group-cabin-travelers [name="cabinClass"],
+.top-search .form-group-cabin-travelers [name="travelers"] {
+    position: relative;
+}
+
+.top-search .form-group-cabin-travelers [name="cabinClass"]:after,
+.top-search .form-group-cabin-travelers [name="travelers"]:after {
+    position: absolute;
+    top: 0px;
+    right: -23px;
+    width: 15px;
+    content: url('https://yayfly.com/wp-content/plugins/yayfly/images/chevron-down-solid.svg');    
+}
+
 @media (max-width: 575px) {
     .column-rand-4 {
         grid-template-columns: 1fr;
