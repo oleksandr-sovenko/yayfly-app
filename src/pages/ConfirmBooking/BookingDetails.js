@@ -16,30 +16,18 @@ const BookingDetails = () => {
     return (
         <div className="booking-pages">
             <Box className="container" sx={{padding:{md:"0 15px", xs:"0px"}}}>
-                <Box
-                    sx={{
-                        fontFamily: "'Public Sans', sans-serif",
-                        display: { xs: "block", md: "grid" },
-                        gridTemplateColumns: "2fr 1fr",
-                        gap: "40px",
-                    }}
-                >
-                <Box>
-                    <PageTitle title="Confirm your booking" />
+                <Box sx={{ fontFamily: "'Public Sans', sans-serif", display: { xs: "block", md: "grid" }, gridTemplateColumns: "2fr 1fr", gap: "40px" }}>
+                    <Box>
+                        <PageTitle title="Confirm your booking" />
                         <Box sx={{ display: { xs: "none", md: "block" } }}>
-                            <PaymentTimeLine />
+                            <PaymentTimeLine step={2} />
                         </Box>
                         <Box sx={{ display: { xs: "block", md: "none" } }}>
-                            <MobileTimeLine />
+                            <MobileTimeLine step={2} />
                         </Box>
                         <SectionTitle title="Your flight details" />
                         <ConformSearchResult />
-                        <Box
-                            sx={{
-                                display: { xs: "block", md: "none" },
-                                paddingBottom: "10px",
-                            }}
-                        >
+                        <Box sx={{ display: { xs: "block", md: "none" }, paddingBottom: "10px" }}>
                             <PageTitle title="Price details" />
                             <PriceDetails />
                             <MobilePaymentCta />

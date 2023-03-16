@@ -34,7 +34,7 @@ const CheckDetails = () => {
                     </Typography>
                     <Typography sx={{ fontWeight: 700, marginTop: "16px" }}>
                         Kent Raush
-                        <Typography sx={{ fontWeight: 400 }}>1988-05-28</Typography>
+                        <Typography component="span" sx={{ display: "block", fontWeight: 400 }}>1988-05-28</Typography>
                     </Typography>
                 </CardWrap>
                 <CardWrap sx={{ padding: { md: "35px", xs: "20px" } }}>
@@ -47,7 +47,7 @@ const CheckDetails = () => {
                         <Typography component="span" sx={{ fontWeight: 500, marginLeft: "2px" }}>details on your passport/ID</Typography>
                     </Typography>
                     <Typography sx={{ fontWeight: 700, marginTop: "16px" }}>dieraush@gmail.com
-                        <Typography sx={{ fontWeight: 400 }}>928249858</Typography>
+                        <Typography component="span" sx={{ display: "block", fontWeight: 400 }}>928249858</Typography>
                     </Typography>
                 </CardWrap>
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "28px" }}>
