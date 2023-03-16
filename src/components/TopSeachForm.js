@@ -90,12 +90,12 @@ const TopSeachForm = (props) => {
                         </div>
                         <div className="form-group field">
                             <label htmlFor="depart">Depart</label>
-                            <input className="form-control" type="date" id="depart" name="depart" onChange={change} value={depart} />
+                            <input className="form-control" name="depart" onChange={change} value={depart} />
                         </div>
                         {props.type === 'round-trip' ? (
                             <div className="form-group field">
                                 <label htmlFor="return">Return</label>
-                                <input className="form-control" type="date" id="return" name="return" onChange={change} value={returnn} />
+                                <input className="form-control" name="return" onChange={change} value={returnn} />
                             </div>                            
                         ) : (
                             <></>
