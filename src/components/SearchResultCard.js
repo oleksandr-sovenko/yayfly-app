@@ -77,7 +77,7 @@ const SearchResultCard = (props) => {
                         })}
                         <span className="airlineName">{props.offer.owner.name}</span>
                     </div>
-                    <div className="flight-category">Economy</div>
+                    <div className="flight-category">Economy 111</div>
                 </div>
 
                 {props.offer.slices.map((slice, index) => {

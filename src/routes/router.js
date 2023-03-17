@@ -18,10 +18,10 @@ const router = createBrowserRouter([{
         path: "/booking-details/*",
         element: <BookingDetails />,
     }, {
-        path: "/confirm-booking",
+        path: "/confirm-booking/*",
         element: <Confirmation />,
     }, {
-        path: "/payment",
+        path: "/payment/*",
         element: <Payment />,
     }],
 }]);

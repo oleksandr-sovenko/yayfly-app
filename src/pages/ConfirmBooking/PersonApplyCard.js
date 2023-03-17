@@ -38,6 +38,43 @@ const CardButton = styled(Box)(({ theme }) => ({
 
 
 const PersonApplyCard = () => {
+	const id = window.location.pathname.replace(/.*\//, '');
+
+    const input = (e) => {
+        const el = e.target;
+
+        el.classList.remove('error');
+    }
+
+    const change = (e) => {
+        const el = e.target;
+        
+        el.classList.remove('error');
+    }
+
+    const click = (e, type) => {
+    	e.preventDefault();
+
+        const el = e.target,
+        	  page = el.closest('.booking-pages');
+
+        if (type === 'confirm') {
+       		for (const input of page.querySelectorAll('input, select')) {
+       			if (input.name === 'discount')
+       				continue;
+
+       			if (input.value.length === 0)
+       				input.classList.add('error');
+       		}
+
+       		if (document.querySelector('input.error')) {
+       			window.scroll({ top: document.querySelector('input.error').offsetTop - 50, left: 0, behavior: 'smooth' });
+       		} else {
+       			window.location.href = `/confirm-booking/${id}`;
+       		}
+       	}
+    }
+
 	return (
 		<Box className="person-card">
 	  		<SectionTitle title="Person Paying" />
@@ -53,17 +90,17 @@ const PersonApplyCard = () => {
 						<InputLabel sx={{ fontWeight: 600, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
 							E-mail address
 						</InputLabel>
-						<input className="passenger-input" type="text" placeholder="your@gmail.com" />
+						<input name="email" className="passenger-input" type="text" placeholder="your@gmail.com" onInput={input} />
 					</Grid>
 					<Grid item xs={12} sm={6}>
 						<InputLabel sx={{ fontWeight: 600, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
-							UK mobile phone number
+							Mobile phone number
 						</InputLabel>
 						<Box sx={{ display: "flex", alignItems: "center", "& input": { borderLeft: "none", borderTopLeftRadius: "0", borderBottomLeftRadius: "0" }}}>
 							<Typography sx={{ height: "40px", width: "52px", background: "#D9D9D9", color: "rgba(7, 14, 57, 0.75)", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "rgb(209, 212, 227)", fontSize: "14px", fontWeight: 400, lineHeight: "16px", borderTopLeftRadius: "3px", borderBottomLeftRadius: "3px" }}>
-								+44
+								+1
 							</Typography>
-							<input className="passenger-input" type="text" placeholder="e.g 01712344588"/>
+							<input name="phone_number" className="passenger-input" type="text" placeholder="e.g 4131234567" onInput={input}/>
 						</Box>
 					</Grid>
 				</Grid>
@@ -148,8 +185,8 @@ const PersonApplyCard = () => {
 				</Typography>
 				<form>
 					<Box sx={{ display: "flex", alignItems: "center", "& input": { border: "1px solid rgb(209, 212, 227)", borderRadius: "3px", height: "40px", padding: "4px 11px" }, "& button": { color: "rgb(0, 3, 23)", backgroundColor: "rgb(209, 212, 227)", border: "none", marginLeft: "10px", borderRadius: "3px", height: "40px", outline: "none",minWidth: "95px", cursor: "pointer" } }}>
-						<input className="discount-input" type="text" />
-						<button type="submit">Submit</button>
+						<input name="discount" className="discount-input" type="text" onInput={input} />
+						<button type="submit" onClick={(e) => { click(e, 'discount') }}>Submit</button>
 					</Box>
 				</form>
 			</CardWrap>
@@ -161,7 +198,9 @@ const PersonApplyCard = () => {
 				</Box>
 			</CardWrap>
 			<Box sx={{ paddingBottom: "20px" }}>
-				<Link to="/confirm-booking" className="booking-btn" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "100%", maxWidth: "355px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500, marginLeft: "auto" }}>Proceed to confirmation <IoIosAirplane /></Link>
+				<Link onClick={(e) => { click(e, 'confirm') }} to="#" className="booking-btn" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "100%", maxWidth: "355px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500, marginLeft: "auto" }}>
+					Proceed to confirmation <IoIosAirplane />
+				</Link>
 			</Box>
 		</Box>
   	);

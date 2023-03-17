@@ -17,6 +17,8 @@ const CardWrap = styled(Box)(({ theme }) => ({
 
 
 const CheckDetails = () => {
+    const id = window.location.pathname.replace(/.*\//, '');
+
     return (
         <div>
             <Box className="person-card">
@@ -51,8 +53,8 @@ const CheckDetails = () => {
                     </Typography>
                 </CardWrap>
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "28px" }}>
-                <Link to="/booking-details" style={{ display: "inline-block", width: "94px", height: "52px", boxShadow: "none", background: "#D2D4E1", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#010416", borderRadius: "5px", fontWeight: 500 }}>Back</Link>
-                <Link to="/payment" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "260px", maxWidth: "260px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }}>Proceed to payment <IoIosAirplane />
+                <Link to={`/booking-details/${id}`} style={{ display: "inline-block", width: "94px", height: "52px", boxShadow: "none", background: "#D2D4E1", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#010416", borderRadius: "5px", fontWeight: 500 }}>Back</Link>
+                <Link to={`/payment/${id}`} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "260px", maxWidth: "260px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }}>Proceed to payment <IoIosAirplane />
                 </Link>
             </Box>
         </Box>
