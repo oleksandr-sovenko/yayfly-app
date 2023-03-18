@@ -25,6 +25,7 @@ const SearchResultCard = (props) => {
                         segments:[{
                             departing_at:'00:00',
                             arriving_at:'00:00',
+                            passengers: [{ cabin_class_marketing_name: '' }]
                         }]
                     },{
                         duration: '00:00',
@@ -33,11 +34,20 @@ const SearchResultCard = (props) => {
                         segments:[{
                             departing_at:'00:00',
                             arriving_at:'00:00',
+                            passengers: [{ cabin_class_marketing_name: '' }]
                         }]
                     }
                 ]
             }
         };
+
+    let cabinClass = '-';
+
+    try {
+        cabinClass = props.offer.slices[0].segments[0].passengers[0].cabin_class_marketing_name;
+    } catch(e) {
+
+    }        
 
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -77,7 +87,7 @@ const SearchResultCard = (props) => {
                         })}
                         <span className="airlineName">{props.offer.owner.name}</span>
                     </div>
-                    <div className="flight-category">Economy 111</div>
+                    <div className="flight-category">{cabinClass}</div>
                 </div>
 
                 {props.offer.slices.map((slice, index) => {

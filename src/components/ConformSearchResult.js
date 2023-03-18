@@ -4,18 +4,18 @@ import image2 from '../assets/BA.webp';
 
 
 const ConformSearchResult = (props) => {
-    if (!props)
-        props = {};
-
-    if (!props.offer)
-        props.offer = {};
-
-    const offer = props.offer;
+    const offer = props.offer ? props.offer : {};
 
     let cabinClass = '-';
 
     try {
-        cabinClass = offer.slices[0].segments[0].passengers[0].cabin_class_marketing_name;
+        if (
+            offer.slices &&
+            offer.slices[0].segments[0] &&
+            offer.slices[0].segments[0].passengers[0] &&
+            offer.slices[0].segments[0].passengers[0].cabin_class_marketing_name
+        )
+            cabinClass = offer.slices[0].segments[0].passengers[0].cabin_class_marketing_name;
     } catch(e) {
 
     }
@@ -25,11 +25,14 @@ const ConformSearchResult = (props) => {
             <div className="flight-duration-time ConformSearchGrid">
                 <div className="flight-header">
                     <div className="flight-name">
-                        {offer.carriers ? Object.keys(offer.carriers).map((name, index) => {
+                        {offer.carriers ? (
+                            Object.keys(offer.carriers).map((name, index) => {
                             return (
                                 <img key={index} src={offer.carriers[name]} alt={name} />    
                             )
-                        }) : ''}
+                        })) : (
+                            <img src={offer.owner ? offer.owner.logo_symbol_url : ''} alt={offer.owner ? offer.owner.name : ''} />    
+                        )}
                         <span className="airlineName">{offer.owner ? offer.owner.name : ''}</span>
                     </div>
                     <div className="flight-category">{cabinClass}</div>

@@ -64,10 +64,16 @@ export default class Search extends Component {
         if (params.type === 'round-trip')
             data = {
                 type: params.type,
+                class: params.cabinClass,
                 origin: params.trips[0].origin, 
                 destination: params.trips[0].destination,
                 depart: params.trips[0].dates[0],
                 return: params.trips[0].dates[1],
+                passengers: {
+                    adult: params.adults,
+                    child: params.children,
+                    infant_without_seat: params.infants,
+                }
             };
 
         axios.post('https://yayfly.com/api/offers', data).then((response) => {
@@ -194,6 +200,8 @@ export default class Search extends Component {
 
             that.setState({ progress: 100, loading: false });
         });
+
+        window.yayflyInputs.update();
     }
 
     componentWillUnmount() {
@@ -287,77 +295,21 @@ export default class Search extends Component {
         return (
             <>
                 {/*<WlcModal></WlcModal>*/}
-                <Box
-                    sx={{
-                        display: { md: "none", sm: "none", xs: "flex" },
-                        background: "white",
-                        borderBottom: "2px solid rgb(204, 206, 219)",
-                        padding: "30px 15px",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        marginBottom: "25px",
-                    }}
-                >
+                <Box sx={{ display: { md: "none", sm: "none", xs: "flex" }, background: "white", borderBottom: "2px solid rgb(204, 206, 219)", padding: "30px 15px", alignItems: "center", justifyContent: "space-between", marginBottom: "25px" }}>
                     <Box>
                         <Box sx={{ display: "flex", alignItems: "center", marginBottom: "10px", "& svg": { marginLeft: "10px", marginRight: "10px" } }}>
-                            <Typography
-                                sx={{
-                                    fontSize: "16px",
-                                    lineHeight: "normal",
-                                    fontWeight: "700",
-                                    color: "rgb(0, 3, 23)",
-                                    fontFamily: "'Public Sans', sans-serif",
-                                }}
-                            >London</Typography>
+                            <Typography sx={{ fontSize: "16px", lineHeight: "normal", fontWeight: "700", color: "rgb(0, 3, 23)", fontFamily: "'Public Sans', sans-serif" }}>London</Typography>
                             <BsArrowRight></BsArrowRight>
-                            <Typography
-                                sx={{
-                                    fontSize: "16px",
-                                    lineHeight: "normal",
-                                    fontWeight: "700",
-                                    color: "rgb(0, 3, 23)",
-                                    fontFamily: "'Public Sans', sans-serif",
-                                }}
-                            >Bangkok</Typography>
+                            <Typography sx={{ fontSize: "16px", lineHeight: "normal", fontWeight: "700", color: "rgb(0, 3, 23)", fontFamily: "'Public Sans', sans-serif" }}>Bangkok</Typography>
                         </Box>
-                        <Typography
-                            sx={{
-                                color: "rgba(7, 14, 57, 0.5)",
-                                fontFamily: "'Public Sans', sans-serif",
-                                fontWeight: "400",
-                                fontSize: "14px",
-                                lineHeight: "16px",
-                                marginBottom: "4px",
-                            }}
+                        <Typography sx={{ color: "rgba(7, 14, 57, 0.5)", fontFamily: "'Public Sans', sans-serif", fontWeight: "400", fontSize: "14px", lineHeight: "16px", marginBottom: "4px" }}
                         >Fri May 5 - Fri May 19</Typography>
-                        <Typography
-                            component={"span"}
-                            className="nrPassengers"
-                            sx={{
-                                color: "rgba(7, 14, 57, 0.5)",
-                                fontFamily: "'Public Sans', sans-serif",
-                                fontWeight: "400",
-                                fontSize: "14px",
-                                lineHeight: "16px",
-                            }}
+                        <Typography component={"span"} className="nrPassengers" sx={{ color: "rgba(7, 14, 57, 0.5)", fontFamily: "'Public Sans', sans-serif", fontWeight: "400", fontSize: "14px", lineHeight: "16px" }}
                         >1 adult, Economy</Typography>
                     </Box>
-                    <Typography
-                        sx={{
-                            display: "inline-block",
-                            "& a": {
-                                textDecoration: "none",
-                                color: "#12172a",
-                            },
-                            "& a svg": {
-                                fontSize: "24px",
-                                display: "block",
-                                marginBottom: "5px",
-                            },
-                        }}
-                    >
+                    <Typography sx={{ display: "inline-block", "& a": { textDecoration: "none", color: "#12172a" }, "& a svg": { fontSize: "24px", display: "block", marginBottom: "5px" } }}>
                         <Link>
-                            <FaPencilAlt></FaPencilAlt>Edit
+                            <FaPencilAlt /> Edit
                         </Link>
                     </Typography>
                 </Box>

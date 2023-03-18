@@ -62,7 +62,7 @@ export default class BookingDetails extends Component {
                                 <PriceDetails offer={offer} />
                                 <MobilePaymentCta />
                             </Box>
-                            <PassengerCard />
+                            <PassengerCard offer={offer} />
                             <PersonApplyCard />
                             <Box sx={{ display: { md: "block", xs: "none" } }}>
                                 <PaymentCta />

@@ -2,18 +2,18 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 
 const PriceDetails = (props) => {
-    if (!props)
-        props = {};
-
-    if (!props.offer)
-        props.offer = {};
-
-    const offer = props.offer;
+    const offer = props.offer ? props.offer : {};
 
     let cabinClass = '-';
 
     try {
-        cabinClass = offer.slices[0].segments[0].passengers[0].cabin_class_marketing_name;
+        if (
+            offer.slices &&
+            offer.slices[0].segments[0] &&
+            offer.slices[0].segments[0].passengers[0] &&
+            offer.slices[0].segments[0].passengers[0].cabin_class_marketing_name
+        )
+            cabinClass = offer.slices[0].segments[0].passengers[0].cabin_class_marketing_name;
     } catch(e) {
 
     }

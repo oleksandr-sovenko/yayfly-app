@@ -105,7 +105,7 @@ const PersonApplyCard = () => {
 					</Grid>
 				</Grid>
 			</CardWrap>
-			<CardWrap sx={{ padding: { md: "35px", xs: "20px" } }}>
+{/*			<CardWrap sx={{ padding: { md: "35px", xs: "20px" } }}>
 				<Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
 					<Box sx={{ display: "flex", alignItems: "center", paddingBottom: "25px" }}>
 						<ManageAccountsIcon sx={{ width: "30px", height: "30px", marginRight: "22px" }} />
@@ -143,8 +143,8 @@ const PersonApplyCard = () => {
 						</Box>
 					</Box>
 				</Box>
-			</CardWrap>
-			<CardWrap sx={{ padding: { md: "35px", xs: "20px" } }}>
+			</CardWrap>*/}
+{/*			<CardWrap sx={{ padding: { md: "35px", xs: "20px" } }}>
 				<Box sx={{ display: "flex", alignItems: "center", paddingBottom: "25px" }}>
 					<PhoneIcon sx={{ width: "30px", height: "30px", marginRight: "22px" }}/>
 					<Typography sx={{ fontSize: "18px", lineHeight: "25px", fontWeight: 700 }}>
@@ -178,8 +178,8 @@ const PersonApplyCard = () => {
 						</Box>
 					</Box>
 				</Box>
-			</CardWrap>
-			<CardWrap sx={{ padding: { md: "35px", xs: "20px" } }}>
+			</CardWrap>*/}
+{/*			<CardWrap sx={{ padding: { md: "35px", xs: "20px" } }}>
 				<Typography sx={{ fontSize: "13px", marginBottom: "6px" }}>
 					Do you have a discount code?
 				</Typography>
@@ -189,7 +189,7 @@ const PersonApplyCard = () => {
 						<button type="submit" onClick={(e) => { click(e, 'discount') }}>Submit</button>
 					</Box>
 				</form>
-			</CardWrap>
+			</CardWrap>*/}
 			<CardWrap sx={{ padding: { md: "35px", xs: "20px" } }}>
 				<Box sx={{ display: "flex", alignItems: "center" }}>
 					<FormControlLabel sx={{ "& span": { fontSize: "12px", color: "rgba(7, 14, 57, 0.75)", marginLeft: "10px" } }} control={

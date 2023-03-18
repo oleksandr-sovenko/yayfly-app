@@ -14,7 +14,10 @@ const TopSeachForm = (props) => {
         if (el.type === 'submit') {
             const params = getParams();
 
-            window.location.href = `/search/${params.type}/${document.querySelector('[name="origin"]').value},${document.querySelector('[name="destination"]').value},${document.querySelector('[name="depart"]').value},${document.querySelector('[name="return"]').value}/${params.cabinClass}/${params.adults}/${params.children}/${params.infants}`;
+            window.location.href = 
+                `/search/${params.type}/${document.querySelector('[name="origin"]').value},${document.querySelector('[name="destination"]').value},` +
+                `${document.querySelector('[name="depart"]').value},${document.querySelector('[name="return"]').value}/` +
+                `${window.travelers.cabinClass}/${window.travelers.adults}/${window.travelers.children}/${window.travelers.infants}`;
 
             // https://yayfly.com/search/round-trip/GDO,ASD,2023-03-13,2023-03-13/economy/1/0/0?luggage=true&layover=true
             // https://yayfly.com/search/one-way/GDO,ASD,2023-03-13/economy/1/0/0?luggage=true&layover=true

@@ -9,12 +9,12 @@ import modalCartoon from "../../assets/confirm-booking/modalCartoon.png";
 const ThankYouModal = ({ handleThankModalClose }) => {
     const [open, setOpen] = useState(false);
     const [fullWidth, setFullWidth] = React.useState(true);
-    const [maxWidth, setMaxWidth] = React.useState("md");
+    const [maxWidth, setMaxWidth] = React.useState('md');
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setOpen(true);
-        }, 300);
+        }, 1000);
         return () => clearTimeout(timer);
     }, []);
 
