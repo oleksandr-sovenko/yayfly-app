@@ -37,6 +37,20 @@ const CardButton = styled(Box)(({ theme }) => ({
 }));
 
 
+/*
+
+for (const input of document.querySelectorAll('input, select')) {	
+	if (/gender/.test(input.name))
+		input.value = 'm';
+	else if (/month/.test(input.name))
+		input.value = '01';
+	else
+		input.value = '1111';	
+}
+
+*/
+
+
 const PersonApplyCard = () => {
 	const id = window.location.pathname.replace(/.*\//, '');
 
@@ -59,17 +73,31 @@ const PersonApplyCard = () => {
         	  page = el.closest('.booking-pages');
 
         if (type === 'confirm') {
-       		for (const input of page.querySelectorAll('input, select')) {
-       			if (input.name === 'discount')
-       				continue;
+        	let passengers = {};
 
-       			if (input.value.length === 0)
-       				input.classList.add('error');
+       		for (const input of page.querySelectorAll('input, select')) {
+       			const index = parseInt(input.name.replace(/.*\[/, '')),
+       				  name  = input.name.replace(/\[.*/, ''),
+       				  value = input.value;
+
+       			if (!isNaN(index)) {
+       				if (!passengers[index])
+       					passengers[index] = {};
+
+       				if (input.name === 'discount')
+       					continue;
+
+       				if (input.value.length === 0)
+       					input.classList.add('error');
+
+					passengers[index][name] = value;
+				}
        		}
 
        		if (document.querySelector('input.error')) {
        			window.scroll({ top: document.querySelector('input.error').offsetTop - 50, left: 0, behavior: 'smooth' });
        		} else {
+       			localStorage['passengers'] = JSON.stringify(passengers);
        			window.location.href = `/confirm-booking/${id}`;
        		}
        	}
@@ -193,7 +221,7 @@ const PersonApplyCard = () => {
 			<CardWrap sx={{ padding: { md: "35px", xs: "20px" } }}>
 				<Box sx={{ display: "flex", alignItems: "center" }}>
 					<FormControlLabel sx={{ "& span": { fontSize: "12px", color: "rgba(7, 14, 57, 0.75)", marginLeft: "10px" } }} control={
-						<Checkbox sx={{ color: "#1890ff" }} width="14px" height="14px" name="saveAddress" value="yes" />
+						<Checkbox sx={{ color: "#1890ff" }} width="14px" height="14px" name="accept" value="yes" />
 					} label="I accept the Terms and Conditions of Yayfly.com and I confirm that the information provided is up to date and accurate." />
 				</Box>
 			</CardWrap>

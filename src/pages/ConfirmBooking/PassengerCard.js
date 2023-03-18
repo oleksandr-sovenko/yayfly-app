@@ -6,14 +6,17 @@ import React from "react";
 import { FiBriefcase } from "react-icons/fi";
 import { GiSchoolBag } from "react-icons/gi";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
+
+
 const CardWrap = styled(Box)(({ theme }) => ({
-  backgroundColor: "white",
-  fontFamily: '"Public Sans", sans-serif',
-  boxShadow: "rgb(101 101 101 / 5%) 4px 4px 12px",
-  borderRadius: "5px",
-  marginBottom: "30px",
-  color: "rgb(0, 3, 23)",
+    backgroundColor: "white",
+    fontFamily: '"Public Sans", sans-serif',
+    boxShadow: "rgb(101 101 101 / 5%) 4px 4px 12px",
+    borderRadius: "5px",
+    marginBottom: "30px",
+    color: "rgb(0, 3, 23)",
 }));
+
 
 const PassengerCard = (props) => {
     const offer = props.offer ? props.offer : {};
@@ -36,6 +39,7 @@ const PassengerCard = (props) => {
         return (
             <Box className="passenger-card">
                 <SectionTitle title="Passengers" />
+
                 {offer.passengers.map((passenger, index) => {
                     return (
                         <CardWrap key={index} sx={{ padding: { md: "35px", xs: "20px" } }}>
@@ -56,13 +60,13 @@ const PassengerCard = (props) => {
                                         <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                             Given names
                                         </InputLabel>
-                                        <input name="given_name" className="passenger-input" type="text" placeholder="e.g. Oliver James" onInput={input} />
+                                        <input name={'given_name[' + (index + 1) + ']'} className="passenger-input" type="text" placeholder="e.g. Oliver James" onInput={input} />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                             Surname (s)
                                         </InputLabel>
-                                        <input name="family_name" className="passenger-input" type="text" placeholder="e.g. Brown" onInput={input} />
+                                        <input name={'family_name[' + (index + 1) + ']'} className="passenger-input" type="text" placeholder="e.g. Brown" onInput={input} />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <Grid container spacing="10px">
@@ -70,13 +74,13 @@ const PassengerCard = (props) => {
                                                 <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                                     Nationality
                                                 </InputLabel>
-                                                <input name="nationality" className="passenger-input" type="text" placeholder="e.g. United Kingdom" onInput={input} />
+                                                <input name={'nationality[' + (index + 1) + ']'} className="passenger-input" type="text" placeholder="e.g. United Kingdom" onInput={input} />
                                             </Grid>
                                             <Grid item xs={4} sm={4}>
                                                 <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                                     Gender
                                                 </InputLabel>
-                                                <select name="gender" className="gender-select" placeholder="Gender" onInput={change}>
+                                                <select name={'gender[' + (index + 1) + ']'} className="gender-select" placeholder="Gender" onInput={change}>
                                                     <option></option>
                                                     <option value="m">Male</option>
                                                     <option value="f">Female</option>
@@ -90,7 +94,7 @@ const PassengerCard = (props) => {
                                         </InputLabel>
                                         <Grid container spacing="10px">
                                             <Grid item xs={6} sm={6}>
-                                                <select name="birth_month" className="gender-select" placeholder="Month" onChange={change}>
+                                                <select name={'birth_month[' + (index + 1) + ']'} className="gender-select" placeholder="Month" onChange={change}>
                                                     <option></option>
                                                     <option value="01">January</option>
                                                     <option value="02">February</option>
@@ -107,10 +111,10 @@ const PassengerCard = (props) => {
                                                 </select>
                                             </Grid>
                                             <Grid item xs={3} sm={3}>
-                                                <input name="birth_day" className="passenger-input" type="number" placeholder="DD" onInput={input} />
+                                                <input name={'birth_day[' + (index + 1) + ']'} className="passenger-input" type="number" placeholder="DD" onInput={input} />
                                             </Grid>
                                             <Grid item xs={3} sm={3}>
-                                                <input name="birth_year" className="passenger-input" type="number" placeholder="YYYY" onInput={input} />
+                                                <input name={'birth_year[' + (index + 1) + ']'} className="passenger-input" type="number" placeholder="YYYY" onInput={input} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -125,7 +129,7 @@ const PassengerCard = (props) => {
                                                         <a href="#">Help me,it's expired</a>
                                                     </Typography>*/}
                                                 </Box>
-                                                <input name="passport_id" className="passenger-input" type="text" placeholder="Passport or Id number" onInput={input} />
+                                                <input name={'passport_id[' + (index + 1) + ']'} className="passenger-input" type="text" placeholder="Passport or Id number" onInput={input} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -137,7 +141,7 @@ const PassengerCard = (props) => {
                                                 </InputLabel>
                                                 <Grid container spacing="10px">
                                                     <Grid item xs={6} sm={6}>
-                                                        <select name="passport_expiry_month" className="gender-select" placeholder="Month" onChange={change}>
+                                                        <select name={'passport_expiry_month[' + (index + 1) + ']'} className="gender-select" placeholder="Month" onChange={change}>
                                                             <option></option>
                                                             <option value="01">January</option>
                                                             <option value="02">February</option>
@@ -154,10 +158,10 @@ const PassengerCard = (props) => {
                                                         </select>
                                                     </Grid>
                                                     <Grid item xs={3} sm={3}>
-                                                        <input name="passport_expiry_day" className="passenger-input" type="number" placeholder="DD" onInput={input} />
+                                                        <input name={'passport_expiry_day[' + (index + 1) + ']'} className="passenger-input" type="number" placeholder="DD" onInput={input} />
                                                     </Grid>
                                                     <Grid item xs={3} sm={3}>
-                                                        <input name="passport_expiry_year" className="passenger-input" type="number" placeholder="YYYY" onInput={input} />
+                                                        <input name={'passport_expiry_year[' + (index + 1) + ']'} className="passenger-input" type="number" placeholder="YYYY" onInput={input} />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -165,7 +169,7 @@ const PassengerCard = (props) => {
                                                 <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                                     No expiry
                                                 </InputLabel>
-                                                <Checkbox sx={{ color: "rgb(209, 212, 227)" }} width="14px" height="14px" name="saveAddress" value="yes" />
+                                                <Checkbox sx={{ color: "rgb(209, 212, 227)" }} width="14px" height="14px" name={'no_expiry[' + (index + 1) + ']'} value="yes" />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -232,5 +236,6 @@ const PassengerCard = (props) => {
             </Box>
         );
 };
+
 
 export default PassengerCard;

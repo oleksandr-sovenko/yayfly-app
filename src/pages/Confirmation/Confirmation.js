@@ -14,6 +14,7 @@ import axios from 'axios';
 
 export default class Confirmation extends Component {
     state = {
+        passengers: {},
         loading: true,
         offer: {}
     };
@@ -26,8 +27,16 @@ export default class Confirmation extends Component {
         const that = this,
               id = window.location.pathname.replace(/.*\//, '');
 
+        let passengers = {};
+
+        try {
+            passengers = JSON.parse(localStorage['passengers']);
+        } catch(e) {
+
+        }
+
         axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
-            that.setState({ loading: false, offer: response.data.data });
+            that.setState({ loading: false, offer: response.data.data, passengers: passengers });
         }).catch((error) => {
             console.log(error);
             that.setState({ loading: false });
@@ -40,7 +49,8 @@ export default class Confirmation extends Component {
 
     render() {
         const that = this,
-              offer = that.state.offer;
+              offer = that.state.offer,
+              passengers = that.state.passengers;
 
         return (
             <div className="confirmation-pages">
@@ -60,7 +70,7 @@ export default class Confirmation extends Component {
                                 <PageTitle title="Price details" />
                                 <PriceDetails offer={offer} />
                             </Box>
-                            <CheckDetails />
+                            <CheckDetails passengers={passengers} />
                             <Box sx={{ display: { md: "block", xs: "none" } }}>
                                 <PaymentCta />
                             </Box>
