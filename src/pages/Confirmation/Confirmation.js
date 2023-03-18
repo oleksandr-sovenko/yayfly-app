@@ -9,6 +9,7 @@ import PaymentCta from "../Payment/PaymentCta";
 import PaymentTimeLine from "../Payment/PaymentTimeLine";
 import PriceDetails from "../Payment/PriceDetails";
 import CheckDetails from "./CheckDetails";
+import loadingImage from '../../assets/loading.svg';
 import axios from 'axios';
 
 
@@ -41,6 +42,8 @@ export default class Confirmation extends Component {
             console.log(error);
             that.setState({ loading: false });
         });
+
+        window.scroll({ top: 0, left: 0 });
     }
 
     componentWillUnmount() {
@@ -49,6 +52,7 @@ export default class Confirmation extends Component {
 
     render() {
         const that = this,
+              loading = that.state.loading,
               offer = that.state.offer,
               passengers = that.state.passengers;
 
@@ -64,13 +68,23 @@ export default class Confirmation extends Component {
                             <Box sx={{ display: { xs: "block", md: "none" } }}>
                                 <MobileTimeLine step={3} />
                             </Box>
-                            <SectionTitle title="Your flight Details" />
-                            <ConformSearchResult offer={offer} />
-                            <Box sx={{ display: { xs: "block", md: "none" }, marginBottom: { xs: "20px", md: "0px" } }}>
-                                <PageTitle title="Price details" />
-                                <PriceDetails offer={offer} />
-                            </Box>
-                            <CheckDetails passengers={passengers} />
+
+                            {loading === false ? (
+                                <>
+                                <SectionTitle title="Your flight Details" />
+                                <ConformSearchResult offer={offer} />
+                                <Box sx={{ display: { xs: "block", md: "none" }, marginBottom: { xs: "20px", md: "0px" } }}>
+                                    <PageTitle title="Price details" />
+                                    <PriceDetails offer={offer} />
+                                </Box>
+                                <CheckDetails passengers={passengers} />
+                                </>
+                            ) : (
+                                <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '40px', borderRadius: '5px' }}>
+                                    <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear' }} /> Loading ...
+                                </Box>
+                            )}
+
                             <Box sx={{ display: { md: "block", xs: "none" } }}>
                                 <PaymentCta />
                             </Box>
@@ -78,7 +92,13 @@ export default class Confirmation extends Component {
                         <Box>
                             <Box sx={{ display: { md: "block", xs: "none" } }}>
                                 <PageTitle title="Price details" />
-                                <PriceDetails offer={offer} />
+                                {loading === false ? (
+                                    <PriceDetails offer={offer} />
+                                ) : (
+                                    <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '5px', borderRadius: '5px' }}>
+                                        <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear' }} /> Loading ...
+                                    </Box>
+                                )}
                             </Box>
                             <MobilePaymentCta />
                         </Box>

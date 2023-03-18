@@ -10,12 +10,16 @@ import PaymentTimeLine from "../Payment/PaymentTimeLine";
 import PriceDetails from "../Payment/PriceDetails";
 import PassengerCard from "./PassengerCard";
 import PersonApplyCard from "./PersonApplyCard";
+import { SeatSelection, AdditionalBaggageSelection } from '@duffel/components'
+import '@duffel/components/dist/SeatSelection.min.css'
+import loadingImage from '../../assets/loading.svg';
 import axios from 'axios';
 
 
 export default class BookingDetails extends Component {
     state = {
         loading: true,
+        passengers: [],
         offer: {}
     };
 
@@ -27,12 +31,21 @@ export default class BookingDetails extends Component {
         const that = this,
               id = window.location.pathname.replace(/.*\//, '');
 
+        let passengers = {};
+
+        try {
+            passengers = JSON.parse(localStorage['passengers']);
+        } catch(e) {
+
+        }              
+
         axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
-            that.setState({ loading: false, offer: response.data.data });
+            that.setState({ loading: false, offer: response.data.data, passengers: passengers });
         }).catch((error) => {
-            console.log(error);
             that.setState({ loading: false });
         });
+
+        window.scroll({ top: 0, left: 0 });
     }
 
     componentWillUnmount() {
@@ -41,7 +54,11 @@ export default class BookingDetails extends Component {
 
     render() {
         const that = this,
+              loading = that.state.loading,
+              passengers = that.state.passengers,
               offer = that.state.offer;
+
+        // console.log(offer);
 
         return (
             <div className="booking-pages">
@@ -55,23 +72,54 @@ export default class BookingDetails extends Component {
                             <Box sx={{ display: { xs: "block", md: "none" } }}>
                                 <MobileTimeLine step={2} />
                             </Box>
-                            <SectionTitle title="Your flight details" />
-                            <ConformSearchResult offer={offer} />
-                            <Box sx={{ display: { xs: "block", md: "none" }, paddingBottom: "10px" }}>
-                                <PageTitle title="Price details" />
-                                <PriceDetails offer={offer} />
-                                <MobilePaymentCta />
-                            </Box>
-                            <PassengerCard offer={offer} />
-                            <PersonApplyCard />
+
+                            {loading === false ? (
+                                <>
+                                    <SectionTitle title="Your flight details" />
+                                    <ConformSearchResult offer={offer} />
+                                    <Box sx={{ display: { xs: "block", md: "none" }, paddingBottom: "10px" }}>
+                                        <PageTitle title="Price details" />
+                                        <PriceDetails offer={offer} />
+                                        <MobilePaymentCta />
+                                    </Box>
+                                    <PassengerCard offer={offer} passengers={passengers} />
+                                    <PersonApplyCard />
+
+                                    {/*<AdditionalBaggageSelection
+                                        offer={offer}
+                                        passengers={[{ id: offer.passengers[0].id, name: ''}]}
+                                        initialBaggageSelection={[]}
+                                        onSubmit={(e) => { }}
+                                    />*/}
+
+                                    <SeatSelection
+                                        offer={offer}
+                                        seatMaps={offer.seatmaps.data}
+                                        passengers={[{ id: offer.passengers[0].id, name: ''}]}
+                                        initialBaggageSelection={[]}
+                                        onSubmit={(e) => { }}
+                                    />
+                                </>
+                            ) : (
+                                <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '40px', borderRadius: '5px' }}>
+                                    <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear' }} /> Loading ...
+                                </Box>
+                            )}
+
                             <Box sx={{ display: { md: "block", xs: "none" } }}>
                                 <PaymentCta />
-                            </Box>
+                            </Box>                            
                         </Box>
                         <Box>
                             <Box sx={{ display: { md: "block", xs: "none" } }}>
                                 <PageTitle title="Price details" />
-                                <PriceDetails offer={offer} />
+                                {loading === false ? (
+                                    <PriceDetails offer={offer} />
+                                ) : (
+                                    <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '5px', borderRadius: '5px' }}>
+                                        <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear' }} /> Loading ...
+                                    </Box>
+                                )}
                             </Box>
                             <MobilePaymentCta />
                         </Box>

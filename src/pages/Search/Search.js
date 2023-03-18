@@ -78,7 +78,6 @@ export default class Search extends Component {
 
         axios.post('https://yayfly.com/api/offers', data).then((response) => {
             let offers = response.data.data.offers,
-                tempAirlines = {},
                 airlines = {};
 
             let recomended = [],
@@ -89,7 +88,7 @@ export default class Search extends Component {
                 if (params.type === 'round-trip') {
                     const nos = offer.slices.map((s) => s.segments.length );
 
-                    if (nos[0] == 1 && nos[1] == 1)
+                    if (nos[0] === 1 && nos[1] === 1)
                         offer.stops = 'direct';
                     else if (nos[0] <= 2 || nos[1] <= 2)
                         offer.stops = '1stop';
@@ -201,7 +200,11 @@ export default class Search extends Component {
             that.setState({ progress: 100, loading: false });
         });
 
-        window.yayflyInputs.update();
+        setTimeout(() => {
+            window.yayflyInputs.update();
+        }, 50);
+
+        window.scroll({ top: 0, left: 0 });        
     }
 
     componentWillUnmount() {
@@ -322,9 +325,9 @@ export default class Search extends Component {
                                     {loading === true ? (
                                         <>
                                             {index === multicity.selected ? (
-                                                <img src={loadingImageInvert} style={{ animation: 'rotation 2s infinite linear', float: 'right' }} />
+                                                <img src={loadingImageInvert} alt="" style={{ animation: 'rotation 2s infinite linear', float: 'right' }} />
                                             ) : (
-                                                <img src={loadingImage} style={{ animation: 'rotation 2s infinite linear', float: 'right' }} />
+                                                <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear', float: 'right' }} />
                                             )}
                                         </>
                                     ) : (

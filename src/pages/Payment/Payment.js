@@ -11,6 +11,7 @@ import PaymentTimeLine from "./PaymentTimeLine";
 import PriceDetails from "./PriceDetails";
 import ThankYouModal from "../../components/Modal/ThankYouModal";
 import { Link } from "react-router-dom";
+import loadingImage from '../../assets/loading.svg';
 import axios from 'axios';
 
 
@@ -34,6 +35,8 @@ export default class Payment extends Component {
             console.log(error);
             that.setState({ loading: false });
         });
+
+        window.scroll({ top: 0, left: 0 });
     }
 
     componentWillUnmount() {
@@ -42,6 +45,7 @@ export default class Payment extends Component {
 
     render() {
         const that = this,
+              loading = that.state.loading,
               offer = that.state.offer;
 
         return (
@@ -71,15 +75,25 @@ export default class Payment extends Component {
                                     <Box sx={{ display: { xs: "block", md: "none" } }}>
                                         <MobileTimeLine step={4} />
                                     </Box>
-                                    <SectionTitle title="Your flight" />
 
-                                    <ConformSearchResult offer={offer.data} />
-                                    
-                                    <Box sx={{ display: { xs: "block", md: "none" } }}>
-                                        <PageTitle title="Price details" />
-                                        <PriceDetails offer={offer.data} />
-                                    </Box>
-                                    <PaymentCard offer={offer.data} />
+                                    {loading === false ? (
+                                        <>
+                                            <SectionTitle title="Your flight" />
+
+                                            <ConformSearchResult offer={offer.data} />
+                                            
+                                            <Box sx={{ display: { xs: "block", md: "none" } }}>
+                                                <PageTitle title="Price details" />
+                                                <PriceDetails offer={offer.data} />
+                                            </Box>
+                                            <PaymentCard offer={offer.data} />
+                                        </>
+                                    ) : (
+                                        <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '40px', borderRadius: '5px' }}>
+                                            <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear' }} /> Loading ...
+                                        </Box>
+                                    )}
+
                                     <Box sx={{ display: { md: "block", xs: "none" } }}>
                                         <PaymentCta />
                                     </Box>
@@ -87,7 +101,13 @@ export default class Payment extends Component {
                                 <Box>
                                     <Box sx={{ display: { md: "block", xs: "none" } }}>
                                         <PageTitle title="Price details" />
-                                        <PriceDetails offer={offer.data} />
+                                        {loading === false ? (
+                                            <PriceDetails offer={offer.data} />
+                                        ) : (
+                                            <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '5px', borderRadius: '5px' }}>
+                                                <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear' }} /> Loading ...
+                                            </Box>
+                                        )}
                                     </Box>
                                     <MobilePaymentCta />
                                 </Box>
