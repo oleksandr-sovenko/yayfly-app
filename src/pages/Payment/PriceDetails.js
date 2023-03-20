@@ -30,6 +30,10 @@ const PriceDetails = (props) => {
                 <Typography>Free</Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px" }}>
+                <Typography>{offer.passengers ? offer.passengers.length : 0}x Checked bg</Typography>
+                <Typography>$99</Typography>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px" }}>
                 <Typography>Cabin Class</Typography>
                 <Typography>{cabinClass}</Typography>
             </Box>

@@ -34,6 +34,20 @@ const PassengerCard = (props) => {
         el.classList.remove('error');
     }
 
+    const clickBaggage = (e) => {
+        const el = e.target,
+              passengerItem = el.closest('.passenger-item');
+
+        for (const item of passengerItem.querySelectorAll('.baggage-item'))
+            item.classList.remove('active');
+
+        if (el.classList.contains('baggage-item'))
+            el.classList.add('active');
+        else {
+            el.closest('.baggage-item').classList.add('active');
+        }
+    }
+
     if (!offer.passengers)
         return (<></>)
     else
@@ -50,7 +64,7 @@ const PassengerCard = (props) => {
                     }
 
                     return (
-                        <CardWrap key={index} sx={{ padding: { md: "35px", xs: "20px" } }}>
+                        <CardWrap key={index} sx={{ padding: { md: "35px", xs: "20px" } }} className="passenger-item">
                             <Box sx={{ display: "flex", alignItems: "center", paddingBottom: "25px" }}>
                                 <AccountCircleIcon sx={{ width: "30px", height: "30px", marginRight: { md: "22px", xs: "16px" } }} />
                                 <Box>
@@ -212,8 +226,9 @@ const PassengerCard = (props) => {
                                         <>
                                             <Typography sx={{ fontSize: "14px", paddingBottom: "10px" }}>
                                                 Select one option
-                                            </Typography>                                        
-                                            <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" marginBottom="15px" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", border: "2px solid #5452F6", borderRadius: "5px" }}>
+                                            </Typography>
+
+                                            <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" marginBottom="15px" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", borderRadius: "5px", cursor: "pointer" }} className="baggage-item active" onClick={clickBaggage}>
                                                 <Box gridColumn="span 1" sx={{ textAlign: "end", color: "#010316", fontSize: "22px", fontWeight: 900 }}>
                                                     <CloseIcon />
                                                 </Box>
@@ -223,7 +238,8 @@ const PassengerCard = (props) => {
                                                     </Typography>
                                                 </Box>
                                             </Grid>
-                                            <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", borderRadius: "5px" }}>
+
+                                            <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", borderRadius: "5px", cursor: "pointer" }} className="baggage-item" onClick={clickBaggage}>
                                                 <Box gridColumn="span 1" sx={{ textAlign: "center", color: "hsl(232deg 78% 13% / 50%)", fontSize: "20px", padding: "0 10px" }}>
                                                     <FiBriefcase />
                                                 </Box>

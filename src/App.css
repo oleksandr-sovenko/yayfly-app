@@ -1,3 +1,7 @@
+.baggage-item.active {
+    border: 2px solid #5452F6;
+}
+
 .modal-duffel-components [role="dialog"] {
     margin: 0px;
     width: 100%;
@@ -247,6 +251,11 @@ button.mobile-filter-btn.apply-btn {
 .search-result-card-grid.loading .cta-info a,
 .search-result-card-grid.loading .dropdown-btn {
     display: none;
+}
+
+.search-result-card-grid .departureTime,
+.search-result-card-grid .arrivalTime {
+    font-size: 16px;
 }
 
 .search-result-card-grid.loading span,

@@ -7,6 +7,7 @@ import { MdOutlineError } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import image1 from '../assets/AA.webp';
 import image2 from '../assets/BA.webp';
+import moment from 'moment';
 
 
 const SearchResultCard = (props) => {
@@ -91,10 +92,13 @@ const SearchResultCard = (props) => {
                 </div>
 
                 {props.offer.slices.map((slice, index) => {
+                    const departureTime = slice.segments[0].departing_at,
+                          arrivalTime = slice.segments[0].arriving_at;
+
                     return (
                         <div key={index} className="single-flight-time">
                             <div className="departureTimeWrap">
-                                <span className='departureTime'>{slice.segments[0].departing_at.replace(/.*T/, '').substr(0, 5)}</span>
+                                <span className='departureTime'>{moment(departureTime).format('hh:mm A')}</span>
                                 <span className='airportCode'>{slice.origin.iata_code}</span>
                             </div>
                             <div className="flightDurationWrap">
@@ -113,7 +117,7 @@ const SearchResultCard = (props) => {
                                 )}
                             </div>
                             <div className="arrivalTimeWrap">
-                                <span className="arrivalTime">{slice.segments[slice.segments.length - 1].arriving_at.replace(/.*T/, '').substr(0, 5)}</span>
+                                <span className="arrivalTime">{moment(arrivalTime).format('hh:mm A')}</span>
                                 <span className="airportCodeTo">{slice.destination.iata_code}</span>
                             </div>
                         </div>                        

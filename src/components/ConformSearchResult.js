@@ -1,6 +1,7 @@
 import React from 'react';
 import image1 from '../assets/AA.webp';
 import image2 from '../assets/BA.webp';
+import moment from 'moment';
 
 
 const ConformSearchResult = (props) => {
@@ -38,10 +39,13 @@ const ConformSearchResult = (props) => {
                     <div className="flight-category">{cabinClass}</div>
                 </div>
                 {offer.slices ? offer.slices.map((slice, index)=> {
+                    const departureTime = slice.segments[0].departing_at,
+                          arrivalTime = slice.segments[slice.segments.length - 1].arriving_at;
+
                     return (
                         <div key={index} className="single-flight-time">
                             <div className="departureTimeWrap">
-                                <span className='departureTime'>{slice.segments[0].departing_at.replace(/.*T/, '').substr(0, 5)}</span>
+                                <span className='departureTime'>{moment(departureTime).format('hh:mm A')}</span>
                                 <span className='airportCode'>{slice.origin.iata_code}</span>
                             </div>
                             <div className="flightDurationWrap">
@@ -60,7 +64,7 @@ const ConformSearchResult = (props) => {
                                 )}
                             </div>
                             <div className="arrivalTimeWrap">
-                                <span className="arrivalTime">{slice.segments[slice.segments.length - 1].arriving_at.replace(/.*T/, '').substr(0, 5)}</span>
+                                <span className="arrivalTime">{moment(arrivalTime).format('hh:mm A')}</span>
                                 <span className="airportCodeTo">{slice.destination.iata_code}</span>
                             </div>
                         </div>

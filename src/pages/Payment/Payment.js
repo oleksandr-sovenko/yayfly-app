@@ -82,7 +82,7 @@ export default class Payment extends Component {
                             </div>
                         </Box>
                     ) : (
-                        <Box className="container" sx={{padding:{md:"0 15px", xs:"0px"}}}>
+                        <Box className="container" sx={{padding:{ md:"0 15px", xs:"0px" }}}>
                             <Box sx={{ fontFamily: "'Public Sans', sans-serif", display: { xs: "block", md: "grid" }, gridTemplateColumns: "2fr 1fr", gap: "40px" }}>
                                 <Box>
                                     <PageTitle title="Confirm Your Booking" />
@@ -96,13 +96,14 @@ export default class Payment extends Component {
                                     {loading === false ? (
                                         <>
                                             <SectionTitle title="Your flight" />
-
                                             <ConformSearchResult offer={offer.data} />
                                             
                                             <Box sx={{ display: { xs: "block", md: "none" } }}>
                                                 <PageTitle title="Price details" />
                                                 <PriceDetails offer={offer.data} />
                                             </Box>
+
+                                            <SectionTitle title="Your Payment Details" />
                                             <PaymentCard offer={offer.data} passengers={passengers} contactDetails={contactDetails} />
                                         </>
                                     ) : (

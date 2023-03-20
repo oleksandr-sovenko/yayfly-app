@@ -163,7 +163,7 @@ const PaymentCard = (props) => {
             )}
 
             {status === 'initialized' ? (
-                <CardWrap sx={{ marginTop: { md: "40px", xs: "20px" }, boxShadow: { md: "rgb(101 101 101 / 5%) 4px 4px 12px", xs: "none" } }}>
+                <CardWrap sx={{ marginTop: { md: "20px", xs: "20px" }, boxShadow: { md: "rgb(101 101 101 / 5%) 4px 4px 12px", xs: "none" } }}>
                     {intent ? (
                         <div style={{ padding: '30px' }}>
                             <CardPayment
@@ -178,7 +178,7 @@ const PaymentCard = (props) => {
                                 <Box sx={{ display: "flex", alignItems: "center", margin: "20px 0", "& > span": { padding: "0px" } }}>
                                     <Checkbox width="14px" height="14px" name="accept" value="yes" />
                                     <Typography sx={{ color: "#12172A", marginLeft: "10px", "& a": { color: "#1B40A6", textDecoration: "none" } }}>
-                                        I accept Yay <Link>Fly’s terms & conditions.</Link>
+                                        I accept Yay <Link to="https://yayfly.com/terms-and-conditions/" target="_blank">Fly’s terms & conditions.</Link>
                                     </Typography>
                                 </Box>
                                 <Box>

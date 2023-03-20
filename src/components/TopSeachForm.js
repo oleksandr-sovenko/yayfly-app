@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getParams } from '../functions';
 import { CgAirplane } from "react-icons/cg";
+import moment from 'moment';
 
 const TopSeachForm = (props) => {
     if (!props)
         props = {};
+
+    console.log(getParams());
 
     const click = (e) => {
         e.preventDefault();
@@ -12,37 +15,22 @@ const TopSeachForm = (props) => {
         const el = e.target;
 
         if (el.type === 'submit') {
-            const params = getParams();
+            const params = getParams(),
+                  depart = moment(document.querySelector('[name="depart"]').value).format('YYYY-MM-DD'),
+                  returnn = moment(document.querySelector('[name="return"]').value).format('YYYY-MM-DD');
 
             window.location.href = 
                 `/search/${params.type}/${document.querySelector('[name="origin"]').value},${document.querySelector('[name="destination"]').value},` +
-                `${document.querySelector('[name="depart"]').value},${document.querySelector('[name="return"]').value}/` +
+                `${depart},${returnn}/` +
                 `${window.travelers.cabinClass}/${window.travelers.adults}/${window.travelers.children}/${window.travelers.infants}`;
-
-            // https://yayfly.com/search/round-trip/GDO,ASD,2023-03-13,2023-03-13/economy/1/0/0?luggage=true&layover=true
-            // https://yayfly.com/search/one-way/GDO,ASD,2023-03-13/economy/1/0/0?luggage=true&layover=true
-            // https://yayfly.com/search/multi-city/GDO,ASD,2023-03-13;ASD,GDO,2023-03-14/economy/1/0/0?luggage=true&layover=true
         }
     };
 
     const input = (e) => {
         const el = e.target;
-
-        // if (el.name === 'origin')
-        //     setOrigin(el.value);
-
-        // if (el.name === 'destination')
-        //     setDestination(el.value);
     };
 
     const change = (e) => {
-        // const el = e.target;
-
-        // if (el.name === 'depart')
-        //     setDepart(el.value);
-
-        // if (el.name === 'return')
-        //     setReturn(el.value);
     };
 
     return (
@@ -69,12 +57,12 @@ const TopSeachForm = (props) => {
                         </div>
                         <div className="form-group field">
                             <label htmlFor="depart">Depart</label>
-                            <input className="form-control" name="depart" defaultValue={props.depart ? props.depart : ''} />
+                            <input className="form-control" name="depart" defaultValue={props.depart ? moment(props.depart).format('MM/DD/YYYY') : ''} />
                         </div>
                         {props.type === 'round-trip' ? (
                             <div className="form-group field">
                                 <label htmlFor="return">Return</label>
-                                <input className="form-control" name="return" defaultValue={props.return ? props.return : ''} />
+                                <input className="form-control" name="return" defaultValue={props.return ? moment(props.return).format('MM/DD/YYYY') : ''} />
                             </div>                            
                         ) : (
                             <></>
