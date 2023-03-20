@@ -208,7 +208,6 @@ const PassengerCard = (props) => {
                                 <Box sx={{ paddingBottom: "20px" }}>
                                     <Typography sx={{ fontWeight: 500 }}>Checked Luggage</Typography>
 
-
                                     {offer.available_services[index] && offer.available_services[index].type === 'baggage' ? (
                                         <>
                                             <Typography sx={{ fontSize: "14px", paddingBottom: "10px" }}>

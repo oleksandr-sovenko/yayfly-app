@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { CardPayment } from '@duffel/components'
 import paymentImg from "../../assets/confirm-booking/payment.png";
+import ThankYouModal from "../../components/Modal/ThankYouModal";
 import axios from 'axios';
 
 
@@ -19,6 +20,7 @@ const CardWrap = styled(Box)(({ theme }) => ({
 
 const PaymentCard = (props) => {
     const [intent, setIntent] = useState(null),
+          [status, setStatus] = useState('initialized'),
           offer = props.offer ? props.offer : {},
           passengers = props.passengers ? props.passengers : [],
           contactDetails = props.contactDetails ? props.contactDetails : {};
@@ -31,12 +33,11 @@ const PaymentCard = (props) => {
 
         const el = e.target,
               that = this,
-              page = el.closest('.payment-pages');
+              page = el.closest('.payment-pages'),
+              accept = page.querySelector('input[name="accept"]');
 
         if (accept.checked) {              
             order((result) => {
-                const accept = page.querySelector('input[name="accept"]');
-
                 if (result.data) {
                         axios.get(`https://yayfly.com/api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
                             const result = response.data.data;
@@ -80,9 +81,12 @@ const PaymentCard = (props) => {
 
             // if (result.status === 'succeeded');
 
+            setStatus(result.status);
+
         }).catch((error) => {
             console.log(error);
             // alert('Payment! Something went wrong');
+            setStatus('error');
         });
 
         // console.log('successfulPaymentHandler');
@@ -151,87 +155,61 @@ const PaymentCard = (props) => {
     };
 
     return (
-        <div>
-            <CardWrap sx={{ marginTop: { md: "40px", xs: "20px" }, boxShadow: { md: "rgb(101 101 101 / 5%) 4px 4px 12px", xs: "none" } }}>
-                {intent ? (
-                    <div style={{ padding: '30px' }}>
-                        <CardPayment
-                            duffelPaymentIntentClientToken={intent.token}
-                            successfulPaymentHandler={success}
-                            errorPaymentHandler={error}
-                        />
-                    </div>
-                ) : (
-                    <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2} sx={{ gridAutoFlow: "dense" }}>
-                        <Box sx={{ order: { md: "inherit", xs: 2 }, gridColumn: { md: "span 7", xs: "span 12" }, padding: { md: "20px 0px 0px 35px", xs: "20px 15px 0px" } }}>
-                            {/*
-                            <Box sx={{ width: "100%", border: "1px solid #12172A", borderRadius: "4px" }}>
+        <>
+            {status === 'succeeded' ? (
+                <ThankYouModal />
+            ) : (
+                <></>
+            )}
+
+            {status === 'initialized' ? (
+                <CardWrap sx={{ marginTop: { md: "40px", xs: "20px" }, boxShadow: { md: "rgb(101 101 101 / 5%) 4px 4px 12px", xs: "none" } }}>
+                    {intent ? (
+                        <div style={{ padding: '30px' }}>
+                            <CardPayment
+                                duffelPaymentIntentClientToken={intent.token}
+                                successfulPaymentHandler={success}
+                                errorPaymentHandler={error}
+                            />
+                        </div>
+                    ) : (
+                        <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2} sx={{ gridAutoFlow: "dense" }}>
+                            <Box sx={{ order: { md: "inherit", xs: 2 }, gridColumn: { md: "span 7", xs: "span 12" }, padding: { md: "20px 0px 0px 35px", xs: "20px 15px 0px" } }}>
+                                <Box sx={{ display: "flex", alignItems: "center", margin: "20px 0", "& > span": { padding: "0px" } }}>
+                                    <Checkbox width="14px" height="14px" name="accept" value="yes" />
+                                    <Typography sx={{ color: "#12172A", marginLeft: "10px", "& a": { color: "#1B40A6", textDecoration: "none" } }}>
+                                        I accept Yay <Link>Fly’s terms & conditions.</Link>
+                                    </Typography>
+                                </Box>
                                 <Box>
-                                    <input style={{ border: "0px", width: "100%", height: "52px", fontSize: "18px", color: "#888B94", borderTopLeftRadius: "4px", borderTopRightRadius: "4px", borderBottom: "1px solid #12172A", padding: "8px 24px" }} className="payment-input" type="text" placeholder="Cardholder name" />
+                                    <Link onClick={pay} to="#" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "100%", maxWidth: "355px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }}>
+                                        Pay ${offer.total_amount ? offer.total_amount : 0}
+                                    </Link>
                                 </Box>
-                                <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", height: "52px", "& input": { width: "100%", border: "0px" }, "& img": { width: "170px", textAlign: "end" } }}>
-                                    <input style={{ border: "0px", height: "52px", fontSize: "18px", color: "#888B94", borderTopLeftRadius: "0px", borderTopRightRadius: "0px", padding: "8px 24px" }} className="payment-input" type="text" placeholder="4587 5784 8967 8452" />
-                                    <img src={paymentImg} alt="" />
-                                </Box>
-                                <Grid container sx={{ borderTop: "1px solid #12172A" }}>
-                                    <Grid item xs={6}>
-                                        <input style={{ border: "0px", width: "100%", height: "52px", fontSize: "18px", color: "#888B94", padding: "8px 24px", borderRight: "1px solid #12172A", borderTopRightRadius: "0px", borderBottomLeftRadius: "4px" }} className="payment-input" type="text" placeholder="MM/YY" />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <input style={{ border: "0px", width: "100%", height: "52px", fontSize: "18px", color: "#888B94", borderBottomLeftRadius: "4px", borderBottomRightRadius: "4px", padding: "8px 24px" }} className="payment-input" type="text" placeholder="777"/>
-                                    </Grid>
-                                </Grid>
                             </Box>
-                            */}
-
-                            <Box sx={{ display: "flex", alignItems: "center", margin: "20px 0", "& > span": { padding: "0px" } }}>
-                                <Checkbox width="14px" height="14px" name="accept" value="yes" />
-                                <Typography sx={{ color: "#12172A", marginLeft: "10px", "& a": { color: "#1B40A6", textDecoration: "none" } }}>
-                                    I accept Yay <Link>Fly’s terms & conditions.</Link>
-                                </Typography>
-                            </Box>
-                            <Box>
-                                <Link onClick={pay} to="#" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "100%", maxWidth: "355px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }}>
-                                    Pay ${offer.total_amount ? offer.total_amount : 0}
-                                </Link>
-                            </Box>
-                        </Box>
-                        <Box sx={{ gridColumn: { md: "span 5", xs: "span 12" }, background: { md: "none", xs: "#F2F3F7" }, padding: { md: "20px 35px 20px 0px", xs: "0px" }, marginBottom: { xs: "20px", md: "0px" } }}>
-                            <Box sx={{ width: "100%", background: { xs: "#E1F6F1", md: "none" }, padding: { xs: "40px 15px 40px", md: "0px" }, marginBottom: { xs: "20px", md: "0px" } }}>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "30px 1fr", marginBottom: "5px", "& svg": { color: "#000", fontSize: "16px", textAlign: "center", fontWeight: 700, height: "30px", width: "30px", display: "inline-block" } }}>
-                                    <CheckIcon />
-                                    <Typography sx={{ fontSize: "14px", lineHeight: "25px", marginLeft: "10px" }}>SSL secure transaction</Typography>
-                                </Box>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "30px 1fr", marginBottom: "5px", "& svg": { color: "#000", fontSize: "16px", textAlign: "center", fontWeight: 700, height: "30px", width: "30px", display: "inline-block" } }}>
-                                    <CheckIcon />
-                                    <Typography sx={{ fontSize: "14px", lineHeight: "25px", marginLeft: "10px" }}>Pay securely using your debit or credit card</Typography>
-                                </Box>
-                                <Box sx={{ display: "grid", gridTemplateColumns: "30px 1fr", marginBottom: "5px", "& svg": { color: "#000", fontSize: "16px", textAlign: "center", fontWeight: 700, height: "30px", width: "30px", display: "inline-block" } }}>
-                                    <CheckIcon />
-                                    <Typography sx={{ fontSize: "14px", lineHeight: "25px", marginLeft: "10px" }}>Receive booking confirmation within 12 hours</Typography>
+                            <Box sx={{ gridColumn: { md: "span 5", xs: "span 12" }, background: { md: "none", xs: "#F2F3F7" }, padding: { md: "20px 35px 20px 0px", xs: "0px" }, marginBottom: { xs: "20px", md: "0px" } }}>
+                                <Box sx={{ width: "100%", background: { xs: "#E1F6F1", md: "none" }, padding: { xs: "40px 15px 40px", md: "0px" }, marginBottom: { xs: "20px", md: "0px" } }}>
+                                    <Box sx={{ display: "grid", gridTemplateColumns: "30px 1fr", marginBottom: "5px", "& svg": { color: "#000", fontSize: "16px", textAlign: "center", fontWeight: 700, height: "30px", width: "30px", display: "inline-block" } }}>
+                                        <CheckIcon />
+                                        <Typography sx={{ fontSize: "14px", lineHeight: "25px", marginLeft: "10px" }}>SSL secure transaction</Typography>
+                                    </Box>
+                                    <Box sx={{ display: "grid", gridTemplateColumns: "30px 1fr", marginBottom: "5px", "& svg": { color: "#000", fontSize: "16px", textAlign: "center", fontWeight: 700, height: "30px", width: "30px", display: "inline-block" } }}>
+                                        <CheckIcon />
+                                        <Typography sx={{ fontSize: "14px", lineHeight: "25px", marginLeft: "10px" }}>Pay securely using your debit or credit card</Typography>
+                                    </Box>
+                                    <Box sx={{ display: "grid", gridTemplateColumns: "30px 1fr", marginBottom: "5px", "& svg": { color: "#000", fontSize: "16px", textAlign: "center", fontWeight: 700, height: "30px", width: "30px", display: "inline-block" } }}>
+                                        <CheckIcon />
+                                        <Typography sx={{ fontSize: "14px", lineHeight: "25px", marginLeft: "10px" }}>Receive booking confirmation within 12 hours</Typography>
+                                    </Box>
                                 </Box>
                             </Box>
                         </Box>
-                    </Box>
-                )}
-
-                {/*
-                <Box sx={{ marginTop: "20px", marginBottom: "5px", padding: { md: "0 35px 35px", xs: "0px 15px 40px" } }}>
-                    <Box sx={{ display: "flex", alignItems: "center", margin: "20px 0", "& > span": { padding: "0px" } }}>
-                        <Checkbox width="14px" height="14px" name="saveAddress" value="yes" />
-                        <Typography sx={{ color: "#12172A", marginLeft: "10px", "& a": { color: "#1B40A6", textDecoration: "none" } }}>
-                            I accept Yay <Link>Fly’s terms & conditions.</Link>
-                        </Typography>
-                    </Box>
-                    <Box>
-                        <Link onClick={pay} to="#" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "100%", maxWidth: "355px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }}>
-                            Pay ${offer.total_amount ? offer.total_amount : 0}
-                        </Link>
-                    </Box>
-                </Box>
-                */}
-            </CardWrap>
-        </div>
+                    )}
+                </CardWrap>
+            ) : (
+                <></>
+            )}
+        </>
     );
 };
 

@@ -9,7 +9,6 @@ import PaymentCard from "./PaymentCard";
 import PaymentCta from "./PaymentCta";
 import PaymentTimeLine from "./PaymentTimeLine";
 import PriceDetails from "./PriceDetails";
-import ThankYouModal from "../../components/Modal/ThankYouModal";
 import { Link } from "react-router-dom";
 import loadingImage from '../../assets/loading.svg';
 import axios from 'axios';
@@ -69,7 +68,6 @@ export default class Payment extends Component {
 
         return (
             <>
-                {/*<ThankYouModal />*/}
                 <div className="payment-pages">
                     {offer.errors ? (
                         <Box className="container" sx={{ marginTop: '60px' }}>

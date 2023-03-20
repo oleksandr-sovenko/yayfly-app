@@ -86,7 +86,7 @@ export default class Confirmation extends Component {
                                     <PageTitle title="Price details" />
                                     <PriceDetails offer={offer} />
                                 </Box>
-                                <CheckDetails passengers={passengers} contactDetails={contactDetails} />
+                                <CheckDetails offer={offer} passengers={passengers} contactDetails={contactDetails} />
                                 </>
                             ) : (
                                 <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '40px', borderRadius: '5px' }}>

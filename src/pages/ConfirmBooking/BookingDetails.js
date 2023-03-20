@@ -11,7 +11,6 @@ import PaymentTimeLine from "../Payment/PaymentTimeLine";
 import PriceDetails from "../Payment/PriceDetails";
 import PassengerCard from "./PassengerCard";
 import PersonApplyCard from "./PersonApplyCard";
-import { SeatSelection, AdditionalBaggageSelection } from '@duffel/components'
 import CloseIcon from "@mui/icons-material/Close";
 import centerCartton from "../../assets/confirm-booking/centerCartton.png";
 import guaranteImg from "../../assets/confirm-booking/guarnte.png";
