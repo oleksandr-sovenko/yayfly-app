@@ -19,6 +19,8 @@ export default class Payment extends Component {
     state = {
         loading: true,
         offer: {},
+        passengers: [],
+        contactDetails: {},
     };
 
     constructor(props) {
@@ -29,8 +31,23 @@ export default class Payment extends Component {
         const that = this,
               id = window.location.pathname.replace(/.*\//, '');
 
+        let passengers = {},
+            contactDetails = {};
+
+        try {
+            passengers = JSON.parse(localStorage['passengers']);
+        } catch(e) {
+
+        }
+
+        try {
+            contactDetails = JSON.parse(localStorage['contactDetails']);
+        } catch(e) {
+
+        }
+
         axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
-            that.setState({ loading: false, offer: response.data });
+            that.setState({ loading: false, offer: response.data, passengers: passengers, contactDetails: contactDetails });
         }).catch((error) => {
             console.log(error);
             that.setState({ loading: false });
@@ -46,7 +63,9 @@ export default class Payment extends Component {
     render() {
         const that = this,
               loading = that.state.loading,
-              offer = that.state.offer;
+              offer = that.state.offer,
+              passengers = that.state.passengers,
+              contactDetails = that.state.contactDetails;
 
         return (
             <>
@@ -86,7 +105,7 @@ export default class Payment extends Component {
                                                 <PageTitle title="Price details" />
                                                 <PriceDetails offer={offer.data} />
                                             </Box>
-                                            <PaymentCard offer={offer.data} />
+                                            <PaymentCard offer={offer.data} passengers={passengers} contactDetails={contactDetails} />
                                         </>
                                     ) : (
                                         <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '40px', borderRadius: '5px' }}>

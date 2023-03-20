@@ -1,6 +1,6 @@
-import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Dialog, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 import centerCartton from "../../assets/confirm-booking/centerCartton.png";
 import guaranteImg from "../../assets/confirm-booking/guarnte.png";
 import modalCartoon from "../../assets/confirm-booking/modalCartoon.png";

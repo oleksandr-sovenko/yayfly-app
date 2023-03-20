@@ -51,8 +51,10 @@ for (const input of document.querySelectorAll('input, select')) {
 */
 
 
-const PersonApplyCard = () => {
-	const id = window.location.pathname.replace(/.*\//, '');
+const PersonApplyCard = (props) => {
+	const id = window.location.pathname.replace(/.*\//, ''),
+		  offer = props.offer ? props.offer : {},
+		  contactDetails = props.contactDetails ? props.contactDetails : {};
 
     const input = (e) => {
         const el = e.target;
@@ -80,15 +82,13 @@ const PersonApplyCard = () => {
        				  name  = input.name.replace(/\[.*/, ''),
        				  value = input.value;
 
+				if (input.value.length === 0)
+					input.classList.add('error');
+
+
        			if (!isNaN(index)) {
        				if (!passengers[index])
-       					passengers[index] = {};
-
-       				if (input.name === 'discount')
-       					continue;
-
-       				if (input.value.length === 0)
-       					input.classList.add('error');
+       					passengers[index] = { id: offer.passengers[index].id };
 
 					passengers[index][name] = value;
 				}
@@ -97,8 +97,23 @@ const PersonApplyCard = () => {
        		if (document.querySelector('input.error')) {
        			window.scroll({ top: document.querySelector('input.error').offsetTop - 50, left: 0, behavior: 'smooth' });
        		} else {
-       			localStorage['passengers'] = JSON.stringify(passengers);
-       			window.location.href = `/confirm-booking/${id}`;
+       			const accept = page.querySelector('input[name="accept"]');
+
+       			if (accept.checked) {
+       				localStorage['passengers'] = JSON.stringify(Object.values(passengers));
+       				localStorage['contactDetails'] = JSON.stringify({
+       					email: page.querySelector('input[name="email"]').value,
+       					phone_number: page.querySelector('input[name="phone_number"]').value,
+       				});
+
+       				window.location.href = `/confirm-booking/${id}`;
+       			} else {
+       				accept.closest('label').classList.add('error');
+
+       				setTimeout(() => {
+						accept.closest('label').classList.remove('error');
+       				}, 1500);
+       			}
        		}
        	}
     }
@@ -118,7 +133,7 @@ const PersonApplyCard = () => {
 						<InputLabel sx={{ fontWeight: 600, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
 							E-mail address
 						</InputLabel>
-						<input name="email" className="passenger-input" type="text" placeholder="your@gmail.com" onInput={input} />
+						<input name="email" className="passenger-input" type="text" placeholder="your@gmail.com" onInput={input}  defaultValue={contactDetails.email ? contactDetails.email : ''} />
 					</Grid>
 					<Grid item xs={12} sm={6}>
 						<InputLabel sx={{ fontWeight: 600, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
@@ -128,7 +143,7 @@ const PersonApplyCard = () => {
 							<Typography sx={{ height: "40px", width: "52px", background: "#D9D9D9", color: "rgba(7, 14, 57, 0.75)", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "rgb(209, 212, 227)", fontSize: "14px", fontWeight: 400, lineHeight: "16px", borderTopLeftRadius: "3px", borderBottomLeftRadius: "3px" }}>
 								+1
 							</Typography>
-							<input name="phone_number" className="passenger-input" type="text" placeholder="e.g 4131234567" onInput={input}/>
+							<input name="phone_number" className="passenger-input" type="text" placeholder="e.g 4131234567" onInput={input} defaultValue={contactDetails.phone_number ? contactDetails.phone_number : ''} />
 						</Box>
 					</Grid>
 				</Grid>

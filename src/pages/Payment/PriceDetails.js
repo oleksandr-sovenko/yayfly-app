@@ -26,7 +26,7 @@ const PriceDetails = (props) => {
                 <Typography>${offer ? offer.total_amount : 0}</Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px" }}>
-                <Typography>1x Cabin bg</Typography>
+                <Typography>{offer.passengers ? offer.passengers.length : 0}x Cabin bg</Typography>
                 <Typography>Free</Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px" }}>

@@ -18,7 +18,8 @@ const CardWrap = styled(Box)(({ theme }) => ({
 
 const CheckDetails = (props) => {
     const id = window.location.pathname.replace(/.*\//, ''),
-          passengers = props.passengers ? props.passengers : {};
+          passengers = props.passengers ? props.passengers : {},
+          contactDetails = props.contactDetails ? props.contactDetails : {};
 
     return (
         <div>
@@ -43,9 +44,9 @@ const CheckDetails = (props) => {
                                 <Typography sx={{ fontWeight: 700, marginTop: "16px" }}>
                                     {passenger.given_name} {passenger.family_name}
                                     <Typography component="span" sx={{ display: "block", fontWeight: 400 }}>
-                                        {passenger.nationality} ({passenger.gender})<br />
+                                        {/* {passenger.nationality} ({passenger.gender})<br />*/}
                                         {passenger.birth_month}/{passenger.birth_day}/{passenger.birth_year}<br />
-                                        {passenger.passport_id}, {passenger.passport_expiry_month}/{passenger.passport_expiry_day}/{passenger.passport_expiry_year}
+                                        {/* {passenger.passport_id}, {passenger.passport_expiry_month}/{passenger.passport_expiry_day}/{passenger.passport_expiry_year} */}
                                     </Typography>
                                 </Typography>
                             </Box>
@@ -57,12 +58,21 @@ const CheckDetails = (props) => {
                         <AccountCircleIcon sx={{ width: "30px", height: "30px", marginRight: "22px" }}/>
                         <Typography sx={{ fontSize: "18px", lineHeight: "25px", fontWeight: 700 }}>Contact details</Typography>
                     </Box>
-                    <Typography sx={{ fontWeight: 700, marginTop: "16px" }}>dieraush@gmail.com
-                        <Typography component="span" sx={{ display: "block", fontWeight: 400 }}>928249858</Typography>
+                    <Typography sx={{ background: "rgb(255, 237, 210)", fontSize: "12px", padding: "6px 18px", borderRadius: "5px" }}>
+                        Please make sure that you details match the{" "}
+                        <Typography component="span" sx={{ fontWeight: 500, marginLeft: "2px" }}>
+                            details on your passport/ID
+                        </Typography>
+                    </Typography>                    
+                    <Typography sx={{ fontWeight: 700, marginTop: "16px" }}>
+                        {contactDetails.email}
+                        <Typography component="span" sx={{ display: "block", fontWeight: 400 }}>
+                            +1 {contactDetails.phone_number}
+                        </Typography>
                     </Typography>
                 </CardWrap>
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "28px" }}>
-                <Link to={`/booking-details/${id}`} style={{ display: "inline-block", width: "94px", height: "52px", boxShadow: "none", background: "#D2D4E1", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#010416", borderRadius: "5px", fontWeight: 500 }}>Back</Link>
+                <Link to={'#'} style={{ display: "inline-block", width: "94px", height: "52px", boxShadow: "none", background: "#D2D4E1", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#010416", borderRadius: "5px", fontWeight: 500 }} onClick={(e) => { e.preventDefault(); window.history.back(); }}>Back</Link>
                 <Link to={`/payment/${id}`} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "260px", maxWidth: "260px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }}>Proceed to payment <IoIosAirplane />
                 </Link>
             </Box>

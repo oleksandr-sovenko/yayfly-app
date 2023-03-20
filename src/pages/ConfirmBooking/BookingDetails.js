@@ -1,5 +1,6 @@
-import { Box } from "@mui/material";
-import React, { Component } from "react";
+import { Box, Button, Dialog, Typography } from "@mui/material";
+import React, { Component, useState } from "react";
+import { Link } from "react-router-dom";
 import ConformSearchResult from "../../components/ConformSearchResult";
 import PageTitle from "../../components/SectionTitle/PageTitle";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
@@ -11,6 +12,10 @@ import PriceDetails from "../Payment/PriceDetails";
 import PassengerCard from "./PassengerCard";
 import PersonApplyCard from "./PersonApplyCard";
 import { SeatSelection, AdditionalBaggageSelection } from '@duffel/components'
+import CloseIcon from "@mui/icons-material/Close";
+import centerCartton from "../../assets/confirm-booking/centerCartton.png";
+import guaranteImg from "../../assets/confirm-booking/guarnte.png";
+import modalCartoon from "../../assets/confirm-booking/modalCartoon.png";
 import '@duffel/components/dist/SeatSelection.min.css'
 import loadingImage from '../../assets/loading.svg';
 import axios from 'axios';
@@ -19,8 +24,9 @@ import axios from 'axios';
 export default class BookingDetails extends Component {
     state = {
         loading: true,
+        offer: {},
         passengers: [],
-        offer: {}
+        contactDetails: {}
     };
 
     constructor(props) {
@@ -31,16 +37,23 @@ export default class BookingDetails extends Component {
         const that = this,
               id = window.location.pathname.replace(/.*\//, '');
 
-        let passengers = {};
+        let passengers = {},
+            contactDetails = {};
 
         try {
             passengers = JSON.parse(localStorage['passengers']);
         } catch(e) {
 
-        }              
+        }
+
+        try {
+            contactDetails = JSON.parse(localStorage['contactDetails']);
+        } catch(e) {
+
+        }            
 
         axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
-            that.setState({ loading: false, offer: response.data.data, passengers: passengers });
+            that.setState({ loading: false, offer: response.data, passengers: passengers, contactDetails: contactDetails });
         }).catch((error) => {
             that.setState({ loading: false });
         });
@@ -56,9 +69,8 @@ export default class BookingDetails extends Component {
         const that = this,
               loading = that.state.loading,
               passengers = that.state.passengers,
+              contactDetails = that.state.contactDetails,
               offer = that.state.offer;
-
-        // console.log(offer);
 
         return (
             <div className="booking-pages">
@@ -75,37 +87,35 @@ export default class BookingDetails extends Component {
 
                             {loading === false ? (
                                 <>
-                                    <SectionTitle title="Your flight details" />
-                                    <ConformSearchResult offer={offer} />
-                                    <Box sx={{ display: { xs: "block", md: "none" }, paddingBottom: "10px" }}>
-                                        <PageTitle title="Price details" />
-                                        <PriceDetails offer={offer} />
-                                        <MobilePaymentCta />
-                                    </Box>
-                                    <PassengerCard offer={offer} passengers={passengers} />
-                                    <PersonApplyCard />
-
-                                    {/*<AdditionalBaggageSelection
-                                        offer={offer}
-                                        passengers={[{ id: offer.passengers[0].id, name: ''}]}
-                                        initialBaggageSelection={[]}
-                                        onSubmit={(e) => { }}
-                                    />*/}
-
-                                    <SeatSelection
-                                        offer={offer}
-                                        seatMaps={offer.seatmaps.data}
-                                        passengers={[{ id: offer.passengers[0].id, name: ''}]}
-                                        initialBaggageSelection={[]}
-                                        onSubmit={(e) => { }}
-                                    />
+                                    {offer.errors ? (
+                                        <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '40px', borderRadius: '5px' }}>
+                                            {offer.errors.map((error, index) => {
+                                                return (
+                                                    <p key={index}>{error.message}</p>
+                                                )
+                                            })}
+                                                
+                                            <Link>Go to home page</Link>
+                                        </Box>
+                                    ) : (
+                                        <>
+                                            <SectionTitle title="Your flight details" />
+                                            <ConformSearchResult offer={offer.data} />
+                                            <Box sx={{ display: { xs: "block", md: "none" }, paddingBottom: "10px" }}>
+                                                <PageTitle title="Price details" />
+                                                <PriceDetails offer={offer.data} />
+                                                <MobilePaymentCta />
+                                            </Box>
+                                            <PassengerCard offer={offer.data} passengers={passengers} />
+                                            <PersonApplyCard offer={offer.data} contactDetails={contactDetails} />
+                                        </>
+                                    )}
                                 </>
                             ) : (
                                 <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '40px', borderRadius: '5px' }}>
                                     <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear' }} /> Loading ...
-                                </Box>
+                                </Box>                                
                             )}
-
                             <Box sx={{ display: { md: "block", xs: "none" } }}>
                                 <PaymentCta />
                             </Box>                            
@@ -114,7 +124,19 @@ export default class BookingDetails extends Component {
                             <Box sx={{ display: { md: "block", xs: "none" } }}>
                                 <PageTitle title="Price details" />
                                 {loading === false ? (
-                                    <PriceDetails offer={offer} />
+                                    <>
+                                        {offer.errors ? (
+                                            <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '5px', borderRadius: '5px' }}>
+                                                {offer.errors.map((error, index) => {
+                                                    return (
+                                                        <p key={index}>{error.message}</p>
+                                                    )
+                                                })}
+                                            </Box>
+                                        ) : (
+                                            <PriceDetails offer={offer.data} />
+                                        )}
+                                    </>
                                 ) : (
                                     <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '5px', borderRadius: '5px' }}>
                                         <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear' }} /> Loading ...

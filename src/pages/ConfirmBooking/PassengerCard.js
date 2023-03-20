@@ -45,8 +45,8 @@ const PassengerCard = (props) => {
                     let data = {};
 
                     for (const name of ['given_name', 'family_name', 'nationality', 'gender', 'birth_month', 'birth_day', 'birth_year', 'passport_id', 'passport_expiry_month', 'passport_expiry_day', 'passport_expiry_year']) {
-                        if (passengers[index + 1] && passengers[index + 1][name])
-                            data[name] = passengers[index + 1][name];
+                        if (passengers[index] && passengers[index][name])
+                            data[name] = passengers[index][name];
                     }
 
                     return (
@@ -68,13 +68,13 @@ const PassengerCard = (props) => {
                                         <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                             Given names
                                         </InputLabel>
-                                        <input defaultValue={data['given_name']} name={'given_name[' + (index + 1) + ']'} className="passenger-input" type="text" placeholder="e.g. Oliver James" onInput={input} />
+                                        <input defaultValue={data['given_name']} name={'given_name[' + index + ']'} className="passenger-input" type="text" placeholder="e.g. Oliver James" onInput={input} />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                             Surname (s)
                                         </InputLabel>
-                                        <input defaultValue={data['family_name']} name={'family_name[' + (index + 1) + ']'} className="passenger-input" type="text" placeholder="e.g. Brown" onInput={input} />
+                                        <input defaultValue={data['family_name']} name={'family_name[' + index + ']'} className="passenger-input" type="text" placeholder="e.g. Brown" onInput={input} />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <Grid container spacing="10px">
@@ -82,13 +82,13 @@ const PassengerCard = (props) => {
                                                 <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                                     Nationality
                                                 </InputLabel>
-                                                <input defaultValue={data['nationality']} name={'nationality[' + (index + 1) + ']'} className="passenger-input" type="text" placeholder="e.g. United Kingdom" onInput={input} />
+                                                <input defaultValue={data['nationality']} name={'nationality[' + index + ']'} className="passenger-input" type="text" placeholder="e.g. United Kingdom" onInput={input} />
                                             </Grid>
                                             <Grid item xs={4} sm={4}>
                                                 <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                                     Gender
                                                 </InputLabel>
-                                                <select defaultValue={data['gender']} name={'gender[' + (index + 1) + ']'} className="gender-select" placeholder="Gender" onInput={change}>
+                                                <select defaultValue={data['gender']} name={'gender[' + index + ']'} className="gender-select" placeholder="Gender" onInput={change}>
                                                     <option></option>
                                                     <option value="m">Male</option>
                                                     <option value="f">Female</option>
@@ -102,7 +102,7 @@ const PassengerCard = (props) => {
                                         </InputLabel>
                                         <Grid container spacing="10px">
                                             <Grid item xs={6} sm={6}>
-                                                <select defaultValue={data['birth_month']} name={'birth_month[' + (index + 1) + ']'} className="gender-select" placeholder="Month" onChange={change}>
+                                                <select defaultValue={data['birth_month']} name={'birth_month[' + index + ']'} className="gender-select" placeholder="Month" onChange={change}>
                                                     <option></option>
                                                     <option value="01">January</option>
                                                     <option value="02">February</option>
@@ -119,10 +119,10 @@ const PassengerCard = (props) => {
                                                 </select>
                                             </Grid>
                                             <Grid item xs={3} sm={3}>
-                                                <input defaultValue={data['birth_day']} name={'birth_day[' + (index + 1) + ']'} className="passenger-input" type="number" placeholder="DD" onInput={input} />
+                                                <input defaultValue={data['birth_day']} name={'birth_day[' + index + ']'} className="passenger-input" type="number" placeholder="DD" onInput={input} />
                                             </Grid>
                                             <Grid item xs={3} sm={3}>
-                                                <input defaultValue={data['birth_year']} name={'birth_year[' + (index + 1) + ']'} className="passenger-input" type="number" placeholder="YYYY" onInput={input} />
+                                                <input defaultValue={data['birth_year']} name={'birth_year[' + index + ']'} className="passenger-input" type="number" placeholder="YYYY" onInput={input} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -137,7 +137,7 @@ const PassengerCard = (props) => {
                                                         <a href="#">Help me,it's expired</a>
                                                     </Typography>*/}
                                                 </Box>
-                                                <input defaultValue={data['passport_id']} name={'passport_id[' + (index + 1) + ']'} className="passenger-input" type="text" placeholder="Passport or Id number" onInput={input} />
+                                                <input defaultValue={data['passport_id']} name={'passport_id[' + index + ']'} className="passenger-input" type="text" placeholder="Passport or Id number" onInput={input} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -149,7 +149,7 @@ const PassengerCard = (props) => {
                                                 </InputLabel>
                                                 <Grid container spacing="10px">
                                                     <Grid item xs={6} sm={6}>
-                                                        <select defaultValue={data['passport_expiry_month']} name={'passport_expiry_month[' + (index + 1) + ']'} className="gender-select" placeholder="Month" onChange={change}>
+                                                        <select defaultValue={data['passport_expiry_month']} name={'passport_expiry_month[' + index + ']'} className="gender-select" placeholder="Month" onChange={change}>
                                                             <option></option>
                                                             <option value="01">January</option>
                                                             <option value="02">February</option>
@@ -166,10 +166,10 @@ const PassengerCard = (props) => {
                                                         </select>
                                                     </Grid>
                                                     <Grid item xs={3} sm={3}>
-                                                        <input defaultValue={data['passport_expiry_day']} name={'passport_expiry_day[' + (index + 1) + ']'} className="passenger-input" type="number" placeholder="DD" onInput={input} />
+                                                        <input defaultValue={data['passport_expiry_day']} name={'passport_expiry_day[' + index + ']'} className="passenger-input" type="number" placeholder="DD" onInput={input} />
                                                     </Grid>
                                                     <Grid item xs={3} sm={3}>
-                                                        <input defaultValue={data['passport_expiry_year']} name={'passport_expiry_year[' + (index + 1) + ']'} className="passenger-input" type="number" placeholder="YYYY" onInput={input} />
+                                                        <input defaultValue={data['passport_expiry_year']} name={'passport_expiry_year[' + index + ']'} className="passenger-input" type="number" placeholder="YYYY" onInput={input} />
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -177,7 +177,7 @@ const PassengerCard = (props) => {
                                                 <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                                     No expiry
                                                 </InputLabel>
-                                                <Checkbox sx={{ color: "rgb(209, 212, 227)" }} width="14px" height="14px" name={'no_expiry[' + (index + 1) + ']'} value="yes" />
+                                                <Checkbox sx={{ color: "rgb(209, 212, 227)" }} width="14px" height="14px" name={'no_expiry[' + index + ']'} value="yes" />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -194,10 +194,10 @@ const PassengerCard = (props) => {
                                         </Box>
                                         <Box gridColumn="span 10" sx={{ marginLeft: "10px" }}>
                                             <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>
-                                                Cabin bag
+                                                Carry on
                                             </Typography>
                                             <Typography sx={{ color: "hsl(232deg 78% 13% / 50%)", fontSize: "14px" }}>
-                                                43 × 33 x 20 cm, 3kg
+                                                45 × 56 x 25 cm, 10kg
                                             </Typography>
                                         </Box>
                                         <Box gridColumn="span 1" sx={{ textAlign: "center", fontSize: "14px", fontWeight: 500, marginRight: "30px" }}>
@@ -207,35 +207,47 @@ const PassengerCard = (props) => {
                                 </Box>
                                 <Box sx={{ paddingBottom: "20px" }}>
                                     <Typography sx={{ fontWeight: 500 }}>Checked Luggage</Typography>
-                                    <Typography sx={{ fontSize: "14px", paddingBottom: "10px" }}>
-                                        Select one option
-                                    </Typography>
-                                    <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" marginBottom="15px" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", border: "2px solid #5452F6", borderRadius: "5px" }}>
-                                        <Box gridColumn="span 1" sx={{ textAlign: "end", color: "#010316", fontSize: "22px", fontWeight: 900 }}>
-                                            <CloseIcon />
-                                        </Box>
-                                        <Box gridColumn="span 11" sx={{ marginLeft: "20px" }}>
-                                            <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>
-                                                No Checked baggage
+
+
+                                    {offer.available_services[index] && offer.available_services[index].type === 'baggage' ? (
+                                        <>
+                                            <Typography sx={{ fontSize: "14px", paddingBottom: "10px" }}>
+                                                Select one option
+                                            </Typography>                                        
+                                            <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" marginBottom="15px" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", border: "2px solid #5452F6", borderRadius: "5px" }}>
+                                                <Box gridColumn="span 1" sx={{ textAlign: "end", color: "#010316", fontSize: "22px", fontWeight: 900 }}>
+                                                    <CloseIcon />
+                                                </Box>
+                                                <Box gridColumn="span 11" sx={{ marginLeft: "20px" }}>
+                                                    <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>
+                                                        No Checked baggage
+                                                    </Typography>
+                                                </Box>
+                                            </Grid>
+                                            <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", borderRadius: "5px" }}>
+                                                <Box gridColumn="span 1" sx={{ textAlign: "center", color: "hsl(232deg 78% 13% / 50%)", fontSize: "20px", padding: "0 10px" }}>
+                                                    <FiBriefcase />
+                                                </Box>
+                                                <Box gridColumn="span 10" sx={{ marginLeft: "10px" }}>
+                                                    <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>
+                                                        Checked bag
+                                                    </Typography>
+                                                    <Typography sx={{ color: "hsl(232deg 78% 13% / 50%)", fontSize: "14px" }}>
+                                                        52 × 78 x 27 cm, {offer.available_services[index].metadata.maximum_weight_kg}kg
+                                                    </Typography>
+                                                </Box>
+                                                <Box gridColumn="span 1" sx={{ textAlign: "center", fontSize: "14px", fontWeight: 500, marginRight: "30px" }}>
+                                                    <Typography>${offer.available_services[index].total_amount}</Typography>
+                                                </Box>
+                                            </Grid>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Typography sx={{ fontSize: "14px", paddingBottom: "10px" }}>
+                                                No checked baggage available
                                             </Typography>
-                                        </Box>
-                                    </Grid>
-                                    <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", borderRadius: "5px" }}>
-                                        <Box gridColumn="span 1" sx={{ textAlign: "center", color: "hsl(232deg 78% 13% / 50%)", fontSize: "20px", padding: "0 10px" }}>
-                                            <FiBriefcase />
-                                        </Box>
-                                        <Box gridColumn="span 10" sx={{ marginLeft: "10px" }}>
-                                            <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>
-                                                22kg checked bag
-                                            </Typography>
-                                            <Typography sx={{ color: "hsl(232deg 78% 13% / 50%)", fontSize: "14px" }}>
-                                                78 × 52 x 27 cm, 22kg
-                                            </Typography>
-                                        </Box>
-                                        <Box gridColumn="span 1" sx={{ textAlign: "center", fontSize: "14px", fontWeight: 500, marginRight: "30px" }}>
-                                            <Typography>Free</Typography>
-                                        </Box>
-                                    </Grid>
+                                        </>
+                                    )}
                                 </Box>
                             </Box>
                         </CardWrap>

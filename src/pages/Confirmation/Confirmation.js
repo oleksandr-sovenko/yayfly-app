@@ -15,7 +15,8 @@ import axios from 'axios';
 
 export default class Confirmation extends Component {
     state = {
-        passengers: {},
+        passengers: [],
+        contactDetails: {},
         loading: true,
         offer: {}
     };
@@ -28,7 +29,8 @@ export default class Confirmation extends Component {
         const that = this,
               id = window.location.pathname.replace(/.*\//, '');
 
-        let passengers = {};
+        let passengers = {},
+            contactDetails = {};
 
         try {
             passengers = JSON.parse(localStorage['passengers']);
@@ -36,8 +38,14 @@ export default class Confirmation extends Component {
 
         }
 
+        try {
+            contactDetails = JSON.parse(localStorage['contactDetails']);
+        } catch(e) {
+
+        }
+
         axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
-            that.setState({ loading: false, offer: response.data.data, passengers: passengers });
+            that.setState({ loading: false, offer: response.data.data, passengers: passengers, contactDetails: contactDetails });
         }).catch((error) => {
             console.log(error);
             that.setState({ loading: false });
@@ -54,7 +62,8 @@ export default class Confirmation extends Component {
         const that = this,
               loading = that.state.loading,
               offer = that.state.offer,
-              passengers = that.state.passengers;
+              passengers = that.state.passengers,
+              contactDetails = that.state.contactDetails;
 
         return (
             <div className="confirmation-pages">
@@ -77,7 +86,7 @@ export default class Confirmation extends Component {
                                     <PageTitle title="Price details" />
                                     <PriceDetails offer={offer} />
                                 </Box>
-                                <CheckDetails passengers={passengers} />
+                                <CheckDetails passengers={passengers} contactDetails={contactDetails} />
                                 </>
                             ) : (
                                 <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '40px', borderRadius: '5px' }}>
