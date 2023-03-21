@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { CardPayment } from '@duffel/components'
 import paymentImg from "../../assets/confirm-booking/payment.png";
 import ThankYouModal from "../../components/Modal/ThankYouModal";
+import { getSeatsData } from "../../functions";
 import axios from 'axios';
 
 
@@ -24,7 +25,9 @@ const PaymentCard = (props) => {
           offer = props.offer ? props.offer : {},
           passengers = props.passengers ? props.passengers : [],
           contactDetails = props.contactDetails ? props.contactDetails : {},
-          additionalBaggage = props.additionalBaggage ? props.additionalBaggage : [];
+          additionalBaggage = props.additionalBaggage ? props.additionalBaggage : [],
+          seats = props.seats ? props.seats : {},
+          seatsData = getSeatsData(offer, seats);
 
 
     let additionalBaggageData = {
@@ -116,13 +119,42 @@ const PaymentCard = (props) => {
         };
 
         for (const item of additionalBaggage) {
-            data.amount += parseFloat(item.total_amount);
+            let amount = parseFloat(item.total_amount);
+
+            data.amount += isNaN(amount) ? 0 : amount;
             data.services.push(item);
         }
 
-        // for (const item of props.Seats) {
+        for (const items of Object.values(seatsData.passengers)) {
+            for (const item of items) {
+                let amount = parseFloat(item.service.total_amount);
+
+                data.amount += isNaN(amount) ? 0 : amount;
+                data.services.push({
+                    id: item.service.id,
+                    metadata: item.service.metadata,
+                    passenger_ids: [item.service.passenger_id],
+                    quantity: 1,
+                    // segment_ids: [segID],
+                    total_amount: item.service.total_amount,
+                    total_currency: item.service.total_currency,
+                    type: 'seat'
+                });
+            }
+        }        
+
+        // for (const item of seats) {
         //     data.amount += parseFloat(item.total_amount);
-        //     data.services.push(item);
+        //     data.services.push({
+        //         id: item.service.id,
+        //         metadata: item.service.metadata,
+        //         passenger_ids: [item.service.passenger_id],
+        //         quantity: 1,
+        //         // segment_ids: [segID],
+        //         total_amount: item.service.total_amount,
+        //         total_currency: item.service.total_currency,
+        //         type: 'seat'
+        //     });
         // }
 
         for (const passenger of passengers) {
@@ -147,6 +179,8 @@ const PaymentCard = (props) => {
 
             data.passengers.push(item);
         }
+
+        // console.log(data);
 
         axios.post(`https://yayfly.com/api/order/create`, data).then((response) => {
             const result = response.data;
@@ -188,7 +222,7 @@ const PaymentCard = (props) => {
                                 </Box>
                                 <Box>
                                     <Link onClick={pay} to="#" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "100%", maxWidth: "355px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }}>
-                                        Pay ${offer.total_amount ? (offer.total_amount + additionalBaggageData.total_amount) : 0}
+                                        Pay ${offer.total_amount ? (parseFloat(offer.total_amount) + additionalBaggageData.total_amount + seatsData.total_amount) : 0}
                                     </Link>
                                 </Box>
                             </Box>

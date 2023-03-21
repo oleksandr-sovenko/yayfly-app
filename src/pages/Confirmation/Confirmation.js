@@ -15,11 +15,12 @@ import axios from 'axios';
 
 export default class Confirmation extends Component {
     state = {
+        loading: true,
+        offer: {},
         passengers: [],
         contactDetails: {},
         additionalBaggage: [],
-        loading: true,
-        offer: {}
+        seats: {},
     };
 
     constructor(props) {
@@ -33,7 +34,8 @@ export default class Confirmation extends Component {
         let offer = {},
             passengers = [],
             contactDetails = {},
-            additionalBaggage = [];
+            additionalBaggage = [],
+            seats = {};
 
         try {
             offer = JSON.parse(localStorage['offer']);
@@ -59,27 +61,34 @@ export default class Confirmation extends Component {
             console.log(e);
         }
 
+        try {
+            seats = JSON.parse(localStorage['seats']);
+        } catch(e) {
+            console.log(e);
+        }
+
         if (offer.id) {
             that.setState({
                 loading: false,
                 offer: offer,
                 passengers: passengers,
                 contactDetails: contactDetails,
-                additionalBaggage: additionalBaggage
+                additionalBaggage: additionalBaggage,
+                seats: seats
             });
         } else {
-            axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
-                that.setState({
-                    loading: false,
-                    offer: response.data.data,
-                    passengers: passengers,
-                    contactDetails: contactDetails,
-                    additionalBaggage: additionalBaggage
-                });
-            }).catch((error) => {
-                console.log(error);
-                that.setState({ loading: false });
-            });
+            // axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
+            //     that.setState({
+            //         loading: false,
+            //         offer: response.data.data,
+            //         passengers: passengers,
+            //         contactDetails: contactDetails,
+            //         additionalBaggage: additionalBaggage
+            //     });
+            // }).catch((error) => {
+            //     console.log(error);
+            //     that.setState({ loading: false });
+            // });
         }
 
         window.scroll({ top: 0, left: 0 });
@@ -95,7 +104,8 @@ export default class Confirmation extends Component {
               offer = that.state.offer,
               passengers = that.state.passengers,
               contactDetails = that.state.contactDetails,
-              additionalBaggage = that.state.additionalBaggage;
+              additionalBaggage = that.state.additionalBaggage,
+              seats = that.state.seats;
 
         return (
             <div className="confirmation-pages">
@@ -119,12 +129,17 @@ export default class Confirmation extends Component {
                                     <PriceDetails
                                         offer={offer}
                                         additionalBaggage={additionalBaggage}
+                                        seats={seats}
                                     />
                                 </Box>
                                 <CheckDetails
                                     offer={offer}
                                     passengers={passengers}
                                     contactDetails={contactDetails}
+                                    seats={seats}
+                                    onSeatsChanged={(data) => {
+                                        that.setState({ seats: data });
+                                    }}
                                 />
                                 </>
                             ) : (
@@ -144,6 +159,7 @@ export default class Confirmation extends Component {
                                     <PriceDetails
                                         offer={offer}
                                         additionalBaggage={additionalBaggage}
+                                        seats={seats}
                                     />
                                 ) : (
                                     <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '5px', borderRadius: '5px' }}>

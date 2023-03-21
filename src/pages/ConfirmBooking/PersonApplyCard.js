@@ -87,6 +87,8 @@ const PersonApplyCard = (props) => {
        			const accept = page.querySelector('input[name="accept"]');
 
        			if (accept.checked) {
+       				localStorage.removeItem('seats');
+
        				localStorage['offer'] = JSON.stringify(offer);
        				localStorage['passengers'] = JSON.stringify(Object.values(passengers));
        				localStorage['contactDetails'] = JSON.stringify({

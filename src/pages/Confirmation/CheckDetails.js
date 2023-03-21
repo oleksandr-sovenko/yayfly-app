@@ -4,6 +4,7 @@ import { GiSchoolBag } from "react-icons/gi";
 import { default as React, useState } from "react";
 import { IoIosAirplane } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { getSeatsData } from "../../functions";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import { SeatSelection } from '@duffel/components'
 
@@ -22,7 +23,9 @@ const CheckDetails = (props) => {
     const [openSeats, setOpenSeats] = useState(false),
           offer = props.offer ? props.offer : {},
           passengers = props.passengers ? props.passengers : {},
-          contactDetails = props.contactDetails ? props.contactDetails : {};
+          contactDetails = props.contactDetails ? props.contactDetails : {},
+          seats = props.seats ? props.seats : {},
+          seatsData = getSeatsData(offer, seats);
 
     return (
         <div>
@@ -31,8 +34,11 @@ const CheckDetails = (props) => {
                     offer={offer}
                     seatMaps={offer.seatmaps.data}
                     passengers={passengers.map((item) => { return {id: item.id, name: `${item.given_name} ${item.family_name}`.trim()}; })}
-                    initialSeatSelection={[]}
-                    onSubmit={(e) => {
+                    initialSeatSelection={seats}
+                    onSubmit={(data) => {
+                        if (typeof props.onSeatsChanged === 'function')
+                            props.onSeatsChanged(data);
+
                         setOpenSeats(false);
                     }}
                 />
@@ -79,25 +85,36 @@ const CheckDetails = (props) => {
                                     <img src="https://yayfly.com/wp-content/plugins/yayfly/images/person-seat-reclined.svg" />
                                 </Box>
                                 <Box gridColumn="span 10" sx={{ marginLeft: "10px" }}>
-                                    <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>
-                                        Nata Sovenko
-                                    </Typography>
-                                    <Typography sx={{ color: "hsl(232deg 78% 13% / 50%)", fontSize: "14px" }}>
-                                        ASD -> GDO, Seat selected E28
-                                    </Typography>
-                                    <Typography sx={{ color: "hsl(232deg 78% 13% / 50%)", fontSize: "14px" }}>
-                                        GDO -> ASD, Seat selected D12
-                                    </Typography>
+                                    {Object.keys(seatsData.passengers).length ? (
+                                        <>
+                                            {Object.values(passengers).map((p, i) => {
+                                                if (seatsData.passengers[p.id]) {
+                                                    return (
+                                                        <div key={i}>
+                                                            <b key={`b${i}`}>{p.given_name} {p.family_name}</b>
 
-                                    <Typography sx={{ fontSize: "14px", fontWeight: 500 }}>
-                                        Sasa Sovenko
-                                    </Typography>
-                                    <Typography sx={{ color: "hsl(232deg 78% 13% / 50%)", fontSize: "14px" }}>
-                                        ASD -> GDO, Seat random
-                                    </Typography>
+                                                            {seatsData.passengers[p.id].map((s, j) => {
+                                                                return (
+                                                                    <small key={j}>, {s.origin} -> {s.destination} ({s.designator})</small>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    );
+                                                } else {
+                                                    return (<></>);
+                                                }
+                                            })}
+                                        </>
+                                    ) : (
+                                        <div>No seats selected</div>                                    
+                                    )}
                                 </Box>
                                 <Box gridColumn="span 1" sx={{ textAlign: "center", fontSize: "14px", fontWeight: 500, marginRight: "30px" }}>
-                                    <Typography>Free</Typography>
+                                    {Object.keys(seatsData.passengers).length ? (
+                                        <>
+                                            <Typography>${seatsData.total_amount}</Typography>
+                                        </>
+                                    ) : (<></>)}
                                 </Box>
                             </Grid>
                         </Box>
@@ -124,7 +141,7 @@ const CheckDetails = (props) => {
                 </CardWrap>
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "28px" }}>
                 <Link to={'#'} style={{ display: "inline-block", width: "94px", height: "52px", boxShadow: "none", background: "#D2D4E1", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#010416", borderRadius: "5px", fontWeight: 500 }} onClick={(e) => { e.preventDefault(); window.history.back(); }}>Back</Link>
-                <Link to={`/payment/${offer.id}`} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "260px", maxWidth: "260px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }}>Proceed to payment <IoIosAirplane />
+                <Link to={'#'} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "260px", maxWidth: "260px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }} onClick={(e) => { e.preventDefault(); localStorage['seats'] = JSON.stringify(Object.values(seats)); window.location.href = `/payment/${offer.id}`;  }}>Proceed to payment <IoIosAirplane />
                 </Link>
             </Box>
         </Box>

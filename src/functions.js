@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 const getParams = () => {
     let params = window.location.pathname.split('/').filter((e) => { return e });
 
@@ -36,6 +39,9 @@ const getParams = () => {
 };
 
 
+/**
+ * 
+ */
 const getMinutes = (value) => {
     let h = parseInt(value.replace('PT', '')),
         m = parseInt(value.replace(/.*H/, ''));
@@ -57,6 +63,9 @@ const getMinutes = (value) => {
 };
 
 
+/**
+ * 
+ */
 const convert2Time = (value) => {
     let hours   = Math.floor(value / 60),
         minutes = value % 60;
@@ -65,4 +74,40 @@ const convert2Time = (value) => {
 };
 
 
-export { getParams, getMinutes, convert2Time }
+/**
+ * 
+ */
+const getSeatsData = (offer, seats) => {
+    let index = 0,
+        seatsData = { passengers: {}, total_amount: 0, count: 0 };
+
+    for (const s of Object.values(seats)) {
+        const origin = offer.slices[index].origin.iata_city_code,
+              destination = offer.slices[index].destination.iata_city_code;
+
+        for (const p of Object.values(s)) {
+            if (p && p.service) {
+                const total_amount = parseFloat(p.service.total_amount);
+
+                p.origin = origin;
+                p.destination = destination;
+
+                if (isNaN(total_amount))
+                    total_amount = 0;
+
+                if (!seatsData.passengers[p.service.passenger_id])
+                    seatsData.passengers[p.service.passenger_id] = [];
+
+                seatsData.passengers[p.service.passenger_id].push(p);
+                seatsData.total_amount += total_amount;
+                seatsData.count++;
+            }
+        }
+        index++;
+    }
+
+    return seatsData;
+};
+
+
+export { getParams, getMinutes, convert2Time, getSeatsData }

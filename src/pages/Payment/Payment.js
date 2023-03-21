@@ -20,7 +20,8 @@ export default class Payment extends Component {
         offer: {},
         passengers: [],
         contactDetails: {},
-        additionalBaggage: []
+        additionalBaggage: [],
+        seats: {},
     };
 
     constructor(props) {
@@ -34,7 +35,8 @@ export default class Payment extends Component {
         let offer = {},
             passengers = {},
             contactDetails = {},
-            additionalBaggage = [];
+            additionalBaggage = [],
+            seats: {};
 
         try {
             offer = JSON.parse(localStorage['offer']);
@@ -60,26 +62,23 @@ export default class Payment extends Component {
 
         }
 
+        try {
+            seats = JSON.parse(localStorage['seats']);
+        } catch(e) {
+
+        }
+
         if (offer.id) {
             that.setState({
                 loading: false,
                 offer: offer,
                 passengers: passengers,
                 contactDetails: contactDetails,
-                additionalBaggage: additionalBaggage
+                additionalBaggage: additionalBaggage,
+                seats: seats
             });
         } else {
-            axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
-                that.setState({
-                    loading: false,
-                    offer: response.data,
-                    passengers: passengers,
-                    contactDetails: contactDetails,
-                    additionalBaggage: additionalBaggage
-                });
-            }).catch((error) => {
-                that.setState({ loading: false });
-            });
+
         }
 
         window.scroll({ top: 0, left: 0 });
@@ -95,7 +94,8 @@ export default class Payment extends Component {
               offer = that.state.offer,
               passengers = that.state.passengers,
               contactDetails = that.state.contactDetails,
-              additionalBaggage = that.state.additionalBaggage;
+              additionalBaggage = that.state.additionalBaggage,
+              seats = that.state.seats;
 
         return (
             <>
@@ -131,7 +131,11 @@ export default class Payment extends Component {
                                             
                                             <Box sx={{ display: { xs: "block", md: "none" } }}>
                                                 <PageTitle title="Price details" />
-                                                <PriceDetails offer={offer} />
+                                                <PriceDetails
+                                                    offer={offer}
+                                                    additionalBaggage={additionalBaggage}
+                                                    seats={seats}
+                                                />
                                             </Box>
 
                                             <SectionTitle title="Your Payment Details" />
@@ -140,6 +144,7 @@ export default class Payment extends Component {
                                                 passengers={passengers}
                                                 contactDetails={contactDetails}
                                                 additionalBaggage={additionalBaggage}
+                                                seats={seats}
                                             />
                                         </>
                                     ) : (
@@ -159,6 +164,7 @@ export default class Payment extends Component {
                                             <PriceDetails
                                                 offer={offer}
                                                 additionalBaggage={additionalBaggage}
+                                                seats={seats}
                                             />
                                         ) : (
                                             <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '5px', borderRadius: '5px' }}>
