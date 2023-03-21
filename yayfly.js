@@ -393,10 +393,6 @@ jQuery(document).ready(($) => {
 
 			if (e.target.name === 'travelers')
 				$(e.target).parent().find('.yayfly-dropdown-list').addClass('show');
-
-			// if (el[0] === travelers[0]) {
-			// 	travelers.parent().find('.yayfly-dropdown-list').addClass('show');
-			// }
 		});	
 
 
@@ -441,15 +437,15 @@ jQuery(document).ready(($) => {
 					singleDatePicker: true,
 					locale: { format: 'ddd MMM D' },    		
 					autoApply: window.device.current === 'desktop' ? true : false,
-				}, function(start, end, label) {
-					// console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+				}, (start, end, label) => {
+
 				});
 			} else {
 				dates.daterangepicker({
 					locale: { format: 'ddd MMM D' },    		
 					autoApply: window.device.current === 'desktop' ? true : false,
-				}, function(start, end, label) {
-					// console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+				}, (start, end, label) => {
+
 				});
 			}
 
