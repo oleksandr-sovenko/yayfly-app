@@ -7,6 +7,7 @@ import { MdOutlineError } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import image1 from '../assets/AA.webp';
 import image2 from '../assets/BA.webp';
+import { getSettings } from '../functions';
 import moment from 'moment';
 
 
@@ -76,6 +77,8 @@ const SearchResultCard = (props) => {
     if (!props.offer.carriers)
         props.offer.carriers = [];
 
+    const settings = getSettings();
+
     return (
         <div className={props.loading === true ? 'search-result-card-grid loading' : 'search-result-card-grid'}>
             <div className="flight-duration-time">
@@ -137,11 +140,17 @@ const SearchResultCard = (props) => {
                         <Link to={`/booking-details/${props.offer.id}`} className="addToCart">Select <CgAirplane /></Link>
                     </div>
                 </div>
-                <span className="info-btn"><MdOutlineError />Unpublished deal detected</span>
-                <div className="cta-info">
-                    <p>Call now to secure <br/>the best fare <HiArrowLongRight /></p>
-                    <a href="tel:8882112111"><FaPhoneAlt /> (888) 211.2111</a>
-                </div>
+
+                {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.search ? (
+                    <>
+                        <span className="info-btn"><MdOutlineError />Unpublished deal detected</span>
+                        <div className="cta-info">
+                            <p>Call now to secure <br/>the best fare <HiArrowLongRight /></p>
+                            <a href={`tel:${settings.unpublished_deal_detected.phone}`}><FaPhoneAlt /> {settings.unpublished_deal_detected.phone}</a>
+                        </div>
+                    </>
+                ) : (<></>)}
+
                 <div className='mobileName' ref={dropdownRef}>
                     <button className="dropdown-btn" onClick={handleDropdownToggle}><HiOutlineArrowSmDown /></button>
                 </div>

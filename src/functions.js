@@ -77,6 +77,17 @@ const convert2Time = (value) => {
 /**
  * 
  */
+const getSettings = () => {
+    if (typeof window.flights_engine.settings === 'object')
+        return window.flights_engine.settings;
+    else
+        return {};
+}
+
+
+/**
+ * 
+ */
 const getSeatsData = (offer, seats) => {
     let index = 0,
         seatsData = { passengers: {}, total_amount: 0, count: 0 };
@@ -126,4 +137,4 @@ const localStorageJSON = (name) => {
 };
 
 
-export { getParams, getMinutes, convert2Time, getSeatsData, localStorageJSON }
+export { getParams, getMinutes, convert2Time, getSeatsData, localStorageJSON, getSettings }

@@ -17,7 +17,7 @@ import guaranteImg from "../../assets/confirm-booking/guarnte.png";
 import modalCartoon from "../../assets/confirm-booking/modalCartoon.png";
 import '@duffel/components/dist/SeatSelection.min.css'
 import loadingImage from '../../assets/loading.svg';
-import { localStorageJSON } from '../../functions'
+import { localStorageJSON, getSettings } from '../../functions'
 import axios from 'axios';
 
 
@@ -61,6 +61,7 @@ export default class BookingDetails extends Component {
 
     render() {
         const that = this,
+              settings = getSettings(),
               loading = that.state.loading,
               passengers = that.state.passengers,
               contactDetails = that.state.contactDetails,
@@ -131,9 +132,14 @@ export default class BookingDetails extends Component {
                                     <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear' }} /> Loading ...
                                 </Box>                                
                             )}
-                            <Box sx={{ display: { md: "block", xs: "none" } }}>
-                                <PaymentCta />
-                            </Box>                            
+
+                            {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.details_booking ? (
+                                <Box sx={{ display: { md: "block", xs: "none" } }}>
+                                    <PaymentCta phone={settings.unpublished_deal_detected.phone} />
+                                </Box>                            
+                            ) : (
+                                <></>
+                            )}
                         </Box>
                         <Box>
                             <Box sx={{ display: { md: "block", xs: "none" } }}>
@@ -161,7 +167,12 @@ export default class BookingDetails extends Component {
                                     </Box>
                                 )}
                             </Box>
-                            <MobilePaymentCta />
+
+                            {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.details_booking ? (
+                                <MobilePaymentCta phone={settings.unpublished_deal_detected.phone} />
+                            ) : (
+                                <></>
+                            )}
                         </Box>
                     </Box>
                 </Box>

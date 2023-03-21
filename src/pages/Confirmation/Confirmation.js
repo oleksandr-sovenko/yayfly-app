@@ -10,7 +10,7 @@ import PaymentTimeLine from "../Payment/PaymentTimeLine";
 import PriceDetails from "../Payment/PriceDetails";
 import CheckDetails from "./CheckDetails";
 import loadingImage from '../../assets/loading.svg';
-import { localStorageJSON } from '../../functions'
+import { localStorageJSON, getSettings } from '../../functions'
 import axios from 'axios';
 
 
@@ -60,6 +60,7 @@ export default class Confirmation extends Component {
 
     render() {
         const that = this,
+              settings = getSettings(),
               loading = that.state.loading,
               offer = that.state.offer,
               passengers = that.state.passengers,
@@ -108,9 +109,13 @@ export default class Confirmation extends Component {
                                 </Box>
                             )}
 
-                            <Box sx={{ display: { md: "block", xs: "none" } }}>
-                                <PaymentCta />
-                            </Box>
+                            {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.confirm_booking ? (
+                                <Box sx={{ display: { md: "block", xs: "none" } }}>
+                                    <PaymentCta phone={settings.unpublished_deal_detected.phone} />
+                                </Box>                            
+                            ) : (
+                                <></>
+                            )}
                         </Box>
                         <Box>
                             <Box sx={{ display: { md: "block", xs: "none" } }}>
@@ -127,7 +132,12 @@ export default class Confirmation extends Component {
                                     </Box>
                                 )}
                             </Box>
-                            <MobilePaymentCta />
+                            
+                            {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.confirm_booking ? (
+                                <MobilePaymentCta phone={settings.unpublished_deal_detected.phone} />
+                            ) : (
+                                <></>
+                            )}
                         </Box>
                     </Box>
                 </Box>
