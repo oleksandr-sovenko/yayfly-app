@@ -23,7 +23,27 @@ const PaymentCard = (props) => {
           [status, setStatus] = useState('initialized'),
           offer = props.offer ? props.offer : {},
           passengers = props.passengers ? props.passengers : [],
-          contactDetails = props.contactDetails ? props.contactDetails : {};
+          contactDetails = props.contactDetails ? props.contactDetails : {},
+          additionalBaggage = props.additionalBaggage ? props.additionalBaggage : [];
+
+
+    let additionalBaggageData = {
+            count: 0,
+            total_amount: 0,
+        };
+
+    for (const item of Object.values(additionalBaggage)) {
+        let total_amount = parseFloat(item.total_amount);
+
+        if (isNaN(total_amount))
+            total_amount = 0;
+
+        additionalBaggageData.count++;
+        additionalBaggageData.total_amount += total_amount;
+    }
+
+    if (offer.total_amount)
+        offer.total_amount = parseFloat(offer.total_amount);        
 
     /**
      * 
@@ -71,25 +91,10 @@ const PaymentCard = (props) => {
         axios.post(`https://yayfly.com/api/payments/intent/confirm/${intent.id}`).then((response) => {
             const result = response.data.data;
 
-            // console.log(response.data);
-            // that.setState((state, props) => {
-            //     state.result.payment = response.data;
-
-            //     return state;
-            // }, order);
-
-
-            // if (result.status === 'succeeded');
-
             setStatus(result.status);
-
         }).catch((error) => {
-            console.log(error);
-            // alert('Payment! Something went wrong');
             setStatus('error');
         });
-
-        // console.log('successfulPaymentHandler');
     }
 
     /**
@@ -110,10 +115,10 @@ const PaymentCard = (props) => {
             amount: parseFloat(offer.total_amount),
         };
 
-        // for (const item of props.AdditionalBaggages) {
-        //     data.amount += parseFloat(item.total_amount);
-        //     data.services.push(item);
-        // }
+        for (const item of additionalBaggage) {
+            data.amount += parseFloat(item.total_amount);
+            data.services.push(item);
+        }
 
         // for (const item of props.Seats) {
         //     data.amount += parseFloat(item.total_amount);
@@ -183,7 +188,7 @@ const PaymentCard = (props) => {
                                 </Box>
                                 <Box>
                                     <Link onClick={pay} to="#" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "100%", maxWidth: "355px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }}>
-                                        Pay ${offer.total_amount ? offer.total_amount : 0}
+                                        Pay ${offer.total_amount ? (offer.total_amount + additionalBaggageData.total_amount) : 0}
                                     </Link>
                                 </Box>
                             </Box>

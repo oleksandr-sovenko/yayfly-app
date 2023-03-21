@@ -2,7 +2,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Grid, InputLabel, styled, Typography } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
-import React from "react";
+import React, { useState } from "react";
 import { FiBriefcase } from "react-icons/fi";
 import { GiSchoolBag } from "react-icons/gi";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
@@ -20,7 +20,8 @@ const CardWrap = styled(Box)(({ theme }) => ({
 
 const PassengerCard = (props) => {
     const offer = props.offer ? props.offer : {},
-          passengers = props.passengers ? props.passengers : {};
+          passengers = props.passengers ? props.passengers : {},
+          additionalBaggage = props.additionalBaggage ? props.additionalBaggage : {};
 
     const input = (e) => {
         const el = e.target;
@@ -34,9 +35,8 @@ const PassengerCard = (props) => {
         el.classList.remove('error');
     }
 
-    const clickBaggage = (e) => {
-        const el = e.target,
-              passengerItem = el.closest('.passenger-item');
+    const clickBaggage = (el, id, data) => {
+        const passengerItem = el.closest('.passenger-item');
 
         for (const item of passengerItem.querySelectorAll('.baggage-item'))
             item.classList.remove('active');
@@ -46,6 +46,9 @@ const PassengerCard = (props) => {
         else {
             el.closest('.baggage-item').classList.add('active');
         }
+
+        if (typeof props.onClickedBaggage === 'function')
+            props.onClickedBaggage(id, data);
     }
 
     if (!offer.passengers)
@@ -228,7 +231,11 @@ const PassengerCard = (props) => {
                                                 Select one option
                                             </Typography>
 
-                                            <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" marginBottom="15px" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", borderRadius: "5px", cursor: "pointer" }} className="baggage-item active" onClick={clickBaggage}>
+                                            <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" marginBottom="15px" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", borderRadius: "5px", cursor: "pointer" }} className="baggage-item active" onClick={(e) => {
+                                                    const service = offer.available_services[index];
+
+                                                    clickBaggage(e.target, service.id, null);
+                                                }}>
                                                 <Box gridColumn="span 1" sx={{ textAlign: "end", color: "#010316", fontSize: "22px", fontWeight: 900 }}>
                                                     <CloseIcon />
                                                 </Box>
@@ -239,7 +246,21 @@ const PassengerCard = (props) => {
                                                 </Box>
                                             </Grid>
 
-                                            <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", borderRadius: "5px", cursor: "pointer" }} className="baggage-item" onClick={clickBaggage}>
+                                            <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" sx={{ background: "rgb(234 236 243 / 73%)", height: "60px", borderRadius: "5px", cursor: "pointer" }} className="baggage-item" onClick={(e) => {
+                                                    const service = offer.available_services[index],
+                                                          data = {
+                                                            id: service.id,
+                                                            metadata: service.metadata,
+                                                            passenger_ids: service.passenger_ids,
+                                                            quantity: 1,
+                                                            segment_ids: service.segment_ids,
+                                                            total_amount: service.total_amount,
+                                                            total_currency: service.total_currency,
+                                                            type: service.type
+                                                        };
+
+                                                    clickBaggage(e.target, service.id, data);
+                                                }}>
                                                 <Box gridColumn="span 1" sx={{ textAlign: "center", color: "hsl(232deg 78% 13% / 50%)", fontSize: "20px", padding: "0 10px" }}>
                                                     <FiBriefcase />
                                                 </Box>

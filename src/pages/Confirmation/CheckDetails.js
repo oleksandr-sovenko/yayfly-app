@@ -5,7 +5,7 @@ import { default as React, useState } from "react";
 import { IoIosAirplane } from "react-icons/io";
 import { Link } from "react-router-dom";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
-import { SeatSelection, AdditionalBaggageSelection } from '@duffel/components'
+import { SeatSelection } from '@duffel/components'
 
 
 const CardWrap = styled(Box)(({ theme }) => ({
@@ -26,7 +26,7 @@ const CheckDetails = (props) => {
 
     return (
         <div>
-            <Dialog open={openSeats} fullWidth={true} maxWidth={true} className="modal-duffel-components">
+            <Dialog open={openSeats} fullWidth={true} className="modal-duffel-components">
                 <SeatSelection
                     offer={offer}
                     seatMaps={offer.seatmaps.data}

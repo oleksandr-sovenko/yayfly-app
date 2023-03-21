@@ -25,7 +25,8 @@ export default class BookingDetails extends Component {
         loading: true,
         offer: {},
         passengers: [],
-        contactDetails: {}
+        contactDetails: {},
+        additionalBaggage: {}
     };
 
     constructor(props) {
@@ -36,7 +37,7 @@ export default class BookingDetails extends Component {
         const that = this,
               id = window.location.pathname.replace(/.*\//, '');
 
-        let passengers = {},
+        let passengers = [],
             contactDetails = {};
 
         try {
@@ -49,10 +50,15 @@ export default class BookingDetails extends Component {
             contactDetails = JSON.parse(localStorage['contactDetails']);
         } catch(e) {
 
-        }            
+        }       
 
         axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
-            that.setState({ loading: false, offer: response.data, passengers: passengers, contactDetails: contactDetails });
+            that.setState({
+                loading: false,
+                offer: response.data,
+                passengers: passengers,
+                contactDetails: contactDetails
+            });
         }).catch((error) => {
             that.setState({ loading: false });
         });
@@ -69,6 +75,7 @@ export default class BookingDetails extends Component {
               loading = that.state.loading,
               passengers = that.state.passengers,
               contactDetails = that.state.contactDetails,
+              additionalBaggage = that.state.additionalBaggage,
               offer = that.state.offer;
 
         return (
@@ -105,8 +112,28 @@ export default class BookingDetails extends Component {
                                                 <PriceDetails offer={offer.data} />
                                                 <MobilePaymentCta />
                                             </Box>
-                                            <PassengerCard offer={offer.data} passengers={passengers} />
-                                            <PersonApplyCard offer={offer.data} contactDetails={contactDetails} />
+                                            <PassengerCard
+                                                offer={offer.data}
+                                                passengers={passengers}
+                                                additionalBaggage={additionalBaggage}
+                                                onClickedBaggage={(id, data) => {
+                                                    let _additionalBaggage = additionalBaggage;
+
+                                                    if (data)
+                                                        _additionalBaggage[id] = data;
+                                                    else
+                                                        delete _additionalBaggage[id];
+
+                                                    that.setState({
+                                                        additionalBaggage: _additionalBaggage
+                                                    });
+                                                }}
+                                            />
+                                            <PersonApplyCard
+                                                offer={offer.data}
+                                                contactDetails={contactDetails}
+                                                additionalBaggage={additionalBaggage}
+                                            />
                                         </>
                                     )}
                                 </>
@@ -133,7 +160,10 @@ export default class BookingDetails extends Component {
                                                 })}
                                             </Box>
                                         ) : (
-                                            <PriceDetails offer={offer.data} />
+                                            <PriceDetails
+                                                offer={offer.data}
+                                                additionalBaggage={additionalBaggage}
+                                            />
                                         )}
                                     </>
                                 ) : (

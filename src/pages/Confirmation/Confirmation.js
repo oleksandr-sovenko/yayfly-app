@@ -17,6 +17,7 @@ export default class Confirmation extends Component {
     state = {
         passengers: [],
         contactDetails: {},
+        additionalBaggage: [],
         loading: true,
         offer: {}
     };
@@ -29,8 +30,16 @@ export default class Confirmation extends Component {
         const that = this,
               id = window.location.pathname.replace(/.*\//, '');
 
-        let passengers = {},
-            contactDetails = {};
+        let offer = {},
+            passengers = [],
+            contactDetails = {},
+            additionalBaggage = [];
+
+        try {
+            offer = JSON.parse(localStorage['offer']);
+        } catch(e) {
+
+        }
 
         try {
             passengers = JSON.parse(localStorage['passengers']);
@@ -44,12 +53,34 @@ export default class Confirmation extends Component {
 
         }
 
-        axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
-            that.setState({ loading: false, offer: response.data.data, passengers: passengers, contactDetails: contactDetails });
-        }).catch((error) => {
-            console.log(error);
-            that.setState({ loading: false });
-        });
+        try {
+            additionalBaggage = JSON.parse(localStorage['additionalBaggage']);
+        } catch(e) {
+            console.log(e);
+        }
+
+        if (offer.id) {
+            that.setState({
+                loading: false,
+                offer: offer,
+                passengers: passengers,
+                contactDetails: contactDetails,
+                additionalBaggage: additionalBaggage
+            });
+        } else {
+            axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
+                that.setState({
+                    loading: false,
+                    offer: response.data.data,
+                    passengers: passengers,
+                    contactDetails: contactDetails,
+                    additionalBaggage: additionalBaggage
+                });
+            }).catch((error) => {
+                console.log(error);
+                that.setState({ loading: false });
+            });
+        }
 
         window.scroll({ top: 0, left: 0 });
     }
@@ -63,7 +94,8 @@ export default class Confirmation extends Component {
               loading = that.state.loading,
               offer = that.state.offer,
               passengers = that.state.passengers,
-              contactDetails = that.state.contactDetails;
+              contactDetails = that.state.contactDetails,
+              additionalBaggage = that.state.additionalBaggage;
 
         return (
             <div className="confirmation-pages">
@@ -84,9 +116,16 @@ export default class Confirmation extends Component {
                                 <ConformSearchResult offer={offer} />
                                 <Box sx={{ display: { xs: "block", md: "none" }, marginBottom: { xs: "20px", md: "0px" } }}>
                                     <PageTitle title="Price details" />
-                                    <PriceDetails offer={offer} />
+                                    <PriceDetails
+                                        offer={offer}
+                                        additionalBaggage={additionalBaggage}
+                                    />
                                 </Box>
-                                <CheckDetails offer={offer} passengers={passengers} contactDetails={contactDetails} />
+                                <CheckDetails
+                                    offer={offer}
+                                    passengers={passengers}
+                                    contactDetails={contactDetails}
+                                />
                                 </>
                             ) : (
                                 <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '40px', borderRadius: '5px' }}>
@@ -102,7 +141,10 @@ export default class Confirmation extends Component {
                             <Box sx={{ display: { md: "block", xs: "none" } }}>
                                 <PageTitle title="Price details" />
                                 {loading === false ? (
-                                    <PriceDetails offer={offer} />
+                                    <PriceDetails
+                                        offer={offer}
+                                        additionalBaggage={additionalBaggage}
+                                    />
                                 ) : (
                                     <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '5px', borderRadius: '5px' }}>
                                         <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear' }} /> Loading ...

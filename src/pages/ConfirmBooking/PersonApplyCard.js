@@ -37,24 +37,11 @@ const CardButton = styled(Box)(({ theme }) => ({
 }));
 
 
-/*
-
-for (const input of document.querySelectorAll('input, select')) {	
-	if (/gender/.test(input.name))
-		input.value = 'm';
-	else if (/month/.test(input.name))
-		input.value = '01';
-	else
-		input.value = '1111';	
-}
-
-*/
-
-
 const PersonApplyCard = (props) => {
 	const id = window.location.pathname.replace(/.*\//, ''),
 		  offer = props.offer ? props.offer : {},
-		  contactDetails = props.contactDetails ? props.contactDetails : {};
+		  contactDetails = props.contactDetails ? props.contactDetails : {},
+		  additionalBaggage = props.additionalBaggage ? props.additionalBaggage : {};
 
     const input = (e) => {
         const el = e.target;
@@ -100,11 +87,13 @@ const PersonApplyCard = (props) => {
        			const accept = page.querySelector('input[name="accept"]');
 
        			if (accept.checked) {
+       				localStorage['offer'] = JSON.stringify(offer);
        				localStorage['passengers'] = JSON.stringify(Object.values(passengers));
        				localStorage['contactDetails'] = JSON.stringify({
        					email: page.querySelector('input[name="email"]').value,
        					phone_number: page.querySelector('input[name="phone_number"]').value,
        				});
+       				localStorage['additionalBaggage'] = JSON.stringify(Object.values(additionalBaggage));
 
        				window.location.href = `/confirm-booking/${id}`;
        			} else {
