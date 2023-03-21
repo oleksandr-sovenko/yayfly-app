@@ -33,6 +33,25 @@ add_action('wp_enqueue_scripts', function() {
 }, 11);
 
 
+/**
+ * 
+ */
+add_shortcode('flights_engine_main_form', function($atts) {
+    // $default = array(
+    //     'link' => '#',
+    // );
+
+    // $a = shortcode_atts($default, $atts);
+
+    // return 'Follow us on '.$a['link'];	
+
+    return file_get_contents(__DIR__.'/flights_engine_main_form.html');
+});
+
+
+/**
+ * 
+ */
 add_action('admin_menu', function() {
     add_menu_page('Flights Engine', 'Flights Engine', 'manage_options', 'flights-engine', function() {
         ?>
@@ -58,9 +77,8 @@ add_action('admin_menu', function() {
 								<td><code>[flights_engine_main_form]</code></td>
 							</tr>
 						</tbody>
-					</table>            
+					</table>  
 
-				<form method="post">
 					<h2 class="title">Unpublished Deal Detected</h2>
 					<p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
 
@@ -105,6 +123,37 @@ add_action('admin_menu', function() {
 							</tr>
 						</tbody>
 					</table>
+
+					<h2 class="title">Duffel API</h2>
+					<p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+
+					<table class="form-table" role="presentation">
+						<tbody>
+							<tr>
+								<th scope="row"><label>Test Token</label></th>
+								<td><input name="duffel_api[token][test]" type="text" value="<?= !empty($flights_engine['settings']['duffel_api']['token']['test']) ? $flights_engine['settings']['duffel_api']['token']['test'] : '' ?>" class="regular-text"></td>
+							</tr>
+
+							<tr>
+								<th scope="row"><label>Live Token</label></th>
+								<td><input name="duffel_api[token][live]" type="text" value="<?= !empty($flights_engine['settings']['duffel_api']['token']['live']) ? $flights_engine['settings']['duffel_api']['token']['live'] : '' ?>" class="regular-text"></td>
+							</tr>
+							<tr>
+								<th scope="row">Mode</th>
+								<td>
+									<fieldset><legend class="screen-reader-text"><span>Mode</span></legend>
+									<label>
+										<input type="radio" name="duffel_api[mode]" value="test" <?= (!empty($flights_engine['settings']['duffel_api']['mode']) and $flights_engine['settings']['duffel_api']['mode'] == 'test') ? 'checked' : '' ?>>
+										<span class="date-time-text">Test</span>
+									</label><br>
+									<label>
+										<input type="radio" name="duffel_api[mode]" value="live"  <?= (!empty($flights_engine['settings']['duffel_api']['mode']) and $flights_engine['settings']['duffel_api']['mode'] == 'live') ? 'checked' : '' ?>>
+										<span class="date-time-text">Live</span>
+									</label><br>
+								</td>
+							</tr>							
+						</tbody>
+					</table> 					
 
 					<p class="submit">
 						<input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
@@ -302,8 +351,19 @@ add_action('init', function() {
  * 
  */
 function duffel_request($url, $data = []) {
+	$token = '';
+	$flights_engine = get_option('flights_engine', []);
+
+	if (!empty($flights_engine['settings']['duffel_api']['mode'])) {
+		$mode = $flights_engine['settings']['duffel_api']['mode'];
+		$token = $flights_engine['settings']['duffel_api']['token'][$mode];
+	}
+
+	if (empty($token))
+		return [];
+
 	$headers = array (
-		'Authorization: Bearer duffel_test_3O7Bl3sP-YmxCXxWK0Is--nLVqs9i91-K8cm53cy89O',
+		'Authorization: Bearer '.$token,
 		'Accept: application/json',
 		'Content-Type: application/json',
 		'Duffel-Version: v1',
