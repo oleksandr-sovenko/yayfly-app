@@ -11,6 +11,7 @@ import PaymentTimeLine from "./PaymentTimeLine";
 import PriceDetails from "./PriceDetails";
 import { Link } from "react-router-dom";
 import loadingImage from '../../assets/loading.svg';
+import { localStorageJSON } from '../../functions'
 import axios from 'axios';
 
 
@@ -32,41 +33,11 @@ export default class Payment extends Component {
         const that = this,
               id = window.location.pathname.replace(/.*\//, '');
 
-        let offer = {},
-            passengers = {},
-            contactDetails = {},
-            additionalBaggage = [],
-            seats: {};
-
-        try {
-            offer = JSON.parse(localStorage['offer']);
-        } catch(e) {
-
-        }            
-
-        try {
-            passengers = JSON.parse(localStorage['passengers']);
-        } catch(e) {
-
-        }
-
-        try {
-            contactDetails = JSON.parse(localStorage['contactDetails']);
-        } catch(e) {
-
-        }
-
-        try {
-            additionalBaggage = JSON.parse(localStorage['additionalBaggage']);
-        } catch(e) {
-
-        }
-
-        try {
-            seats = JSON.parse(localStorage['seats']);
-        } catch(e) {
-
-        }
+        let offer = localStorageJSON('offer'),
+            passengers = localStorageJSON('passengers'),
+            contactDetails = localStorageJSON('contactDetails'),
+            additionalBaggage = localStorageJSON('additionalBaggage'),
+            seats = localStorageJSON('seats');
 
         if (offer.id) {
             that.setState({
@@ -153,9 +124,9 @@ export default class Payment extends Component {
                                         </Box>
                                     )}
 
-                                    <Box sx={{ display: { md: "block", xs: "none" } }}>
+                                    {/*<Box sx={{ display: { md: "block", xs: "none" } }}>
                                         <PaymentCta />
-                                    </Box>
+                                    </Box>*/}
                                 </Box>
                                 <Box>
                                     <Box sx={{ display: { md: "block", xs: "none" } }}>
@@ -172,7 +143,7 @@ export default class Payment extends Component {
                                             </Box>
                                         )}
                                     </Box>
-                                    <MobilePaymentCta />
+                                    {/*<MobilePaymentCta />*/}
                                 </Box>
                             </Box>
                         </Box>

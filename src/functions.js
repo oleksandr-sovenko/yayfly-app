@@ -110,4 +110,20 @@ const getSeatsData = (offer, seats) => {
 };
 
 
-export { getParams, getMinutes, convert2Time, getSeatsData }
+/**
+ * 
+ */
+const localStorageJSON = (name) => {
+    let json = {};
+
+    try {
+        json = JSON.parse(localStorage[name]);
+    } catch(e) {
+        json = {};
+    }
+
+    return json;
+};
+
+
+export { getParams, getMinutes, convert2Time, getSeatsData, localStorageJSON }

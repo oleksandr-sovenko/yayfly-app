@@ -17,6 +17,7 @@ import guaranteImg from "../../assets/confirm-booking/guarnte.png";
 import modalCartoon from "../../assets/confirm-booking/modalCartoon.png";
 import '@duffel/components/dist/SeatSelection.min.css'
 import loadingImage from '../../assets/loading.svg';
+import { localStorageJSON } from '../../functions'
 import axios from 'axios';
 
 
@@ -37,20 +38,8 @@ export default class BookingDetails extends Component {
         const that = this,
               id = window.location.pathname.replace(/.*\//, '');
 
-        let passengers = [],
-            contactDetails = {};
-
-        try {
-            passengers = JSON.parse(localStorage['passengers']);
-        } catch(e) {
-
-        }
-
-        try {
-            contactDetails = JSON.parse(localStorage['contactDetails']);
-        } catch(e) {
-
-        }       
+        let passengers = localStorageJSON('passengers'),
+            contactDetails = localStorageJSON('contactDetails');            
 
         axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
             that.setState({

@@ -253,7 +253,7 @@ const PassengerCard = (props) => {
                                                             metadata: service.metadata,
                                                             passenger_ids: service.passenger_ids,
                                                             quantity: 1,
-                                                            segment_ids: service.segment_ids,
+                                                            // segment_ids: service.segment_ids,
                                                             total_amount: service.total_amount,
                                                             total_currency: service.total_currency,
                                                             type: service.type

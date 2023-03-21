@@ -10,6 +10,7 @@ import PaymentTimeLine from "../Payment/PaymentTimeLine";
 import PriceDetails from "../Payment/PriceDetails";
 import CheckDetails from "./CheckDetails";
 import loadingImage from '../../assets/loading.svg';
+import { localStorageJSON } from '../../functions'
 import axios from 'axios';
 
 
@@ -31,41 +32,11 @@ export default class Confirmation extends Component {
         const that = this,
               id = window.location.pathname.replace(/.*\//, '');
 
-        let offer = {},
-            passengers = [],
-            contactDetails = {},
-            additionalBaggage = [],
-            seats = {};
-
-        try {
-            offer = JSON.parse(localStorage['offer']);
-        } catch(e) {
-
-        }
-
-        try {
-            passengers = JSON.parse(localStorage['passengers']);
-        } catch(e) {
-
-        }
-
-        try {
-            contactDetails = JSON.parse(localStorage['contactDetails']);
-        } catch(e) {
-
-        }
-
-        try {
-            additionalBaggage = JSON.parse(localStorage['additionalBaggage']);
-        } catch(e) {
-            console.log(e);
-        }
-
-        try {
-            seats = JSON.parse(localStorage['seats']);
-        } catch(e) {
-            console.log(e);
-        }
+        let offer = localStorageJSON('offer'),
+            passengers = localStorageJSON('passengers'),
+            contactDetails = localStorageJSON('contactDetails'),
+            additionalBaggage = localStorageJSON('additionalBaggage'),
+            seats = localStorageJSON('seats');
 
         if (offer.id) {
             that.setState({
@@ -77,18 +48,7 @@ export default class Confirmation extends Component {
                 seats: seats
             });
         } else {
-            // axios.get(`https://yayfly.com/api/offer/${id}`).then((response) => {
-            //     that.setState({
-            //         loading: false,
-            //         offer: response.data.data,
-            //         passengers: passengers,
-            //         contactDetails: contactDetails,
-            //         additionalBaggage: additionalBaggage
-            //     });
-            // }).catch((error) => {
-            //     console.log(error);
-            //     that.setState({ loading: false });
-            // });
+
         }
 
         window.scroll({ top: 0, left: 0 });
