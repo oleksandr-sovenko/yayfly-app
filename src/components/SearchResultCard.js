@@ -7,7 +7,8 @@ import { MdOutlineError } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import image1 from '../assets/AA.webp';
 import image2 from '../assets/BA.webp';
-import { getSettings } from '../functions';
+import { getSettings, getNormalDuration } from '../functions';
+import { Grid } from "@mui/material";
 import moment from 'moment';
 
 
@@ -105,7 +106,7 @@ const SearchResultCard = (props) => {
                                 <span className='airportCode'>{slice.origin.iata_code}</span>
                             </div>
                             <div className="flightDurationWrap">
-                                <span className="totalFlightDuration">{slice.duration.replace('P1DT', '1d ').replace('PT', '').replace('H', 'h ').replace('M', 'min')}</span>
+                                <span className="totalFlightDuration">{getNormalDuration(slice.duration)}</span>
                                 <span className="lineAndDots"></span>
                                 {slice.segments.length === 1 ? (
                                     <span className="directFlight">Direct</span>
@@ -155,7 +156,65 @@ const SearchResultCard = (props) => {
                     <button className="dropdown-btn" onClick={handleDropdownToggle}><HiOutlineArrowSmDown /></button>
                 </div>
             </div>
-            <div className={`flight-fare-details ${isOpen ? "open" : ""}`}>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa, magni quod nisi voluptatum commodi doloribus obcaecati alias nihil earum deleniti repellat! Vitae velit molestias natus enim nobis voluptas perspiciatis placeat.</div>
+            <div className={`flight-fare-details ${isOpen ? "open" : ""}`}>
+                <Grid container spacing={1}>
+                    <Grid container item xs={12} sm={4} spacing={1}>
+                        <div className="travelLegTitle">Outbound <small>{moment(props.offer.slices[0].segments[0].departing_at).format('ddd, DD MMM')}</small></div>
+                        <div style={{ width: '100%' }}>
+                            <div className="arrives">Arrives:<br/>
+                                <small>{moment(props.offer.slices[0].segments[props.offer.slices[0].segments.length - 1].arriving_at).format('ddd DD MMM')}</small></div>
+                                <div className="totalDuration">Total duration: <small>{getNormalDuration(props.offer.slices[0].duration)}</small>
+                            </div>
+                        </div>
+
+                        {props.offer.slices[0].segments.map((segment, index) => {
+                            if (segment.operating_carrier)
+                                return (
+                                    <div key={index} className="flight-item">
+                                        <div key={`${index}a`} className="airlineInfo">
+                                            <img width="24" src={segment.operating_carrier.logo_symbol_url} /> {segment.operating_carrier.name}
+                                        </div>
+                                        <div key={`${index}b`}>
+                                            <small>{moment(segment.departing_at).format('hh:mm A')}, {segment.origin.iata_code}</small><br/>
+                                            <small>{moment(segment.arriving_at).format('hh:mm A')}, {segment.destination.iata_code}</small><br/>
+                                            <small>{getNormalDuration(segment.duration)}</small>
+                                        </div>
+                                    </div>
+                                )
+                        })}
+                    </Grid>
+                    <Grid container item xs={12} sm={4} spacing={1}>
+                        <div className="travelLegTitle">Return <small>{moment(props.offer.slices[1].segments[0].departing_at).format('ddd, DD MMM')}</small></div>
+                        <div>
+                            <div className="arrives">Arrives:<br/>
+                                <small>{moment(props.offer.slices[1].segments[props.offer.slices[1].segments.length - 1].arriving_at).format('ddd, DD MMM')}</small>
+                            </div>
+                            <div className="totalDuration">Total duration: <small>{getNormalDuration(props.offer.slices[1].duration)}</small></div>
+                        </div>
+
+                        {props.offer.slices[1].segments.map((segment, index) => {
+                            if (segment.operating_carrier)
+                                return (
+                                    <div key={index} className="flight-item">
+                                        <div key={`${index}a`} className="airlineInfo">
+                                            <img width="24" src={segment.operating_carrier.logo_symbol_url} /> {segment.operating_carrier.name}
+                                        </div>
+                                        <div key={`${index}b`}>
+                                            <small>{moment(segment.departing_at).format('hh:mm A')}, {segment.origin.iata_code}</small><br/>
+                                            <small>{moment(segment.arriving_at).format('hh:mm A')}, {segment.destination.iata_code}</small><br/>
+                                            <small>{getNormalDuration(segment.duration)}</small>
+                                        </div>
+                                    </div>
+                                )
+                        })}
+                    </Grid>
+                    <Grid container item xs={12} sm={4} spacing={1}>
+                        <div className="airfare">
+                            Airfare <small style={{ float: 'right' }}>${props.offer.total_amount}</small>
+                        </div>
+                    </Grid>
+                </Grid>
+            </div>
         </div>
     );
 };

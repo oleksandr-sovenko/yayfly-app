@@ -1,3 +1,42 @@
+/* flight-fare-details */
+
+@media (max-width: 575px) {
+    .flight-fare-details .airfare {
+        margin-top: 30px;
+    }
+}
+
+.flight-fare-details .airfare {
+    width: 100%;
+}
+
+.flight-fare-details {
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+}
+
+.flight-fare-details .flight-item {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.flight-fare-details .airlineInfo {
+    margin-bottom: 10px;
+}
+
+.flight-fare-details .travelLegTitle {
+    margin-bottom: 15px;
+}
+
+.flight-fare-details .arrives,
+.flight-fare-details .totalDuration {
+    display: inline-block;
+    width: 50%;
+    margin-bottom: 15px;
+}
+
+/* --- */
+
 .baggage-item.active {
     border: 2px solid #5452F6;
 }

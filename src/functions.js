@@ -137,4 +137,12 @@ const localStorageJSON = (name) => {
 };
 
 
-export { getParams, getMinutes, convert2Time, getSeatsData, localStorageJSON, getSettings }
+/**
+ * 
+ */
+const getNormalDuration = (value) => {
+    return value.replace('P1DT', '1d ').replace('PT', '').replace('H', 'h ').replace('M', 'min');
+};
+
+
+export { getParams, getMinutes, convert2Time, getSeatsData, localStorageJSON, getSettings, getNormalDuration }

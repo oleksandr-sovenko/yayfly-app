@@ -62,7 +62,7 @@ const PaymentCard = (props) => {
         if (accept.checked) {              
             order((result) => {
                 if (result.data) {
-                        axios.get(`https://yayfly.com/api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
+                        axios.get(`${window.flights_engine}api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
                             const result = response.data.data;
 
                             setIntent({ id: result.id, token: result.client_token });
@@ -91,7 +91,7 @@ const PaymentCard = (props) => {
      * 
      */
     const success = () => {
-        axios.post(`https://yayfly.com/api/payments/intent/confirm/${intent.id}`).then((response) => {
+        axios.post(`${window.flights_engine.url}api/payments/intent/confirm/${intent.id}`).then((response) => {
             const result = response.data.data;
 
             setStatus(result.status);
@@ -182,7 +182,7 @@ const PaymentCard = (props) => {
 
         // console.log(data);
 
-        axios.post(`https://yayfly.com/api/order/create`, data).then((response) => {
+        axios.post(`${window.flights_engine.url}api/order/create`, data).then((response) => {
             const result = response.data;
 
             if (typeof callback === 'function')
@@ -217,7 +217,7 @@ const PaymentCard = (props) => {
                                 <Box sx={{ display: "flex", alignItems: "center", margin: "20px 0", "& > span": { padding: "0px" } }}>
                                     <Checkbox width="14px" height="14px" name="accept" value="yes" />
                                     <Typography sx={{ color: "#12172A", marginLeft: "10px", "& a": { color: "#1B40A6", textDecoration: "none" } }}>
-                                        I accept Yay <Link to="https://yayfly.com/terms-and-conditions/" target="_blank">Fly’s terms & conditions.</Link>
+                                        I accept Yay <Link to={`${window.flights_engine.url}terms-and-conditions`} target="_blank">Fly’s terms & conditions.</Link>
                                     </Typography>
                                 </Box>
                                 <Box>

@@ -7,8 +7,6 @@ const TopSeachForm = (props) => {
     if (!props)
         props = {};
 
-    console.log(getParams());
-
     const click = (e) => {
         e.preventDefault();
 

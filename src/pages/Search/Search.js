@@ -76,7 +76,7 @@ export default class Search extends Component {
                 }
             };
 
-        axios.post('https://yayfly.com/api/offers', data).then((response) => {
+        axios.post(`${window.flights_engine.url}api/offers`, data).then((response) => {
             let offers = response.data.data.offers,
                 airlines = {};
 

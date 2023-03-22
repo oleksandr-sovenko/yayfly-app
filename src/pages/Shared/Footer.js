@@ -25,7 +25,7 @@ const Footer = () => {
                         <Link to="#" onClick={((e) => {
                             e.preventDefault();
 
-                            window.location.href = 'https://yayfly.com/';
+                            window.location.href = window.flights_engine.url;
                         })}>
                             {" "}
                             <img src={logo} alt="yayFly" />
