@@ -1,0 +1,265 @@
+<form class="searchForm collapsed">
+    <div class="formTab">
+        <button name="round-trip" class="active">Round-trip</button>
+        <button name="one-way">One-way</button>
+        <button name="multi-city">Multi-city</button>
+    </div>
+        
+    <div class="wrapper">
+        <div class="wrapperItem">
+            <div class="inputRow narrowGap whereFromTo">
+                <div class="inputGroup">
+                    <input type="text" name="whereFrom" placeholder="Where from?">
+                    <button class="initialSearch visibleMobile">Search</button>
+                </div>
+                <div class="inputGroup wrapperWhereTo">
+                    <input type="text" name="whereTo" placeholder="Where to?">
+                </div>
+                <img class="iconimg" src="https://yayfly.com/wp-content/uploads/2023/02/Group-278.svg">
+            </div>
+            
+            <div class="inputRow datesTravelers">
+                <div class="inputGroup dates">
+                    <input type="text" name="dates" placeholder="Dates">
+                </div>
+                <div class="inputGroup travelers">
+                    <input type="text" name="travelers" placeholder="Who are the travelers?">
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="addFlightBtn">Add another flight</button>
+  
+    <div class="inputRow mobile2Col buttons">
+        <div class="inputGroup custom_radio">
+            <input id="option1" type="checkbox" name="luggage" value="Checked luggage included">
+            <label for="option1">Checked luggage included</label>
+            
+            <input id="option2" type="checkbox" name="direct" value="Direct">
+            <label for="option2">Direct</label>
+            
+            <input id="option3" type="checkbox" name="layover" value="Layover">
+            <label for="option3">Layover < 3 </label>
+        </div>
+        <div class="inputGroup">
+            <input type="submit" class="search" value="Search">
+        </div>
+    </div>
+</form> 
+
+<style>
+.wrapperItem {
+    margin-bottom: 15px;
+}
+.formTab{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+.formTab button{
+    background: none;
+    color: #12172A;
+    font-family: 'Jaldi';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 130.52%;
+    padding: 5px 20px;
+}
+.formTab button.active{
+    border: 1px solid #12172A;
+    border-radius: 5px;
+}
+.searchForm{
+    padding: 35px 23px 30px;
+    background: #E8F4F7;
+    border: 1px solid #12172A;
+    border-radius: 10px;
+    font-family: 'Jaldi';
+}
+.inputRow{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    position: relative;
+}
+.inputRow:last-child{
+    margin-bottom: 0;
+}
+.inputGroup{
+    width: calc(50% - 5px);
+    position: relative;
+}
+.narrowGap .inputGroup{
+    width: calc(50% - 0.5px);
+}
+.inputGroup input[type=text]{
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #12172A;
+    border-radius: 5px;
+    height: 62px;
+    color: #67707C;
+    padding: 10px 20px;
+    font-size: 18px;
+}
+.inputGroup label{
+    position: absolute;
+    left: 16px;
+    top: 22px;
+    font-size: 18px;
+    line-height: 1;
+    color: #092142;
+}
+.search{
+  width: 100%;
+  height: 62px;
+  background: none !important;
+  border: 1px solid #12172A !important;
+  border-radius: 5px !important;
+  font-family: 'Jaldi';
+  font-style: normal;
+  font-weight: 700 !important;
+  font-size: 28px;
+  line-height: 130.52%;
+  color: #12172A !important
+}
+.search:hover{
+    background: #12172A !important;
+    color: #fff !important;
+}
+.initialSearch{
+    position: absolute;
+    width: 132px;
+    height: 44px;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #E8F4F7;
+    border-radius: 5px;
+    color: #12172A;
+    font-family: 'Jaldi';
+    font-weight: 400;
+    font-size: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.addFlightBtn{
+    width: 100%;
+    height: 30px;
+    background: #12172A;
+    border: 1px solid #12172A;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jaldi';
+    font-weight: 400;
+    font-size: 16px;
+    color: #FFFFFF;
+    margin-bottom: 16px;
+}
+.iconimg{
+    position: absolute;
+    left: 50%;
+    margin-left: -18.5px;
+    top: 12.5px;
+}
+
+.custom_radio input[type="checkbox"]{
+  display: none;
+}
+.custom_radio input[type="checkbox"] + label{
+  position: relative;
+  display: block;
+  padding-left: 22px;
+  cursor: pointer;
+  line-height: 1em;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  left: 0;
+  top: 0;
+  margin-bottom: 7px;
+}
+.custom_radio input[type="checkbox"] + label:before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  border-radius: 50%;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  background: rgba(255, 255, 255, 0.2);
+border: 1px solid #12172A;
+}
+.custom_radio input[type="checkbox"]:checked + label:before {
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+  background: #12172A;
+}
+.visibleMobile{
+    display: none;
+}
+@media(max-width: 767px){
+    .wrapperItem {
+        margin-bottom: 0px;
+    }
+    .visibleMobile{
+        display: flex;
+    }
+    .searchForm {
+    	padding: 20px 10px 0px;
+    }
+    .inputRow {
+	    flex-direction: column;
+	    margin-bottom: 0;
+    }
+    .mobile2Col{
+        flex-direction: inherit;
+    }
+    .inputGroup,
+    .narrowGap .inputGroup {
+    	width: 100%;
+    	margin-bottom: 12px;
+    }
+    .mobile2Col .inputGroup{
+        width: calc(50% - 5px);
+    }
+    .iconimg{
+        display: none;
+    }
+    .custom_radio input[type="checkbox"] + label {
+	    font-size: 14px;
+    }
+    .formTab button {
+    	border: 1px solid #12172A;
+    	border-radius: 5px;
+    	font-weight: 400;
+    }
+    .formTab button.active {
+    	border: 1px solid #12172A;
+    	background: #12172A;
+    	color: #fff;
+    }
+    .addFlightBtn{
+        margin-bottom: 12px;
+    }
+}
+
+::placeholder { 
+  color: #092142;
+  opacity: 1; 
+}
+
+:-ms-input-placeholder { 
+  color: #092142;
+}
+
+::-ms-input-placeholder { 
+  color: #092142;
+}
+</style>

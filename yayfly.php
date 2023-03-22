@@ -36,27 +36,139 @@ add_action('wp_enqueue_scripts', function() {
 /**
  * 
  */
+add_shortcode('flights_engine_main_form', function($atts) {
+    // $default = array(
+    //     'link' => '#',
+    // );
+
+    // $a = shortcode_atts($default, $atts);
+
+    // return 'Follow us on '.$a['link'];	
+
+    return file_get_contents(__DIR__.'/flights_engine_main_form.html');
+});
+
+
+/**
+ * 
+ */
+add_action('admin_menu', function() {
+    add_menu_page('Flights Engine', 'Flights Engine', 'manage_options', 'flights-engine', function() {
+        ?>
+            <div class="wrap">
+                <h1 class="wp-heading-inline">Flights Engine</h1>
+
+                <?php if (!empty($_POST)): ?>
+					<div id="setting-error-settings_updated" class="notice notice-success settings-error is-dismissible"> 
+					<p><strong>Settings saved.</strong></p><button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>
+					<?php update_option('flights_engine', ['settings' => $_POST]) ?>
+				<?php endif ?>
+
+				<?php $flights_engine = get_option('flights_engine', []) ?>
+
+				<form method="post">
+					<h2 class="title">Short Code</h2>
+					<p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+
+					<table class="form-table" role="presentation">
+						<tbody>
+							<tr>
+								<th scope="row"><label>Main Form</label></th>
+								<td><code>[flights_engine_main_form]</code></td>
+							</tr>
+						</tbody>
+					</table>  
+
+					<h2 class="title">Unpublished Deal Detected</h2>
+					<p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+
+					<table class="form-table" role="presentation">
+						<tbody>
+							<tr>
+								<th scope="row"><label>Phone</label></th>
+								<td><input name="unpublished_deal_detected[phone]" type="text" value="<?= !empty($flights_engine['settings']['unpublished_deal_detected']['phone']) ? $flights_engine['settings']['unpublished_deal_detected']['phone'] : '' ?>" class="regular-text"></td>
+							</tr>
+
+							<tr>
+								<th scope="row">Show on pages</th>
+								<td>
+									<fieldset>
+										<legend class="screen-reader-text"><span>Search </span></legend>
+										<label>
+											<input name="unpublished_deal_detected[show_on][search]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['search']) ? 'checked' : '' ?>> Search
+										</label>
+									</fieldset>
+
+									<fieldset>
+										<legend class="screen-reader-text"><span>Details Booking</span></legend>
+										<label>
+											<input name="unpublished_deal_detected[show_on][details_booking]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['details_booking']) ? 'checked' : '' ?>> Details Booking
+										</label>
+									</fieldset>								
+
+									<fieldset>
+										<legend class="screen-reader-text"><span>Confirm Booking</span></legend>
+										<label>
+											<input name="unpublished_deal_detected[show_on][confirm_booking]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['confirm_booking']) ? 'checked' : '' ?>> Confirm Booking
+										</label>
+									</fieldset>
+
+									<fieldset>
+										<legend class="screen-reader-text"><span>Payment</span></legend>
+										<label>
+											<input name="unpublished_deal_detected[show_on][payment]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['payment']) ? 'checked' : '' ?>> Payment
+										</label>
+									</fieldset>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h2 class="title">Duffel API</h2>
+					<p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+
+					<table class="form-table" role="presentation">
+						<tbody>
+							<tr>
+								<th scope="row"><label>Test Token</label></th>
+								<td><input name="duffel_api[token][test]" type="text" value="<?= !empty($flights_engine['settings']['duffel_api']['token']['test']) ? $flights_engine['settings']['duffel_api']['token']['test'] : '' ?>" class="regular-text"></td>
+							</tr>
+
+							<tr>
+								<th scope="row"><label>Live Token</label></th>
+								<td><input name="duffel_api[token][live]" type="text" value="<?= !empty($flights_engine['settings']['duffel_api']['token']['live']) ? $flights_engine['settings']['duffel_api']['token']['live'] : '' ?>" class="regular-text"></td>
+							</tr>
+							<tr>
+								<th scope="row">Mode</th>
+								<td>
+									<fieldset><legend class="screen-reader-text"><span>Mode</span></legend>
+									<label>
+										<input type="radio" name="duffel_api[mode]" value="test" <?= (!empty($flights_engine['settings']['duffel_api']['mode']) and $flights_engine['settings']['duffel_api']['mode'] == 'test') ? 'checked' : '' ?>>
+										<span class="date-time-text">Test</span>
+									</label><br>
+									<label>
+										<input type="radio" name="duffel_api[mode]" value="live"  <?= (!empty($flights_engine['settings']['duffel_api']['mode']) and $flights_engine['settings']['duffel_api']['mode'] == 'live') ? 'checked' : '' ?>>
+										<span class="date-time-text">Live</span>
+									</label><br>
+								</td>
+							</tr>							
+						</tbody>
+					</table> 					
+
+					<p class="submit">
+						<input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">
+					</p>
+				</form>
+			</div>
+        <?php
+    }, 'dashicons-airplane');
+});
+
+
+/**
+ * 
+ */
 add_action('init', function() {
-	if (
-		strstr($_SERVER['REQUEST_URI'], '/search') or
-		$_SERVER['REQUEST_URI'] == '/booking-details' or
-		$_SERVER['REQUEST_URI'] == '/confirm-booking' or
-		$_SERVER['REQUEST_URI'] == '/payment'		
-	) {
-		$path = '/wp-content/plugins/yayfly/build';
-		$content = file_get_contents(__DIR__.'/build/index.html');
-		$content = str_replace([
-			'href="/',
-			// 'src="/static/'
-		], [
-			'href="'.$path.'/',
-			// 'src="'.$path.'/static/'
-		], $content);
-
-		die($content);
-	}
-
-
 	if (strstr($_SERVER['REQUEST_URI'], '/api/')) {
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
@@ -160,7 +272,7 @@ add_action('init', function() {
 
 		// /api/offers
 		if ($_SERVER['REQUEST_URI'] == '/api/offers') {
-			wp_send_json(json_decode(file_get_contents('/tmp/example.json')));
+			// wp_send_json(json_decode(file_get_contents('/tmp/example.json')));
 
 			$input = json_decode(file_get_contents('php://input'), true);
 			if (empty($input))
@@ -169,11 +281,11 @@ add_action('init', function() {
 			$required_fields = [];
 
 			if (empty($input['type']))
-				$input['type'] = 'round';
+				$input['type'] = 'round-trip';
 
-			foreach(['from', 'to', 'depart', 'return'] as $field) {
+			foreach(['origin', 'destination', 'depart', 'return'] as $field) {
 				if (empty($input[$field])) {
-					if ($field == 'return' and $input['type'] == 'one')
+					if ($field == 'return' and $input['type'] == 'one-way')
 						continue;
 
 					$required_fields[] = $field;
@@ -184,22 +296,19 @@ add_action('init', function() {
 				wp_send_json([]);
 
 			$data = duffel_offer_requests([
-				'class'      => !empty($input['class'])      ? $input['class']      : '',
-				'type'       => !empty($input['type'])       ? $input['type']       : '',
-				'from'       => !empty($input['from'])       ? $input['from']       : '',
-				'to'         => !empty($input['to'])         ? $input['to']         : '',
-				'depart'     => !empty($input['depart'])     ? $input['depart']     : '',
-				'return'     => !empty($input['return'])     ? $input['return']     : '',
-				'passengers' => !empty($input['passengers']) ? $input['passengers'] : '',
+				'class'       => !empty($input['class'])       ? $input['class']       : '',
+				'type'        => !empty($input['type'])        ? $input['type']        : '',
+				'origin'      => !empty($input['origin'])      ? $input['origin']      : '',
+				'destination' => !empty($input['destination']) ? $input['destination'] : '',
+				'depart'      => !empty($input['depart'])      ? $input['depart']      : '',
+				'return'      => !empty($input['return'])      ? $input['return']      : '',
+				'passengers'  => !empty($input['passengers'])  ? $input['passengers']  : '',
 			]);
 
 			if (!$data)
 				wp_send_json($data);
 			
 			$data = duffel_request('https://api.duffel.com/air/offer_requests/'.$data->id);
-
-			file_put_contents('/tmp/example.json', json_encode($data));
-			// wp_send_json(json_decode(file_get_contents('/tmp/example.json')));
 
 			wp_send_json($data);
 		}
@@ -215,7 +324,26 @@ add_action('init', function() {
 		}		
 
 		wp_send_json([]);
-	}	
+	}
+
+	if (
+		strstr($_SERVER['REQUEST_URI'], '/search') or
+		strstr($_SERVER['REQUEST_URI'], '/booking-details') or
+		strstr($_SERVER['REQUEST_URI'], '/confirm-booking') or
+		strstr($_SERVER['REQUEST_URI'], '/payment')
+	) {
+		$path = '/wp-content/plugins/yayfly/build';
+		$content = file_get_contents(__DIR__.'/build/index.html');
+		$content = str_replace([
+			'href="/',
+			'<head>'
+		], [
+			'href="'.$path.'/',
+			'<head><script>window.flights_engine = '.json_encode(get_option('flights_engine', [])).';</script>'
+		], $content);
+
+		die($content);
+	}
 });
 
 
@@ -223,8 +351,19 @@ add_action('init', function() {
  * 
  */
 function duffel_request($url, $data = []) {
+	$token = '';
+	$flights_engine = get_option('flights_engine', []);
+
+	if (!empty($flights_engine['settings']['duffel_api']['mode'])) {
+		$mode = $flights_engine['settings']['duffel_api']['mode'];
+		$token = $flights_engine['settings']['duffel_api']['token'][$mode];
+	}
+
+	if (empty($token))
+		return [];
+
 	$headers = array (
-		'Authorization: Bearer duffel_test_3O7Bl3sP-YmxCXxWK0Is--nLVqs9i91-K8cm53cy89O',
+		'Authorization: Bearer '.$token,
 		'Accept: application/json',
 		'Content-Type: application/json',
 		'Duffel-Version: v1',
@@ -262,17 +401,17 @@ function duffel_request($url, $data = []) {
 function duffel_offer_requests($params) {
 	$passengers = [];
 
-	foreach(['class', 'type', 'from', 'to', 'depart', 'return', 'passengers'] as $name) {
+	foreach(['class', 'type', 'origin', 'destination', 'depart', 'return', 'passengers'] as $name) {
 		if ($name == 'class' and empty($params[$name]))
 			$params[$name] = 'economy';
 
 		if ($name == 'type' and empty($params[$name]))
-			$params[$name] = 'one';
+			$params[$name] = 'one-way';
 
 		if ($name == 'passengers' and empty($params[$name]))
 			$params[$name] = ['adult' => 1];
 
-		if ($name == 'return' and $params['type'] == 'one')
+		if ($name == 'return' and $params['type'] == 'one-way')
 			continue;
 
 		if (empty($params[$name]))
@@ -292,8 +431,8 @@ function duffel_offer_requests($params) {
 	$data = [
 		'slices' => [
 			[
-				'origin' => $params['from'],
-				'destination' => $params['to'],
+				'origin' => $params['origin'],
+				'destination' => $params['destination'],
 				'departure_date' => $params['depart'],
 			],
 		],
@@ -301,10 +440,10 @@ function duffel_offer_requests($params) {
 		'cabin_class' =>$params['class']		
 	];
 
-	if ($params['type'] == 'round')
+	if ($params['type'] == 'round-trip')
 		$data['slices'][] = [
-			'origin' => $params['to'],
-			'destination' => $params['from'],
+			'origin' => $params['destination'],
+			'destination' => $params['origin'],
 			'departure_date' => $params['return'],
 		];
 
