@@ -14,22 +14,27 @@ License:        GPLv2 or later
  * 
  */
 add_action('wp_enqueue_scripts', function() {
-	wp_deregister_script('jquery');
-	wp_register_script('jquery', 'https://code.jquery.com/jquery-3.6.4.min.js', false);
-	wp_enqueue_script('jquery');
+	// wp_deregister_script('jquery');
+	// wp_register_script('jquery', 'https://code.jquery.com/jquery-3.6.4.min.js', false);
+	// wp_enqueue_script('jquery');
 
-	wp_register_script('moment', 'https://cdn.jsdelivr.net/momentjs/latest/moment.min.js', false);
-	wp_enqueue_script('moment');	
+	// wp_register_script('moment', 'https://cdn.jsdelivr.net/momentjs/latest/moment.min.js', false);
+	// wp_enqueue_script('moment');	
 
-	wp_register_style('daterangepicker', 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css', false);
-	wp_enqueue_style('daterangepicker');
-	wp_register_script('daterangepicker', 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js', array('jquery', 'moment'));
-	wp_enqueue_script('daterangepicker');	
+	// wp_register_style('daterangepicker', 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css', false);
+	// wp_enqueue_style('daterangepicker');
+	// wp_register_script('daterangepicker', 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js', array('jquery', 'moment'));
+	// wp_enqueue_script('daterangepicker');	
 
-	wp_register_style('yayfly', plugin_dir_url(__FILE__).'yayfly.css', false, time());
-	wp_enqueue_style('yayfly');
-	wp_register_script('yayfly', plugin_dir_url(__FILE__).'yayfly.js', NULL, time(), true);
-	wp_enqueue_script('yayfly');
+	// wp_register_style('yayfly', plugin_dir_url(__FILE__).'yayfly.css', false, time());
+	// wp_enqueue_style('yayfly');
+	// wp_register_script('yayfly', plugin_dir_url(__FILE__).'yayfly.js', NULL, time(), true);
+	// wp_enqueue_script('yayfly');
+
+	wp_register_style('yayfly-inputs', plugin_dir_url(__FILE__).'yayfly-inputs.css', false, time());
+	wp_enqueue_style('yayfly-inputs');
+	wp_register_script('yayfly-inputs', plugin_dir_url(__FILE__).'yayfly-inputs.js', NULL, time(), true);
+	wp_enqueue_script('yayfly-inputs');	
 }, 11);
 
 

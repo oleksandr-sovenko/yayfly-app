@@ -46,8 +46,12 @@ window.yayflyInputs = {
 			cabinClass.innerText = cabinClasses[window.travelers.cabinClass];
 
 		const travelers = document.querySelector('[name="travelers"]');
-		if (travelers)
-			travelers.innerText = updateTravelers();
+		if (travelers) {
+			if (travelers.tagName === 'INPUT')
+				travelers.value = updateTravelers(true);
+			else
+				travelers.innerText = updateTravelers();
+		}
 	},
 
 
@@ -129,7 +133,24 @@ window.yayflyInputs = {
 				}).join('')}
 			`;
 		});
+
+		el.classList.remove('error');		
 	},
+
+
+	/**
+	 * 
+	 */
+	dateUS2Ymd(date) {
+  		const dateParts = date.trim().split('/');
+
+  		if (dateParts.length != 3)
+  			return '';
+
+		const result = dateParts[2] + '-' + dateParts[0].padStart(2, '0') + '-' + dateParts[1].padStart(2, '0');
+
+  		return result;
+	}
 }
 
 
@@ -189,7 +210,7 @@ const loadJS = (url) => {
 /**
  * 
  */
-const updateTravelers = () => {
+const updateTravelers = (includeCabinClass) => {
 	let result = [];
 
 	if (window.travelers.adults)
@@ -201,7 +222,8 @@ const updateTravelers = () => {
 	if (window.travelers.infants)
 		result.push(`${window.travelers.infants} ${window.travelers.infants > 1 ? 'Infants' : 'Infant'}`);
 
-	// result.push(`${cabinClasses[window.travelers.cabinClass]}`);
+	if (includeCabinClass === true)
+		result.push(`${cabinClasses[window.travelers.cabinClass]}`);
 
 	return result.join(', ');
 }
@@ -258,6 +280,7 @@ const getParams = () => {
 loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.js').then(() => {
 	setInterval(() => {
 		for (const el of document.querySelectorAll('input[name="depart"],input[name="return"]')) {
+			// if (!el.parentNode.querySelector('.easepick-wrapper')) {
 			if (!el.nextSibling) {
 				dp = new easepick.create({
 					element: el,
@@ -277,6 +300,234 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 
 
 	/**
+	 * 	Code for the form [flights_engine_main_form]
+	 */
+	if (document.querySelector('form.searchForm')) {
+		const searchForm = document.querySelector('form.searchForm');
+
+
+		for (const item of searchForm.querySelectorAll('[name="dates"]')) {
+			const today = new Date(),
+				  dateDepart = new Date(),
+				  dateReturn = new Date(today.setDate(today.getDate() + 3));
+
+			const dp = new easepick.create({
+				element: item,
+				css: [
+					'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
+					'https://yayfly.com/wp-content/plugins/yayfly/yayfly-inputs.css'
+				],
+				autoApply: window.device.current === 'mobile' ? false : true,
+				plugins: ['RangePlugin'],
+				zIndex: 10,
+				format: 'MM/DD/YYYY',
+				RangePlugin: {
+					startDate: dateDepart,
+					endDate: dateReturn,
+				}
+			});
+
+			// datePickers.push(dp);
+		}
+
+
+		searchForm.addEventListener('change', (e) => {
+			const el = e.target;
+
+			if (el.name === 'cabin-class') {
+				window.travelers.cabinClass = el.value;
+
+				const travelers = searchForm.querySelector('[name="travelers"]');
+				if (travelers) {
+					if (travelers.tagName === 'INPUT')
+						travelers.value = updateTravelers(true);
+					else
+						travelers.innerText = updateTravelers();
+				}				
+			}
+		});
+
+
+		searchForm.addEventListener('click', (e) => {
+			var el = e.target;
+
+
+			if (el.tagName === 'IMG') {
+				if (el.classList.contains('iconimg')) {
+					e.preventDefault();
+
+					const from = el.closest('.inputRow').querySelector('[name="whereFrom"]'),
+						  to = el.closest('.inputRow').querySelector('[name="whereTo"]'),
+					  	  temp = from.value;
+			
+					from.value = to.value;
+					to.value = temp;
+				}
+			}
+
+
+			if (el.tagName === 'INPUT') {
+				if (el.name === 'submit') {
+					e.preventDefault();
+
+					const tab = searchForm.getAttribute('data-tab');
+
+					let trips   = [],
+						options = [];
+
+					for (const item of searchForm.querySelectorAll('.wrapperItem')) {
+						const whereFrom = item.querySelector('[name="whereFrom"]'),
+							  whereTo = item.querySelector('[name="whereTo"]'),
+							  dateRange = item.querySelector('[name="dates"]');
+
+						if (whereFrom.value.trim() === '')
+							whereFrom.classList.add('error');
+
+						if (whereTo.value.trim() === '')
+							whereTo.classList.add('error');
+
+						if (dateRange.value.trim() === '')
+							dateRange.classList.add('error');
+
+						if (tab === 'round-trip') {
+							const dates = dateRange.value.split('-');
+
+							if (dates.length === 2)
+								trips.push(`${whereFrom.value},${whereTo.value},${window.yayflyInputs.dateUS2Ymd(dates[0])},${window.yayflyInputs.dateUS2Ymd(dates[1])}`);
+						} else {
+							trips.push(`${whereFrom.value},${whereTo.value},${window.yayflyInputs.dateUS2Ymd(dateRange.value)}`);
+						}
+					}
+
+					for (const name of ['luggage', 'direct', 'layover']) {
+						if (searchForm.querySelector(`[name="${name}"]`).checked)
+							options.push(name);	
+					}					
+
+					if (!searchForm.querySelectorAll('.error').length) {
+						const t = window.travelers,
+							  url = `/search/${tab}/${trips.join(';')}/${t.cabinClass}/${t.adults}/${t.children}/${t.infants}${options.length ? `?${options.join('=true&')}=true` : ''}`;
+							  
+						location.href = url;
+					}					
+				}				
+			}
+
+
+			if (el.tagName === 'BUTTON') {
+				if (el.name === 'initial-search') {
+					e.preventDefault();
+					searchForm.classList.remove('collapsed');
+				}
+
+
+				if (el.name === 'add-another-flight') {
+					e.preventDefault();	
+
+					for (const item of searchForm.querySelectorAll('.error'))
+						item.classList.remove('error');
+
+					const wrapper = searchForm.querySelector('.wrapper'),
+				  		  wrapperItem = searchForm.querySelector('.wrapperItem:last-child').cloneNode(true),
+				  		  previousTo = wrapperItem.querySelector('[name="whereTo"]').value;
+
+				  	console.log(previousTo);
+
+					for (const input of wrapperItem.querySelectorAll('input')) {
+						if (input.name === 'whereFrom')
+							input.value = previousTo;
+						else if (input.name === 'travelers')
+							input.value = updateTravelers(true);
+						else if (input.name === 'dates')
+							input.value = (new Date()).toLocaleDateString('en-US');
+						else
+							input.value = '';
+					}
+
+					wrapper.appendChild(wrapperItem);
+
+					const dp = new easepick.create({
+						element: wrapperItem.querySelector('[name="dates"]'),
+						css: [
+							'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
+							'https://yayfly.com/wp-content/plugins/yayfly/yayfly-inputs.css'
+						],
+						autoApply: window.device.current === 'mobile' ? false : true,
+						zIndex: 10,
+						format: 'MM/DD/YYYY',
+					});
+
+					// datePickers.push(dp);
+					// updateTravelers();
+				}
+
+
+				if (['round-trip', 'one-way', 'multi-city'].indexOf(el.name) !== -1) {
+					e.preventDefault();
+
+					for (const item of searchForm.querySelectorAll('.easepick-wrapper'))
+						item.remove();
+
+					if (window.device.current === 'desktop')
+						searchForm.classList.remove('collapsed');
+
+					searchForm.setAttribute('data-tab', el.name);
+
+					for (const item of searchForm.querySelectorAll('.formTab button'))
+						item.classList.remove('active');
+
+					el.classList.add('active');
+
+					searchForm.querySelector('.addFlightBtn').style.display = 'none';
+
+					if (el.name == 'multi-city') {
+						searchForm.querySelector('.addFlightBtn').style.display = 'flex';
+					} else {
+						for (const item of searchForm.querySelectorAll('.wrapperItem:not(:first-child)'))
+							item.remove();
+					}
+
+					for (const item of searchForm.querySelectorAll('[name="dates"]')) {
+						item.setAttribute('placeholder', 'Dates');
+
+						if (el.name == 'one-way' || el.name == 'multi-city') {
+							for (const item of searchForm.querySelectorAll('[name="dates"]'))
+								item.setAttribute('placeholder', 'Date');
+
+							const dp = new easepick.create({
+								element: item,
+								css: [
+									'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
+									'https://yayfly.com/wp-content/plugins/yayfly/yayfly-inputs.css'
+								],
+								autoApply: window.device.current === 'mobile' ? false : true,
+								zIndex: 10,
+								format: 'MM/DD/YYYY',
+							});
+						} else {
+							const dp = new easepick.create({
+								element: item,
+								css: [
+									'https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.css',
+									'https://yayfly.com/wp-content/plugins/yayfly/yayfly-inputs.css'
+								],
+								autoApply: window.device.current === 'mobile' ? false : true,
+								plugins: ['RangePlugin'],
+								zIndex: 10,
+								format: 'MM/DD/YYYY',
+							});
+						}
+					}
+				}
+
+				for (const item of searchForm.querySelectorAll('.error'))
+					item.classList.remove('error');
+			}
+		});
+	}
+
+
+	/**
 	 * 
 	 */
 	window.addEventListener('resize', (event) => {
@@ -292,6 +543,9 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 		let el   = e.target,
 		    list = el.closest('.yayfly-dropdown-list'),
 		    name = el.getAttribute('name');
+
+		if (el.name === 'dates')
+			el.classList.remove('error');
 	
 		if (list) {
 			if (el.tagName === 'BUTTON') {
@@ -338,7 +592,12 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 					window.travelers[type] = count;
 
 					const travelers = list.parentNode.querySelector('[name="travelers"]');
-					travelers.innerText = updateTravelers();
+					if (travelers) {
+						if (travelers.tagName === 'INPUT')
+							travelers.value = updateTravelers(true);
+						else
+							travelers.innerText = updateTravelers();
+					}
 				}
 			}
 	
@@ -366,15 +625,13 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 				item.remove();
 		}
 	
-		if ((name === 'origin' || name === 'destination') && el.value.length >= 3)
+		if ((name === 'whereFrom' || name === 'whereTo' || name === 'origin' || name === 'destination') && el.value.length >= 3)
 			window.yayflyInputs.input(el);
 
 		if (name === 'cabinClass') {
 			let parent = el.parentNode;
 
 			list = document.createElement('div')
-			list.style.marginTop = '0px';
-			list.style.top = '35px';
 			list.classList.add('yayfly-dropdown-list');
 			list.innerHTML = `
 				<ul style="overflow: hidden;">
@@ -391,8 +648,6 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 			let parent = el.parentNode;
 
 			list = document.createElement('div')
-			list.style.marginTop = '0px';
-			list.style.top = '35px';
 			list.classList.add('yayfly-dropdown-list', 'yayfly-p15');
 			list.innerHTML = `
 				<div class="yayfly-row">
@@ -429,19 +684,23 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 						<button class="plus">+</button>
 					</div>
 				</div>
-				<!--div class="yayfly-row">
-					<div class="yayfly-col yayfly-w100 yayfly-cabin-class">
-						<span>Cabin class</span>
-						<select>
-							${Object.keys(cabinClasses).map((name) => {
-								return `<option ${window.travelers.cabinClass == name ? 'selected' : ''} value="${name}">${cabinClasses[name]}</option>`;
-							})}
-						</select>
+
+				${parent.classList.contains('inputGroup') ? `
+					<div class="yayfly-row yayfly-mt15">
+						<div class="yayfly-col yayfly-w100 yayfly-cabin-class">
+							<!--span>Cabin class</span-->
+							<select name="cabin-class">
+								${Object.keys(cabinClasses).map((name) => {
+									return `<option ${window.travelers.cabinClass == name ? 'selected' : ''} value="${name}">${cabinClasses[name]}</option>`;
+								})}
+							</select>
+						</div>
 					</div>
-				</div-->
+				` : ``}
 
 				<button class="done">Done</button>
 			`;
+
 			parent.appendChild(list);
 		}
 	});
@@ -453,7 +712,10 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 	document.body.addEventListener('input', (e) => {
 		const el = e.target;
 	
-		if (el.name === 'origin' || el.name === 'destination') {
+		if (
+			el.name === 'whereFrom' || el.name === 'whereTo' ||
+			el.name === 'origin' || el.name === 'destination'
+		) {
 			window.yayflyInputs.input(el);
 		}
 	});
