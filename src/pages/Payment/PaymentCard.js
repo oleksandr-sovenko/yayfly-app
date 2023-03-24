@@ -62,7 +62,7 @@ const PaymentCard = (props) => {
         if (accept.checked) {              
             order((result) => {
                 if (result.data) {
-                        axios.get(`${window.flights_engine}api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
+                        axios.get(`${window.flights_engine.url}api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
                             const result = response.data.data;
 
                             setIntent({ id: result.id, token: result.client_token });

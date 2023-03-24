@@ -75,6 +75,19 @@ export default class Search extends Component {
                     infant_without_seat: params.infants,
                 }
             };
+        else
+            data = {
+                type: params.type,
+                class: params.cabinClass,
+                origin: params.trips[0].origin, 
+                destination: params.trips[0].destination,
+                depart: params.trips[0].date,
+                passengers: {
+                    adult: params.adults,
+                    child: params.children,
+                    infant_without_seat: params.infants,
+                }
+            };
 
         axios.post(`${window.flights_engine.url}api/offers`, data).then((response) => {
             let offers = response.data.data.offers,
@@ -357,7 +370,12 @@ export default class Search extends Component {
                 ) : (<></>)}
 
                 {params.type === 'one-way' ? (
-                    <TopSeachForm></TopSeachForm>
+                    <TopSeachForm
+                        type={params.type}
+                        origin={params.trips[params.index].origin}
+                        destination={params.trips[params.index].destination}
+                        depart={params.trips[params.index].date}
+                    ></TopSeachForm>
                 ) : (<></>)}
 
                 {params.type === 'multi-city' ? (

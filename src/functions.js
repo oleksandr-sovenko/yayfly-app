@@ -31,7 +31,7 @@ const getParams = () => {
             data.trips.push({
                 origin: item[0],
                 destination: item[1],
-                date: [item[2]],
+                date: item[2],
             })
     }
 

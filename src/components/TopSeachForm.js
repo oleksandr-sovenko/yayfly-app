@@ -13,14 +13,24 @@ const TopSeachForm = (props) => {
         const el = e.target;
 
         if (el.type === 'submit') {
-            const params = getParams(),
-                  depart = moment(document.querySelector('[name="depart"]').value).format('YYYY-MM-DD'),
-                  returnn = moment(document.querySelector('[name="return"]').value).format('YYYY-MM-DD');
+            const params = getParams();
 
-            window.location.href = 
-                `/search/${params.type}/${document.querySelector('[name="origin"]').value},${document.querySelector('[name="destination"]').value},` +
-                `${depart},${returnn}/` +
-                `${window.travelers.cabinClass}/${window.travelers.adults}/${window.travelers.children}/${window.travelers.infants}`;
+            if (params.type === 'round-trip') {
+                const depart = moment(document.querySelector('[name="depart"]').value).format('YYYY-MM-DD'),
+                      returnn = moment(document.querySelector('[name="return"]').value).format('YYYY-MM-DD');
+
+                window.location.href = 
+                    `/search/${params.type}/${document.querySelector('[name="origin"]').value},${document.querySelector('[name="destination"]').value},` +
+                    `${depart},${returnn}/` +
+                    `${window.travelers.cabinClass}/${window.travelers.adults}/${window.travelers.children}/${window.travelers.infants}`;
+            } else {
+                const depart = moment(document.querySelector('[name="depart"]').value).format('YYYY-MM-DD');
+
+                window.location.href = 
+                    `/search/${params.type}/${document.querySelector('[name="origin"]').value},${document.querySelector('[name="destination"]').value},` +
+                    `${depart}/` +
+                    `${window.travelers.cabinClass}/${window.travelers.adults}/${window.travelers.children}/${window.travelers.infants}`;
+            }
         }
     };
 

@@ -184,29 +184,35 @@ const SearchResultCard = (props) => {
                         })}
                     </Grid>
                     <Grid container item xs={12} sm={4} spacing={1}>
-                        <div className="travelLegTitle">Return <small>{moment(props.offer.slices[1].segments[0].departing_at).format('ddd, DD MMM')}</small></div>
-                        <div>
-                            <div className="arrives">Arrives:<br/>
-                                <small>{moment(props.offer.slices[1].segments[props.offer.slices[1].segments.length - 1].arriving_at).format('ddd, DD MMM')}</small>
-                            </div>
-                            <div className="totalDuration">Total duration: <small>{getNormalDuration(props.offer.slices[1].duration)}</small></div>
-                        </div>
-
-                        {props.offer.slices[1].segments.map((segment, index) => {
-                            if (segment.operating_carrier)
-                                return (
-                                    <div key={index} className="flight-item">
-                                        <div key={`${index}a`} className="airlineInfo">
-                                            <img width="24" src={segment.operating_carrier.logo_symbol_url} /> {segment.operating_carrier.name}
-                                        </div>
-                                        <div key={`${index}b`}>
-                                            <small>{moment(segment.departing_at).format('hh:mm A')}, {segment.origin.iata_code}</small><br/>
-                                            <small>{moment(segment.arriving_at).format('hh:mm A')}, {segment.destination.iata_code}</small><br/>
-                                            <small>{getNormalDuration(segment.duration)}</small>
-                                        </div>
+                        {props.offer.slices[1] ? (
+                            <>
+                                <div className="travelLegTitle">Return <small>{moment(props.offer.slices[1].segments[0].departing_at).format('ddd, DD MMM')}</small></div>
+                                <div>
+                                    <div className="arrives">Arrives:<br/>
+                                        <small>{moment(props.offer.slices[1].segments[props.offer.slices[1].segments.length - 1].arriving_at).format('ddd, DD MMM')}</small>
                                     </div>
-                                )
-                        })}
+                                    <div className="totalDuration">Total duration: <small>{getNormalDuration(props.offer.slices[1].duration)}</small></div>
+                                </div>
+
+                                {props.offer.slices[1].segments.map((segment, index) => {
+                                    if (segment.operating_carrier)
+                                        return (
+                                            <div key={index} className="flight-item">
+                                                <div key={`${index}a`} className="airlineInfo">
+                                                    <img width="24" src={segment.operating_carrier.logo_symbol_url} /> {segment.operating_carrier.name}
+                                                </div>
+                                                <div key={`${index}b`}>
+                                                    <small>{moment(segment.departing_at).format('hh:mm A')}, {segment.origin.iata_code}</small><br/>
+                                                    <small>{moment(segment.arriving_at).format('hh:mm A')}, {segment.destination.iata_code}</small><br/>
+                                                    <small>{getNormalDuration(segment.duration)}</small>
+                                                </div>
+                                            </div>
+                                        )
+                                })}
+                            </>
+                        ) : (
+                            <></>
+                        )}
                     </Grid>
                     <Grid container item xs={12} sm={4} spacing={1}>
                         <div className="airfare">

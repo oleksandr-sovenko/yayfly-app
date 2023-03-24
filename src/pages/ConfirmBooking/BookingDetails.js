@@ -41,7 +41,7 @@ export default class BookingDetails extends Component {
         let passengers = localStorageJSON('passengers'),
             contactDetails = localStorageJSON('contactDetails');            
 
-        axios.get(`${window.flights_engine}api/offer/${id}`).then((response) => {
+        axios.get(`${window.flights_engine.url}api/offer/${id}`).then((response) => {
             that.setState({
                 loading: false,
                 offer: response.data,
