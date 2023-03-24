@@ -1,4 +1,4 @@
-<form class="searchForm collapsed">
+<form class="searchForm collapsed" data-tab="round-trip">
     <div class="formTab">
         <button name="round-trip" class="active">Round-trip</button>
         <button name="one-way">One-way</button>
@@ -10,7 +10,7 @@
             <div class="inputRow narrowGap whereFromTo">
                 <div class="inputGroup">
                     <input type="text" name="whereFrom" placeholder="Where from?">
-                    <button class="initialSearch visibleMobile">Search</button>
+                    <button class="initialSearch visibleMobile" name="initial-search">Search</button>
                 </div>
                 <div class="inputGroup wrapperWhereTo">
                     <input type="text" name="whereTo" placeholder="Where to?">
@@ -23,13 +23,13 @@
                     <input type="text" name="dates" placeholder="Dates">
                 </div>
                 <div class="inputGroup travelers">
-                    <input type="text" name="travelers" placeholder="Who are the travelers?">
+                    <input type="text" name="travelers" placeholder="Who are the travelers?" readonly>
                 </div>
             </div>
         </div>
     </div>
     
-    <button class="addFlightBtn">Add another flight</button>
+    <button class="addFlightBtn" name="add-another-flight" style="display: none;">Add another flight</button>
   
     <div class="inputRow mobile2Col buttons">
         <div class="inputGroup custom_radio">
@@ -43,7 +43,7 @@
             <label for="option3">Layover < 3 </label>
         </div>
         <div class="inputGroup">
-            <input type="submit" class="search" value="Search">
+            <input type="submit" name="submit" class="search" value="Search">
         </div>
     </div>
 </form> 
