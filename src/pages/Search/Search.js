@@ -13,6 +13,7 @@ import loadingImage from '../../assets/loading.svg';
 import loadingImageInvert from '../../assets/loading-2.svg';
 import { getParams, getMinutes, convert2Time } from '../../functions';
 import axios from 'axios';
+import moment from 'moment';
 
 
 export default class Search extends Component {
@@ -34,11 +35,7 @@ export default class Search extends Component {
         airlines: [],
         multicity: {
             selected: 0,
-            list: [
-                { origin: 'TLL', destination: 'WAW', date: 'Tue Apr 11' },
-                { origin: 'WAW', destination: 'KBP', date: 'Tue Apr 12' },
-                { origin: 'KBP', destination: 'LAX', date: 'Tue Apr 13' },
-            ]
+            list: []
         },
     };
 
@@ -50,7 +47,15 @@ export default class Search extends Component {
         const that   = this,
               params = getParams();
 
-        that.setState({ params: params });
+        let multicity = {
+            selected: 0,
+            list: [],
+        };
+
+        for (const item of params.trips)
+            multicity.list.push(item);
+
+        that.setState({ params: params, multicity: multicity });
 
         that.timer = setInterval(() => {
             if (that.state.progress < 95)
@@ -61,7 +66,7 @@ export default class Search extends Component {
 
         let data = {};
 
-        if (params.type === 'round-trip')
+        if (params.type === 'round-trip') {
             data = {
                 type: params.type,
                 class: params.cabinClass,
@@ -75,19 +80,20 @@ export default class Search extends Component {
                     infant_without_seat: params.infants,
                 }
             };
-        else
+        } else if (params.type === 'one-way') {
             data = {
-                type: params.type,
+                type: 'one-way',
                 class: params.cabinClass,
-                origin: params.trips[0].origin, 
-                destination: params.trips[0].destination,
-                depart: params.trips[0].date,
+                origin: multicity.list[multicity.selected].origin, 
+                destination: multicity.list[multicity.selected].destination,
+                depart: multicity.list[multicity.selected].date,
                 passengers: {
                     adult: params.adults,
                     child: params.children,
                     infant_without_seat: params.infants,
                 }
             };
+        }
 
         axios.post(`${window.flights_engine.url}api/offers`, data).then((response) => {
             let offers = response.data.data.offers,
@@ -306,6 +312,10 @@ export default class Search extends Component {
 
         const clickMultiCity = (index) => {
             that.setState({ multicity: { selected: index, list: multicity.list } });
+
+            document.querySelector('[name="origin"]').value = multicity.list[index].origin;
+            document.querySelector('[name="destination"]').value = multicity.list[index].destination;
+            document.querySelector('[name="depart"]').value = moment(multicity.list[index].date).format('MM/DD/YYYY');
         }
 
         return (
@@ -330,7 +340,7 @@ export default class Search extends Component {
                     </Typography>
                 </Box>
 
-                {params.type === 'multi-city' ? (
+                {(params.type === 'multi-city' && multicity.list.length >= 2) ? (
                     <Box className="container multi-city">
                         {multicity.list.map((item, index) => {
                             return (
@@ -350,7 +360,7 @@ export default class Search extends Component {
                                     <div className="origin">{item.origin}</div>
                                     <div className="dots">....</div>
                                     <div className="destination">{item.destination}</div>
-                                    <div className="date">{item.date}</div>
+                                    <div className="date">{moment(item.date).format('MM/DD/YYYY')}</div>
                                 </div>
                             )
                         })}
@@ -369,17 +379,13 @@ export default class Search extends Component {
                     ></TopSeachForm>
                 ) : (<></>)}
 
-                {params.type === 'one-way' ? (
+                {(params.type === 'one-way' || params.type === 'multi-city') ? (
                     <TopSeachForm
                         type={params.type}
-                        origin={params.trips[params.index].origin}
-                        destination={params.trips[params.index].destination}
-                        depart={params.trips[params.index].date}
+                        origin={multicity.list[multicity.selected].origin}
+                        destination={multicity.list[multicity.selected].destination}
+                        depart={multicity.list[multicity.selected].date}
                     ></TopSeachForm>
-                ) : (<></>)}
-
-                {params.type === 'multi-city' ? (
-                    <TopSeachForm></TopSeachForm>
                 ) : (<></>)}
 
                 <Box className="container">
