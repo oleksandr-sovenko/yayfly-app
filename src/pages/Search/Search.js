@@ -80,7 +80,7 @@ export default class Search extends Component {
                     infant_without_seat: params.infants,
                 }
             };
-        } else if (params.type === 'one-way') {
+        } else if (params.type === 'one-way' || params.type === 'multi-city') {
             data = {
                 type: 'one-way',
                 class: params.cabinClass,
