@@ -332,6 +332,9 @@ add_action('init', function() {
 		strstr($_SERVER['REQUEST_URI'], '/confirm-booking') or
 		strstr($_SERVER['REQUEST_URI'], '/payment')
 	) {
+		$flights_engine = get_option('flights_engine', []);
+		$flights_engine['url'] = home_url('/');
+
 		$path = '/wp-content/plugins/yayfly/build';
 		$content = file_get_contents(__DIR__.'/build/index.html');
 		$content = str_replace([
@@ -339,7 +342,7 @@ add_action('init', function() {
 			'<head>'
 		], [
 			'href="'.$path.'/',
-			'<head><script>window.flights_engine = '.json_encode(get_option('flights_engine', [])).';</script>'
+			'<head><script>window.flights_engine = '.json_encode($flights_engine).';</script>'
 		], $content);
 
 		die($content);
