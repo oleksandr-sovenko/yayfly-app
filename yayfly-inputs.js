@@ -93,7 +93,7 @@ window.yayflyInputs = {
 			for (const item of document.querySelectorAll('.yayfly-dropdown-list'))
 				item.remove();
 
-			return;
+			// return;
         }
 
 		list = document.createElement('div')
@@ -134,7 +134,9 @@ window.yayflyInputs = {
 			`;
 		});
 
-		el.classList.remove('error');		
+		list.querySelector('input').focus();
+
+		el.classList.remove('error');
 	},
 
 
@@ -300,10 +302,25 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 
 
 	/**
+	 * 
+	 */
+	window.addEventListener('resize', (event) => {
+		detectDevice();
+	}, true);
+	detectDevice();	
+
+
+	/**
 	 * 	Code for the form [flights_engine_main_form]
 	 */
 	if (document.querySelector('form.searchForm')) {
 		const searchForm = document.querySelector('form.searchForm');
+
+
+		if (window.device.current === 'mobile') {
+			for (const item of searchForm.querySelectorAll('[name="whereFrom"],[name="whereTo"]'))
+				item.setAttribute('readonly', true);
+		}
 
 
 		for (const item of searchForm.querySelectorAll('[name="dates"]')) {
@@ -525,15 +542,6 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 			}
 		});
 	}
-
-
-	/**
-	 * 
-	 */
-	window.addEventListener('resize', (event) => {
-		detectDevice();
-	}, true);
-	detectDevice();
 	
 	
 	/**
@@ -625,8 +633,13 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 				item.remove();
 		}
 	
-		if ((name === 'whereFrom' || name === 'whereTo' || name === 'origin' || name === 'destination') && el.value.length >= 3)
-			window.yayflyInputs.input(el);
+		if (window.device.current === 'desktop') {
+			if ((name === 'whereFrom' || name === 'whereTo' || name === 'origin' || name === 'destination') && el.value.length >= 3)
+				window.yayflyInputs.input(el);
+		} else {
+			if (name === 'whereFrom' || name === 'whereTo' || name === 'origin' || name === 'destination')
+				window.yayflyInputs.input(el);
+		}
 
 		if (name === 'cabinClass') {
 			let parent = el.parentNode;
