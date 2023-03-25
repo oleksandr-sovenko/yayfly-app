@@ -53,9 +53,7 @@ export default class Search extends Component {
             const html = document.querySelector('html'),
                   diff = html.scrollTop + window.innerHeight;
 
-            if (diff > (html.offsetHeight - 100)) {
-                console.log(that.state.offersLimit);
-
+            if (diff > (html.offsetHeight - 150)) {
                 that.setState({ offersLimit: that.state.offersLimit + 5 });
             }
         };                  
@@ -448,7 +446,7 @@ export default class Search extends Component {
                                 onChanged={(current) => {
                                     let _filtered = filtered;
                                     _filtered.current = current;
-                                    that.setState({ filtered: _filtered });
+                                    that.setState({ filtered: _filtered, offersLimit: 5 });
                                 }}
                             ></SearchPriceResults>
                         </Box>
