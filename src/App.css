@@ -1,3 +1,13 @@
+.visible {
+    display: block !important;
+}
+
+@media (max-width: 767px) {
+    .top-search {
+        display: none;
+    }
+}
+
 /* footer */
 
 .footer {

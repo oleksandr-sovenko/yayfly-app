@@ -26,11 +26,11 @@ const SearchPriceResults = (props) => {
     // }, []);          
 
     const handleClickOpen = () => {
-        setOpen(true);
+        // setOpen(true);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        // setOpen(false);
     };
 
     const clickSearchFilter = (value) => {

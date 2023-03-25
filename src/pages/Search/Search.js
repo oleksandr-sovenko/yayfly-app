@@ -343,20 +343,42 @@ export default class Search extends Component {
         return (
             <>
                 {/*<WlcModal></WlcModal>*/}
+
                 <Box sx={{ display: { md: "none", sm: "none", xs: "flex" }, background: "white", borderBottom: "2px solid rgb(204, 206, 219)", padding: "30px 15px", alignItems: "center", justifyContent: "space-between", marginBottom: "25px" }}>
                     <Box>
                         <Box sx={{ display: "flex", alignItems: "center", marginBottom: "10px", "& svg": { marginLeft: "10px", marginRight: "10px" } }}>
-                            <Typography sx={{ fontSize: "16px", lineHeight: "normal", fontWeight: "700", color: "rgb(0, 3, 23)", fontFamily: "'Public Sans', sans-serif" }}>London</Typography>
+                            <Typography sx={{ fontSize: "16px", lineHeight: "normal", fontWeight: "700", color: "rgb(0, 3, 23)", fontFamily: "'Public Sans', sans-serif" }}>{params.trips ? params.trips[params.index].origin : ''}</Typography>
                             <BsArrowRight></BsArrowRight>
-                            <Typography sx={{ fontSize: "16px", lineHeight: "normal", fontWeight: "700", color: "rgb(0, 3, 23)", fontFamily: "'Public Sans', sans-serif" }}>Bangkok</Typography>
+                            <Typography sx={{ fontSize: "16px", lineHeight: "normal", fontWeight: "700", color: "rgb(0, 3, 23)", fontFamily: "'Public Sans', sans-serif" }}>{params.trips ? params.trips[params.index].destination : ''}</Typography>
                         </Box>
                         <Typography sx={{ color: "rgba(7, 14, 57, 0.5)", fontFamily: "'Public Sans', sans-serif", fontWeight: "400", fontSize: "14px", lineHeight: "16px", marginBottom: "4px" }}
-                        >Fri May 5 - Fri May 19</Typography>
+                        >
+                            {params.type === 'round-trip' ? (
+                                <>
+                                    {params.trips ? `${moment(params.trips[params.index].dates[0]).format('MM/DD/YYYY')} - ${moment(params.trips[params.index].dates[1]).format('MM/DD/YYYY')}` : ''}
+                                </>
+                            ) : (<></>)}
+
+                            {(params.type === 'one-way' || params.type === 'multi-city') ? (
+                                <>
+                                    {params.trips ? `${moment(params.trips[params.index].dates[0]).format('MM/DD/YYYY')}` : ''}
+                                </>
+                            ) : (<></>)}
+                        </Typography>
                         <Typography component={"span"} className="nrPassengers" sx={{ color: "rgba(7, 14, 57, 0.5)", fontFamily: "'Public Sans', sans-serif", fontWeight: "400", fontSize: "14px", lineHeight: "16px" }}
-                        >1 adult, Economy</Typography>
+                        >{window.yayflyInputs ? window.yayflyInputs.updateTravelers(true) : ''}</Typography>
                     </Box>
                     <Typography sx={{ display: "inline-block", "& a": { textDecoration: "none", color: "#12172a" }, "& a svg": { fontSize: "24px", display: "block", marginBottom: "5px" } }}>
-                        <Link>
+                        <Link to='#' onClick={(e) => {
+                            e.preventDefault();
+
+                            const topSearch = document.querySelector('.top-search');
+
+                            if (!topSearch.classList.contains('visible'))
+                                topSearch.classList.add('visible');
+                            else
+                                topSearch.classList.remove('visible');
+                        }}>
                             <FaPencilAlt /> Edit
                         </Link>
                     </Typography>
