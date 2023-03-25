@@ -83,13 +83,13 @@ const PassengerCard = (props) => {
                                 <Grid container spacing="10px">
                                     <Grid item xs={12} sm={6}>
                                         <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
-                                            Given names
+                                            First Name
                                         </InputLabel>
                                         <input defaultValue={data['given_name']} name={'given_name[' + index + ']'} className="passenger-input" type="text" placeholder="e.g. Oliver James" onInput={input} />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
-                                            Surname (s)
+                                            Last Name
                                         </InputLabel>
                                         <input defaultValue={data['family_name']} name={'family_name[' + index + ']'} className="passenger-input" type="text" placeholder="e.g. Brown" onInput={input} />
                                     </Grid>
@@ -99,7 +99,7 @@ const PassengerCard = (props) => {
                                                 <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                                     Nationality
                                                 </InputLabel>
-                                                <input defaultValue={data['nationality']} name={'nationality[' + index + ']'} className="passenger-input" type="text" placeholder="e.g. United Kingdom" onInput={input} />
+                                                <input defaultValue={data['nationality']} name={'nationality[' + index + ']'} className="passenger-input" type="text" placeholder="e.g. United States" onInput={input} />
                                             </Grid>
                                             <Grid item xs={4} sm={4}>
                                                 <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
@@ -148,13 +148,13 @@ const PassengerCard = (props) => {
                                             <Grid item xs={12}>
                                                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                                     <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
-                                                        Passport or Id number
+                                                        Passport or ID number
                                                     </InputLabel>
                                                     {/*<Typography sx={{ "& a": { fontSize: "14px", color: "rgb(7 14 57 / 50%)", textDecoration: "underline", cursor: "pointer" } }}>
                                                         <a href="#">Help me,it's expired</a>
                                                     </Typography>*/}
                                                 </Box>
-                                                <input defaultValue={data['passport_id']} name={'passport_id[' + index + ']'} className="passenger-input" type="text" placeholder="Passport or Id number" onInput={input} />
+                                                <input defaultValue={data['passport_id']} name={'passport_id[' + index + ']'} className="passenger-input" type="text" placeholder="Passport or ID number" onInput={input} />
                                             </Grid>
                                         </Grid>
                                     </Grid>
@@ -280,7 +280,7 @@ const PassengerCard = (props) => {
                                     ) : (
                                         <>
                                             <Typography sx={{ fontSize: "14px", paddingBottom: "10px" }}>
-                                                No checked baggage available
+                                                No checked baggage available at this time. Checked baggage can be added after booking during check-in.
                                             </Typography>
                                         </>
                                     )}

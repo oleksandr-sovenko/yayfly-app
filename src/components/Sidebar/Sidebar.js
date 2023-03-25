@@ -30,8 +30,8 @@ const FilterPTag = styled(Box)(({ theme }) => ({
 
 export default class Sidebar extends Component {
     state = {
-        departureOutbound: [0, 24],
-        departureReturn: [0, 24],
+        departureOutbound: [0, 23],
+        departureReturn: [0, 23],
         journeyOutbound: 48,
         journeyReturn: 48,
         airlines: {},
@@ -74,6 +74,14 @@ export default class Sidebar extends Component {
                 });
         }
 
+        const timeUS = (value) => {
+            let result;
+
+            result = `${value[0] > 12 ? value[0] - 12 : (value[0] == 0 ? '12' : value[0])}:00 ${value[0] >= 12 ? 'PM' : 'AM'} - ${value[1] > 12 ? value[1] - 12 : (value[1] == 0 ? '12' : value[1])}:00 ${value[1] >= 12 ? 'PM' : 'AM'}`;
+
+            return result;
+        }
+
         const change = (e, v) => {
             let el   = e.target,
                 data = {
@@ -82,11 +90,17 @@ export default class Sidebar extends Component {
                     checked: '',
                 }
 
-            if (!el.name)
-                el = el.querySelector('input');
+            // if (!el)
+            //     return;
 
-            if (!el.name)
-                return;
+            // if (!el.name)
+            //     el = el.querySelector('input');
+
+            // if (!el)
+            //     return;
+
+            // if (!el.name)
+            //     return;
 
             if (el.name === 'stops') {
                 let data = stops;
@@ -113,20 +127,6 @@ export default class Sidebar extends Component {
                 data.value = v;
 
             changed();
-
-            // if (typeof that.props.onChanged === 'function')
-            //     that.props.onChanged({
-            //         stops: stops,
-            //         airlines: airlines,
-            //         departTime: {
-            //             outbound: departureOutbound,
-            //             return: departureReturn,
-            //         },
-            //         journeyDur: {
-            //             outbound: journeyOutbound,
-            //             return: journeyReturn,
-            //         },
-            //     });
         };   
 
         return (
@@ -150,13 +150,13 @@ export default class Sidebar extends Component {
                 </Box>
 
                 {/* departure-filter */}
-                <Box className="sidebar-filter departure-filter">
+                <Box className="sidebar-filter departure-filter" sx={{ marginTop: '30px' }}>
                     <FilterTitle>Departure times</FilterTitle>
                     <Box className="filter-term">
                         <Box className="filter-term">
                             <Box sx={{}}>
                                 <Typography sx={{ color: "rgba(7, 14, 57, 0.75)", fontSize: "12px", fontWeight: 600, marginBottom: "0.5em" }}>Outbound</Typography>
-                                <Typography sx={{ fontSize: "12px", color: "rgba(7, 14, 57, 0.5)" }}>{departureOutbound[0]}:00 - {departureOutbound[1]}:00</Typography>
+                                <Typography sx={{ fontSize: "12px", color: "rgba(7, 14, 57, 0.5)" }}>{timeUS(departureOutbound)}</Typography>
 
                                 <Box className="filter-slider">
                                     <Box sx={{ width: "100%", marginTop: "14px" }}>
@@ -167,30 +167,9 @@ export default class Sidebar extends Component {
                                             }}                                         
                                             onChangeCommitted={change}
                                             name="departure-outbound"
-                                            valueLabelDisplay="auto"
-                                            max={24}
-                                            sx={{
-                                                color: "rgba(0,0,0,.85)",
-                                                boxSizing: "border-box",
-                                                fontSize: "14px",
-                                                fontVariant: "tabular-nums",
-                                                lineHeight: 1.5715,
-                                                listStyle: "none",
-                                                position: "relative",
-                                                height: "4px",
-                                                margin: "10px 0px",
-                                                padding: "4px 0",
-                                                cursor: "pointer",
-                                                touchAction: "none",
-                                                '& .MuiSlider-thumb': {
-                                                    color: "rgba(255, 255, 255)",
-                                                    boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)",
-                                                    border: "4px",
-                                                    borderColor: "rgb(236, 236, 236)",
-                                                    borderStyle: "solid"
-                                                },
-                                            }}
-                                        />
+                                            valueLabelDisplay="off"
+                                            max={23}
+                                            sx={{ color: "rgba(0,0,0,.85)", boxSizing: "border-box", fontSize: "14px", fontVariant: "tabular-nums", lineHeight: 1.5715, listStyle: "none", position: "relative", height: "4px", margin: "10px 0px", padding: "4px 0", cursor: "pointer", touchAction: "none", '& .MuiSlider-thumb': { color: "rgba(255, 255, 255)", boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)", border: "4px", borderColor: "rgb(236, 236, 236)", borderStyle: "solid" }}}/>
                                     </Box>
                                 </Box>
                             </Box>
@@ -198,7 +177,7 @@ export default class Sidebar extends Component {
                         <Box className="filter-term">
                             <Box sx={{}}>
                                 <Typography sx={{ color: "rgba(7, 14, 57, 0.75)", fontSize: "12px", fontWeight: 600, marginBottom: "0.5em" }}>Return</Typography>
-                                <Typography sx={{ fontSize: "12px", color: "rgba(7, 14, 57, 0.5)" }}>{departureReturn[0]}:00 - {departureReturn[1]}:00</Typography>
+                                <Typography sx={{ fontSize: "12px", color: "rgba(7, 14, 57, 0.5)" }}>{timeUS(departureReturn)}</Typography>
 
                                 <Box sx={{ width: "100%", marginTop: "14px" }}>
                                     <Slider
@@ -208,29 +187,9 @@ export default class Sidebar extends Component {
                                         }}                                         
                                         onChangeCommitted={change}
                                         name="departure-return"
-                                        valueLabelDisplay="auto"
-                                        max={24}
-                                        sx={{
-                                            color: "rgba(0,0,0,.85)",
-                                            boxSizing: "border-box",
-                                            fontSize: "14px",
-                                            fontVariant: "tabular-nums",
-                                            lineHeight: 1.5715,
-                                            listStyle: "none",
-                                            position: "relative",
-                                            height: "4px",
-                                            margin: "10px 0px",
-                                            padding: "4px 0",
-                                            cursor: "pointer",
-                                            touchAction: "none",
-                                            '& .MuiSlider-thumb': {
-                                                color: "rgba(255, 255, 255)",
-                                                boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)",
-                                                border: "4px",
-                                                borderColor: "rgb(236, 236, 236)",
-                                                borderStyle: "solid"
-                                            },
-                                        }}
+                                        valueLabelDisplay="off"
+                                        max={23}
+                                        sx={{ color: "rgba(0,0,0,.85)", boxSizing: "border-box", fontSize: "14px", fontVariant: "tabular-nums", lineHeight: 1.5715, listStyle: "none", position: "relative", height: "4px", margin: "10px 0px", padding: "4px 0", cursor: "pointer", touchAction: "none", '& .MuiSlider-thumb': { color: "rgba(255, 255, 255)", boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)", border: "4px", borderColor: "rgb(236, 236, 236)", borderStyle: "solid" } }}
                                     />
                                 </Box>
                             </Box>
@@ -239,7 +198,7 @@ export default class Sidebar extends Component {
                 </Box>
 
                 {Object.keys(that.props.airlines).length ? (
-                    <Box className="sidebar-filter airlines-filter">
+                    <Box className="sidebar-filter airlines-filter" sx={{ marginTop: '30px' }}>
                         <FilterTitle>Airlines</FilterTitle>
                         <Box sx={{ display: "flex", alignItems: "center", color: "rgba(7, 14, 57, 0.5)" }}>
                             <Typography onClick={(e) => {
@@ -284,12 +243,12 @@ export default class Sidebar extends Component {
                 )}
 
                 {/* duration-filter */}
-                <Box className="sidebar-filter duration-filter">
+                <Box className="sidebar-filter duration-filter" sx={{ marginTop: '30px' }}>
                     <FilterTitle>Journey duration</FilterTitle>
                     <Box className="filter-term">
                         <Box sx={{ color: "rgba(7, 14, 57, 0.5)" }}>
                             <Typography sx={{ fontSize: "12px", fontWeight: 600 }}>Outbound</Typography>
-                            <Typography sx={{ fontSize: "12px" }}>0.00 - {journeyOutbound}:00</Typography>
+                            <Typography sx={{ fontSize: "12px" }}>0h - {journeyOutbound}h</Typography>
                         </Box>
                         <Box sx={{ width: "100%", marginTop: "14px" }}>
                             <Slider
@@ -299,34 +258,14 @@ export default class Sidebar extends Component {
                                 }}                                         
                                 onChangeCommitted={change}
                                 name="journey-outbound"
-                                valueLabelDisplay="auto"
+                                valueLabelDisplay="off"
                                 max={48}
-                                sx={{
-                                    color: "rgba(0,0,0,.85)",
-                                    boxSizing: "border-box",
-                                    fontSize: "14px",
-                                    fontVariant: "tabular-nums",
-                                    lineHeight: 1.5715,
-                                    listStyle: "none",
-                                    position: "relative",
-                                    height: "4px",
-                                    margin: "10px 0px",
-                                    padding: "4px 0",
-                                    cursor: "pointer",
-                                    touchAction: "none",
-                                    '& .MuiSlider-thumb': {
-                                        color: "rgba(255, 255, 255)",
-                                        boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)",
-                                        border: "4px",
-                                        borderColor: "rgb(236, 236, 236)",
-                                        borderStyle: "solid"
-                                    },
-                                }}
+                                sx={{color: "rgba(0,0,0,.85)", boxSizing: "border-box", fontSize: "14px", fontVariant: "tabular-nums", lineHeight: 1.5715, listStyle: "none", position: "relative", height: "4px", margin: "10px 0px", padding: "4px 0", cursor: "pointer", touchAction: "none", '& .MuiSlider-thumb': { color: "rgba(255, 255, 255)", boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)", border: "4px", borderColor: "rgb(236, 236, 236)", borderStyle: "solid"} }}
                             />
                         </Box>
                         <Box sx={{ color: "rgba(7, 14, 57, 0.5)" }}>
                             <Typography sx={{ fontSize: "12px", fontWeight: 600 }}>Return</Typography>
-                            <Typography sx={{ fontSize: "12px" }}>0.00 - {journeyReturn}:00</Typography>
+                            <Typography sx={{ fontSize: "12px" }}>0h - {journeyReturn}h</Typography>
                         </Box>
                         <Box sx={{ width: "100%", marginTop: "14px" }}>
                             <Slider
@@ -336,28 +275,9 @@ export default class Sidebar extends Component {
                                 }}                                         
                                 onChangeCommitted={change}
                                 name="journey-return"
-                                valueLabelDisplay="auto"
+                                valueLabelDisplay="off"
                                 max={48}
-                                sx={{
-                                    color: "rgba(0,0,0,.85)",
-                                    boxSizing: "border-box",
-                                    fontSize: "14px",
-                                    fontVariant: "tabular-nums",
-                                    lineHeight: 1.5715,
-                                    position: "relative",
-                                    height: "4px",
-                                    margin: "10px 0px",
-                                    padding: "4px 0",
-                                    cursor: "pointer",
-                                    touchAction: "none",
-                                    '& .MuiSlider-thumb': {
-                                        color: "rgba(255, 255, 255)",
-                                        boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)",
-                                        border: "4px",
-                                        borderColor: "rgb(236, 236, 236)",
-                                        borderStyle: "solid"
-                                    },
-                                }}
+                                sx={{ color: "rgba(0,0,0,.85)", boxSizing: "border-box", fontSize: "14px", fontVariant: "tabular-nums", lineHeight: 1.5715, position: "relative", height: "4px", margin: "10px 0px", padding: "4px 0", cursor: "pointer", touchAction: "none", '& .MuiSlider-thumb': { color: "rgba(255, 255, 255)", boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)", border: "4px", borderColor: "rgb(236, 236, 236)", borderStyle: "solid" } }}
                             />
                         </Box>                    
                     </Box>

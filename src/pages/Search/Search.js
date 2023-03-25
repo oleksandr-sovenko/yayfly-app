@@ -11,10 +11,11 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import TopSeachForm from "../../components/TopSeachForm";
 import loadingImage from '../../assets/loading.svg';
 import loadingImageInvert from '../../assets/loading-2.svg';
-import { getParams, getMinutes, convert2Time } from '../../functions';
+import { getParams, getMinutes, convertISO8601toHours, convert2Time } from '../../functions';
 import axios from 'axios';
 import moment from 'moment';
 
+// http://localhost:3000/search/round-trip/BDL,JFK,2023-03-26,2023-03-28/economy/1/0/0
 
 export default class Search extends Component {
     state = {
@@ -127,8 +128,8 @@ export default class Search extends Component {
 
                     try {
                         offer.journeyDur = {
-                            outbound: parseInt(offer.slices[0].duration.replace(/.*T/, '')),
-                            return: parseInt(offer.slices[1].duration.replace(/.*T/, '')),
+                            outbound: Math.round(convertISO8601toHours(offer.slices[0].duration)),
+                            return: Math.round(convertISO8601toHours(offer.slices[1].duration)),
                         };
                     } catch(e) {
                         offer.journeyDur = { outbound: 0, return: 0 };
@@ -276,28 +277,28 @@ export default class Search extends Component {
                     }
 
                     if (params.departTime) {
-                        if (params.departTime.outbound) {
+                        if (params.departTime.outbound !== undefined) {
                             if (offer.departTime.outbound < params.departTime.outbound[0] ||
                                 offer.departTime.outbound > params.departTime.outbound[1]
                             )
                                 continue;
                         }
 
-                        if (params.departTime.return) {
+                        if (params.departTime.return !== undefined) {
                             if (offer.departTime.return < params.departTime.return[0] ||
                                 offer.departTime.return > params.departTime.return[1]
                             )
                                 continue;
                         }
-                    }                    
+                    }
 
                     if (params.journeyDur) {
-                        if (params.journeyDur.outbound) {
+                        if (params.journeyDur.outbound !== undefined) {
                             if (offer.journeyDur.outbound > params.journeyDur.outbound)
                                 continue;
                         }
 
-                        if (params.journeyDur.return) {
+                        if (params.journeyDur.return !== undefined) {
                             if (offer.journeyDur.return > params.journeyDur.return)
                                 continue;
                         }
@@ -397,7 +398,7 @@ export default class Search extends Component {
                                 display: { md: "block", xs: "none" },
                             }}
                         >
-                            <Sidebar airlines={airlines} onChanged={(params) => {                                
+                            <Sidebar airlines={airlines} onChanged={(params) => {
                                 that.setState({ filtered: filter(params) });
                             }}/>
                         </Box>

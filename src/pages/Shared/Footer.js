@@ -22,15 +22,15 @@ const Footer = () => {
             </div>
             <footer className='footer'>
                 <div className="container">
-                    <Grid container spacing={2}>
-                        <Grid item xs={12} sx={{ textAlign: { xs: 'center' }, marginTop: '15px', marginBottom: '15px', display: { xs: 'block', md: 'none' } }}>
+                    <Grid container spacing={2} sx={{ textAlign: { xs: 'center' }, marginTop: '15px', display: { xs: 'block', md: 'none' } }}>
+                        <Grid item xs={12}>
                             <Link to="#" onClick={((e) => { e.preventDefault(); window.location.href = window.flights_engine.url })}>
                                 <img src={logo} alt="yayFly" />
                             </Link>                        
                         </Grid>
                     </Grid>
                 
-                    <Grid container spacing={2}>
+                    <Grid container spacing={2} sx={{ marginTop: '15px' }}>
                         <Grid item md={6} xs={12}>
                             Traveling is a wonderful experience, and we want you to have peace of mind when booking your tickets. We provide the best and the cheapest flight options without any advertisements or hidden fees, and our customer service is excellent. Our goal is to make your travel experience effortless and stress-free.
                         </Grid>

@@ -41,7 +41,7 @@ const PriceDetails = (props) => {
         <Box sx={{ fontFamily: '"Public Sans", sans-serif', padding: "22px 26px", borderRadius: "5px", backgroundColor: "rgb(255, 255, 255)", boxShadow: "rgb(101 101 101 / 5%) 4px 4px 12px", "& p": { fontSize: "14px" } }}>
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px" }}>
                 <Typography>{offer.passengers ? offer.passengers.length : 0}x Passenger</Typography>
-                <Typography>${offer ? offer.total_amount : 0}</Typography>
+                <Typography>${offer ? parseFloat(offer.total_amount).toFixed(2) : 0}</Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px" }}>
                 <Typography>{offer.passengers ? offer.passengers.length : 0}x Cabin bg</Typography>
@@ -50,7 +50,7 @@ const PriceDetails = (props) => {
             {additionalBaggageData.count ? (
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px" }}>
                     <Typography>{additionalBaggageData.count}x Checked bg</Typography>
-                    <Typography>${additionalBaggageData.total_amount}</Typography>
+                    <Typography>${parseFloat(additionalBaggageData.total_amount).toFixed(2)}</Typography>
                 </Box>
             ) : (
                 <></>
@@ -58,7 +58,7 @@ const PriceDetails = (props) => {
             {seatsData.count ? (
                 <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px" }}>
                     <Typography>{seatsData.count}x Seats</Typography>
-                    <Typography>${seatsData.total_amount}</Typography>
+                    <Typography>${parseFloat(seatsData.total_amount).toFixed(2)}</Typography>
                 </Box>
             ) : (
                 <></>
@@ -69,7 +69,7 @@ const PriceDetails = (props) => {
             </Box>
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingTop: "15px", borderTop: "1px solid rgb(225, 227, 238)", "& p": { fontWeight: 700 } }}>
                 <Typography>Total</Typography>
-                <Typography>${offer ? (parseFloat(offer.total_amount) + additionalBaggageData.total_amount + seatsData.total_amount) : 0}</Typography>
+                <Typography>${offer ? (parseFloat(offer.total_amount) + additionalBaggageData.total_amount + seatsData.total_amount).toFixed(2) : 0}</Typography>
             </Box>
         </Box>
     );

@@ -222,7 +222,7 @@ const PaymentCard = (props) => {
                                 </Box>
                                 <Box>
                                     <Link onClick={pay} to="#" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "100%", maxWidth: "355px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }}>
-                                        Pay ${offer.total_amount ? (parseFloat(offer.total_amount) + additionalBaggageData.total_amount + seatsData.total_amount) : 0}
+                                        Pay ${offer.total_amount ? (parseFloat(offer.total_amount) + additionalBaggageData.total_amount + seatsData.total_amount).toFixed(2) : 0}
                                     </Link>
                                 </Box>
                             </Box>
