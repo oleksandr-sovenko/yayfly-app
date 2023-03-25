@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import loadingImage from '../assets/loading.svg';
 import loadingImageInvert from '../assets/loading-2.svg';
 import SearchResultCard from "./SearchResultCard";
@@ -12,8 +12,18 @@ const SearchPriceResults = (props) => {
     if (!props)
         props = {};
 
-    const [open, setOpen] = React.useState(false),
-          [filter, setFilter] = React.useState('recomended');
+    const [open, setOpen] = useState(false),
+          [filter, setFilter] = useState('recomended');
+
+
+
+    // useEffect(() => {
+    //     window.addEventListener('scroll', handleScroll);
+
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll);
+    //     };
+    // }, []);          
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -27,11 +37,24 @@ const SearchPriceResults = (props) => {
         if (props.loading === true)
             return;
 
-        if (typeof props.changed === 'function')
-            props.changed(value);
+        if (typeof props.onChanged === 'function')
+            props.onChanged(value);
 
         setFilter(value);
     };
+
+    // if (window.eventForScrollTop === undefined) {
+    //     window.eventForScrollTop = true;
+        
+    //     document.addEventListener('scroll', (event) => {
+    //         console.log(document.querySelector('html').scrollTop);
+
+    //         if (document.querySelector('html').scrollTop > 1500)
+    //             setVisibleScrollTop(true);
+    //         else
+    //             setVisibleScrollTop(false);
+    //     });
+    // }
 
     return (
         <div className="search-result-area">
@@ -104,7 +127,7 @@ const SearchPriceResults = (props) => {
                     <>
                         {props.offers.length ? (
                             <>
-                                {props.offers.map((offer, index) => {
+                                {props.offers.slice(0, props.offersLimit ? props.offersLimit : 5).map((offer, index) => {
                                     return (
                                         <SearchResultCard key={index} offer={offer}></SearchResultCard>
                                     )
@@ -123,6 +146,7 @@ const SearchPriceResults = (props) => {
                                 )}
                             </>
                         )}
+                        <div onScroll={(e) => { console.log(e.target.scrollTop) }}></div>
                     </>
                 )}
             </div>

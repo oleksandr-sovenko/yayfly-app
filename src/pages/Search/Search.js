@@ -15,7 +15,7 @@ import { getParams, getMinutes, convertISO8601toHours, convert2Time } from '../.
 import axios from 'axios';
 import moment from 'moment';
 
-// http://localhost:3000/search/round-trip/BDL,JFK,2023-03-26,2023-03-28/economy/1/0/0
+// http://localhost:3000/search/round-trip/WAW,TLL,2023-03-26,2023-03-28/economy/1/0/0
 
 export default class Search extends Component {
     state = {
@@ -38,10 +38,27 @@ export default class Search extends Component {
             selected: 0,
             list: []
         },
+        offersLimit: 5,
     };
 
     constructor(props) {
         super(props);
+
+        const that = this;
+
+        that.handleScroll = (e) => {
+            if (that.state.loading === true)
+                return;
+
+            const html = document.querySelector('html'),
+                  diff = html.scrollTop + window.innerHeight;
+
+            if (diff > (html.offsetHeight - 100)) {
+                console.log(that.state.offersLimit);
+
+                that.setState({ offersLimit: that.state.offersLimit + 5 });
+            }
+        };                  
     }
 
     componentDidMount() {
@@ -224,22 +241,28 @@ export default class Search extends Component {
             window.yayflyInputs.update();
         }, 50);
 
-        window.scroll({ top: 0, left: 0 });        
+        // window.scroll({ top: 0, left: 0 });
+
+        window.addEventListener('scroll', that.handleScroll);
     }
 
     componentWillUnmount() {
-        clearInterval(this.timer);
+        const that = this;
+
+        clearInterval(that.timer);
+        window.addEventListener('scroll', that.handleScroll);
     }
 
     render() {
-        const that      = this,
-              params    = that.state.params,
-              progress  = that.state.progress,
-              loading   = that.state.loading,
-              offers    = that.state.offers,
-              filtered  = that.state.filtered,
-              airlines  = that.state.airlines,
-              multicity = that.state.multicity;
+        const that = this,
+              params = that.state.params,
+              progress = that.state.progress,
+              loading = that.state.loading,
+              offers = that.state.offers,
+              filtered = that.state.filtered,
+              airlines = that.state.airlines,
+              multicity = that.state.multicity,
+              offersLimit = that.state.offersLimit;
 
         const filter = (params) => {
             let _filtered = {
@@ -399,7 +422,7 @@ export default class Search extends Component {
                             }}
                         >
                             <Sidebar airlines={airlines} onChanged={(params) => {
-                                that.setState({ filtered: filter(params) });
+                                that.setState({ filtered: filter(params), offersLimit: 5 });
                             }}/>
                         </Box>
                         <Box sx={{ gridColumn: { md: "span 9", xs: "span 12" } }}>
@@ -409,6 +432,7 @@ export default class Search extends Component {
                                 loading={loading}
                                 offers={filtered[filtered.current]}
                                 offersExists={offers[filtered.current].length ? true : false}
+                                offersLimit={offersLimit}
                                 recomended={{
                                     price: `$${filtered['recomended'][0] ? filtered['recomended'][0].total_amount : '0'}`,
                                     duration: filtered['recomended'][0] ? convert2Time(filtered['recomended'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
@@ -421,7 +445,7 @@ export default class Search extends Component {
                                     price: `$${filtered['shortest'][0] ? filtered['shortest'][0].total_amount : '0'}`,
                                     duration: filtered['shortest'][0] ? convert2Time(filtered['shortest'][0].slices.map((i) => getMinutes(i.duration)).reduce((sum, a) => sum + a, 0)) : ''
                                 }}
-                                changed={(current) => {
+                                onChanged={(current) => {
                                     let _filtered = filtered;
                                     _filtered.current = current;
                                     that.setState({ filtered: _filtered });

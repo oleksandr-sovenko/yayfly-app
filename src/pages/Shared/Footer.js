@@ -8,12 +8,18 @@ import logo from "../../assets/yayfly.svg";
 const Footer = () => {
     const [isVisibleScrollTop, setVisibleScrollTop] = useState(false);
 
-    document.addEventListener('scroll', (event) => {
-        if (document.querySelector('html').scrollTop > 1500)
-            setVisibleScrollTop(true);
-        else
-            setVisibleScrollTop(false);
-    });
+    if (window.eventForScrollTop === undefined) {
+        window.eventForScrollTop = true;
+        
+        document.addEventListener('scroll', (event) => {
+            // console.log(document.querySelector('html').scrollTop);
+
+            if (document.querySelector('html').scrollTop > 1500)
+                setVisibleScrollTop(true);
+            else
+                setVisibleScrollTop(false);
+        });
+    }
 
     return (
         <>
