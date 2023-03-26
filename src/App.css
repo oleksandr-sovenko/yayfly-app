@@ -141,7 +141,10 @@
     border: 2px solid #5452F6;
 }
 
+/* modal-duffel-components */
+
 .modal-duffel-components [role="dialog"] {
+    position: relative;
     margin: 0px;
     width: 100%;
     height: 100%;
@@ -149,6 +152,27 @@
     max-height: calc(100% - 24px);
 }
 
+.modal-duffel-components [data-testid="summary-button-next"] .duffel-button__text,
+.modal-duffel-components [data-testid="summary-button-next-flight"] .duffel-button__text {
+    display: none;
+}
+
+.modal-duffel-components .button-close {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    z-index: 10;
+    cursor: pointer;
+    background: white;
+    border: 1px solid black;
+}
+
+@media (max-width: 575px) {
+    .modal-duffel-components .button-close {
+        right: 15px;
+        top: 15px;
+    }
+}
 
 .column-rand-4 {
     grid-template-columns: 3fr 3fr 2fr 2fr;

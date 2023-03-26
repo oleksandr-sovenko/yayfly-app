@@ -1,4 +1,4 @@
-import { Box, Typography, Dialog, DialogContent } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { Component } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { FaPencilAlt } from "react-icons/fa";
@@ -342,7 +342,7 @@ export default class Search extends Component {
 
         return (
             <>
-                {/*<WlcModal></WlcModal>*/}          
+                <WlcModal></WlcModal>
 
                 <Box sx={{ display: { md: "none", sm: "none", xs: "flex" }, background: "white", borderBottom: "2px solid rgb(204, 206, 219)", padding: "30px 15px", alignItems: "center", justifyContent: "space-between", marginBottom: "25px" }}>
                     <Box>

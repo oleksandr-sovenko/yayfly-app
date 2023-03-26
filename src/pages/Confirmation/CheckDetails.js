@@ -1,12 +1,12 @@
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Box, styled, Typography, Grid, Dialog } from "@mui/material";
-import { GiSchoolBag } from "react-icons/gi";
 import { default as React, useState } from "react";
 import { IoIosAirplane } from "react-icons/io";
 import { Link } from "react-router-dom";
 import { getSeatsData } from "../../functions";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import { SeatSelection } from '@duffel/components'
+import CloseIcon from "@mui/icons-material/Close";
 
 
 const CardWrap = styled(Box)(({ theme }) => ({
@@ -30,6 +30,8 @@ const CheckDetails = (props) => {
     return (
         <div>
             <Dialog open={openSeats} fullWidth={true} className="modal-duffel-components">
+                <CloseIcon className="button-close" onClick={() => { setOpenSeats(false); }}
+                />
                 <SeatSelection
                     offer={offer}
                     seatMaps={offer.seatmaps.data}
@@ -103,51 +105,54 @@ const CheckDetails = (props) => {
                         )
                     })}
 
-                    <Box sx={{ marginTop: "20px" }}>
-                        <Box sx={{ marginBottom: "5px" }}>
-                            <Typography sx={{ fontWeight: 500, paddingBottom: "10px" }}>
-                                Seats
-                            </Typography>
-                            <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" sx={{ background: "rgb(234 236 243 / 73%)", border: "2px solid #5452F6", borderRadius: "5px", padding: "10px 0px", cursor: "pointer" }} onClick={(e) => { setOpenSeats(true) }}>
-                                <Box gridColumn="span 1" sx={{ textAlign: "center", color: "hsl(232deg 78% 13% / 50%)", fontSize: "20px", padding: "0 10px" }}>
-                                    <img src="https://yayfly.com/wp-content/plugins/yayfly/images/person-seat-reclined.svg" />
-                                </Box>
-                                <Box gridColumn="span 10" sx={{ marginLeft: "10px" }}>
-                                    {Object.keys(seatsData.passengers).length ? (
-                                        <>
-                                            {Object.values(passengers).map((p, i) => {
-                                                if (seatsData.passengers[p.id]) {
-                                                    return (
-                                                        <div key={i}>
-                                                            <b key={`b${i}`}>{p.given_name} {p.family_name}</b>
+                    {offer.seatmaps.data.length ? (
+                        <Box sx={{ marginTop: "20px" }}>
+                            <Box sx={{ marginBottom: "5px" }}>
+                                <Typography sx={{ fontWeight: 500, paddingBottom: "10px" }}>
+                                    Seats
+                                </Typography>
+                                <Grid display="grid" gridTemplateColumns="repeat(12, 1fr)" justifyContent="center" alignItems="center" sx={{ background: "rgb(234 236 243 / 73%)", border: "2px solid #5452F6", borderRadius: "5px", padding: "10px 0px", cursor: "pointer" }} onClick={(e) => { setOpenSeats(true) }}>
+                                    <Box gridColumn="span 1" sx={{ textAlign: "center", color: "hsl(232deg 78% 13% / 50%)", fontSize: "20px", padding: "0 10px" }}>
+                                        <img src={window.flight_engine ? `${window.flight_engine.url}/wp-content/plugins/yayfly/images/person-seat-reclined.svg` : ''} alt="" />
+                                    </Box>
+                                    <Box gridColumn="span 10" sx={{ marginLeft: "10px" }}>
+                                        {Object.keys(seatsData.passengers).length ? (
+                                            <>
+                                                {Object.values(passengers).map((p, i) => {
+                                                    if (seatsData.passengers[p.id]) {
+                                                        return (
+                                                            <div key={i}>
+                                                                <b key={`b${i}`}>{p.given_name} {p.family_name}</b>
 
-                                                            {seatsData.passengers[p.id].map((s, j) => {
-                                                                return (
-                                                                    <small key={j}>, {s.origin} -> {s.destination} ({s.designator})</small>
-                                                                )
-                                                            })}
-                                                        </div>
-                                                    );
-                                                } else {
-                                                    return (<></>);
-                                                }
-                                            })}
-                                        </>
-                                    ) : (
-                                        <div>No seats selected</div>                                    
-                                    )}
-                                </Box>
-                                <Box gridColumn="span 1" sx={{ textAlign: "center", fontSize: "14px", fontWeight: 500, marginRight: "30px" }}>
-                                    {Object.keys(seatsData.passengers).length ? (
-                                        <>
-                                            <Typography>${seatsData.total_amount}</Typography>
-                                        </>
-                                    ) : (<></>)}
-                                </Box>
-                            </Grid>
-                        </Box>
-                    </Box>
-
+                                                                {seatsData.passengers[p.id].map((s, j) => {
+                                                                    return (
+                                                                        <small key={j}>, {s.origin} -> {s.destination} ({s.designator})</small>
+                                                                    )
+                                                                })}
+                                                            </div>
+                                                        );
+                                                    } else {
+                                                        return (<></>);
+                                                    }
+                                                })}
+                                            </>
+                                        ) : (
+                                            <div>No seats selected</div>                                    
+                                        )}
+                                    </Box>
+                                    <Box gridColumn="span 1" sx={{ textAlign: "center", fontSize: "14px", fontWeight: 500, marginRight: "30px" }}>
+                                        {Object.keys(seatsData.passengers).length ? (
+                                            <>
+                                                <Typography>${seatsData.total_amount}</Typography>
+                                            </>
+                                        ) : (<></>)}
+                                    </Box>
+                                </Grid>
+                            </Box>
+                        </Box>                        
+                    ) : (
+                        <></>
+                    )}
                 </CardWrap>
                 <CardWrap sx={{ padding: { md: "35px", xs: "20px" } }}>
                     <Box sx={{ display: "flex", alignItems: "center", paddingBottom: "20px" }}>
