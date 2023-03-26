@@ -22,25 +22,16 @@ export default class Search extends Component {
         params: {},
         progress: 0,
         loading: true,
-        offers: {
-            recomended: [],
-            cheapest: [],
-            shortest: [],            
-        },
-        filtered: {
-            current: 'recomended',
-            recomended: [],
-            cheapest: [],
-            shortest: [],
-        },
+        offers: { recomended: [], cheapest: [], shortest: [] },
+        filtered: { current: 'recomended', recomended: [], cheapest: [], shortest: [] },
         airlines: [],
-        multicity: {
-            selected: 0,
-            list: []
-        },
         offersLimit: 5,
     };
 
+
+    /**
+     * 
+     */
     constructor(props) {
         super(props);
 
@@ -51,27 +42,23 @@ export default class Search extends Component {
                 return;
 
             const html = document.querySelector('html'),
-                  diff = html.scrollTop + window.innerHeight;
+                  diff = html.scrollTop + window.innerHeight,
+                  fotterHeight = document.querySelector('footer').clientHeight;
 
-            if (diff > (html.offsetHeight - 150)) {
+            if (diff > (html.offsetHeight - fotterHeight))
                 that.setState({ offersLimit: that.state.offersLimit + 5 });
-            }
-        };                  
+        }
     }
 
-    componentDidMount() {
-        const that   = this,
-              params = getParams();
 
-        let multicity = {
-            selected: 0,
-            list: [],
-        };
+    /**
+     * 
+     */
+    getOffers(index) {
+        const that = this,
+              params = that.state.params;
 
-        for (const item of params.trips)
-            multicity.list.push(item);
-
-        that.setState({ params: params, multicity: multicity });
+        that.setState({ progress: 0, loading: true });
 
         that.timer = setInterval(() => {
             if (that.state.progress < 95)
@@ -86,10 +73,10 @@ export default class Search extends Component {
             data = {
                 type: params.type,
                 class: params.cabinClass,
-                origin: params.trips[0].origin, 
-                destination: params.trips[0].destination,
-                depart: params.trips[0].dates[0],
-                return: params.trips[0].dates[1],
+                origin: params.trips[index].origin, 
+                destination: params.trips[index].destination,
+                depart: params.trips[index].dates[0],
+                return: params.trips[index].dates[1],
                 passengers: {
                     adult: params.adults,
                     child: params.children,
@@ -100,9 +87,9 @@ export default class Search extends Component {
             data = {
                 type: 'one-way',
                 class: params.cabinClass,
-                origin: multicity.list[multicity.selected].origin, 
-                destination: multicity.list[multicity.selected].destination,
-                depart: multicity.list[multicity.selected].date,
+                origin: params.trips[index].origin, 
+                destination: params.trips[index].destination,
+                depart: params.trips[index].date,
                 passengers: {
                     adult: params.adults,
                     child: params.children,
@@ -214,43 +201,52 @@ export default class Search extends Component {
             that.setState({
                 progress: 100,
                 loading: false, 
-                offers: {
-                    recomended,
-                    cheapest,
-                    shortest
-                },
-                filtered: {
-                    current: 'recomended',
-                    recomended,
-                    cheapest,
-                    shortest
-                },
+                offers: { recomended, cheapest, shortest },
+                filtered: { current: 'recomended', recomended, cheapest, shortest },
                 airlines: airlines
             });
         }).catch((error) => {
-            console.log(error);
-
             clearInterval(that.timer);
 
             that.setState({ progress: 100, loading: false });
         });
+    }
+
+
+    /**
+     * 
+     */
+    componentDidMount() {
+        const that   = this,
+              params = getParams();
+
+        that.setState({ params: params }, (e) => {
+            that.getOffers(params.index);            
+        });  
 
         setTimeout(() => {
             window.yayflyInputs.update();
         }, 50);
 
-        // window.scroll({ top: 0, left: 0 });
-
         window.addEventListener('scroll', that.handleScroll);
     }
 
+
+    /**
+     * 
+     */
     componentWillUnmount() {
         const that = this;
 
         clearInterval(that.timer);
-        window.addEventListener('scroll', that.handleScroll);
+
+        window.removeEventListener('scroll', that.handleScroll);
     }
 
+
+    /**
+     * 
+     */
     render() {
         const that = this,
               params = that.state.params,
@@ -259,7 +255,6 @@ export default class Search extends Component {
               offers = that.state.offers,
               filtered = that.state.filtered,
               airlines = that.state.airlines,
-              multicity = that.state.multicity,
               offersLimit = that.state.offersLimit;
 
         const filter = (params) => {
@@ -333,16 +328,23 @@ export default class Search extends Component {
         }
 
         const clickMultiCity = (index) => {
-            that.setState({ multicity: { selected: index, list: multicity.list } });
+            if (loading === true)
+                return;
 
-            document.querySelector('[name="origin"]').value = multicity.list[index].origin;
-            document.querySelector('[name="destination"]').value = multicity.list[index].destination;
-            document.querySelector('[name="depart"]').value = moment(multicity.list[index].date).format('MM/DD/YYYY');
+            let _params = params;
+            _params.index = index;
+            that.setState({ params: _params });
+
+            document.querySelector('[name="origin"]').value = params.trips[index].origin;
+            document.querySelector('[name="destination"]').value = params.trips[index].destination;
+            document.querySelector('[name="depart"]').value = moment(params.trips[index].date).format('MM/DD/YYYY');
+
+            that.getOffers(index);
         }
 
         return (
             <>
-                <WlcModal></WlcModal>
+                {/*<WlcModal></WlcModal>*/}
 
                 <Box sx={{ display: { md: "none", sm: "none", xs: "flex" }, background: "white", borderBottom: "2px solid rgb(204, 206, 219)", padding: "30px 15px", alignItems: "center", justifyContent: "space-between", marginBottom: "25px" }}>
                     <Box>
@@ -361,7 +363,7 @@ export default class Search extends Component {
 
                             {(params.type === 'one-way' || params.type === 'multi-city') ? (
                                 <>
-                                    {params.trips ? `${moment(params.trips[params.index].dates[0]).format('MM/DD/YYYY')}` : ''}
+                                    {params.trips ? `${moment(params.trips[params.index].date).format('MM/DD/YYYY')}` : ''}
                                 </>
                             ) : (<></>)}
                         </Typography>
@@ -384,17 +386,19 @@ export default class Search extends Component {
                     </Typography>
                 </Box>
 
-                {(params.type === 'multi-city' && multicity.list.length >= 2) ? (
+                {(params.type === 'multi-city' && params.trips.length > 1) ? (
                     <Box className="container multi-city">
-                        {multicity.list.map((item, index) => {
+                        {params.trips.map((item, index) => {
                             return (
-                                <div key={index} className={index === multicity.selected ? 'multi-city-item active' : 'multi-city-item'} onClick={() => { clickMultiCity(index) }}>
+                                <div key={index} className={index === params.index ? 'multi-city-item active' : 'multi-city-item'} onClick={() => { clickMultiCity(index) }}>
                                     {loading === true ? (
                                         <>
-                                            {index === multicity.selected ? (
+                                            {index === params.index ? (
                                                 <img src={loadingImageInvert} alt="" style={{ animation: 'rotation 2s infinite linear', float: 'right' }} />
                                             ) : (
-                                                <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear', float: 'right' }} />
+                                                <>
+                                                    {/* <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear', float: 'right' }} /> */}                                                    
+                                                </>
                                             )}
                                         </>
                                     ) : (
@@ -410,7 +414,7 @@ export default class Search extends Component {
                         })}
                     </Box>
                 ) : (
-                    <></>
+                    <Box className="container multi-city"></Box>
                 )}
 
                 {params.type === 'round-trip' ? (
@@ -426,9 +430,9 @@ export default class Search extends Component {
                 {(params.type === 'one-way' || params.type === 'multi-city') ? (
                     <TopSeachForm
                         type={params.type}
-                        origin={multicity.list[multicity.selected].origin}
-                        destination={multicity.list[multicity.selected].destination}
-                        depart={multicity.list[multicity.selected].date}
+                        origin={params.trips[params.index].origin}
+                        destination={params.trips[params.index].destination}
+                        depart={params.trips[params.index].date}
                     ></TopSeachForm>
                 ) : (<></>)}
 
