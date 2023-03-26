@@ -449,6 +449,7 @@ export default class Search extends Component {
                             <div className="done-wrapper">
                                 <button onClick={() => {
                                     document.querySelector('.sidebar-wrapper').classList.remove('open');
+                                    document.querySelector('body').classList.remove('disable-scroll');
                                 }}>Done</button>
                             </div>
                         </Box>
@@ -479,6 +480,7 @@ export default class Search extends Component {
                                 }}
                                 onClickedShowFilters={() => {
                                     document.querySelector('.sidebar-wrapper').classList.add('open');
+                                    document.querySelector('body').classList.add('disable-scroll');
                                 }}
                             ></SearchPriceResults>
                         </Box>
