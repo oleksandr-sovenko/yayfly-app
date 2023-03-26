@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Dialog, DialogContent } from "@mui/material";
 import React, { Component } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { FaPencilAlt } from "react-icons/fa";
@@ -342,7 +342,7 @@ export default class Search extends Component {
 
         return (
             <>
-                {/*<WlcModal></WlcModal>*/}
+                {/*<WlcModal></WlcModal>*/}          
 
                 <Box sx={{ display: { md: "none", sm: "none", xs: "flex" }, background: "white", borderBottom: "2px solid rgb(204, 206, 219)", padding: "30px 15px", alignItems: "center", justifyContent: "space-between", marginBottom: "25px" }}>
                     <Box>
@@ -440,10 +440,17 @@ export default class Search extends Component {
                                 paddingRight: { md: "30px", xs: "0px" },
                                 display: { md: "block", xs: "none" },
                             }}
+                            className="sidebar-wrapper"
                         >
                             <Sidebar airlines={airlines} onChanged={(params) => {
                                 that.setState({ filtered: filter(params), offersLimit: 5 });
                             }}/>
+
+                            <div className="done-wrapper">
+                                <button onClick={() => {
+                                    document.querySelector('.sidebar-wrapper').classList.remove('open');
+                                }}>Done</button>
+                            </div>
                         </Box>
                         <Box sx={{ gridColumn: { md: "span 9", xs: "span 12" } }}>
                             <CtaCard></CtaCard>
@@ -469,6 +476,9 @@ export default class Search extends Component {
                                     let _filtered = filtered;
                                     _filtered.current = current;
                                     that.setState({ filtered: _filtered, offersLimit: 5 });
+                                }}
+                                onClickedShowFilters={() => {
+                                    document.querySelector('.sidebar-wrapper').classList.add('open');
                                 }}
                             ></SearchPriceResults>
                         </Box>

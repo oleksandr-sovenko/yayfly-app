@@ -12,26 +12,7 @@ const SearchPriceResults = (props) => {
     if (!props)
         props = {};
 
-    const [open, setOpen] = useState(false),
-          [filter, setFilter] = useState('recomended');
-
-
-
-    // useEffect(() => {
-    //     window.addEventListener('scroll', handleScroll);
-
-    //     return () => {
-    //         window.removeEventListener('scroll', handleScroll);
-    //     };
-    // }, []);          
-
-    const handleClickOpen = () => {
-        // setOpen(true);
-    };
-
-    const handleClose = () => {
-        // setOpen(false);
-    };
+    const [filter, setFilter] = useState('recomended');
 
     const clickSearchFilter = (value) => {
         if (props.loading === true)
@@ -42,19 +23,6 @@ const SearchPriceResults = (props) => {
 
         setFilter(value);
     };
-
-    // if (window.eventForScrollTop === undefined) {
-    //     window.eventForScrollTop = true;
-        
-    //     document.addEventListener('scroll', (event) => {
-    //         console.log(document.querySelector('html').scrollTop);
-
-    //         if (document.querySelector('html').scrollTop > 1500)
-    //             setVisibleScrollTop(true);
-    //         else
-    //             setVisibleScrollTop(false);
-    //     });
-    // }
 
     return (
         <div className="search-result-area">
@@ -94,28 +62,13 @@ const SearchPriceResults = (props) => {
                 </div>
             </div>
             <div className="desktopNone">
-                <button onClick={handleClickOpen} className="btn-show-filter">
+                <button onClick={(e) => {
+                    if (typeof props.onClickedShowFilters === 'function')
+                        props.onClickedShowFilters();
+                }} className="btn-show-filter">
                     Show filters
                 </button>
             </div>
-            <Dialog
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-                className="mobile-modal-filter"
-                sx={{ backgroundColor: "rgb(238, 239, 245)" }}
-            >
-                <DialogContent>
-                    <Box sx={{ display: "flex", alignItems: "center", padding: "15px 0px 35px" }}>
-                        <button className="mobile-filter-btn">Reset</button>
-                        <button onClick={handleClose} className="mobile-filter-btn">Cancel</button>
-                        <button className="mobile-filter-btn apply-btn">Apply</button>
-                    </Box>
-                    <Sidebar />
-                </DialogContent>
-            </Dialog>
-
             <div className="search-result-wrap">
                 {props.loading === true ? (
                     <>

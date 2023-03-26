@@ -28,6 +28,7 @@ const FilterPTag = styled(Box)(({ theme }) => ({
     },
 }));
 
+
 export default class Sidebar extends Component {
     state = {
         departureOutbound: [0, 23],
