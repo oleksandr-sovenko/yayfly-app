@@ -91,18 +91,6 @@ export default class Sidebar extends Component {
                     checked: '',
                 }
 
-            // if (!el)
-            //     return;
-
-            // if (!el.name)
-            //     el = el.querySelector('input');
-
-            // if (!el)
-            //     return;
-
-            // if (!el.name)
-            //     return;
-
             if (el.name === 'stops') {
                 let data = stops;
                 data[el.value] = el.checked;
@@ -175,26 +163,30 @@ export default class Sidebar extends Component {
                                 </Box>
                             </Box>
                         </Box>
-                        <Box className="filter-term">
-                            <Box sx={{}}>
-                                <Typography sx={{ color: "rgba(7, 14, 57, 0.75)", fontSize: "12px", fontWeight: 600, marginBottom: "0.5em" }}>Return</Typography>
-                                <Typography sx={{ fontSize: "12px", color: "rgba(7, 14, 57, 0.5)" }}>{timeUS(departureReturn)}</Typography>
+                        {that.props.type === 'round-trip' ? (
+                            <Box className="filter-term">
+                                <Box sx={{}}>
+                                    <Typography sx={{ color: "rgba(7, 14, 57, 0.75)", fontSize: "12px", fontWeight: 600, marginBottom: "0.5em" }}>Return</Typography>
+                                    <Typography sx={{ fontSize: "12px", color: "rgba(7, 14, 57, 0.5)" }}>{timeUS(departureReturn)}</Typography>
 
-                                <Box sx={{ width: "100%", marginTop: "14px" }}>
-                                    <Slider
-                                        value={departureReturn}
-                                        onChange={(event, newValue) => {
-                                            that.setState({ departureReturn: newValue });
-                                        }}                                         
-                                        onChangeCommitted={change}
-                                        name="departure-return"
-                                        valueLabelDisplay="off"
-                                        max={23}
-                                        sx={{ color: "rgba(0,0,0,.85)", boxSizing: "border-box", fontSize: "14px", fontVariant: "tabular-nums", lineHeight: 1.5715, listStyle: "none", position: "relative", height: "4px", margin: "10px 0px", padding: "4px 0", cursor: "pointer", touchAction: "none", '& .MuiSlider-thumb': { color: "rgba(255, 255, 255)", boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)", border: "4px", borderColor: "rgb(236, 236, 236)", borderStyle: "solid" } }}
-                                    />
+                                    <Box sx={{ width: "100%", marginTop: "14px" }}>
+                                        <Slider
+                                            value={departureReturn}
+                                            onChange={(event, newValue) => {
+                                                that.setState({ departureReturn: newValue });
+                                            }}                                         
+                                            onChangeCommitted={change}
+                                            name="departure-return"
+                                            valueLabelDisplay="off"
+                                            max={23}
+                                            sx={{ color: "rgba(0,0,0,.85)", boxSizing: "border-box", fontSize: "14px", fontVariant: "tabular-nums", lineHeight: 1.5715, listStyle: "none", position: "relative", height: "4px", margin: "10px 0px", padding: "4px 0", cursor: "pointer", touchAction: "none", '& .MuiSlider-thumb': { color: "rgba(255, 255, 255)", boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)", border: "4px", borderColor: "rgb(236, 236, 236)", borderStyle: "solid" } }}
+                                        />
+                                    </Box>
                                 </Box>
                             </Box>
-                        </Box>
+                        ) : (
+                            <></>
+                        )}
                     </Box>
                 </Box>
 
@@ -264,23 +256,30 @@ export default class Sidebar extends Component {
                                 sx={{color: "rgba(0,0,0,.85)", boxSizing: "border-box", fontSize: "14px", fontVariant: "tabular-nums", lineHeight: 1.5715, listStyle: "none", position: "relative", height: "4px", margin: "10px 0px", padding: "4px 0", cursor: "pointer", touchAction: "none", '& .MuiSlider-thumb': { color: "rgba(255, 255, 255)", boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)", border: "4px", borderColor: "rgb(236, 236, 236)", borderStyle: "solid"} }}
                             />
                         </Box>
-                        <Box sx={{ color: "rgba(7, 14, 57, 0.5)" }}>
-                            <Typography sx={{ fontSize: "12px", fontWeight: 600 }}>Return</Typography>
-                            <Typography sx={{ fontSize: "12px" }}>0h - {journeyReturn}h</Typography>
-                        </Box>
-                        <Box sx={{ width: "100%", marginTop: "14px" }}>
-                            <Slider
-                                value={journeyReturn}
-                                onChange={(event, newValue) => {
-                                    that.setState({ journeyReturn: newValue });
-                                }}                                         
-                                onChangeCommitted={change}
-                                name="journey-return"
-                                valueLabelDisplay="off"
-                                max={48}
-                                sx={{ color: "rgba(0,0,0,.85)", boxSizing: "border-box", fontSize: "14px", fontVariant: "tabular-nums", lineHeight: 1.5715, position: "relative", height: "4px", margin: "10px 0px", padding: "4px 0", cursor: "pointer", touchAction: "none", '& .MuiSlider-thumb': { color: "rgba(255, 255, 255)", boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)", border: "4px", borderColor: "rgb(236, 236, 236)", borderStyle: "solid" } }}
-                            />
-                        </Box>                    
+
+                        {that.props.type === 'round-trip' ? (
+                            <>
+                                <Box sx={{ color: "rgba(7, 14, 57, 0.5)" }}>
+                                    <Typography sx={{ fontSize: "12px", fontWeight: 600 }}>Return</Typography>
+                                    <Typography sx={{ fontSize: "12px" }}>0h - {journeyReturn}h</Typography>
+                                </Box>
+                                <Box sx={{ width: "100%", marginTop: "14px" }}>
+                                    <Slider
+                                        value={journeyReturn}
+                                        onChange={(event, newValue) => {
+                                            that.setState({ journeyReturn: newValue });
+                                        }}                                         
+                                        onChangeCommitted={change}
+                                        name="journey-return"
+                                        valueLabelDisplay="off"
+                                        max={48}
+                                        sx={{ color: "rgba(0,0,0,.85)", boxSizing: "border-box", fontSize: "14px", fontVariant: "tabular-nums", lineHeight: 1.5715, position: "relative", height: "4px", margin: "10px 0px", padding: "4px 0", cursor: "pointer", touchAction: "none", '& .MuiSlider-thumb': { color: "rgba(255, 255, 255)", boxShadow: "0px 0px 0px 5px rgb(161 161 161 / 16%)", border: "4px", borderColor: "rgb(236, 236, 236)", borderStyle: "solid" } }}
+                                    />
+                                </Box>
+                            </>
+                        ) : (
+                            <></>
+                        )}
                     </Box>
                 </Box>
             </Box>

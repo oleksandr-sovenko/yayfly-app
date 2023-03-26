@@ -107,24 +107,22 @@ export default class Search extends Component {
                 shortest = [];
 
             for (const offer of offers) {
+                const nos = offer.slices.map((s) => s.segments.length );
+
+                if (nos[0] === 1 && nos[1] === 1)
+                    offer.stops = 'direct';
+                else if (nos[0] <= 2 || nos[1] <= 2)
+                    offer.stops = '1stop';
+                else
+                    offer.stops = '2+stops';
+
                 if (params.type === 'round-trip') {
-                    const nos = offer.slices.map((s) => s.segments.length );
-
-                    if (nos[0] === 1 && nos[1] === 1)
-                        offer.stops = 'direct';
-                    else if (nos[0] <= 2 || nos[1] <= 2)
-                        offer.stops = '1stop';
-                    else
-                        offer.stops = '2+stops';
-
                     try {
                         offer.departTime = {
                             outbound: parseInt(offer.slices[0].segments[0].departing_at.replace(/.*T/, '')),
                             return: parseInt(offer.slices[1].segments[0].departing_at.replace(/.*T/, '')),
-                        };
+                        };                           
                     } catch(e) {
-                        console.log(e);
-
                         offer.departTime = { outbound: 0, return: 0 };
                     }
 
@@ -132,6 +130,24 @@ export default class Search extends Component {
                         offer.journeyDur = {
                             outbound: Math.round(convertISO8601toHours(offer.slices[0].duration)),
                             return: Math.round(convertISO8601toHours(offer.slices[1].duration)),
+                        };
+                    } catch(e) {
+                        offer.journeyDur = { outbound: 0, return: 0 };
+                    }
+                } else {
+                    try {
+                        offer.departTime = {
+                            outbound: parseInt(offer.slices[0].segments[0].departing_at.replace(/.*T/, '')),
+                            return: 0,
+                        };                           
+                    } catch(e) {
+                        offer.departTime = { outbound: 0, return: 0 };
+                    }
+
+                    try {
+                        offer.journeyDur = {
+                            outbound: Math.round(convertISO8601toHours(offer.slices[0].duration)),
+                            return: 0,
                         };
                     } catch(e) {
                         offer.journeyDur = { outbound: 0, return: 0 };
@@ -446,7 +462,7 @@ export default class Search extends Component {
                             }}
                             className="sidebar-wrapper"
                         >
-                            <Sidebar airlines={airlines} onChanged={(params) => {
+                            <Sidebar type={params.type} airlines={airlines} onChanged={(params) => {
                                 that.setState({ filtered: filter(params), offersLimit: 5 });
                             }}/>
 
