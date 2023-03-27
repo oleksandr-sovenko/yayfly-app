@@ -88,7 +88,9 @@ const PersonApplyCard = (props) => {
 
        			if (accept.checked) {
        				localStorage.removeItem('seats');
+       				localStorage.removeItem('order');
 
+					localStorage['restartLink'] = window.location.href;
        				localStorage['offer'] = JSON.stringify(offer);
        				localStorage['passengers'] = JSON.stringify(Object.values(passengers));
        				localStorage['contactDetails'] = JSON.stringify({

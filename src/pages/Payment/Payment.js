@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Dialog } from "@mui/material";
 import React, { Component } from "react";
 import ConformSearchResult from "../../components/ConformSearchResult";
 import PageTitle from "../../components/SectionTitle/PageTitle";
@@ -11,7 +11,7 @@ import PaymentTimeLine from "./PaymentTimeLine";
 import PriceDetails from "./PriceDetails";
 import { Link } from "react-router-dom";
 import loadingImage from '../../assets/loading.svg';
-import { localStorageJSON, getSettings } from '../../functions'
+import { localStorageJSON, getSettings, getError } from '../../functions'
 import axios from 'axios';
 
 

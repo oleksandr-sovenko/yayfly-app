@@ -45,7 +45,9 @@ const getParams = () => {
 const getError = (error) => {
     const messsages = {
         'not_found': 'Oh oh! Something went wrong. Please try again.',
-        'offer_no_longer_available': 'Unfortunately, the requested flight offer has expired and is no longer available. We apologize for the inconvenience. Press the link below to restart your flight search.'
+        'offer_no_longer_available': 'Unfortunately, the requested flight offer has expired and is no longer available. We apologize for the inconvenience. Press the link below to restart your flight search.',
+        'offer_request_already_booked': 'This flight booking has already been processed and can’t be processed again. For a new flight booking, please go to the flight search page.',
+        'expired': 'Unfortunately, the requested flight offer has expired and is no longer available. We apologize for the inconvenience. Press the link below to restart your flight search.',
     }
 
     if (error.code && messsages[error.code] !== undefined)

@@ -1,13 +1,13 @@
 import CheckIcon from "@mui/icons-material/Check";
-import { Box, Grid, styled, Typography } from "@mui/material";
+import { Box, Grid, styled, Typography, Dialog } from "@mui/material";
 import Checkbox from "@mui/material/Checkbox";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CardPayment } from '@duffel/components'
 import paymentImg from "../../assets/confirm-booking/payment.png";
 import loadingImage from '../../assets/loading.svg';
 import ThankYouModal from "../../components/Modal/ThankYouModal";
-import { getSeatsData, localStorageJSON } from "../../functions";
+import { getSeatsData, localStorageJSON, getError } from "../../functions";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import axios from 'axios';
 
@@ -24,12 +24,55 @@ const CardWrap = styled(Box)(({ theme }) => ({
 const PaymentCard = (props) => {
     const [intent, setIntent] = useState(null),
           [status, setStatus] = useState('initialized'),
+          [errors, setErrors] = useState([]),
           offer = props.offer ? props.offer : {},
           passengers = props.passengers ? props.passengers : [],
           contactDetails = props.contactDetails ? props.contactDetails : {},
           additionalBaggage = props.additionalBaggage ? props.additionalBaggage : [],
           seats = props.seats ? props.seats : {},
           seatsData = getSeatsData(offer, seats);
+
+    const orderData = localStorageJSON('order'),
+          linkRestart = localStorage['linkRestart'] ? localStorage['linkRestart'] : window.flights_engine.url;
+
+    useEffect(() => {
+        if (!orderData.id) {
+            order((result) => {
+                if (result.data) {
+                    localStorage['order'] = JSON.stringify(result.data);
+
+                    axios.get(`${window.flights_engine.url}api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
+                        const result = response.data.data;
+
+                        setIntent({ id: result.id, token: result.client_token });
+                    });                
+                } else if (result.errors) {
+                    let errors = [];
+
+                    for (const error of result.errors) {
+                        errors.push(getError(error));
+
+                        if (error.code === 'offer_request_already_booked')
+                            break;
+                    }
+
+                    setErrors(errors);
+                } else {
+                    console.log(result);
+                }
+            })            
+        } else {
+            axios.get(`${window.flights_engine.url}api/payments/intent?amount=${orderData.total_amount}`).then((response) => {
+                const result = response.data.data;
+
+                setIntent({ id: result.id, token: result.client_token });
+            }); 
+        }
+
+        return () => {
+
+        };
+    }, []);
 
 
     let additionalBaggageData = {
@@ -48,46 +91,7 @@ const PaymentCard = (props) => {
     }
 
     if (offer.total_amount)
-        offer.total_amount = parseFloat(offer.total_amount);        
-
-    /**
-     * 
-     */
-    const pay = (e) => {
-        e.preventDefault();
-
-        const el = e.target,
-              that = this,
-              page = el.closest('.payment-pages'),
-              accept = page.querySelector('input[name="accept"]');
-
-        if (accept.checked) {              
-            // order((result) => {
-            //     if (result.data) {
-            //         axios.get(`${window.flights_engine.url}api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
-            //             const result = response.data.data;
-
-            //             setIntent({ id: result.id, token: result.client_token });
-            //         });
-            //     } if (result.errors) {
-            //         let errors = [];
-
-            //         for (const error of result.errors)
-            //             errors.push(`${error.title} ${error.message}`);
-
-            //         alert(errors.join('. '));
-            //     } else {
-            //         console.log(result);
-            //     }
-            // })
-        } else {
-            accept.closest('div').classList.add('error');
-
-            setTimeout(() => {
-                accept.closest('div').classList.remove('error');
-            }, 1500);
-        }            
-    }
+        offer.total_amount = parseFloat(offer.total_amount);
 
     /**
      * 
@@ -179,42 +183,26 @@ const PaymentCard = (props) => {
         });
     };
 
-
-    const orderData = localStorageJSON('order');
-
-    if (!orderData.id) {
-        order((result) => {
-            if (result.data) {
-                localStorage['order'] = JSON.stringify(result.data);
-
-                axios.get(`${window.flights_engine.url}api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
-                    const result = response.data.data;
-
-                    setIntent({ id: result.id, token: result.client_token });
-                });                
-            } else if (result.errors) {
-                let errors = [];
-
-                for (const error of result.errors)
-                    errors.push(`${error.title} ${error.message}`);
-
-                // setStatus('error');
-                alert(errors.join('. '));
-            } else {
-                // setStatus('error');
-                console.log(result);
-            }
-        })            
-    } else {
-        axios.get(`${window.flights_engine.url}api/payments/intent?amount=${orderData.total_amount}`).then((response) => {
-            const result = response.data.data;
-
-            setIntent({ id: result.id, token: result.client_token });
-        }); 
-    }
-
     return (
         <>
+            {errors.length ? (
+                <Dialog open={true}>
+                    <div style={{ padding: '30px' }}>
+                        {errors.map((error) => {
+                            return (
+                                <p>{error}</p>
+                            )
+                        })}
+
+                        <div style={{ textAlign: 'center' }}>
+                            <a href={linkRestart}>Restart</a>
+                        </div>
+                    </div>
+                </Dialog>
+            ) : (
+                <></>
+            )}
+
             {status === 'succeeded' ? (
                 <ThankYouModal />
             ) : (
