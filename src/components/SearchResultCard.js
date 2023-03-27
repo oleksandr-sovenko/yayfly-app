@@ -138,7 +138,8 @@ const SearchResultCard = (props) => {
                         <div ref={dropdownRef} className="desktopNone">
                             <button className="dropdown-btn" onClick={handleDropdownToggle}><HiOutlineArrowSmDown /></button>
                         </div>
-                        <Link to={(e) => {
+                        <Link to='#' onClick={(e) => {
+                            e.preventDefault();
                             localStorage['linkRestart'] = window.location.href;
                             window.location.href = `/booking-details/${props.offer.id}`;
                         }} className="addToCart">Select <CgAirplane /></Link>
