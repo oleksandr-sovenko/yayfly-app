@@ -62,16 +62,16 @@ const PaymentCard = (props) => {
         if (accept.checked) {              
             order((result) => {
                 if (result.data) {
-                        axios.get(`${window.flights_engine.url}api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
-                            const result = response.data.data;
+                    axios.get(`${window.flights_engine.url}api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
+                        const result = response.data.data;
 
-                            setIntent({ id: result.id, token: result.client_token });
-                        });
+                        setIntent({ id: result.id, token: result.client_token });
+                    });
                 } if (result.errors) {
                     let errors = [];
 
                     for (const error of result.errors)
-                        errors.push(error.title);
+                        errors.push(`${error.title} ${error.message}`);
 
                     alert(errors.join('. '));
                 } else {
@@ -115,7 +115,7 @@ const PaymentCard = (props) => {
             offer: { id: offer.id },
             passengers: [],
             services: [],
-            amount: parseFloat(offer.total_amount),
+            amount: parseFloat(offer.base_amount) + parseFloat(offer.tax_amount),
         };
 
         for (const item of additionalBaggage) {
@@ -141,21 +141,7 @@ const PaymentCard = (props) => {
                     type: 'seat'
                 });
             }
-        }        
-
-        // for (const item of seats) {
-        //     data.amount += parseFloat(item.total_amount);
-        //     data.services.push({
-        //         id: item.service.id,
-        //         metadata: item.service.metadata,
-        //         passenger_ids: [item.service.passenger_id],
-        //         quantity: 1,
-        //         // segment_ids: [segID],
-        //         total_amount: item.service.total_amount,
-        //         total_currency: item.service.total_currency,
-        //         type: 'seat'
-        //     });
-        // }
+        }
 
         for (const passenger of passengers) {
             let item = {
@@ -179,8 +165,6 @@ const PaymentCard = (props) => {
 
             data.passengers.push(item);
         }
-
-        // console.log(data);
 
         axios.post(`${window.flights_engine.url}api/order/create`, data).then((response) => {
             const result = response.data;

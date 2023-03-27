@@ -111,7 +111,7 @@ export default class Confirmation extends Component {
 
                             {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.confirm_booking ? (
                                 <Box sx={{ display: { md: "block", xs: "none" } }}>
-                                    <PaymentCta phone={settings.unpublished_deal_detected.phone} />
+                                    <PaymentCta phone={settings.phone} />
                                 </Box>                            
                             ) : (
                                 <></>
@@ -134,7 +134,7 @@ export default class Confirmation extends Component {
                             </Box>
                             
                             {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.confirm_booking ? (
-                                <MobilePaymentCta phone={settings.unpublished_deal_detected.phone} />
+                                <MobilePaymentCta phone={settings.phone} />
                             ) : (
                                 <></>
                             )}

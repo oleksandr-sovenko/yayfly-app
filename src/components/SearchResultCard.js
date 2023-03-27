@@ -7,7 +7,7 @@ import { MdOutlineError } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import image1 from '../assets/AA.webp';
 import image2 from '../assets/BA.webp';
-import { getSettings, getNormalDuration } from '../functions';
+import { getSettings, getNormalDuration, calcPriceWithMarkup } from '../functions';
 import { Grid } from "@mui/material";
 import moment from 'moment';
 
@@ -147,7 +147,7 @@ const SearchResultCard = (props) => {
                         <span className="info-btn"><MdOutlineError />Unpublished deal detected</span>
                         <div className="cta-info">
                             <p>Call now to secure <br/>the best fare <HiArrowLongRight /></p>
-                            <a href={`tel:${settings.unpublished_deal_detected.phone}`}><FaPhoneAlt /> {settings.unpublished_deal_detected.phone}</a>
+                            <a href={`tel:${settings.phone}`}><FaPhoneAlt /> {settings.phone}</a>
                         </div>
                     </>
                 ) : (<></>)}

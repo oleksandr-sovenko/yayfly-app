@@ -42,6 +42,38 @@ const getParams = () => {
 /**
  * 
  */
+const calcPriceWithMarkup = (value) => {
+    let markup = 0,
+        result = 0;
+
+    value = parseFloat(value);
+
+    if (isNaN(value))
+        value = 0;
+
+    try {
+        if (window.flights_engine.settings.duffel.markup) {
+            let duffel_markup = parseFloat(window.flights_engine.settings.duffel.markup);
+
+            if (isNaN(duffel_markup))
+                duffel_markup = 0;
+
+            markup = value * (duffel_markup / 100);
+        }
+    } catch(e) {
+        console.log(e);
+    }
+
+    result = parseFloat(value) + markup;
+
+    // return `${result.toFixed(2)} ${value}`;
+    return result.toFixed(2);
+};
+
+
+/**
+ * 
+ */
 const getMinutes = (value) => {
     let h = parseInt(value.replace('PT', '')),
         m = parseInt(value.replace(/.*H/, ''));
@@ -193,4 +225,4 @@ const getNormalDuration = (value) => {
 };
 
 
-export { getParams, getMinutes, convert2Time, getSeatsData, localStorageJSON, getSettings, getNormalDuration, convertISO8601toHours }
+export { getParams, getMinutes, convert2Time, getSeatsData, localStorageJSON, getSettings, getNormalDuration, convertISO8601toHours, calcPriceWithMarkup }
