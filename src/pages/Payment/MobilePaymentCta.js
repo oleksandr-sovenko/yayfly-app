@@ -80,7 +80,7 @@ const MobilePaymentCta = (props) => {
                                 to secure the best fare
                             </Typography>{" "}
                         </Typography>
-                        <a href={`tel:${phone}`} style={{ display: "inline-block", background: "#12172a", width: "216px", lineHeight: "42px", height: "42px", fontSize: "22px", color: "#fff", textDecoration: "none", fontFamily: "Jaldi", fontWeight: 700, boxSizing: "border-box", textAlign: "center", transition: "all 0.3s ease 0s" }}>
+                        <a href={`tel:${phone.replace(/[^0-9]/g, '')}`} style={{ display: "inline-block", background: "#12172a", width: "216px", lineHeight: "42px", height: "42px", fontSize: "22px", color: "#fff", textDecoration: "none", fontFamily: "Jaldi", fontWeight: 700, boxSizing: "border-box", textAlign: "center", transition: "all 0.3s ease 0s" }}>
                             {" "}
                             <Typography sx={{ width: "22px", height: "22px", background: "#fff", marginRight: "10px", display: "inline-flex", alignItems: "center", borderRadius: "50%", justifyContent: "center", "& svg": { color: "#333", fontSize: "14px" } }} component="span">
                                 <FaPhoneAlt />

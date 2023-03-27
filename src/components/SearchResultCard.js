@@ -147,7 +147,7 @@ const SearchResultCard = (props) => {
                         <span className="info-btn"><MdOutlineError />Unpublished deal detected</span>
                         <div className="cta-info">
                             <p>Call now to secure <br/>the best fare <HiArrowLongRight /></p>
-                            <a href={`tel:${settings.phone}`}><FaPhoneAlt /> {settings.phone}</a>
+                            <a href={`tel:${settings.phone.replace(/[^0-9]/g, '')}`}><FaPhoneAlt /> {settings.phone}</a>
                         </div>
                     </>
                 ) : (<></>)}

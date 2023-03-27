@@ -135,7 +135,7 @@ export default class BookingDetails extends Component {
 
                             {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.details_booking ? (
                                 <Box sx={{ display: { md: "block", xs: "none" } }}>
-                                    <PaymentCta phone={settings.unpublished_deal_detected.phone} />
+                                    <PaymentCta phone={settings.phone} />
                                 </Box>                            
                             ) : (
                                 <></>
@@ -169,7 +169,7 @@ export default class BookingDetails extends Component {
                             </Box>
 
                             {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.details_booking ? (
-                                <MobilePaymentCta phone={settings.unpublished_deal_detected.phone} />
+                                <MobilePaymentCta phone={settings.phone} />
                             ) : (
                                 <></>
                             )}

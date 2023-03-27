@@ -5,6 +5,8 @@ import logo from "../../assets/yayfly.svg";
 
 
 const Header = () => {
+    const settings = (window.flights_engine && window.flights_engine.settings) ? window.flights_engine.settings : {};
+
     return (
         <div className="header">
             <div className="container grid grid-column align-item">
@@ -27,8 +29,8 @@ const Header = () => {
                         <p><strong>Save even more.</strong> Talk to our booking expert now.</p>
                         <span>Agent is available now</span>
                     </div>
-                    <a href="tel:8882112111">
-                        <FaPhoneAlt /> (888) 211.2111
+                    <a href={settings.phone ? `tel:${settings.phone.replace(/[^0-9]/g, '')}` : 'tel:8882112111'}>
+                        <FaPhoneAlt /> {settings.phone ? settings.phone : '(888) 211.2111'}
                     </a>
                 </div>
             </div>
