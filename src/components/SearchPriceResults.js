@@ -24,6 +24,8 @@ const SearchPriceResults = (props) => {
         setFilter(value);
     };
 
+    const settings = (window.flights_engine && window.flights_engine.settings) ? window.flights_engine.settings : {};
+
     return (
         <div className="search-result-area">
             <div className="search-filter-wrap grid column-3">
@@ -90,11 +92,11 @@ const SearchPriceResults = (props) => {
                             <>
                                 {props.offersExists ? (
                                     <div className="no-offers">
-                                        Sorry, there are no flights that match your filter. Our 24/7 airline booking agents can help you locate the flight you’re looking for now. Call Now: <a href="tel:18003051248">(800) 305-1248</a>
+                                        Sorry, there are no flights that match your filter. Our 24/7 airline booking agents can help you locate the flight you’re looking for now. Call Now: <a href={`tel:${settings.phone.replace(/[^0-9]/g, '')}`}>{settings.phone}</a>
                                     </div>
                                 ) : (
                                     <div className="no-offers">
-                                        Sorry, there are no flights that match your request. Our 24/7 airline booking agents can help you locate the flight you’re looking for now. Call Now: Call Now: <a href="tel:18003051248">(800) 305-1248</a>
+                                        Sorry, there are no flights that match your request. Our 24/7 airline booking agents can help you locate the flight you’re looking for now. Call Now: Call Now: <a href={`tel:${settings.phone.replace(/[^0-9]/g, '')}`}>{settings.phone}</a>
                                     </div>
                                 )}
                             </>

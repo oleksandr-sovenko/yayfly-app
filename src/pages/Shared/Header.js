@@ -21,7 +21,7 @@ const Header = () => {
                     </Link>
                     <div>
                         <span>EXCLUSIVE <br/>PHONE DEALS</span>
-                        <a href="tel:8882112111"><span><FaPhoneAlt /></span></a>
+                        <a href={`tel:${settings.phone.replace(/[^0-9]/g, '')}`}><span><FaPhoneAlt /></span></a>
                     </div>
                 </div>
                 <div className="header-right">
@@ -29,8 +29,8 @@ const Header = () => {
                         <p><strong>Save even more.</strong> Talk to our booking expert now.</p>
                         <span>Agent is available now</span>
                     </div>
-                    <a href={settings.phone ? `tel:${settings.phone.replace(/[^0-9]/g, '')}` : 'tel:8882112111'}>
-                        <FaPhoneAlt /> {settings.phone ? settings.phone : '(888) 211.2111'}
+                    <a href={`tel:${settings.phone.replace(/[^0-9]/g, '')}`}>
+                        <FaPhoneAlt /> {settings.phone}
                     </a>
                 </div>
             </div>
