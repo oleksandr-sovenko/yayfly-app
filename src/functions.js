@@ -42,6 +42,25 @@ const getParams = () => {
 /**
  * 
  */
+const getError = (error) => {
+    const messsages = {
+        'not_found': 'Oh oh! Something went wrong. Please try again.',
+        'offer_no_longer_available': 'Unfortunately, the requested flight offer has expired and is no longer available. We apologize for the inconvenience. Press the link below to restart your flight search.'
+    }
+
+    if (error.code && messsages[error.code] !== undefined)
+        return messsages[error.code];
+
+    if (error.message)
+        return error.message;
+
+    return 'Something went wrong ...';
+}
+
+
+/**
+ * 
+ */
 const calcPriceWithMarkup = (value) => {
     let markup = 0,
         result = 0;
@@ -191,4 +210,4 @@ const getNormalDuration = (value) => {
 };
 
 
-export { getParams, getMinutes, convert2Time, getSeatsData, localStorageJSON, getSettings, getNormalDuration, convertISO8601toHours, calcPriceWithMarkup }
+export { getParams, getMinutes, convert2Time, getSeatsData, localStorageJSON, getSettings, getNormalDuration, convertISO8601toHours, calcPriceWithMarkup, getError }

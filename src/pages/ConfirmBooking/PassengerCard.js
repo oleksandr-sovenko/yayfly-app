@@ -160,7 +160,7 @@ const PassengerCard = (props) => {
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <Grid container spacing="10px">
-                                            <Grid item xs={9} sm={9}>
+                                            <Grid item xs={12}>
                                                 <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
                                                     Passport or ID expiry date
                                                 </InputLabel>
@@ -189,12 +189,6 @@ const PassengerCard = (props) => {
                                                         <input defaultValue={data['passport_expiry_year']} name={'passport_expiry_year[' + index + ']'} className="passenger-input" type="number" placeholder="YYYY" onInput={input} />
                                                     </Grid>
                                                 </Grid>
-                                            </Grid>
-                                            <Grid item xs={3} sm={3}>
-                                                <InputLabel sx={{ fontWeight: 700, color: "rgb(0 3 23)", marginBottom: "4px", fontSize: "14px" }}>
-                                                    No expiry
-                                                </InputLabel>
-                                                <Checkbox sx={{ color: "rgb(209, 212, 227)" }} width="14px" height="14px" name={'no_expiry[' + index + ']'} value="yes" />
                                             </Grid>
                                         </Grid>
                                     </Grid>

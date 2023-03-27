@@ -17,7 +17,7 @@ import guaranteImg from "../../assets/confirm-booking/guarnte.png";
 import modalCartoon from "../../assets/confirm-booking/modalCartoon.png";
 import '@duffel/components/dist/SeatSelection.min.css'
 import loadingImage from '../../assets/loading.svg';
-import { localStorageJSON, getSettings } from '../../functions'
+import { localStorageJSON, getSettings, getError } from '../../functions'
 import axios from 'axios';
 
 
@@ -70,7 +70,7 @@ export default class BookingDetails extends Component {
 
         return (
             <div className="booking-pages">
-                <Box className="container" sx={{padding:{md:"0 15px", xs:"0px"}}}>
+                <Box className="container" sx={{ padding: { md: "0 15px", xs: "0px" } }}>
                     <Box sx={{ fontFamily: "'Public Sans', sans-serif", display: { xs: "block", md: "grid" }, gridTemplateColumns: "2fr 1fr", gap: "40px" }}>
                         <Box>
                             <PageTitle title="Confirm your booking" />
@@ -87,7 +87,7 @@ export default class BookingDetails extends Component {
                                         <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '40px', borderRadius: '5px' }}>
                                             {offer.errors.map((error, index) => {
                                                 return (
-                                                    <p key={index}>{error.message}</p>
+                                                    <p key={index}>{getError(error)}</p>
                                                 )
                                             })}
                                                 
@@ -150,7 +150,7 @@ export default class BookingDetails extends Component {
                                             <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '5px', borderRadius: '5px' }}>
                                                 {offer.errors.map((error, index) => {
                                                     return (
-                                                        <p key={index}>{error.message}</p>
+                                                        <p key={index}>{getError(error)}</p>
                                                     )
                                                 })}
                                             </Box>
