@@ -85,7 +85,7 @@ export default class Payment extends Component {
                             </div>
                         </Box>
                     ) : (
-                        <Box className="container" sx={{padding:{ md:"0 15px", xs:"0px" }}}>
+                        <Box className="container" sx={{ padding:{ md:"0 15px", xs:"0px" }}}>
                             <Box sx={{ fontFamily: "'Public Sans', sans-serif", display: { xs: "block", md: "grid" }, gridTemplateColumns: "2fr 1fr", gap: "40px" }}>
                                 <Box>
                                     <PageTitle title="Confirm Your Booking" />
@@ -110,14 +110,15 @@ export default class Payment extends Component {
                                                 />
                                             </Box>
 
-                                            <SectionTitle title="Your Payment Details" />
-                                            <PaymentCard
-                                                offer={offer}
-                                                passengers={passengers}
-                                                contactDetails={contactDetails}
-                                                additionalBaggage={additionalBaggage}
-                                                seats={seats}
-                                            />
+                                            <div style={{ marginTop: '35px' }}>
+                                                <PaymentCard
+                                                    offer={offer}
+                                                    passengers={passengers}
+                                                    contactDetails={contactDetails}
+                                                    additionalBaggage={additionalBaggage}
+                                                    seats={seats}
+                                                />
+                                            </div>
                                         </>
                                     ) : (
                                         <Box sx={{ textAlign: 'center', background: 'white', padding: '20px', marginBottom: '40px', borderRadius: '5px' }}>

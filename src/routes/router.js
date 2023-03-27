@@ -2,9 +2,17 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../Layout/Main";
 import Confirmation from "../pages/Confirmation/Confirmation";
 import BookingDetails from "../pages/ConfirmBooking/BookingDetails";
-
 import Search from "../pages/Search/Search";
 import Payment from "../pages/Payment/Payment";
+
+
+if (!window.flights_engine)
+    window.flights_engine = {
+        url: 'https://yayfly.com/',
+        settings: {
+            phone: '(413) 111 2222'
+        }
+    };
 
 
 const settings = (window.flights_engine && window.flights_engine.settings) ? window.flights_engine.settings : {};

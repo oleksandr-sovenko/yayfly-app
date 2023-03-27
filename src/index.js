@@ -4,14 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-if (!window.flights_engine)
-    window.flights_engine = {
-        url: 'https://yayfly.com/',
-        settings: {
-            phone: '(413) 111 2222'
-        }
-    };
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     // <React.StrictMode>

@@ -5,8 +5,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { CardPayment } from '@duffel/components'
 import paymentImg from "../../assets/confirm-booking/payment.png";
+import loadingImage from '../../assets/loading.svg';
 import ThankYouModal from "../../components/Modal/ThankYouModal";
-import { getSeatsData } from "../../functions";
+import { getSeatsData, localStorageJSON } from "../../functions";
+import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import axios from 'axios';
 
 
@@ -60,24 +62,24 @@ const PaymentCard = (props) => {
               accept = page.querySelector('input[name="accept"]');
 
         if (accept.checked) {              
-            order((result) => {
-                if (result.data) {
-                    axios.get(`${window.flights_engine.url}api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
-                        const result = response.data.data;
+            // order((result) => {
+            //     if (result.data) {
+            //         axios.get(`${window.flights_engine.url}api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
+            //             const result = response.data.data;
 
-                        setIntent({ id: result.id, token: result.client_token });
-                    });
-                } if (result.errors) {
-                    let errors = [];
+            //             setIntent({ id: result.id, token: result.client_token });
+            //         });
+            //     } if (result.errors) {
+            //         let errors = [];
 
-                    for (const error of result.errors)
-                        errors.push(`${error.title} ${error.message}`);
+            //         for (const error of result.errors)
+            //             errors.push(`${error.title} ${error.message}`);
 
-                    alert(errors.join('. '));
-                } else {
-                    console.log(result);
-                }
-            })
+            //         alert(errors.join('. '));
+            //     } else {
+            //         console.log(result);
+            //     }
+            // })
         } else {
             accept.closest('div').classList.add('error');
 
@@ -93,8 +95,8 @@ const PaymentCard = (props) => {
     const success = () => {
         axios.post(`${window.flights_engine.url}api/payments/intent/confirm/${intent.id}`).then((response) => {
             const result = response.data.data;
-
             setStatus(result.status);
+            localStorage.removeItem('order');
         }).catch((error) => {
             setStatus('error');
         });
@@ -177,6 +179,40 @@ const PaymentCard = (props) => {
         });
     };
 
+
+    const orderData = localStorageJSON('order');
+
+    if (!orderData.id) {
+        order((result) => {
+            if (result.data) {
+                localStorage['order'] = JSON.stringify(result.data);
+
+                axios.get(`${window.flights_engine.url}api/payments/intent?amount=${result.data.total_amount}`).then((response) => {
+                    const result = response.data.data;
+
+                    setIntent({ id: result.id, token: result.client_token });
+                });                
+            } else if (result.errors) {
+                let errors = [];
+
+                for (const error of result.errors)
+                    errors.push(`${error.title} ${error.message}`);
+
+                // setStatus('error');
+                alert(errors.join('. '));
+            } else {
+                // setStatus('error');
+                console.log(result);
+            }
+        })            
+    } else {
+        axios.get(`${window.flights_engine.url}api/payments/intent?amount=${orderData.total_amount}`).then((response) => {
+            const result = response.data.data;
+
+            setIntent({ id: result.id, token: result.client_token });
+        }); 
+    }
+
     return (
         <>
             {status === 'succeeded' ? (
@@ -186,32 +222,36 @@ const PaymentCard = (props) => {
             )}
 
             {status === 'initialized' ? (
-                <CardWrap sx={{ marginTop: { md: "20px", xs: "20px" }, boxShadow: { md: "rgb(101 101 101 / 5%) 4px 4px 12px", xs: "none" } }}>
-                    {intent ? (
-                        <div style={{ padding: '30px' }}>
-                            <CardPayment
-                                duffelPaymentIntentClientToken={intent.token}
-                                successfulPaymentHandler={success}
-                                errorPaymentHandler={error}
-                            />
-                        </div>
-                    ) : (
+                <>
+                    <SectionTitle title="Your Payment Details"/>
+                    <CardWrap sx={{ marginTop: { md: "20px", xs: "20px" }, boxShadow: { md: "rgb(101 101 101 / 5%) 4px 4px 12px", xs: "none" } }}>
                         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2} sx={{ gridAutoFlow: "dense" }}>
-                            <Box sx={{ order: { md: "inherit", xs: 2 }, gridColumn: { md: "span 7", xs: "span 12" }, padding: { md: "20px 0px 0px 35px", xs: "20px 15px 0px" } }}>
-                                <Box sx={{ display: "flex", alignItems: "center", margin: "20px 0", "& > span": { padding: "0px" } }}>
+                            <Box sx={{ order: { md: "inherit", xs: 2 }, gridColumn: { md: "span 7", xs: "span 12" }, padding: { md: "20px 0px 0px 35px", xs: "20px 10px 20px 10px" } }}>
+                                <Box sx={{ display: "flex", alignItems: "center", margin: "15px 0", "& > span": { padding: "0px" } }}>
                                     <Checkbox width="14px" height="14px" name="accept" value="yes" />
                                     <Typography sx={{ color: "#12172A", marginLeft: "10px", "& a": { color: "#1B40A6", textDecoration: "none" } }}>
                                         I accept Yay <Link to={`${window.flights_engine.url}terms-and-conditions`} target="_blank">Fly’s terms & conditions.</Link>
                                     </Typography>
                                 </Box>
                                 <Box>
-                                    <Link onClick={pay} to="#" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "15px", width: "100%", maxWidth: "355px", fontSize: "20px", height: "52px", boxShadow: "none", background: "#12172A", textAlign: "center", lineHeight: "52px", textDecoration: "none", color: "#fff", borderRadius: "5px", fontWeight: 500 }}>
-                                        Pay ${offer.total_amount ? (parseFloat(offer.total_amount) + additionalBaggageData.total_amount + seatsData.total_amount).toFixed(2) : 0}
-                                    </Link>
+                                    {intent ? (
+                                        <CardPayment
+                                            duffelPaymentIntentClientToken={intent.token}
+                                            successfulPaymentHandler={success}
+                                            errorPaymentHandler={error}
+                                        />
+                                    ) : (
+                                        <>
+                                            <div style={{ position: 'relative', marginTop: 30, border: '1px solid #d1d4e3', borderRadius: 5, padding: 15 }}>
+                                                <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear' }} />
+                                                <span style={{ position: 'absolute', left: 50 }}>Preparing form for payment ...</span>
+                                            </div>
+                                        </>
+                                    )}
                                 </Box>
                             </Box>
-                            <Box sx={{ gridColumn: { md: "span 5", xs: "span 12" }, background: { md: "none", xs: "#F2F3F7" }, padding: { md: "20px 35px 20px 0px", xs: "0px" }, marginBottom: { xs: "20px", md: "0px" } }}>
-                                <Box sx={{ width: "100%", background: { xs: "#E1F6F1", md: "none" }, padding: { xs: "40px 15px 40px", md: "0px" }, marginBottom: { xs: "20px", md: "0px" } }}>
+                            <Box sx={{ gridColumn: { md: "span 5", xs: "span 12" }, background: { md: "none", xs: "#F2F3F7" }, padding: { md: "20px 35px 20px 0px", xs: "0px" }, marginBottom: { xs: "-35px", md: "0px" } }}>
+                                <Box sx={{ width: "100%", background: { xs: "#E1F6F1", md: "none" }, padding: { xs: "40px 15px 40px", md: "0px" } }}>
                                     <Box sx={{ display: "grid", gridTemplateColumns: "30px 1fr", marginBottom: "5px", "& svg": { color: "#000", fontSize: "16px", textAlign: "center", fontWeight: 700, height: "30px", width: "30px", display: "inline-block" } }}>
                                         <CheckIcon />
                                         <Typography sx={{ fontSize: "14px", lineHeight: "25px", marginLeft: "10px" }}>SSL secure transaction</Typography>
@@ -227,8 +267,8 @@ const PaymentCard = (props) => {
                                 </Box>
                             </Box>
                         </Box>
-                    )}
-                </CardWrap>
+                    </CardWrap>
+                </>
             ) : (
                 <></>
             )}

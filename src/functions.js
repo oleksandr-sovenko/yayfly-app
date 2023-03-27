@@ -98,40 +98,6 @@ const getMinutes = (value) => {
 /**
  * 
  */
-// const getHours = (value) => {
-//     let h = 0, m = 0;
-
-//     if (/H/.value) {
-//         h = parseInt(value.replace(/.*T/, ''));
-//         m = parseInt(value.replace(/.*H/, ''));
-//     } else {
-//         m = parseInt(value.replace(/.*H/, ''));
-//     }
-
-//     if (isNaN(h))
-//         h = 0;
-
-//     if (/P1DT/.test(value)) {
-//         if (!h)
-//             h = 24;
-//         else
-//             h = h + 24;
-//     }
-
-//     if (isNaN(m))
-//         m = 0;
-
-//     if (m > 30)
-//         h++;
-
-//     console.log(value, h, m);
-
-//     return h;
-// };
-
-/**
- * 
- */
 function convertISO8601toHours(duration) {
     const regex = /P(\d+Y)?(\d+M)?(\d+D)?T(\d+H)?(\d+M)?(\d+S)?/;
     const matches = regex.exec(duration);

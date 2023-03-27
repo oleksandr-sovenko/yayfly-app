@@ -96,7 +96,7 @@ const SearchPriceResults = (props) => {
                                     </div>
                                 ) : (
                                     <div className="no-offers">
-                                        Sorry, there are no flights that match your request. Our 24/7 airline booking agents can help you locate the flight you’re looking for now. Call Now: Call Now: <a href={`tel:${settings.phone.replace(/[^0-9]/g, '')}`}>{settings.phone}</a>
+                                        Sorry, there are no flights that match your request. Our 24/7 airline booking agents can help you locate the flight you’re looking for at the lowest rate. Call Now: <a href={`tel:${settings.phone.replace(/[^0-9]/g, '')}`}>{settings.phone}</a>
                                     </div>
                                 )}
                             </>

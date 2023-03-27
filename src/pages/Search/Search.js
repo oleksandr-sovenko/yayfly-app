@@ -413,7 +413,7 @@ export default class Search extends Component {
                                                 <img src={loadingImageInvert} alt="" style={{ animation: 'rotation 2s infinite linear', float: 'right' }} />
                                             ) : (
                                                 <>
-                                                    {/* <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear', float: 'right' }} /> */}                                                    
+                                                    {/* <img src={loadingImage} alt="" style={{ animation: 'rotation 2s infinite linear', float: 'right' }} /> */}
                                                 </>
                                             )}
                                         </>
