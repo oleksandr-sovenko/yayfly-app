@@ -91,7 +91,20 @@ window.yayflyInputs = {
 			if (!items.length) {
 				items.push({ value: null, text: 'Not Found' });
 			}				
-		}			
+		}
+
+		items.sort((a, b) => {
+  			const aHasUS = a.text.includes("US");
+  			const bHasUS = b.text.includes("US");
+
+  			if (aHasUS && !bHasUS) {
+    			return -1;
+  			} else if (!aHasUS && bHasUS) {
+    			return 1;
+  			} else {
+    			return 0;
+  			}
+		});
 
 		return items;
 	},
