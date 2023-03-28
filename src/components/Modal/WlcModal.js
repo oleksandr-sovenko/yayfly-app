@@ -35,12 +35,14 @@ const WlcModal = () => {
         const data = { url: url, data:{ phone: phone } },
               options = { headers: {'content-type': 'application/x-www-form-urlencoded'} };
 
-        axios.post(`${window.flights_engine.url}api/zapier-hooks-catch`, data, options).then((response) => {
-            handleClose();
-            handleClickThankModal();
-        }).catch((error) => {
+        if (phone.trim() !== '') { 
+            axios.post(`${window.flights_engine.url}api/zapier-hooks-catch`, data, options).then((response) => {
+                handleClose();
+                handleClickThankModal();
+            }).catch((error) => {
 
-        });
+            });
+        }
     };
 
     useEffect(() => {
@@ -126,7 +128,7 @@ const WlcModal = () => {
                                     display: { xs: "none", md: "block" },
                                 },
                             }}
-                        >Fill in your number and of our support agent <br />will call you back with an unbeatable flight deal.</Typography>
+                        >Fill in your number and one of our support agent <br />will call you back with an unbeatable flight deal.</Typography>
                     </Box>
                     <Grid
                         container
@@ -165,6 +167,7 @@ const WlcModal = () => {
                                     }}
                                     type="number"
                                     placeholder="Phone number"
+                                    pattern="\d*"
                                 />
                                 <Button
                                     onClick={handleCloseOpen}

@@ -37,7 +37,7 @@ const ThankYouModal = ({ handleThankModalClose }) => {
                             Thank You
                         </Typography>
                         <Typography sx={{ fontFamily: "Jaldi", fontStyle: "normal", fontWeight: 400, fontSize: { xs: "22px", md: "28px" }, lineHeight: "118.5%", marginBottom: "20px", "& br": { display: { xs: "none", md: "block" } } }}>
-                            We are working on detecting a cheaper flight. Please <br /> expecta phone cal{" "}
+                            We are working on detecting a cheaper flight. Please <br /> expect a phone call{" "}
                             <Typography component="span" sx={{ fontFamily: "Jaldi", fontStyle: "normal", fontWeight: 400, fontSize: { xs: "28px", md: "34px" }, lineHeight: "118.5%", marginBottom: "20px", textDecoration: "underline", textDecorationColor: "#CD363A" }}>
                                 within the next few minutes.
                             </Typography>
