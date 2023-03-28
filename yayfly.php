@@ -14,23 +14,6 @@ License:        GPLv2 or later
  * 
  */
 add_action('wp_enqueue_scripts', function() {
-	// wp_deregister_script('jquery');
-	// wp_register_script('jquery', 'https://code.jquery.com/jquery-3.6.4.min.js', false);
-	// wp_enqueue_script('jquery');
-
-	// wp_register_script('moment', 'https://cdn.jsdelivr.net/momentjs/latest/moment.min.js', false);
-	// wp_enqueue_script('moment');	
-
-	// wp_register_style('daterangepicker', 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css', false);
-	// wp_enqueue_style('daterangepicker');
-	// wp_register_script('daterangepicker', 'https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js', array('jquery', 'moment'));
-	// wp_enqueue_script('daterangepicker');	
-
-	// wp_register_style('yayfly', plugin_dir_url(__FILE__).'yayfly.css', false, time());
-	// wp_enqueue_style('yayfly');
-	// wp_register_script('yayfly', plugin_dir_url(__FILE__).'yayfly.js', NULL, time(), true);
-	// wp_enqueue_script('yayfly');
-
 	wp_register_style('yayfly-inputs', plugin_dir_url(__FILE__).'yayfly-inputs.css', false, time());
 	wp_enqueue_style('yayfly-inputs');
 	wp_register_script('yayfly-inputs', plugin_dir_url(__FILE__).'yayfly-inputs.js', NULL, time(), true);
@@ -81,19 +64,39 @@ add_action('admin_menu', function() {
 								<th scope="row"><label>Main Form</label></th>
 								<td><code>[flights_engine_main_form]</code></td>
 							</tr>
+							<tr>
+								<th scope="row"><label>Phone</label></th>
+								<td><input name="phone" type="text" value="<?= !empty($flights_engine['settings']['phone']) ? $flights_engine['settings']['phone'] : '' ?>" class="regular-text"></td>
+							</tr>
+						</tbody>
+					</table>
+
+					<h2 class="title">Popup</h2>
+					<p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
+
+					<table class="form-table" role="presentation">
+						<tbody>
+							<tr>
+								<th scope="row"><label>Search</label></th>
+								<td>
+									<fieldset>
+										<legend class="screen-reader-text"><span>Enabled</span></legend>
+										<label>
+											<input name="popup[search][enabled]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['popup']['search']['enabled']) ? 'checked' : '' ?>> Enabled
+										</label>
+									</fieldset>
+									<p>URL for webhook zapier</p>
+									<input name="popup[search][zapier_webhook_url]" type="text" value="<?= !empty($flights_engine['settings']['popup']['search']['zapier_webhook_url']) ? $flights_engine['settings']['popup']['search']['zapier_webhook_url'] : '' ?>" class="regular-text"></td>
+							</tr>
 						</tbody>
 					</table>  
+
 
 					<h2 class="title">Unpublished Deal Detected</h2>
 					<p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
 
 					<table class="form-table" role="presentation">
 						<tbody>
-							<tr>
-								<th scope="row"><label>Phone</label></th>
-								<td><input name="unpublished_deal_detected[phone]" type="text" value="<?= !empty($flights_engine['settings']['unpublished_deal_detected']['phone']) ? $flights_engine['settings']['unpublished_deal_detected']['phone'] : '' ?>" class="regular-text"></td>
-							</tr>
-
 							<tr>
 								<th scope="row">Show on pages</th>
 								<td>
@@ -135,28 +138,47 @@ add_action('admin_menu', function() {
 					<table class="form-table" role="presentation">
 						<tbody>
 							<tr>
+								<th scope="row">Markup %</th>
+								<td>
+									<fieldset><legend class="screen-reader-text"><span>Markup %</span></legend>
+									<label>
+										<input name="duffel[markup]" type="text" value="<?= !empty($flights_engine['settings']['duffel']['markup']) ? $flights_engine['settings']['duffel']['markup'] : '0' ?>" class="regular-text">
+									</label>
+								</td>
+							</tr>
+							<tr>
 								<th scope="row"><label>Test Token</label></th>
-								<td><input name="duffel_api[token][test]" type="text" value="<?= !empty($flights_engine['settings']['duffel_api']['token']['test']) ? $flights_engine['settings']['duffel_api']['token']['test'] : '' ?>" class="regular-text"></td>
+								<td><input name="duffel[token][test]" type="text" value="<?= !empty($flights_engine['settings']['duffel']['token']['test']) ? $flights_engine['settings']['duffel']['token']['test'] : '' ?>" class="regular-text"></td>
 							</tr>
 
 							<tr>
 								<th scope="row"><label>Live Token</label></th>
-								<td><input name="duffel_api[token][live]" type="text" value="<?= !empty($flights_engine['settings']['duffel_api']['token']['live']) ? $flights_engine['settings']['duffel_api']['token']['live'] : '' ?>" class="regular-text"></td>
+								<td><input name="duffel[token][live]" type="text" value="<?= !empty($flights_engine['settings']['duffel']['token']['live']) ? $flights_engine['settings']['duffel']['token']['live'] : '' ?>" class="regular-text"></td>
 							</tr>
 							<tr>
 								<th scope="row">Mode</th>
 								<td>
 									<fieldset><legend class="screen-reader-text"><span>Mode</span></legend>
 									<label>
-										<input type="radio" name="duffel_api[mode]" value="test" <?= (!empty($flights_engine['settings']['duffel_api']['mode']) and $flights_engine['settings']['duffel_api']['mode'] == 'test') ? 'checked' : '' ?>>
+										<input type="radio" name="duffel[mode]" value="test" <?= (!empty($flights_engine['settings']['duffel']['mode']) and $flights_engine['settings']['duffel']['mode'] == 'test') ? 'checked' : '' ?>>
 										<span class="date-time-text">Test</span>
 									</label><br>
 									<label>
-										<input type="radio" name="duffel_api[mode]" value="live"  <?= (!empty($flights_engine['settings']['duffel_api']['mode']) and $flights_engine['settings']['duffel_api']['mode'] == 'live') ? 'checked' : '' ?>>
+										<input type="radio" name="duffel[mode]" value="live"  <?= (!empty($flights_engine['settings']['duffel']['mode']) and $flights_engine['settings']['duffel']['mode'] == 'live') ? 'checked' : '' ?>>
 										<span class="date-time-text">Live</span>
 									</label><br>
 								</td>
-							</tr>							
+							</tr>
+							<tr>
+								<th scope="row">Supplier Timeout</th>
+								<td>
+									<fieldset><legend class="screen-reader-text"><span>Supplier Timeout</span></legend>
+									<p>The maximum amount of time in milliseconds to wait for each airline search to complete.<br>This timeout applies to the response time of the call to the airline and includes some additional overhead added by Duffel.<br>More info here <a target="_blank" href="https://duffel.com/docs/guides/search-best-practices">https://duffel.com/docs/guides/search-best-practices</a></p><br>
+									<label>
+										<input name="duffel[supplier_timeout]" type="text" value="<?= !empty($flights_engine['settings']['duffel']['supplier_timeout']) ? $flights_engine['settings']['duffel']['supplier_timeout'] : '10000' ?>" class="regular-text">
+									</label>
+								</td>
+							</tr>
 						</tbody>
 					</table> 					
 
@@ -179,27 +201,27 @@ add_action('init', function() {
 		header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
 		header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, X-Requested-With');
 		header('Content-Type: application/json');
+		header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+		header('Cache-Control: post-check=0, pre-check=0', false);
+		header('Pragma: no-cache');
+
+
+		// /api/zapier-hooks
+		if ($_SERVER['REQUEST_URI'] == '/api/zapier-hooks-catch') {
+			$url = !empty($_REQUEST['url']) ? $_REQUEST['url'] : '';
+			$data = !empty($_REQUEST['data']) ? $_REQUEST['data'] : [];
+			$result = '';
+
+			if (!empty($url) and !empty($data) and is_array($data))
+				$result = http_request($url, $data);
+
+			wp_send_json(['result' => $result, '_REQUEST' => $_REQUEST]);
+		}			
 
 
 		// /api/airports
 		if ($_SERVER['REQUEST_URI'] == '/api/airports') {
 			die(file_get_contents(__DIR__.'/airports.json'));
-			// $input = json_decode(file_get_contents('php://input'));
-			// // wp_send_json($input);
-
-			// $data = [ 'data' => [
-			// 	'type' => 'instant',
-			// 	'services' => $input->services,
-			// 	'selected_offers' => [$input->offer->id],
-			// 	'payments' => [
-			// 		['type' => 'balance', 'currency' => 'USD', 'amount' => round($input->amount, 2)]
-			// 	],
-			// 	'passengers' => $input->passengers,					
-			// ] ];
-
-			// $data = duffel_request('https://api.duffel.com/air/orders', $data);
-
-			// wp_send_json($data);
 		}		
 
 
@@ -219,6 +241,14 @@ add_action('init', function() {
 			] ];
 
 			$data = duffel_request('https://api.duffel.com/air/orders', $data);
+
+			$flights_engine = get_option('flights_engine', []);
+
+			if (!empty($data->data) and !empty($flights_engine['settings']['duffel']['markup'])) {
+				$markup = floatval($flights_engine['settings']['duffel']['markup']);
+
+				$data->data->total_amount = sprintf('%.2f', $data->data->total_amount + ($data->data->total_amount * ($markup / 100)));
+			}
 
 			wp_send_json($data);
 		}		
@@ -315,6 +345,15 @@ add_action('init', function() {
 			
 			$data = duffel_request('https://api.duffel.com/air/offer_requests/'.$data->id);
 
+			$flights_engine = get_option('flights_engine', []);
+
+			if (!empty($data->data->offers) and !empty($flights_engine['settings']['duffel']['markup'])) {
+				$markup = floatval($flights_engine['settings']['duffel']['markup']);
+
+				foreach($data->data->offers as $offer)
+					$offer->total_amount = sprintf('%.2f', $offer->total_amount + ($offer->total_amount * ($markup / 100)));
+			}
+
 			wp_send_json($data);
 		}
 
@@ -323,8 +362,18 @@ add_action('init', function() {
 		if (strstr($_SERVER['REQUEST_URI'], '/api/offer/')) {
 			$id   = preg_replace('@.*\/@', '', $_SERVER['REQUEST_URI']);	
 			$data = duffel_request('https://api.duffel.com/air/offers/'.$id.'?return_available_services=true');
+
 			if (!empty($data->data))
 				$data->data->seatmaps = duffel_request('https://api.duffel.com/air/seat_maps?offer_id='.$id);
+
+			$flights_engine = get_option('flights_engine', []);
+
+			if (!empty($data->data) and !empty($flights_engine['settings']['duffel']['markup'])) {
+				$markup = floatval($flights_engine['settings']['duffel']['markup']);
+
+				$data->data->total_amount = sprintf('%.2f', $data->data->total_amount + ($data->data->total_amount * ($markup / 100)));
+			}
+
 			wp_send_json($data);
 		}		
 
@@ -337,6 +386,10 @@ add_action('init', function() {
 		strstr($_SERVER['REQUEST_URI'], '/confirm-booking') or
 		strstr($_SERVER['REQUEST_URI'], '/payment')
 	) {
+		header('Cache-Control: no-store, no-cache, must-revalidate, max-age=0');
+		header('Cache-Control: post-check=0, pre-check=0', false);
+		header('Pragma: no-cache');
+
 		$flights_engine = get_option('flights_engine', []);
 		$flights_engine['url'] = home_url('/');
 
@@ -362,9 +415,9 @@ function duffel_request($url, $data = []) {
 	$token = '';
 	$flights_engine = get_option('flights_engine', []);
 
-	if (!empty($flights_engine['settings']['duffel_api']['mode'])) {
-		$mode = $flights_engine['settings']['duffel_api']['mode'];
-		$token = $flights_engine['settings']['duffel_api']['token'][$mode];
+	if (!empty($flights_engine['settings']['duffel']['mode'])) {
+		$mode = $flights_engine['settings']['duffel']['mode'];
+		$token = $flights_engine['settings']['duffel']['token'][$mode];
 	}
 
 	if (empty($token))
@@ -407,6 +460,8 @@ function duffel_request($url, $data = []) {
  * @return
  */
 function duffel_offer_requests($params) {
+	$flights_engine = get_option('flights_engine', []);
+
 	$passengers = [];
 
 	foreach(['class', 'type', 'origin', 'destination', 'depart', 'return', 'passengers'] as $name) {
@@ -455,8 +510,12 @@ function duffel_offer_requests($params) {
 			'departure_date' => $params['return'],
 		];
 
+	$supplier_timeout = '';
+	if (!empty($flights_engine['settings']['duffel']['supplier_timeout']))
+		$supplier_timeout = 'supplier_timeout='.$flights_engine['settings']['duffel']['supplier_timeout'];
+
 	$json = duffel_request(
-		'https://api.duffel.com/air/offer_requests?supplier_timeout=10000',
+		'https://api.duffel.com/air/offer_requests?'.$supplier_timeout,
 		[ 'data' => $data ]
 	);
 
@@ -464,6 +523,29 @@ function duffel_offer_requests($params) {
 		return $json->data;
 	} else
 		return [];
+}
+
+
+/**
+ * 
+ */
+function http_request($url, $data = []) { 
+  	$curl = curl_init();
+  	curl_setopt($curl, CURLOPT_URL, $url);
+  	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+  	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);   
+ 
+  	if (!empty($data))
+    	curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+ 
+  	$response = curl_exec($curl);
+ 
+  	if (curl_errno($curl))
+    	return curl_errno($curl);
+ 
+  	curl_close($curl);
+ 
+  	return $response;
 }
 
 ?>
