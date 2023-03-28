@@ -25,15 +25,18 @@ add_action('wp_enqueue_scripts', function() {
  * 
  */
 add_shortcode('flights_engine_main_form', function($atts) {
-    // $default = array(
-    //     'link' => '#',
-    // );
-
-    // $a = shortcode_atts($default, $atts);
-
-    // return 'Follow us on '.$a['link'];	
-
     return file_get_contents(__DIR__.'/flights_engine_main_form.html');
+});
+
+
+/**
+ * 
+ */
+add_action('admin_enqueue_scripts', function($hook_suffix) {
+	if ($hook_suffix !== 'toplevel_page_flights-engine')
+		return;
+
+	wp_enqueue_media();
 });
 
 
@@ -43,6 +46,26 @@ add_shortcode('flights_engine_main_form', function($atts) {
 add_action('admin_menu', function() {
     add_menu_page('Flights Engine', 'Flights Engine', 'manage_options', 'flights-engine', function() {
         ?>
+			<script>
+				jQuery(document).on('click', '[data-action="change-logo"]', function() {
+					const	el     = jQuery(this),
+							dialog = wp.media({
+								title: 'Upload Logo',
+								button: { text: 'Choose Logo' },
+								multiple: false
+						  	});
+
+					dialog.on('select', function() {
+						const obj = dialog.state().get('selection').toJSON()[0];
+
+						el.attr('src', obj.url);
+						el.parent().find('[name="logo[url]"]').val(obj.url);
+					});
+
+					dialog.open();
+				});
+			</script>
+
             <div class="wrap">
                 <h1 class="wp-heading-inline">Flights Engine</h1>
 
@@ -52,9 +75,42 @@ add_action('admin_menu', function() {
 					<?php update_option('flights_engine', ['settings' => $_POST]) ?>
 				<?php endif ?>
 
-				<?php $flights_engine = get_option('flights_engine', []) ?>
+				<?php
+					$flights_engine = get_option('flights_engine', []);
+
+					if (empty($flights_engine['settings']['logo'])) {
+						$flights_engine['settings']['logo'] = [
+							'url' => '/wp-admin/images/wordpress-logo.svg',
+							// 'width' => '100',
+							// 'height' => '100',
+						];
+					}
+				?>
 
 				<form method="post">
+					<h2 class="title">General</h2>
+					<table class="form-table" role="presentation">
+						<tbody>
+
+							<tr>
+								<th scope="row">Logo</th>
+								<td>
+									<img src="<?= $flights_engine['settings']['logo']['url'] ?>" data-action="change-logo" style="cursor: pointer;">
+									<input name="logo[url]" type="hidden" value="<?= $flights_engine['settings']['logo']['url'] ?>">
+								</td>
+							</tr>							
+							<!--tr>
+								<th scope="row">Width</th>
+								<td><input name="logo[width]" type="number" class="small-text" value="<?= $flights_engine['settings']['logo']['width'] ?>"> px</td>
+							</tr>
+							<tr>
+								<th scope="row">Height</th>
+								<td><input name="logo[height]" type="number" class="small-text" value="<?= $flights_engine['settings']['logo']['height'] ?>"> px</td>
+							</tr-->
+						</tbody>
+					</table>
+
+
 					<h2 class="title">Short Code</h2>
 					<p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.</p>
 
@@ -192,10 +248,16 @@ add_action('admin_menu', function() {
 });
 
 
+// static/media
+//  https://yayfly.com/wp-content/plugins/yayfly/build/static/js/main.47ecad46.js
+
 /**
  * 
  */
 add_action('init', function() {
+	if (!file_exists(ABSPATH.'/static'))
+		symlink('wp-content/plugins/yayfly/build/static', ABSPATH.'/static');
+
 	if (strstr($_SERVER['REQUEST_URI'], '/api/')) {
 		header('Access-Control-Allow-Origin: *');
 		header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
@@ -397,9 +459,11 @@ add_action('init', function() {
 		$content = file_get_contents(__DIR__.'/build/index.html');
 		$content = str_replace([
 			'href="/',
+			'src="/',
 			'<head>'
 		], [
 			'href="'.$path.'/',
+			'src="'.$path.'/',
 			'<head><script>window.flights_engine = '.json_encode($flights_engine).';</script>'
 		], $content);
 
