@@ -466,10 +466,14 @@ add_action('init', function() {
 		$path = '/wp-content/plugins/yayfly/build';
 		$content = file_get_contents(__DIR__.'/build/index.html');
 		$content = str_replace([
+			'href="/wp-content',
+			'src="/wp-content',
 			'href="/',
 			'src="/',
 			'<head>'
 		], [
+			'href="'.home_url('/wp-content'),
+			'src="'.home_url('/wp-content'),
 			'href="'.$path.'/',
 			'src="'.$path.'/',
 			'<head><script>window.flights_engine = '.json_encode($flights_engine).';</script>'
