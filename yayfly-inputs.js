@@ -26,6 +26,27 @@ window.yayflyInputs = {
 	/**
 	 * 
 	 */
+	updateTravelers: (includeCabinClass) => {
+		let result = [];
+	
+		if (window.travelers.adults)
+			result.push(`${window.travelers.adults} ${window.travelers.adults > 1 ? 'Adults' : 'Adult'}`);
+	
+		if (window.travelers.children)
+			result.push(`${window.travelers.children} ${window.travelers.children > 1 ? 'Children' : 'Child'}`);
+	
+		if (window.travelers.infants)
+			result.push(`${window.travelers.infants} ${window.travelers.infants > 1 ? 'Infants' : 'Infant'}`);
+	
+		if (includeCabinClass === true)
+			result.push(`${cabinClasses[window.travelers.cabinClass]}`);
+	
+		return result.join(', ');
+	},
+
+	/**
+	 * 
+	 */
 	update: () => {
 		const params = getParams();
 
@@ -48,9 +69,9 @@ window.yayflyInputs = {
 		const travelers = document.querySelector('[name="travelers"]');
 		if (travelers) {
 			if (travelers.tagName === 'INPUT')
-				travelers.value = updateTravelers(true);
+				travelers.value = window.yayflyInputs.updateTravelers(true);
 			else
-				travelers.innerText = updateTravelers();
+				travelers.innerText = window.yayflyInputs.updateTravelers();
 		}
 	},
 
@@ -170,7 +191,7 @@ const detectDevice = () => {
 	if (window.device.current !== window.device.before) {
 		for (const dp of datePickers) {
 			dp.options.autoApply = window.device.current === 'mobile' ? false : true;
-			console.log(dp);
+			// console.log(dp);
 		}
 	}
 }
@@ -206,28 +227,6 @@ const loadJS = (url) => {
 
         script.onload = () => { resolve(); };
     });
-}
-
-
-/**
- * 
- */
-const updateTravelers = (includeCabinClass) => {
-	let result = [];
-
-	if (window.travelers.adults)
-		result.push(`${window.travelers.adults} ${window.travelers.adults > 1 ? 'Adults' : 'Adult'}`);
-
-	if (window.travelers.children)
-		result.push(`${window.travelers.children} ${window.travelers.children > 1 ? 'Children' : 'Child'}`);
-
-	if (window.travelers.infants)
-		result.push(`${window.travelers.infants} ${window.travelers.infants > 1 ? 'Infants' : 'Infant'}`);
-
-	if (includeCabinClass === true)
-		result.push(`${cabinClasses[window.travelers.cabinClass]}`);
-
-	return result.join(', ');
 }
 
 
@@ -357,9 +356,9 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 				const travelers = searchForm.querySelector('[name="travelers"]');
 				if (travelers) {
 					if (travelers.tagName === 'INPUT')
-						travelers.value = updateTravelers(true);
+						travelers.value = window.yayflyInputs.updateTravelers(true);
 					else
-						travelers.innerText = updateTravelers();
+						travelers.innerText = window.yayflyInputs.updateTravelers();
 				}				
 			}
 		});
@@ -448,13 +447,13 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 				  		  wrapperItem = searchForm.querySelector('.wrapperItem:last-child').cloneNode(true),
 				  		  previousTo = wrapperItem.querySelector('[name="whereTo"]').value;
 
-				  	console.log(previousTo);
+				  	// console.log(previousTo);
 
 					for (const input of wrapperItem.querySelectorAll('input')) {
 						if (input.name === 'whereFrom')
 							input.value = previousTo;
 						else if (input.name === 'travelers')
-							input.value = updateTravelers(true);
+							input.value = window.yayflyInputs.updateTravelers(true);
 						else if (input.name === 'dates')
 							input.value = (new Date()).toLocaleDateString('en-US');
 						else
@@ -522,6 +521,10 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 								format: 'MM/DD/YYYY',
 							});
 						} else {
+							const today = new Date(),
+				  				  dateDepart = new Date(),
+				  				  dateReturn = new Date(today.setDate(today.getDate() + 3));
+
 							const dp = new easepick.create({
 								element: item,
 								css: [
@@ -532,6 +535,10 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 								plugins: ['RangePlugin'],
 								zIndex: 10,
 								format: 'MM/DD/YYYY',
+								RangePlugin: {
+									startDate: dateDepart,
+									endDate: dateReturn,
+								}
 							});
 						}
 					}
@@ -602,9 +609,9 @@ loadJS('https://cdn.jsdelivr.net/npm/@easepick/bundle@1.2.1/dist/index.umd.min.j
 					const travelers = list.parentNode.querySelector('[name="travelers"]');
 					if (travelers) {
 						if (travelers.tagName === 'INPUT')
-							travelers.value = updateTravelers(true);
+							travelers.value = window.yayflyInputs.updateTravelers(true);
 						else
-							travelers.innerText = updateTravelers();
+							travelers.innerText = window.yayflyInputs.updateTravelers();
 					}
 				}
 			}
