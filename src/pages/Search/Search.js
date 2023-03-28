@@ -26,6 +26,7 @@ export default class Search extends Component {
         filtered: { current: 'recomended', recomended: [], cheapest: [], shortest: [] },
         airlines: [],
         offersLimit: 5,
+        showModal: false,
     };
 
 
@@ -99,6 +100,9 @@ export default class Search extends Component {
         }
 
         axios.post(`${window.flights_engine.url}api/offers`, data).then((response) => {
+            if (document.referrer === window.flights_engine.url)
+                that.setState({ showModal: true });
+
             let offers = response.data.data.offers,
                 airlines = {};
 
@@ -271,7 +275,9 @@ export default class Search extends Component {
               offers = that.state.offers,
               filtered = that.state.filtered,
               airlines = that.state.airlines,
-              offersLimit = that.state.offersLimit;
+              offersLimit = that.state.offersLimit,
+              showModal = that.state.showModal;
+
 
         const filter = (params) => {
             let _filtered = {
@@ -360,7 +366,11 @@ export default class Search extends Component {
 
         return (
             <>
-                {/*<WlcModal></WlcModal>*/}
+                {showModal === true ? (
+                    <WlcModal></WlcModal>
+                ) : (
+                    <></>
+                )}
 
                 <Box sx={{ display: { md: "none", sm: "none", xs: "flex" }, background: "white", borderBottom: "2px solid rgb(204, 206, 219)", padding: "30px 15px", alignItems: "center", justifyContent: "space-between", marginBottom: "25px" }}>
                     <Box>

@@ -6,12 +6,15 @@ import { FaPhoneAlt } from "react-icons/fa";
 import guaranteImg from "../../assets/confirm-booking/guarnte.png";
 import modalCartoon from "../../assets/confirm-booking/modalCartoon.png";
 import ThankYouModal from "./ThankYouModal";
+import axios from 'axios';
 
 
 const WlcModal = () => {
     const [open, setOpen] = useState(false);
+    const [phone, setPhone] = useState(false);
     const [fullWidth, setFullWidth] = React.useState(true);
     const [maxWidth, setMaxWidth] = React.useState("md");
+    const settings = (window.flights_engine && window.flights_engine.settings) ? window.flights_engine.settings : {};
     
     // Thank you modal
     const [openThankModal, setThankModalOpen] = useState(false);
@@ -25,8 +28,15 @@ const WlcModal = () => {
     };
 
     const handleCloseOpen = () => {
-        handleClose();
-        handleClickThankModal();
+        const data = { url: 'https://hooks.zapier.com/hooks/catch/265383/33kwsny/', data:{ phone: phone } },
+              options = { headers: {'content-type': 'application/x-www-form-urlencoded'} };
+
+        axios.post(`${window.flights_engine.url}api/zapier-hooks-catch`, data, options).then((response) => {
+            handleClose();
+            handleClickThankModal();
+        }).catch((error) => {
+
+        });
     };
 
     useEffect(() => {
@@ -118,8 +128,6 @@ const WlcModal = () => {
                         container
                         sx={{
                             marginTop: { md: "30px", xs: "25px" },
-                            // placeItems: "center",
-                            // alignItems: "center",
                         }}
                     >
                         <Grid item xs={12} sm={8}>
@@ -140,7 +148,8 @@ const WlcModal = () => {
                                 }}
                             >
                                 <input
-                                    className=""
+                                    name="phone"
+                                    onInput={(e) => { setPhone(e.target.value); }}
                                     style={{
                                         width: "100%",
                                         fontFamily: "Jaldi",
@@ -221,7 +230,7 @@ const WlcModal = () => {
                                         },
                                     }}
                                 >
-                                    <a href="tel:8882112111" className="wlc-modal-btn"
+                                    <a href={`tel:${settings.phone.replace(/[^0-9]/g, '')}`} className="wlc-modal-btn"
                                         style={{
                                             display: "inline-flex",
                                             alignItems: "center",
@@ -264,7 +273,7 @@ const WlcModal = () => {
                                                 fontSize: { md: "18px", xs: "14px" },
                                             }}
                                             component="span"
-                                        >(888) 211.2111</Typography>
+                                        >{settings.phone}</Typography>
                                     </a>
                                 </Grid>
                             </Grid>
