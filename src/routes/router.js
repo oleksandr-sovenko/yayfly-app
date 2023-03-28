@@ -17,6 +17,8 @@ if (!window.flights_engine)
 
 const settings = (window.flights_engine && window.flights_engine.settings) ? window.flights_engine.settings : {};
 
+if (settings.title)
+    window.document.title = settings.title;
 
 const router = createBrowserRouter([{
     path: "/",
