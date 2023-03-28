@@ -17,7 +17,11 @@ const Header = () => {
                         window.location.href = window.flights_engine.url;
                     })}>
                         {" "}
-                        <img src={logo} alt="yayFly" />
+                        {settings.logo && settings.logo.url ? (
+                            <img src={settings.logo.url} alt="" />
+                        ) : (
+                            <img src={logo} alt="" />
+                        )}    
                     </Link>
                     <div>
                         <span>EXCLUSIVE <br/>PHONE DEALS</span>

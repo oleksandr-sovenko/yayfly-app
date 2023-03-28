@@ -7,7 +7,9 @@ import logo from "../../assets/yayfly.svg";
 
 const Footer = () => {
     const [isVisibleScrollTop, setVisibleScrollTop] = useState(false);
+    const settings = (window.flights_engine && window.flights_engine.settings) ? window.flights_engine.settings : {};
 
+    // todo: recode it by using useEffects
     if (window.eventForScrollTop === undefined) {
         window.eventForScrollTop = true;
         
@@ -31,7 +33,11 @@ const Footer = () => {
                     <Grid container spacing={2} sx={{ textAlign: { xs: 'center' }, marginTop: '15px', display: { xs: 'block', md: 'none' } }}>
                         <Grid item xs={12}>
                             <Link to="#" onClick={((e) => { e.preventDefault(); window.location.href = window.flights_engine.url })}>
-                                <img src={logo} alt="yayFly" />
+                                {settings.logo && settings.logo.url ? (
+                                    <img src={settings.logo.url} alt="" />
+                                ) : (
+                                    <img src={logo} alt="" />
+                                )}
                             </Link>                        
                         </Grid>
                     </Grid>
@@ -63,7 +69,11 @@ const Footer = () => {
                     <Grid container spacing={2}>
                         <Grid item md={2} xs={12} sx={{ textAlign: { xs: 'center', md: 'left' } }}>
                             <Link to="#" onClick={((e) => { e.preventDefault(); window.location.href = window.flights_engine.url })}>
-                                <img src={logo} alt="yayFly" />
+                                {settings.logo && settings.logo.url ? (
+                                    <img src={settings.logo.url} alt="" />
+                                ) : (
+                                    <img src={logo} alt="" />
+                                )}
                             </Link>                        
                         </Grid>
                         <Grid item md={10} xs={12} sx={{ textAlign: { xs: 'center', md: 'left' }, position: { xs: 'inherit', md: 'relative' }, paddingTop: { xs: '0', md: '30px !important' } }}>
