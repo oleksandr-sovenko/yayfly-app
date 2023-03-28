@@ -128,7 +128,7 @@ const WlcModal = () => {
                                     display: { xs: "none", md: "block" },
                                 },
                             }}
-                        >Fill in your number and one of our support agent <br />will call you back with an unbeatable flight deal.</Typography>
+                        >Fill in your number and one of our support agents <br />will call you back with an unbeatable flight deal.</Typography>
                     </Box>
                     <Grid
                         container

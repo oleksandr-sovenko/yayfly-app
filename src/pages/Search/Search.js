@@ -103,7 +103,7 @@ export default class Search extends Component {
             if (document.referrer === window.flights_engine.url) {
                 try {
                     if (window.flights_engine.settings.popup.search.enabled === 'yes')
-                        that.setState({ showModal: true });
+                        setTimeout((e) => { that.setState({ showModal: true }); }, 1500);
                 } catch(e) {
                     
                 }
