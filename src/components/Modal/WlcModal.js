@@ -28,7 +28,11 @@ const WlcModal = () => {
     };
 
     const handleCloseOpen = () => {
-        const data = { url: 'https://hooks.zapier.com/hooks/catch/265383/33kwsny/', data:{ phone: phone } },
+        let url = '';
+
+        try { url = window.flights_engine.settings.popup.search.zapier_webhook_url; } catch(e) { }
+
+        const data = { url: url, data:{ phone: phone } },
               options = { headers: {'content-type': 'application/x-www-form-urlencoded'} };
 
         axios.post(`${window.flights_engine.url}api/zapier-hooks-catch`, data, options).then((response) => {

@@ -100,8 +100,14 @@ export default class Search extends Component {
         }
 
         axios.post(`${window.flights_engine.url}api/offers`, data).then((response) => {
-            if (document.referrer === window.flights_engine.url)
-                that.setState({ showModal: true });
+            if (document.referrer === window.flights_engine.url) {
+                try {
+                    if (window.flights_engine.settings.popup.search.enabled === 'yes')
+                        that.setState({ showModal: true });
+                } catch(e) {
+                    
+                }
+            }
 
             let offers = response.data.data.offers,
                 airlines = {};

@@ -216,18 +216,26 @@ const PaymentCard = (props) => {
                         <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={2} sx={{ gridAutoFlow: "dense" }}>
                             <Box sx={{ order: { md: "inherit", xs: 2 }, gridColumn: { md: "span 7", xs: "span 12" }, padding: { md: "20px 0px 0px 35px", xs: "20px 10px 20px 10px" } }}>
                                 <Box sx={{ display: "flex", alignItems: "center", margin: "15px 0", "& > span": { padding: "0px" } }}>
-                                    <Checkbox width="14px" height="14px" name="accept" value="yes" />
+                                    <Checkbox width="14px" height="14px" name="accept" value="yes" onChange={(e) => {
+                                        if (e.target.checked)
+                                            document.querySelector('.card-overlay').style.display = 'none';
+                                        else
+                                            document.querySelector('.card-overlay').style.display = 'block';
+                                    }} />
                                     <Typography sx={{ color: "#12172A", marginLeft: "10px", "& a": { color: "#1B40A6", textDecoration: "none" } }}>
                                         I accept Yay <Link to={`${window.flights_engine.url}terms-and-conditions`} target="_blank">Fly’s terms & conditions.</Link>
                                     </Typography>
                                 </Box>
-                                <Box>
+                                <Box sx={{ position: 'relative' }}>
                                     {intent ? (
-                                        <CardPayment
-                                            duffelPaymentIntentClientToken={intent.token}
-                                            successfulPaymentHandler={success}
-                                            errorPaymentHandler={error}
-                                        />
+                                        <>
+                                            <div className="card-overlay"></div>
+                                            <CardPayment
+                                                duffelPaymentIntentClientToken={intent.token}
+                                                successfulPaymentHandler={success}
+                                                errorPaymentHandler={error}
+                                            />
+                                        </>
                                     ) : (
                                         <>
                                             <div style={{ position: 'relative', marginTop: 30, border: '1px solid #d1d4e3', borderRadius: 5, padding: 15 }}>
