@@ -91,14 +91,22 @@ add_action('admin_menu', function() {
 					<h2 class="title">General</h2>
 					<table class="form-table" role="presentation">
 						<tbody>
-
 							<tr>
 								<th scope="row">Logo</th>
 								<td>
 									<img src="<?= $flights_engine['settings']['logo']['url'] ?>" data-action="change-logo" style="cursor: pointer;">
 									<input name="logo[url]" type="hidden" value="<?= $flights_engine['settings']['logo']['url'] ?>">
 								</td>
-							</tr>							
+							</tr>
+							<tr>
+								<th scope="row">Title</th>
+								<td>
+									<fieldset><legend class="screen-reader-text"><span>Title</span></legend>
+									<label>
+										<input name="title" type="text" value="<?= isset($flights_engine['settings']['title']) ? $flights_engine['settings']['title'] : '' ?>" class="regular-text">
+									</label>
+								</td>
+							</tr>
 							<!--tr>
 								<th scope="row">Width</th>
 								<td><input name="logo[width]" type="number" class="small-text" value="<?= $flights_engine['settings']['logo']['width'] ?>"> px</td>
