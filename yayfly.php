@@ -165,30 +165,37 @@ add_action('admin_menu', function() {
 								<th scope="row">Show on pages</th>
 								<td>
 									<fieldset>
-										<legend class="screen-reader-text"><span>Search </span></legend>
+										<legend class="screen-reader-text"><span>Search</span></legend>
 										<label>
-											<input name="unpublished_deal_detected[show_on][search]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['search']) ? 'checked' : '' ?>> Search
+											<div style="font-weight: bold; width: 150px; display: inline-block;">Search</div>
+											<input name="unpublished_deal_detected[show_on][search]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['search']) ? 'checked' : '' ?>>
 										</label>
 									</fieldset>
 
 									<fieldset>
 										<legend class="screen-reader-text"><span>Details Booking</span></legend>
 										<label>
-											<input name="unpublished_deal_detected[show_on][details_booking]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['details_booking']) ? 'checked' : '' ?>> Details Booking
+											<div style="font-weight: bold; width: 150px; display: inline-block;">Details Booking</div>
+											<input name="unpublished_deal_detected[show_on][details_booking][sidebar]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['details_booking']['sidebar']) ? 'checked' : '' ?>> Sidebar&nbsp;&nbsp;
+											<input name="unpublished_deal_detected[show_on][details_booking][bottom]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['details_booking']['bottom']) ? 'checked' : '' ?>> Bottom 
 										</label>
 									</fieldset>								
 
 									<fieldset>
 										<legend class="screen-reader-text"><span>Confirm Booking</span></legend>
 										<label>
-											<input name="unpublished_deal_detected[show_on][confirm_booking]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['confirm_booking']) ? 'checked' : '' ?>> Confirm Booking
+											<div style="font-weight: bold; width: 150px; display: inline-block;">Confirm Booking</div>
+											<input name="unpublished_deal_detected[show_on][confirm_booking][sidebar]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['confirm_booking']['sidebar']) ? 'checked' : '' ?>> Sidebar&nbsp;&nbsp;
+											<input name="unpublished_deal_detected[show_on][confirm_booking][bottom]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['confirm_booking']['bottom']) ? 'checked' : '' ?>> Bottom
 										</label>
 									</fieldset>
 
 									<fieldset>
 										<legend class="screen-reader-text"><span>Payment</span></legend>
 										<label>
-											<input name="unpublished_deal_detected[show_on][payment]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['payment']) ? 'checked' : '' ?>> Payment
+											<div style="font-weight: bold; width: 150px; display: inline-block;">Payment</div>
+											<input name="unpublished_deal_detected[show_on][payment][sidebar]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['payment']['sidebar']) ? 'checked' : '' ?>> Sidebar&nbsp;&nbsp;
+											<input name="unpublished_deal_detected[show_on][payment][bottom]" type="checkbox" value="yes" <?= !empty($flights_engine['settings']['unpublished_deal_detected']['show_on']['payment']['bottom']) ? 'checked' : '' ?>> Bottom
 										</label>
 									</fieldset>
 								</td>
