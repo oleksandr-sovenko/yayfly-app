@@ -126,7 +126,7 @@ export default class Payment extends Component {
                                         </Box>
                                     )}
 
-                                    {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.payment ? (
+                                    {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.payment && settings.unpublished_deal_detected.show_on.payment.sidebar ? (
                                         <Box sx={{ display: { md: "block", xs: "none" } }}>
                                             <PaymentCta phone={settings.phone} />
                                         </Box>                            
@@ -149,7 +149,7 @@ export default class Payment extends Component {
                                             </Box>
                                         )}
                                     </Box>
-                                    {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.payment ? (
+                                    {settings.unpublished_deal_detected && settings.unpublished_deal_detected.show_on && settings.unpublished_deal_detected.show_on.payment && settings.unpublished_deal_detected.show_on.bottom ? (
                                         <MobilePaymentCta phone={settings.phone} />
                                     ) : (
                                         <></>
